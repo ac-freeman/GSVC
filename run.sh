@@ -13,7 +13,6 @@
 # Activate the environment if needed
 source activate torch     # Replace 'myenv' with the name of your conda environment
 
-<<<<<<< HEAD
 data_path="/home/e/e1344641/data/kodak"
 
 if [ -z "$data_path" ]; then
@@ -27,5 +26,3 @@ do
 srun python train.py -d $data_path \
 --data_name kodak --model_name GaussianImage_Cholesky --num_points $num_points --iterations 50000
 done
-=======
->>>>>>> 3978ed3ad653c5c51bbb2780069bce1ad1c86c11
