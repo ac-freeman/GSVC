@@ -1,1 +1,2 @@
-/var/lib/slurm/slurmd/job258573/slurm_script: line 17: activate: No such file or directory
+slurmstepd-xgpg9: error: execve(): /home/e/e1344641/GaussianVideo/./scripts/gaussianimage_rs/kodak.sh: Permission denied
+srun: error: xgpg9: task 0: Exited with exit code 13
