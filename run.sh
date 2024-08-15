@@ -16,4 +16,4 @@
 # Activate the environment if needed
 source activate torch     # Replace 'myenv' with the name of your conda environment
 
-srun ./scripts/gaussianimage_rs/kodak.sh
+sh ./scripts/gaussianimage_rs/kodak.sh
