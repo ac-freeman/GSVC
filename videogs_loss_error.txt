@@ -1,0 +1,5 @@
+slurmstepd-xgph13: error: execve(): cd: No such file or directory
+srun: error: xgph13: task 0: Exited with exit code 2
+ERROR: Directory '.[dev]' is not installable. Neither 'setup.py' nor 'pyproject.toml' found.
+srun: error: xgph13: task 0: Exited with exit code 1
+ERROR: Could not open requirements file: [Errno 2] No such file or directory: 'requirements.txt'
