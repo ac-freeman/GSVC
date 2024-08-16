@@ -1,0 +1,2 @@
+scp -r e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/checkpoints/ C:/Myself/learn/2DGS/GaussianVideo/
+scp -r e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/videogs_loss_error.txt /C:/Myself/learn/2DGS/GaussianVideo/ 
