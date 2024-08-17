@@ -1,6 +1,6 @@
 import numpy as np
 from tqdm import tqdm  # 进度条库
-
+import os
 # 视频分辨率
 width = 1920
 height = 1080
