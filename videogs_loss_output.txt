@@ -1,0 +1,2388 @@
+Test PSNR:35.3747, MS_SSIM:0.944633
+Frame1_Training Complete in 116.9096s, Eval time:0.00060685s, FPS:1647.8623
+Frame_1: 1080x1920, PSNR:35.3747, MS-SSIM:0.9446, Training:116.9096s, Eval:0.00060685s, FPS:1647.8623
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/1/gaussian_model_1.pth.tar
+Test PSNR:35.1101, MS_SSIM:0.938085
+Frame2_Training Complete in 11.9284s, Eval time:0.00061590s, FPS:1623.6351
+Frame_2: 1080x1920, PSNR:35.1101, MS-SSIM:0.9381, Training:11.9284s, Eval:0.00061590s, FPS:1623.6351
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/2/gaussian_model_2.pth.tar
+Test PSNR:35.1311, MS_SSIM:0.937912
+Frame3_Training Complete in 10.7798s, Eval time:0.00061522s, FPS:1625.4409
+Frame_3: 1080x1920, PSNR:35.1311, MS-SSIM:0.9379, Training:10.7798s, Eval:0.00061522s, FPS:1625.4409
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/3/gaussian_model_3.pth.tar
+Test PSNR:35.1561, MS_SSIM:0.937818
+Frame4_Training Complete in 15.1750s, Eval time:0.00076996s, FPS:1298.7633
+Frame_4: 1080x1920, PSNR:35.1561, MS-SSIM:0.9378, Training:15.1750s, Eval:0.00076996s, FPS:1298.7633
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/4/gaussian_model_4.pth.tar
+Test PSNR:35.1900, MS_SSIM:0.937834
+Frame5_Training Complete in 13.7001s, Eval time:0.00065397s, FPS:1529.1216
+Frame_5: 1080x1920, PSNR:35.1900, MS-SSIM:0.9378, Training:13.7001s, Eval:0.00065397s, FPS:1529.1216
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/5/gaussian_model_5.pth.tar
+Test PSNR:35.2139, MS_SSIM:0.937752
+Frame6_Training Complete in 12.5411s, Eval time:0.00061862s, FPS:1616.4890
+Frame_6: 1080x1920, PSNR:35.2139, MS-SSIM:0.9378, Training:12.5411s, Eval:0.00061862s, FPS:1616.4890
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/6/gaussian_model_6.pth.tar
+Test PSNR:35.2341, MS_SSIM:0.937784
+Frame7_Training Complete in 12.6051s, Eval time:0.00065905s, FPS:1517.3334
+Frame_7: 1080x1920, PSNR:35.2341, MS-SSIM:0.9378, Training:12.6051s, Eval:0.00065905s, FPS:1517.3334
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/7/gaussian_model_7.pth.tar
+Test PSNR:35.2535, MS_SSIM:0.937576
+Frame8_Training Complete in 11.3169s, Eval time:0.00063143s, FPS:1583.7005
+Frame_8: 1080x1920, PSNR:35.2535, MS-SSIM:0.9376, Training:11.3169s, Eval:0.00063143s, FPS:1583.7005
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/8/gaussian_model_8.pth.tar
+Test PSNR:35.2891, MS_SSIM:0.937857
+Frame9_Training Complete in 13.5909s, Eval time:0.00067480s, FPS:1481.9239
+Frame_9: 1080x1920, PSNR:35.2891, MS-SSIM:0.9379, Training:13.5909s, Eval:0.00067480s, FPS:1481.9239
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/9/gaussian_model_9.pth.tar
+Test PSNR:35.3205, MS_SSIM:0.937996
+Frame10_Training Complete in 13.4888s, Eval time:0.00065680s, FPS:1522.5384
+Frame_10: 1080x1920, PSNR:35.3205, MS-SSIM:0.9380, Training:13.4888s, Eval:0.00065680s, FPS:1522.5384
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/10/gaussian_model_10.pth.tar
+Test PSNR:35.3268, MS_SSIM:0.938068
+Frame11_Training Complete in 12.0926s, Eval time:0.00067264s, FPS:1486.6776
+Frame_11: 1080x1920, PSNR:35.3268, MS-SSIM:0.9381, Training:12.0926s, Eval:0.00067264s, FPS:1486.6776
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/11/gaussian_model_11.pth.tar
+Test PSNR:35.3241, MS_SSIM:0.938085
+Frame12_Training Complete in 11.9994s, Eval time:0.00063665s, FPS:1570.7239
+Frame_12: 1080x1920, PSNR:35.3241, MS-SSIM:0.9381, Training:11.9994s, Eval:0.00063665s, FPS:1570.7239
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/12/gaussian_model_12.pth.tar
+Test PSNR:35.3069, MS_SSIM:0.938096
+Frame13_Training Complete in 13.7346s, Eval time:0.00064050s, FPS:1561.2696
+Frame_13: 1080x1920, PSNR:35.3069, MS-SSIM:0.9381, Training:13.7346s, Eval:0.00064050s, FPS:1561.2696
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/13/gaussian_model_13.pth.tar
+Test PSNR:35.2728, MS_SSIM:0.938015
+Frame14_Training Complete in 12.9655s, Eval time:0.00066867s, FPS:1495.5035
+Frame_14: 1080x1920, PSNR:35.2728, MS-SSIM:0.9380, Training:12.9655s, Eval:0.00066867s, FPS:1495.5035
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/14/gaussian_model_14.pth.tar
+Test PSNR:35.2882, MS_SSIM:0.938089
+Frame15_Training Complete in 13.1796s, Eval time:0.00064043s, FPS:1561.4440
+Frame_15: 1080x1920, PSNR:35.2882, MS-SSIM:0.9381, Training:13.1796s, Eval:0.00064043s, FPS:1561.4440
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/15/gaussian_model_15.pth.tar
+Test PSNR:35.2872, MS_SSIM:0.938007
+Frame16_Training Complete in 13.0005s, Eval time:0.00078648s, FPS:1271.4944
+Frame_16: 1080x1920, PSNR:35.2872, MS-SSIM:0.9380, Training:13.0005s, Eval:0.00078648s, FPS:1271.4944
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/16/gaussian_model_16.pth.tar
+Test PSNR:35.2907, MS_SSIM:0.938005
+Frame17_Training Complete in 11.7190s, Eval time:0.00067531s, FPS:1480.7990
+Frame_17: 1080x1920, PSNR:35.2907, MS-SSIM:0.9380, Training:11.7190s, Eval:0.00067531s, FPS:1480.7990
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/17/gaussian_model_17.pth.tar
+Test PSNR:35.3024, MS_SSIM:0.938282
+Frame18_Training Complete in 11.9438s, Eval time:0.00065037s, FPS:1537.5916
+Frame_18: 1080x1920, PSNR:35.3024, MS-SSIM:0.9383, Training:11.9438s, Eval:0.00065037s, FPS:1537.5916
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/18/gaussian_model_18.pth.tar
+Test PSNR:35.2972, MS_SSIM:0.938269
+Frame19_Training Complete in 12.1225s, Eval time:0.00065319s, FPS:1530.9523
+Frame_19: 1080x1920, PSNR:35.2972, MS-SSIM:0.9383, Training:12.1225s, Eval:0.00065319s, FPS:1530.9523
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/19/gaussian_model_19.pth.tar
+Test PSNR:35.2726, MS_SSIM:0.938069
+Frame20_Training Complete in 13.1379s, Eval time:0.00067899s, FPS:1472.7708
+Frame_20: 1080x1920, PSNR:35.2726, MS-SSIM:0.9381, Training:13.1379s, Eval:0.00067899s, FPS:1472.7708
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/20/gaussian_model_20.pth.tar
+Test PSNR:35.2792, MS_SSIM:0.938164
+Frame21_Training Complete in 11.9296s, Eval time:0.00065574s, FPS:1524.9907
+Frame_21: 1080x1920, PSNR:35.2792, MS-SSIM:0.9382, Training:11.9296s, Eval:0.00065574s, FPS:1524.9907
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/21/gaussian_model_21.pth.tar
+Test PSNR:35.2823, MS_SSIM:0.938307
+Frame22_Training Complete in 12.2188s, Eval time:0.00068179s, FPS:1466.7296
+Frame_22: 1080x1920, PSNR:35.2823, MS-SSIM:0.9383, Training:12.2188s, Eval:0.00068179s, FPS:1466.7296
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/22/gaussian_model_22.pth.tar
+Test PSNR:35.3014, MS_SSIM:0.938296
+Frame23_Training Complete in 12.6549s, Eval time:0.00065828s, FPS:1519.1140
+Frame_23: 1080x1920, PSNR:35.3014, MS-SSIM:0.9383, Training:12.6549s, Eval:0.00065828s, FPS:1519.1140
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/23/gaussian_model_23.pth.tar
+Test PSNR:35.3156, MS_SSIM:0.938385
+Frame24_Training Complete in 13.1443s, Eval time:0.00068892s, FPS:1451.5423
+Frame_24: 1080x1920, PSNR:35.3156, MS-SSIM:0.9384, Training:13.1443s, Eval:0.00068892s, FPS:1451.5423
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/24/gaussian_model_24.pth.tar
+Test PSNR:35.3122, MS_SSIM:0.938326
+Frame25_Training Complete in 15.8539s, Eval time:0.00069195s, FPS:1445.1905
+Frame_25: 1080x1920, PSNR:35.3122, MS-SSIM:0.9383, Training:15.8539s, Eval:0.00069195s, FPS:1445.1905
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/25/gaussian_model_25.pth.tar
+Test PSNR:35.2775, MS_SSIM:0.938294
+Frame26_Training Complete in 12.7586s, Eval time:0.00068539s, FPS:1459.0304
+Frame_26: 1080x1920, PSNR:35.2775, MS-SSIM:0.9383, Training:12.7586s, Eval:0.00068539s, FPS:1459.0304
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/26/gaussian_model_26.pth.tar
+Test PSNR:35.2447, MS_SSIM:0.938410
+Frame27_Training Complete in 13.3059s, Eval time:0.00069767s, FPS:1433.3375
+Frame_27: 1080x1920, PSNR:35.2447, MS-SSIM:0.9384, Training:13.3059s, Eval:0.00069767s, FPS:1433.3375
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/27/gaussian_model_27.pth.tar
+Test PSNR:35.2457, MS_SSIM:0.938747
+Frame28_Training Complete in 12.4584s, Eval time:0.00069024s, FPS:1448.7796
+Frame_28: 1080x1920, PSNR:35.2457, MS-SSIM:0.9387, Training:12.4584s, Eval:0.00069024s, FPS:1448.7796
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/28/gaussian_model_28.pth.tar
+Test PSNR:35.2400, MS_SSIM:0.938633
+Frame29_Training Complete in 12.1639s, Eval time:0.00069823s, FPS:1432.2021
+Frame_29: 1080x1920, PSNR:35.2400, MS-SSIM:0.9386, Training:12.1639s, Eval:0.00069823s, FPS:1432.2021
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/29/gaussian_model_29.pth.tar
+Test PSNR:35.2549, MS_SSIM:0.939029
+Frame30_Training Complete in 15.2574s, Eval time:0.00067968s, FPS:1471.2881
+Frame_30: 1080x1920, PSNR:35.2549, MS-SSIM:0.9390, Training:15.2574s, Eval:0.00067968s, FPS:1471.2881
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/30/gaussian_model_30.pth.tar
+Test PSNR:35.2563, MS_SSIM:0.938814
+Frame31_Training Complete in 12.0862s, Eval time:0.00066326s, FPS:1507.7012
+Frame_31: 1080x1920, PSNR:35.2563, MS-SSIM:0.9388, Training:12.0862s, Eval:0.00066326s, FPS:1507.7012
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/31/gaussian_model_31.pth.tar
+Test PSNR:35.2855, MS_SSIM:0.939305
+Frame32_Training Complete in 13.6967s, Eval time:0.00067079s, FPS:1490.7833
+Frame_32: 1080x1920, PSNR:35.2855, MS-SSIM:0.9393, Training:13.6967s, Eval:0.00067079s, FPS:1490.7833
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/32/gaussian_model_32.pth.tar
+Test PSNR:35.3091, MS_SSIM:0.939448
+Frame33_Training Complete in 13.1766s, Eval time:0.00069995s, FPS:1428.6701
+Frame_33: 1080x1920, PSNR:35.3091, MS-SSIM:0.9394, Training:13.1766s, Eval:0.00069995s, FPS:1428.6701
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/33/gaussian_model_33.pth.tar
+Test PSNR:35.3241, MS_SSIM:0.939253
+Frame34_Training Complete in 16.0012s, Eval time:0.00078369s, FPS:1276.0086
+Frame_34: 1080x1920, PSNR:35.3241, MS-SSIM:0.9393, Training:16.0012s, Eval:0.00078369s, FPS:1276.0086
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/34/gaussian_model_34.pth.tar
+Test PSNR:35.3317, MS_SSIM:0.939143
+Frame35_Training Complete in 14.0669s, Eval time:0.00070671s, FPS:1415.0012
+Frame_35: 1080x1920, PSNR:35.3317, MS-SSIM:0.9391, Training:14.0669s, Eval:0.00070671s, FPS:1415.0012
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/35/gaussian_model_35.pth.tar
+Test PSNR:35.3432, MS_SSIM:0.938994
+Frame36_Training Complete in 13.4976s, Eval time:0.00067043s, FPS:1491.5892
+Frame_36: 1080x1920, PSNR:35.3432, MS-SSIM:0.9390, Training:13.4976s, Eval:0.00067043s, FPS:1491.5892
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/36/gaussian_model_36.pth.tar
+Test PSNR:35.3471, MS_SSIM:0.938714
+Frame37_Training Complete in 13.3583s, Eval time:0.00070053s, FPS:1427.4983
+Frame_37: 1080x1920, PSNR:35.3471, MS-SSIM:0.9387, Training:13.3583s, Eval:0.00070053s, FPS:1427.4983
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/37/gaussian_model_37.pth.tar
+Test PSNR:35.3519, MS_SSIM:0.938630
+Frame38_Training Complete in 13.9380s, Eval time:0.00067980s, FPS:1471.0249
+Frame_38: 1080x1920, PSNR:35.3519, MS-SSIM:0.9386, Training:13.9380s, Eval:0.00067980s, FPS:1471.0249
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/38/gaussian_model_38.pth.tar
+Test PSNR:35.3602, MS_SSIM:0.938667
+Frame39_Training Complete in 13.4567s, Eval time:0.00068044s, FPS:1469.6281
+Frame_39: 1080x1920, PSNR:35.3602, MS-SSIM:0.9387, Training:13.4567s, Eval:0.00068044s, FPS:1469.6281
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/39/gaussian_model_39.pth.tar
+Test PSNR:35.3685, MS_SSIM:0.938746
+Frame40_Training Complete in 12.6308s, Eval time:0.00067685s, FPS:1477.4346
+Frame_40: 1080x1920, PSNR:35.3685, MS-SSIM:0.9387, Training:12.6308s, Eval:0.00067685s, FPS:1477.4346
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/40/gaussian_model_40.pth.tar
+Test PSNR:35.3986, MS_SSIM:0.938808
+Frame41_Training Complete in 12.3239s, Eval time:0.00067898s, FPS:1472.8070
+Frame_41: 1080x1920, PSNR:35.3986, MS-SSIM:0.9388, Training:12.3239s, Eval:0.00067898s, FPS:1472.8070
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/41/gaussian_model_41.pth.tar
+Test PSNR:35.4021, MS_SSIM:0.938630
+Frame42_Training Complete in 12.2853s, Eval time:0.00070707s, FPS:1414.2950
+Frame_42: 1080x1920, PSNR:35.4021, MS-SSIM:0.9386, Training:12.2853s, Eval:0.00070707s, FPS:1414.2950
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/42/gaussian_model_42.pth.tar
+Test PSNR:35.4130, MS_SSIM:0.939025
+Frame43_Training Complete in 12.7293s, Eval time:0.00070362s, FPS:1421.2150
+Frame_43: 1080x1920, PSNR:35.4130, MS-SSIM:0.9390, Training:12.7293s, Eval:0.00070362s, FPS:1421.2150
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/43/gaussian_model_43.pth.tar
+Test PSNR:35.4130, MS_SSIM:0.938983
+Frame44_Training Complete in 12.8847s, Eval time:0.00070820s, FPS:1412.0239
+Frame_44: 1080x1920, PSNR:35.4130, MS-SSIM:0.9390, Training:12.8847s, Eval:0.00070820s, FPS:1412.0239
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/44/gaussian_model_44.pth.tar
+Test PSNR:35.4274, MS_SSIM:0.939295
+Frame45_Training Complete in 12.8000s, Eval time:0.00068994s, FPS:1449.3954
+Frame_45: 1080x1920, PSNR:35.4274, MS-SSIM:0.9393, Training:12.8000s, Eval:0.00068994s, FPS:1449.3954
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/45/gaussian_model_45.pth.tar
+Test PSNR:35.4437, MS_SSIM:0.939066
+Frame46_Training Complete in 12.4477s, Eval time:0.00071152s, FPS:1405.4424
+Frame_46: 1080x1920, PSNR:35.4437, MS-SSIM:0.9391, Training:12.4477s, Eval:0.00071152s, FPS:1405.4424
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/46/gaussian_model_46.pth.tar
+Test PSNR:35.4473, MS_SSIM:0.939255
+Frame47_Training Complete in 12.6492s, Eval time:0.00070745s, FPS:1413.5372
+Frame_47: 1080x1920, PSNR:35.4473, MS-SSIM:0.9393, Training:12.6492s, Eval:0.00070745s, FPS:1413.5372
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/47/gaussian_model_47.pth.tar
+Test PSNR:35.4605, MS_SSIM:0.939380
+Frame48_Training Complete in 12.7931s, Eval time:0.00067971s, FPS:1471.2107
+Frame_48: 1080x1920, PSNR:35.4605, MS-SSIM:0.9394, Training:12.7931s, Eval:0.00067971s, FPS:1471.2107
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/48/gaussian_model_48.pth.tar
+Test PSNR:35.4691, MS_SSIM:0.939648
+Frame49_Training Complete in 12.6100s, Eval time:0.00068632s, FPS:1457.0487
+Frame_49: 1080x1920, PSNR:35.4691, MS-SSIM:0.9396, Training:12.6100s, Eval:0.00068632s, FPS:1457.0487
+Test PSNR:35.7577, MS_SSIM:0.945989
+Frame50_Training Complete in 106.0115s, Eval time:0.00060213s, FPS:1660.7816
+Frame_50: 1080x1920, PSNR:35.7577, MS-SSIM:0.9460, Training:106.0115s, Eval:0.00060213s, FPS:1660.7816
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/50/gaussian_model_50.pth.tar
+Test PSNR:35.4668, MS_SSIM:0.939708
+Frame51_Training Complete in 10.9874s, Eval time:0.00060797s, FPS:1644.8186
+Frame_51: 1080x1920, PSNR:35.4668, MS-SSIM:0.9397, Training:10.9874s, Eval:0.00060797s, FPS:1644.8186
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/51/gaussian_model_51.pth.tar
+Test PSNR:35.4762, MS_SSIM:0.940005
+Frame52_Training Complete in 12.7513s, Eval time:0.00064291s, FPS:1555.4219
+Frame_52: 1080x1920, PSNR:35.4762, MS-SSIM:0.9400, Training:12.7513s, Eval:0.00064291s, FPS:1555.4219
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/52/gaussian_model_52.pth.tar
+Test PSNR:35.4667, MS_SSIM:0.939949
+Frame53_Training Complete in 13.0391s, Eval time:0.00078133s, FPS:1279.8711
+Frame_53: 1080x1920, PSNR:35.4667, MS-SSIM:0.9399, Training:13.0391s, Eval:0.00078133s, FPS:1279.8711
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/53/gaussian_model_53.pth.tar
+Test PSNR:35.4705, MS_SSIM:0.939933
+Frame54_Training Complete in 11.2440s, Eval time:0.00065182s, FPS:1534.1553
+Frame_54: 1080x1920, PSNR:35.4705, MS-SSIM:0.9399, Training:11.2440s, Eval:0.00065182s, FPS:1534.1553
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/54/gaussian_model_54.pth.tar
+Test PSNR:35.4732, MS_SSIM:0.940132
+Frame55_Training Complete in 11.9871s, Eval time:0.00065654s, FPS:1523.1411
+Frame_55: 1080x1920, PSNR:35.4732, MS-SSIM:0.9401, Training:11.9871s, Eval:0.00065654s, FPS:1523.1411
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/55/gaussian_model_55.pth.tar
+Test PSNR:35.4832, MS_SSIM:0.940484
+Frame56_Training Complete in 12.8658s, Eval time:0.00065706s, FPS:1521.9252
+Frame_56: 1080x1920, PSNR:35.4832, MS-SSIM:0.9405, Training:12.8658s, Eval:0.00065706s, FPS:1521.9252
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/56/gaussian_model_56.pth.tar
+Test PSNR:35.4868, MS_SSIM:0.940762
+Frame57_Training Complete in 14.6059s, Eval time:0.00062371s, FPS:1603.2966
+Frame_57: 1080x1920, PSNR:35.4868, MS-SSIM:0.9408, Training:14.6059s, Eval:0.00062371s, FPS:1603.2966
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/57/gaussian_model_57.pth.tar
+Test PSNR:35.4784, MS_SSIM:0.940827
+Frame58_Training Complete in 12.2331s, Eval time:0.00062729s, FPS:1594.1559
+Frame_58: 1080x1920, PSNR:35.4784, MS-SSIM:0.9408, Training:12.2331s, Eval:0.00062729s, FPS:1594.1559
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/58/gaussian_model_58.pth.tar
+Test PSNR:35.4811, MS_SSIM:0.940816
+Frame59_Training Complete in 11.9752s, Eval time:0.00066466s, FPS:1504.5373
+Frame_59: 1080x1920, PSNR:35.4811, MS-SSIM:0.9408, Training:11.9752s, Eval:0.00066466s, FPS:1504.5373
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/59/gaussian_model_59.pth.tar
+Test PSNR:35.4863, MS_SSIM:0.940866
+Frame60_Training Complete in 13.5634s, Eval time:0.00076731s, FPS:1303.2548
+Frame_60: 1080x1920, PSNR:35.4863, MS-SSIM:0.9409, Training:13.5634s, Eval:0.00076731s, FPS:1303.2548
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/60/gaussian_model_60.pth.tar
+Test PSNR:35.4920, MS_SSIM:0.940842
+Frame61_Training Complete in 15.4539s, Eval time:0.00077786s, FPS:1285.5710
+Frame_61: 1080x1920, PSNR:35.4920, MS-SSIM:0.9408, Training:15.4539s, Eval:0.00077786s, FPS:1285.5710
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/61/gaussian_model_61.pth.tar
+Test PSNR:35.5088, MS_SSIM:0.940917
+Frame62_Training Complete in 11.7561s, Eval time:0.00066594s, FPS:1501.6394
+Frame_62: 1080x1920, PSNR:35.5088, MS-SSIM:0.9409, Training:11.7561s, Eval:0.00066594s, FPS:1501.6394
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/62/gaussian_model_62.pth.tar
+Test PSNR:35.5237, MS_SSIM:0.940855
+Frame63_Training Complete in 15.6124s, Eval time:0.00077782s, FPS:1285.6459
+Frame_63: 1080x1920, PSNR:35.5237, MS-SSIM:0.9409, Training:15.6124s, Eval:0.00077782s, FPS:1285.6459
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/63/gaussian_model_63.pth.tar
+Test PSNR:35.5352, MS_SSIM:0.940857
+Frame64_Training Complete in 15.6343s, Eval time:0.00077784s, FPS:1285.6183
+Frame_64: 1080x1920, PSNR:35.5352, MS-SSIM:0.9409, Training:15.6343s, Eval:0.00077784s, FPS:1285.6183
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/64/gaussian_model_64.pth.tar
+Test PSNR:35.5308, MS_SSIM:0.940865
+Frame65_Training Complete in 12.5180s, Eval time:0.00077862s, FPS:1284.3310
+Frame_65: 1080x1920, PSNR:35.5308, MS-SSIM:0.9409, Training:12.5180s, Eval:0.00077862s, FPS:1284.3310
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/65/gaussian_model_65.pth.tar
+Test PSNR:35.5254, MS_SSIM:0.940831
+Frame66_Training Complete in 12.7870s, Eval time:0.00067779s, FPS:1475.3818
+Frame_66: 1080x1920, PSNR:35.5254, MS-SSIM:0.9408, Training:12.7870s, Eval:0.00067779s, FPS:1475.3818
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/66/gaussian_model_66.pth.tar
+Test PSNR:35.5206, MS_SSIM:0.940629
+Frame67_Training Complete in 15.3441s, Eval time:0.00067704s, FPS:1477.0132
+Frame_67: 1080x1920, PSNR:35.5206, MS-SSIM:0.9406, Training:15.3441s, Eval:0.00067704s, FPS:1477.0132
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/67/gaussian_model_67.pth.tar
+Test PSNR:35.5091, MS_SSIM:0.940822
+Frame68_Training Complete in 11.7472s, Eval time:0.00067604s, FPS:1479.1958
+Frame_68: 1080x1920, PSNR:35.5091, MS-SSIM:0.9408, Training:11.7472s, Eval:0.00067604s, FPS:1479.1958
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/68/gaussian_model_68.pth.tar
+Test PSNR:35.4935, MS_SSIM:0.940964
+Frame69_Training Complete in 12.3535s, Eval time:0.00077761s, FPS:1285.9888
+Frame_69: 1080x1920, PSNR:35.4935, MS-SSIM:0.9410, Training:12.3535s, Eval:0.00077761s, FPS:1285.9888
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/69/gaussian_model_69.pth.tar
+Test PSNR:35.4865, MS_SSIM:0.941237
+Frame70_Training Complete in 13.8744s, Eval time:0.00068199s, FPS:1466.3040
+Frame_70: 1080x1920, PSNR:35.4865, MS-SSIM:0.9412, Training:13.8744s, Eval:0.00068199s, FPS:1466.3040
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/70/gaussian_model_70.pth.tar
+Test PSNR:35.4882, MS_SSIM:0.941447
+Frame71_Training Complete in 13.1797s, Eval time:0.00069619s, FPS:1436.3907
+Frame_71: 1080x1920, PSNR:35.4882, MS-SSIM:0.9414, Training:13.1797s, Eval:0.00069619s, FPS:1436.3907
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/71/gaussian_model_71.pth.tar
+Test PSNR:35.4875, MS_SSIM:0.941246
+Frame72_Training Complete in 12.2668s, Eval time:0.00068624s, FPS:1457.2157
+Frame_72: 1080x1920, PSNR:35.4875, MS-SSIM:0.9412, Training:12.2668s, Eval:0.00068624s, FPS:1457.2157
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/72/gaussian_model_72.pth.tar
+Test PSNR:35.4986, MS_SSIM:0.941421
+Frame73_Training Complete in 12.1852s, Eval time:0.00068933s, FPS:1450.6938
+Frame_73: 1080x1920, PSNR:35.4986, MS-SSIM:0.9414, Training:12.1852s, Eval:0.00068933s, FPS:1450.6938
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/73/gaussian_model_73.pth.tar
+Test PSNR:35.5115, MS_SSIM:0.941596
+Frame74_Training Complete in 12.7805s, Eval time:0.00070235s, FPS:1423.7816
+Frame_74: 1080x1920, PSNR:35.5115, MS-SSIM:0.9416, Training:12.7805s, Eval:0.00070235s, FPS:1423.7816
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/74/gaussian_model_74.pth.tar
+Test PSNR:35.5085, MS_SSIM:0.941548
+Frame75_Training Complete in 13.5159s, Eval time:0.00068908s, FPS:1451.2108
+Frame_75: 1080x1920, PSNR:35.5085, MS-SSIM:0.9415, Training:13.5159s, Eval:0.00068908s, FPS:1451.2108
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/75/gaussian_model_75.pth.tar
+Test PSNR:35.4927, MS_SSIM:0.941498
+Frame76_Training Complete in 12.9708s, Eval time:0.00066313s, FPS:1508.0047
+Frame_76: 1080x1920, PSNR:35.4927, MS-SSIM:0.9415, Training:12.9708s, Eval:0.00066313s, FPS:1508.0047
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/76/gaussian_model_76.pth.tar
+Test PSNR:35.5040, MS_SSIM:0.941414
+Frame77_Training Complete in 13.6034s, Eval time:0.00065631s, FPS:1523.6667
+Frame_77: 1080x1920, PSNR:35.5040, MS-SSIM:0.9414, Training:13.6034s, Eval:0.00065631s, FPS:1523.6667
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/77/gaussian_model_77.pth.tar
+Test PSNR:35.5252, MS_SSIM:0.941519
+Frame78_Training Complete in 12.1451s, Eval time:0.00068533s, FPS:1459.1573
+Frame_78: 1080x1920, PSNR:35.5252, MS-SSIM:0.9415, Training:12.1451s, Eval:0.00068533s, FPS:1459.1573
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/78/gaussian_model_78.pth.tar
+Test PSNR:35.5254, MS_SSIM:0.941151
+Frame79_Training Complete in 12.3296s, Eval time:0.00069726s, FPS:1434.1952
+Frame_79: 1080x1920, PSNR:35.5254, MS-SSIM:0.9412, Training:12.3296s, Eval:0.00069726s, FPS:1434.1952
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/79/gaussian_model_79.pth.tar
+Test PSNR:35.5386, MS_SSIM:0.941129
+Frame80_Training Complete in 15.1298s, Eval time:0.00065940s, FPS:1516.5324
+Frame_80: 1080x1920, PSNR:35.5386, MS-SSIM:0.9411, Training:15.1298s, Eval:0.00065940s, FPS:1516.5324
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/80/gaussian_model_80.pth.tar
+Test PSNR:35.5350, MS_SSIM:0.940991
+Frame81_Training Complete in 13.5782s, Eval time:0.00069503s, FPS:1438.7903
+Frame_81: 1080x1920, PSNR:35.5350, MS-SSIM:0.9410, Training:13.5782s, Eval:0.00069503s, FPS:1438.7903
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/81/gaussian_model_81.pth.tar
+Test PSNR:35.5405, MS_SSIM:0.941106
+Frame82_Training Complete in 13.0484s, Eval time:0.00069317s, FPS:1442.6504
+Frame_82: 1080x1920, PSNR:35.5405, MS-SSIM:0.9411, Training:13.0484s, Eval:0.00069317s, FPS:1442.6504
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/82/gaussian_model_82.pth.tar
+Test PSNR:35.5305, MS_SSIM:0.940833
+Frame83_Training Complete in 12.5563s, Eval time:0.00069527s, FPS:1438.2871
+Frame_83: 1080x1920, PSNR:35.5305, MS-SSIM:0.9408, Training:12.5563s, Eval:0.00069527s, FPS:1438.2871
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/83/gaussian_model_83.pth.tar
+Test PSNR:35.5262, MS_SSIM:0.940691
+Frame84_Training Complete in 12.9155s, Eval time:0.00066926s, FPS:1494.1982
+Frame_84: 1080x1920, PSNR:35.5262, MS-SSIM:0.9407, Training:12.9155s, Eval:0.00066926s, FPS:1494.1982
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/84/gaussian_model_84.pth.tar
+Test PSNR:35.5252, MS_SSIM:0.940679
+Frame85_Training Complete in 12.6212s, Eval time:0.00069668s, FPS:1435.3732
+Frame_85: 1080x1920, PSNR:35.5252, MS-SSIM:0.9407, Training:12.6212s, Eval:0.00069668s, FPS:1435.3732
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/85/gaussian_model_85.pth.tar
+Test PSNR:35.5226, MS_SSIM:0.940711
+Frame86_Training Complete in 16.0664s, Eval time:0.00078947s, FPS:1266.6791
+Frame_86: 1080x1920, PSNR:35.5226, MS-SSIM:0.9407, Training:16.0664s, Eval:0.00078947s, FPS:1266.6791
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/86/gaussian_model_86.pth.tar
+Test PSNR:35.5231, MS_SSIM:0.940530
+Frame87_Training Complete in 13.3369s, Eval time:0.00069626s, FPS:1436.2481
+Frame_87: 1080x1920, PSNR:35.5231, MS-SSIM:0.9405, Training:13.3369s, Eval:0.00069626s, FPS:1436.2481
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/87/gaussian_model_87.pth.tar
+Test PSNR:35.5418, MS_SSIM:0.940464
+Frame88_Training Complete in 13.8137s, Eval time:0.00067197s, FPS:1488.1651
+Frame_88: 1080x1920, PSNR:35.5418, MS-SSIM:0.9405, Training:13.8137s, Eval:0.00067197s, FPS:1488.1651
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/88/gaussian_model_88.pth.tar
+Test PSNR:35.5371, MS_SSIM:0.940025
+Frame89_Training Complete in 12.7837s, Eval time:0.00066545s, FPS:1502.7423
+Frame_89: 1080x1920, PSNR:35.5371, MS-SSIM:0.9400, Training:12.7837s, Eval:0.00066545s, FPS:1502.7423
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/89/gaussian_model_89.pth.tar
+Test PSNR:35.5589, MS_SSIM:0.940196
+Frame90_Training Complete in 12.5691s, Eval time:0.00069650s, FPS:1435.7417
+Frame_90: 1080x1920, PSNR:35.5589, MS-SSIM:0.9402, Training:12.5691s, Eval:0.00069650s, FPS:1435.7417
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/90/gaussian_model_90.pth.tar
+Test PSNR:35.5745, MS_SSIM:0.940241
+Frame91_Training Complete in 13.7155s, Eval time:0.00070027s, FPS:1428.0183
+Frame_91: 1080x1920, PSNR:35.5745, MS-SSIM:0.9402, Training:13.7155s, Eval:0.00070027s, FPS:1428.0183
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/91/gaussian_model_91.pth.tar
+Test PSNR:35.5738, MS_SSIM:0.940188
+Frame92_Training Complete in 12.2234s, Eval time:0.00069888s, FPS:1430.8633
+Frame_92: 1080x1920, PSNR:35.5738, MS-SSIM:0.9402, Training:12.2234s, Eval:0.00069888s, FPS:1430.8633
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/92/gaussian_model_92.pth.tar
+Test PSNR:35.5870, MS_SSIM:0.940405
+Frame93_Training Complete in 13.9302s, Eval time:0.00070287s, FPS:1422.7288
+Frame_93: 1080x1920, PSNR:35.5870, MS-SSIM:0.9404, Training:13.9302s, Eval:0.00070287s, FPS:1422.7288
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/93/gaussian_model_93.pth.tar
+Test PSNR:35.5968, MS_SSIM:0.940842
+Frame94_Training Complete in 12.9744s, Eval time:0.00070362s, FPS:1421.2150
+Frame_94: 1080x1920, PSNR:35.5968, MS-SSIM:0.9408, Training:12.9744s, Eval:0.00070362s, FPS:1421.2150
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/94/gaussian_model_94.pth.tar
+Test PSNR:35.5767, MS_SSIM:0.941048
+Frame95_Training Complete in 12.7349s, Eval time:0.00070050s, FPS:1427.5469
+Frame_95: 1080x1920, PSNR:35.5767, MS-SSIM:0.9410, Training:12.7349s, Eval:0.00070050s, FPS:1427.5469
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/95/gaussian_model_95.pth.tar
+Test PSNR:35.5788, MS_SSIM:0.941449
+Frame96_Training Complete in 13.9368s, Eval time:0.00067446s, FPS:1482.6782
+Frame_96: 1080x1920, PSNR:35.5788, MS-SSIM:0.9414, Training:13.9368s, Eval:0.00067446s, FPS:1482.6782
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/96/gaussian_model_96.pth.tar
+Test PSNR:35.5712, MS_SSIM:0.941541
+Frame97_Training Complete in 15.0195s, Eval time:0.00070698s, FPS:1414.4619
+Frame_97: 1080x1920, PSNR:35.5712, MS-SSIM:0.9415, Training:15.0195s, Eval:0.00070698s, FPS:1414.4619
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/97/gaussian_model_97.pth.tar
+Test PSNR:35.5583, MS_SSIM:0.941426
+Frame98_Training Complete in 12.3465s, Eval time:0.00067206s, FPS:1487.9539
+Frame_98: 1080x1920, PSNR:35.5583, MS-SSIM:0.9414, Training:12.3465s, Eval:0.00067206s, FPS:1487.9539
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/98/gaussian_model_98.pth.tar
+Test PSNR:35.5793, MS_SSIM:0.942110
+Frame99_Training Complete in 13.4740s, Eval time:0.00070507s, FPS:1418.2979
+Frame_99: 1080x1920, PSNR:35.5793, MS-SSIM:0.9421, Training:13.4740s, Eval:0.00070507s, FPS:1418.2979
+Test PSNR:35.8817, MS_SSIM:0.947653
+Frame100_Training Complete in 108.4318s, Eval time:0.00063500s, FPS:1574.8049
+Frame_100: 1080x1920, PSNR:35.8817, MS-SSIM:0.9477, Training:108.4318s, Eval:0.00063500s, FPS:1574.8049
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/100/gaussian_model_100.pth.tar
+Test PSNR:35.5797, MS_SSIM:0.941654
+Frame101_Training Complete in 12.6912s, Eval time:0.00077384s, FPS:1292.2529
+Frame_101: 1080x1920, PSNR:35.5797, MS-SSIM:0.9417, Training:12.6912s, Eval:0.00077384s, FPS:1292.2529
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/101/gaussian_model_101.pth.tar
+Test PSNR:35.5576, MS_SSIM:0.941320
+Frame102_Training Complete in 12.8455s, Eval time:0.00061234s, FPS:1633.0861
+Frame_102: 1080x1920, PSNR:35.5576, MS-SSIM:0.9413, Training:12.8455s, Eval:0.00061234s, FPS:1633.0861
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/102/gaussian_model_102.pth.tar
+Test PSNR:35.5449, MS_SSIM:0.941359
+Frame103_Training Complete in 12.8029s, Eval time:0.00061716s, FPS:1620.3358
+Frame_103: 1080x1920, PSNR:35.5449, MS-SSIM:0.9414, Training:12.8029s, Eval:0.00061716s, FPS:1620.3358
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/103/gaussian_model_103.pth.tar
+Test PSNR:35.5352, MS_SSIM:0.941333
+Frame104_Training Complete in 15.2834s, Eval time:0.00074538s, FPS:1341.5977
+Frame_104: 1080x1920, PSNR:35.5352, MS-SSIM:0.9413, Training:15.2834s, Eval:0.00074538s, FPS:1341.5977
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/104/gaussian_model_104.pth.tar
+Test PSNR:35.5313, MS_SSIM:0.941330
+Frame105_Training Complete in 11.9411s, Eval time:0.00077674s, FPS:1287.4335
+Frame_105: 1080x1920, PSNR:35.5313, MS-SSIM:0.9413, Training:11.9411s, Eval:0.00077674s, FPS:1287.4335
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/105/gaussian_model_105.pth.tar
+Test PSNR:35.5305, MS_SSIM:0.941437
+Frame106_Training Complete in 12.9725s, Eval time:0.00075732s, FPS:1320.4418
+Frame_106: 1080x1920, PSNR:35.5305, MS-SSIM:0.9414, Training:12.9725s, Eval:0.00075732s, FPS:1320.4418
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/106/gaussian_model_106.pth.tar
+Test PSNR:35.5481, MS_SSIM:0.941382
+Frame107_Training Complete in 12.3826s, Eval time:0.00065711s, FPS:1521.8037
+Frame_107: 1080x1920, PSNR:35.5481, MS-SSIM:0.9414, Training:12.3826s, Eval:0.00065711s, FPS:1521.8037
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/107/gaussian_model_107.pth.tar
+Test PSNR:35.5701, MS_SSIM:0.941532
+Frame108_Training Complete in 12.5368s, Eval time:0.00078284s, FPS:1277.4076
+Frame_108: 1080x1920, PSNR:35.5701, MS-SSIM:0.9415, Training:12.5368s, Eval:0.00078284s, FPS:1277.4076
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/108/gaussian_model_108.pth.tar
+Test PSNR:35.5743, MS_SSIM:0.941456
+Frame109_Training Complete in 12.3579s, Eval time:0.00066129s, FPS:1512.2020
+Frame_109: 1080x1920, PSNR:35.5743, MS-SSIM:0.9415, Training:12.3579s, Eval:0.00066129s, FPS:1512.2020
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/109/gaussian_model_109.pth.tar
+Test PSNR:35.5867, MS_SSIM:0.941443
+Frame110_Training Complete in 12.9824s, Eval time:0.00066617s, FPS:1501.1288
+Frame_110: 1080x1920, PSNR:35.5867, MS-SSIM:0.9414, Training:12.9824s, Eval:0.00066617s, FPS:1501.1288
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/110/gaussian_model_110.pth.tar
+Test PSNR:35.5820, MS_SSIM:0.941486
+Frame111_Training Complete in 11.8752s, Eval time:0.00063443s, FPS:1576.2135
+Frame_111: 1080x1920, PSNR:35.5820, MS-SSIM:0.9415, Training:11.8752s, Eval:0.00063443s, FPS:1576.2135
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/111/gaussian_model_111.pth.tar
+Test PSNR:35.5715, MS_SSIM:0.941426
+Frame112_Training Complete in 11.7151s, Eval time:0.00063514s, FPS:1574.4503
+Frame_112: 1080x1920, PSNR:35.5715, MS-SSIM:0.9414, Training:11.7151s, Eval:0.00063514s, FPS:1574.4503
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/112/gaussian_model_112.pth.tar
+Test PSNR:35.5837, MS_SSIM:0.941704
+Frame113_Training Complete in 15.2335s, Eval time:0.00067123s, FPS:1489.8090
+Frame_113: 1080x1920, PSNR:35.5837, MS-SSIM:0.9417, Training:15.2335s, Eval:0.00067123s, FPS:1489.8090
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/113/gaussian_model_113.pth.tar
+Test PSNR:35.5953, MS_SSIM:0.941911
+Frame114_Training Complete in 12.3858s, Eval time:0.00067314s, FPS:1485.5718
+Frame_114: 1080x1920, PSNR:35.5953, MS-SSIM:0.9419, Training:12.3858s, Eval:0.00067314s, FPS:1485.5718
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/114/gaussian_model_114.pth.tar
+Test PSNR:35.5876, MS_SSIM:0.942081
+Frame115_Training Complete in 12.9153s, Eval time:0.00067070s, FPS:1490.9741
+Frame_115: 1080x1920, PSNR:35.5876, MS-SSIM:0.9421, Training:12.9153s, Eval:0.00067070s, FPS:1490.9741
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/115/gaussian_model_115.pth.tar
+Test PSNR:35.5819, MS_SSIM:0.942091
+Frame116_Training Complete in 12.2432s, Eval time:0.00064881s, FPS:1541.2812
+Frame_116: 1080x1920, PSNR:35.5819, MS-SSIM:0.9421, Training:12.2432s, Eval:0.00064881s, FPS:1541.2812
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/116/gaussian_model_116.pth.tar
+Test PSNR:35.5926, MS_SSIM:0.942195
+Frame117_Training Complete in 11.9359s, Eval time:0.00067662s, FPS:1477.9344
+Frame_117: 1080x1920, PSNR:35.5926, MS-SSIM:0.9422, Training:11.9359s, Eval:0.00067662s, FPS:1477.9344
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/117/gaussian_model_117.pth.tar
+Test PSNR:35.5917, MS_SSIM:0.942212
+Frame118_Training Complete in 14.6955s, Eval time:0.00067986s, FPS:1470.8805
+Frame_118: 1080x1920, PSNR:35.5917, MS-SSIM:0.9422, Training:14.6955s, Eval:0.00067986s, FPS:1470.8805
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/118/gaussian_model_118.pth.tar
+Test PSNR:35.5742, MS_SSIM:0.942313
+Frame119_Training Complete in 12.4787s, Eval time:0.00068163s, FPS:1467.0682
+Frame_119: 1080x1920, PSNR:35.5742, MS-SSIM:0.9423, Training:12.4787s, Eval:0.00068163s, FPS:1467.0682
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/119/gaussian_model_119.pth.tar
+Test PSNR:35.5877, MS_SSIM:0.942315
+Frame120_Training Complete in 14.1638s, Eval time:0.00067780s, FPS:1475.3611
+Frame_120: 1080x1920, PSNR:35.5877, MS-SSIM:0.9423, Training:14.1638s, Eval:0.00067780s, FPS:1475.3611
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/120/gaussian_model_120.pth.tar
+Test PSNR:35.5934, MS_SSIM:0.942443
+Frame121_Training Complete in 12.8635s, Eval time:0.00068476s, FPS:1460.3665
+Frame_121: 1080x1920, PSNR:35.5934, MS-SSIM:0.9424, Training:12.8635s, Eval:0.00068476s, FPS:1460.3665
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/121/gaussian_model_121.pth.tar
+Test PSNR:35.5904, MS_SSIM:0.942406
+Frame122_Training Complete in 15.6463s, Eval time:0.00067101s, FPS:1490.2801
+Frame_122: 1080x1920, PSNR:35.5904, MS-SSIM:0.9424, Training:15.6463s, Eval:0.00067101s, FPS:1490.2801
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/122/gaussian_model_122.pth.tar
+Test PSNR:35.6049, MS_SSIM:0.942438
+Frame123_Training Complete in 14.6040s, Eval time:0.00065313s, FPS:1531.0808
+Frame_123: 1080x1920, PSNR:35.6049, MS-SSIM:0.9424, Training:14.6040s, Eval:0.00065313s, FPS:1531.0808
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/123/gaussian_model_123.pth.tar
+Test PSNR:35.6133, MS_SSIM:0.942382
+Frame124_Training Complete in 12.3597s, Eval time:0.00065304s, FPS:1531.2932
+Frame_124: 1080x1920, PSNR:35.6133, MS-SSIM:0.9424, Training:12.3597s, Eval:0.00065304s, FPS:1531.2932
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/124/gaussian_model_124.pth.tar
+Test PSNR:35.6229, MS_SSIM:0.942450
+Frame125_Training Complete in 11.8714s, Eval time:0.00068696s, FPS:1455.6985
+Frame_125: 1080x1920, PSNR:35.6229, MS-SSIM:0.9424, Training:11.8714s, Eval:0.00068696s, FPS:1455.6985
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/125/gaussian_model_125.pth.tar
+Test PSNR:35.6196, MS_SSIM:0.942442
+Frame126_Training Complete in 15.4305s, Eval time:0.00069040s, FPS:1448.4344
+Frame_126: 1080x1920, PSNR:35.6196, MS-SSIM:0.9424, Training:15.4305s, Eval:0.00069040s, FPS:1448.4344
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/126/gaussian_model_126.pth.tar
+Test PSNR:35.6223, MS_SSIM:0.942588
+Frame127_Training Complete in 15.0679s, Eval time:0.00069331s, FPS:1442.3478
+Frame_127: 1080x1920, PSNR:35.6223, MS-SSIM:0.9426, Training:15.0679s, Eval:0.00069331s, FPS:1442.3478
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/127/gaussian_model_127.pth.tar
+Test PSNR:35.6419, MS_SSIM:0.942592
+Frame128_Training Complete in 15.9722s, Eval time:0.00077662s, FPS:1287.6351
+Frame_128: 1080x1920, PSNR:35.6419, MS-SSIM:0.9426, Training:15.9722s, Eval:0.00077662s, FPS:1287.6351
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/128/gaussian_model_128.pth.tar
+Test PSNR:35.6375, MS_SSIM:0.942503
+Frame129_Training Complete in 12.7814s, Eval time:0.00069048s, FPS:1448.2594
+Frame_129: 1080x1920, PSNR:35.6375, MS-SSIM:0.9425, Training:12.7814s, Eval:0.00069048s, FPS:1448.2594
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/129/gaussian_model_129.pth.tar
+Test PSNR:35.6300, MS_SSIM:0.942274
+Frame130_Training Complete in 13.6880s, Eval time:0.00066150s, FPS:1511.7169
+Frame_130: 1080x1920, PSNR:35.6300, MS-SSIM:0.9423, Training:13.6880s, Eval:0.00066150s, FPS:1511.7169
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/130/gaussian_model_130.pth.tar
+Test PSNR:35.6415, MS_SSIM:0.942437
+Frame131_Training Complete in 12.3946s, Eval time:0.00066410s, FPS:1505.7959
+Frame_131: 1080x1920, PSNR:35.6415, MS-SSIM:0.9424, Training:12.3946s, Eval:0.00066410s, FPS:1505.7959
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/131/gaussian_model_131.pth.tar
+Test PSNR:35.6441, MS_SSIM:0.942401
+Frame132_Training Complete in 15.3116s, Eval time:0.00069560s, FPS:1437.6166
+Frame_132: 1080x1920, PSNR:35.6441, MS-SSIM:0.9424, Training:15.3116s, Eval:0.00069560s, FPS:1437.6166
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/132/gaussian_model_132.pth.tar
+Test PSNR:35.6348, MS_SSIM:0.942285
+Frame133_Training Complete in 13.7966s, Eval time:0.00069477s, FPS:1439.3236
+Frame_133: 1080x1920, PSNR:35.6348, MS-SSIM:0.9423, Training:13.7966s, Eval:0.00069477s, FPS:1439.3236
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/133/gaussian_model_133.pth.tar
+Test PSNR:35.6279, MS_SSIM:0.942305
+Frame134_Training Complete in 13.1667s, Eval time:0.00069399s, FPS:1440.9454
+Frame_134: 1080x1920, PSNR:35.6279, MS-SSIM:0.9423, Training:13.1667s, Eval:0.00069399s, FPS:1440.9454
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/134/gaussian_model_134.pth.tar
+Test PSNR:35.6233, MS_SSIM:0.942092
+Frame135_Training Complete in 12.9972s, Eval time:0.00069753s, FPS:1433.6364
+Frame_135: 1080x1920, PSNR:35.6233, MS-SSIM:0.9421, Training:12.9972s, Eval:0.00069753s, FPS:1433.6364
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/135/gaussian_model_135.pth.tar
+Test PSNR:35.6222, MS_SSIM:0.942072
+Frame136_Training Complete in 12.2914s, Eval time:0.00066915s, FPS:1494.4324
+Frame_136: 1080x1920, PSNR:35.6222, MS-SSIM:0.9421, Training:12.2914s, Eval:0.00066915s, FPS:1494.4324
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/136/gaussian_model_136.pth.tar
+Test PSNR:35.6257, MS_SSIM:0.942156
+Frame137_Training Complete in 13.0798s, Eval time:0.00069616s, FPS:1436.4596
+Frame_137: 1080x1920, PSNR:35.6257, MS-SSIM:0.9422, Training:13.0798s, Eval:0.00069616s, FPS:1436.4596
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/137/gaussian_model_137.pth.tar
+Test PSNR:35.6240, MS_SSIM:0.941862
+Frame138_Training Complete in 12.5610s, Eval time:0.00070045s, FPS:1427.6440
+Frame_138: 1080x1920, PSNR:35.6240, MS-SSIM:0.9419, Training:12.5610s, Eval:0.00070045s, FPS:1427.6440
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/138/gaussian_model_138.pth.tar
+Test PSNR:35.6153, MS_SSIM:0.941817
+Frame139_Training Complete in 12.6690s, Eval time:0.00070043s, FPS:1427.6878
+Frame_139: 1080x1920, PSNR:35.6153, MS-SSIM:0.9418, Training:12.6690s, Eval:0.00070043s, FPS:1427.6878
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/139/gaussian_model_139.pth.tar
+Test PSNR:35.6125, MS_SSIM:0.941661
+Frame140_Training Complete in 12.5584s, Eval time:0.00066796s, FPS:1497.0942
+Frame_140: 1080x1920, PSNR:35.6125, MS-SSIM:0.9417, Training:12.5584s, Eval:0.00066796s, FPS:1497.0942
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/140/gaussian_model_140.pth.tar
+Test PSNR:35.5863, MS_SSIM:0.941559
+Frame141_Training Complete in 12.4387s, Eval time:0.00070148s, FPS:1425.5479
+Frame_141: 1080x1920, PSNR:35.5863, MS-SSIM:0.9416, Training:12.4387s, Eval:0.00070148s, FPS:1425.5479
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/141/gaussian_model_141.pth.tar
+Test PSNR:35.5796, MS_SSIM:0.941425
+Frame142_Training Complete in 12.7621s, Eval time:0.00066848s, FPS:1495.9409
+Frame_142: 1080x1920, PSNR:35.5796, MS-SSIM:0.9414, Training:12.7621s, Eval:0.00066848s, FPS:1495.9409
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/142/gaussian_model_142.pth.tar
+Test PSNR:35.5921, MS_SSIM:0.941084
+Frame143_Training Complete in 12.9210s, Eval time:0.00070609s, FPS:1416.2530
+Frame_143: 1080x1920, PSNR:35.5921, MS-SSIM:0.9411, Training:12.9210s, Eval:0.00070609s, FPS:1416.2530
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/143/gaussian_model_143.pth.tar
+Test PSNR:35.5947, MS_SSIM:0.940763
+Frame144_Training Complete in 13.0092s, Eval time:0.00079240s, FPS:1261.9952
+Frame_144: 1080x1920, PSNR:35.5947, MS-SSIM:0.9408, Training:13.0092s, Eval:0.00079240s, FPS:1261.9952
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/144/gaussian_model_144.pth.tar
+Test PSNR:35.6101, MS_SSIM:0.940828
+Frame145_Training Complete in 12.9655s, Eval time:0.00070708s, FPS:1414.2616
+Frame_145: 1080x1920, PSNR:35.6101, MS-SSIM:0.9408, Training:12.9655s, Eval:0.00070708s, FPS:1414.2616
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/145/gaussian_model_145.pth.tar
+Test PSNR:35.6050, MS_SSIM:0.940588
+Frame146_Training Complete in 13.0095s, Eval time:0.00067521s, FPS:1481.0186
+Frame_146: 1080x1920, PSNR:35.6050, MS-SSIM:0.9406, Training:13.0095s, Eval:0.00067521s, FPS:1481.0186
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/146/gaussian_model_146.pth.tar
+Test PSNR:35.6077, MS_SSIM:0.940349
+Frame147_Training Complete in 12.9295s, Eval time:0.00071393s, FPS:1400.7020
+Frame_147: 1080x1920, PSNR:35.6077, MS-SSIM:0.9403, Training:12.9295s, Eval:0.00071393s, FPS:1400.7020
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/147/gaussian_model_147.pth.tar
+Test PSNR:35.6083, MS_SSIM:0.940189
+Frame148_Training Complete in 12.6272s, Eval time:0.00070639s, FPS:1415.6507
+Frame_148: 1080x1920, PSNR:35.6083, MS-SSIM:0.9402, Training:12.6272s, Eval:0.00070639s, FPS:1415.6507
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/148/gaussian_model_148.pth.tar
+Test PSNR:35.5848, MS_SSIM:0.939884
+Frame149_Training Complete in 12.2380s, Eval time:0.00067523s, FPS:1480.9820
+Frame_149: 1080x1920, PSNR:35.5848, MS-SSIM:0.9399, Training:12.2380s, Eval:0.00067523s, FPS:1480.9820
+Test PSNR:35.7838, MS_SSIM:0.944361
+Frame150_Training Complete in 105.7351s, Eval time:0.00064074s, FPS:1560.6887
+Frame_150: 1080x1920, PSNR:35.7838, MS-SSIM:0.9444, Training:105.7351s, Eval:0.00064074s, FPS:1560.6887
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/150/gaussian_model_150.pth.tar
+Test PSNR:35.4948, MS_SSIM:0.937738
+Frame151_Training Complete in 11.4356s, Eval time:0.00063721s, FPS:1569.3487
+Frame_151: 1080x1920, PSNR:35.4948, MS-SSIM:0.9377, Training:11.4356s, Eval:0.00063721s, FPS:1569.3487
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/151/gaussian_model_151.pth.tar
+Test PSNR:35.4987, MS_SSIM:0.937787
+Frame152_Training Complete in 12.4564s, Eval time:0.00064402s, FPS:1552.7443
+Frame_152: 1080x1920, PSNR:35.4987, MS-SSIM:0.9378, Training:12.4564s, Eval:0.00064402s, FPS:1552.7443
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/152/gaussian_model_152.pth.tar
+Test PSNR:35.4954, MS_SSIM:0.937871
+Frame153_Training Complete in 13.2340s, Eval time:0.00064595s, FPS:1548.0964
+Frame_153: 1080x1920, PSNR:35.4954, MS-SSIM:0.9379, Training:13.2340s, Eval:0.00064595s, FPS:1548.0964
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/153/gaussian_model_153.pth.tar
+Test PSNR:35.4933, MS_SSIM:0.937991
+Frame154_Training Complete in 12.7136s, Eval time:0.00061377s, FPS:1629.2735
+Frame_154: 1080x1920, PSNR:35.4933, MS-SSIM:0.9380, Training:12.7136s, Eval:0.00061377s, FPS:1629.2735
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/154/gaussian_model_154.pth.tar
+Test PSNR:35.4990, MS_SSIM:0.938232
+Frame155_Training Complete in 11.7431s, Eval time:0.00065555s, FPS:1525.4344
+Frame_155: 1080x1920, PSNR:35.4990, MS-SSIM:0.9382, Training:11.7431s, Eval:0.00065555s, FPS:1525.4344
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/155/gaussian_model_155.pth.tar
+Test PSNR:35.4900, MS_SSIM:0.938270
+Frame156_Training Complete in 13.4329s, Eval time:0.00062448s, FPS:1601.3378
+Frame_156: 1080x1920, PSNR:35.4900, MS-SSIM:0.9383, Training:13.4329s, Eval:0.00062448s, FPS:1601.3378
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/156/gaussian_model_156.pth.tar
+Test PSNR:35.5075, MS_SSIM:0.938649
+Frame157_Training Complete in 11.6460s, Eval time:0.00065385s, FPS:1529.4004
+Frame_157: 1080x1920, PSNR:35.5075, MS-SSIM:0.9386, Training:11.6460s, Eval:0.00065385s, FPS:1529.4004
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/157/gaussian_model_157.pth.tar
+Test PSNR:35.5120, MS_SSIM:0.938840
+Frame158_Training Complete in 15.4503s, Eval time:0.00077319s, FPS:1293.3407
+Frame_158: 1080x1920, PSNR:35.5120, MS-SSIM:0.9388, Training:15.4503s, Eval:0.00077319s, FPS:1293.3407
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/158/gaussian_model_158.pth.tar
+Test PSNR:35.5278, MS_SSIM:0.939105
+Frame159_Training Complete in 12.5622s, Eval time:0.00066536s, FPS:1502.9415
+Frame_159: 1080x1920, PSNR:35.5278, MS-SSIM:0.9391, Training:12.5622s, Eval:0.00066536s, FPS:1502.9415
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/159/gaussian_model_159.pth.tar
+Test PSNR:35.5281, MS_SSIM:0.939224
+Frame160_Training Complete in 11.8623s, Eval time:0.00066664s, FPS:1500.0712
+Frame_160: 1080x1920, PSNR:35.5281, MS-SSIM:0.9392, Training:11.8623s, Eval:0.00066664s, FPS:1500.0712
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/160/gaussian_model_160.pth.tar
+Test PSNR:35.5362, MS_SSIM:0.939450
+Frame161_Training Complete in 13.0477s, Eval time:0.00077861s, FPS:1284.3389
+Frame_161: 1080x1920, PSNR:35.5362, MS-SSIM:0.9394, Training:13.0477s, Eval:0.00077861s, FPS:1284.3389
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/161/gaussian_model_161.pth.tar
+Test PSNR:35.5365, MS_SSIM:0.939627
+Frame162_Training Complete in 12.1401s, Eval time:0.00066969s, FPS:1493.2247
+Frame_162: 1080x1920, PSNR:35.5365, MS-SSIM:0.9396, Training:12.1401s, Eval:0.00066969s, FPS:1493.2247
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/162/gaussian_model_162.pth.tar
+Test PSNR:35.5431, MS_SSIM:0.939951
+Frame163_Training Complete in 11.4396s, Eval time:0.00067034s, FPS:1491.7855
+Frame_163: 1080x1920, PSNR:35.5431, MS-SSIM:0.9400, Training:11.4396s, Eval:0.00067034s, FPS:1491.7855
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/163/gaussian_model_163.pth.tar
+Test PSNR:35.5342, MS_SSIM:0.939983
+Frame164_Training Complete in 12.5705s, Eval time:0.00063384s, FPS:1577.6957
+Frame_164: 1080x1920, PSNR:35.5342, MS-SSIM:0.9400, Training:12.5705s, Eval:0.00063384s, FPS:1577.6957
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/164/gaussian_model_164.pth.tar
+Test PSNR:35.5415, MS_SSIM:0.940418
+Frame165_Training Complete in 13.4769s, Eval time:0.00064258s, FPS:1556.2356
+Frame_165: 1080x1920, PSNR:35.5415, MS-SSIM:0.9404, Training:13.4769s, Eval:0.00064258s, FPS:1556.2356
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/165/gaussian_model_165.pth.tar
+Test PSNR:35.5474, MS_SSIM:0.940410
+Frame166_Training Complete in 11.9859s, Eval time:0.00063700s, FPS:1569.8656
+Frame_166: 1080x1920, PSNR:35.5474, MS-SSIM:0.9404, Training:11.9859s, Eval:0.00063700s, FPS:1569.8656
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/166/gaussian_model_166.pth.tar
+Test PSNR:35.5622, MS_SSIM:0.940517
+Frame167_Training Complete in 11.6331s, Eval time:0.00067629s, FPS:1478.6534
+Frame_167: 1080x1920, PSNR:35.5622, MS-SSIM:0.9405, Training:11.6331s, Eval:0.00067629s, FPS:1478.6534
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/167/gaussian_model_167.pth.tar
+Test PSNR:35.5687, MS_SSIM:0.940480
+Frame168_Training Complete in 12.3751s, Eval time:0.00066546s, FPS:1502.7100
+Frame_168: 1080x1920, PSNR:35.5687, MS-SSIM:0.9405, Training:12.3751s, Eval:0.00066546s, FPS:1502.7100
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/168/gaussian_model_168.pth.tar
+Test PSNR:35.5784, MS_SSIM:0.940269
+Frame169_Training Complete in 12.9297s, Eval time:0.00067714s, FPS:1476.8052
+Frame_169: 1080x1920, PSNR:35.5784, MS-SSIM:0.9403, Training:12.9297s, Eval:0.00067714s, FPS:1476.8052
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/169/gaussian_model_169.pth.tar
+Test PSNR:35.5968, MS_SSIM:0.940477
+Frame170_Training Complete in 14.3504s, Eval time:0.00067760s, FPS:1475.7971
+Frame_170: 1080x1920, PSNR:35.5968, MS-SSIM:0.9405, Training:14.3504s, Eval:0.00067760s, FPS:1475.7971
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/170/gaussian_model_170.pth.tar
+Test PSNR:35.6055, MS_SSIM:0.940517
+Frame171_Training Complete in 12.5715s, Eval time:0.00068526s, FPS:1459.2995
+Frame_171: 1080x1920, PSNR:35.6055, MS-SSIM:0.9405, Training:12.5715s, Eval:0.00068526s, FPS:1459.2995
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/171/gaussian_model_171.pth.tar
+Test PSNR:35.6090, MS_SSIM:0.940819
+Frame172_Training Complete in 13.9347s, Eval time:0.00068038s, FPS:1469.7620
+Frame_172: 1080x1920, PSNR:35.6090, MS-SSIM:0.9408, Training:13.9347s, Eval:0.00068038s, FPS:1469.7620
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/172/gaussian_model_172.pth.tar
+Test PSNR:35.6016, MS_SSIM:0.940881
+Frame173_Training Complete in 12.4943s, Eval time:0.00078160s, FPS:1279.4338
+Frame_173: 1080x1920, PSNR:35.6016, MS-SSIM:0.9409, Training:12.4943s, Eval:0.00078160s, FPS:1279.4338
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/173/gaussian_model_173.pth.tar
+Test PSNR:35.5800, MS_SSIM:0.940611
+Frame174_Training Complete in 15.3648s, Eval time:0.00064975s, FPS:1539.0586
+Frame_174: 1080x1920, PSNR:35.5800, MS-SSIM:0.9406, Training:15.3648s, Eval:0.00064975s, FPS:1539.0586
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/174/gaussian_model_174.pth.tar
+Test PSNR:35.5698, MS_SSIM:0.940627
+Frame175_Training Complete in 13.6048s, Eval time:0.00068666s, FPS:1456.3303
+Frame_175: 1080x1920, PSNR:35.5698, MS-SSIM:0.9406, Training:13.6048s, Eval:0.00068666s, FPS:1456.3303
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/175/gaussian_model_175.pth.tar
+Test PSNR:35.5485, MS_SSIM:0.940714
+Frame176_Training Complete in 14.2089s, Eval time:0.00068576s, FPS:1458.2391
+Frame_176: 1080x1920, PSNR:35.5485, MS-SSIM:0.9407, Training:14.2089s, Eval:0.00068576s, FPS:1458.2391
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/176/gaussian_model_176.pth.tar
+Test PSNR:35.5576, MS_SSIM:0.940917
+Frame177_Training Complete in 14.1693s, Eval time:0.00069349s, FPS:1441.9759
+Frame_177: 1080x1920, PSNR:35.5576, MS-SSIM:0.9409, Training:14.1693s, Eval:0.00069349s, FPS:1441.9759
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/177/gaussian_model_177.pth.tar
+Test PSNR:35.5724, MS_SSIM:0.940741
+Frame178_Training Complete in 13.6000s, Eval time:0.00078610s, FPS:1272.1076
+Frame_178: 1080x1920, PSNR:35.5724, MS-SSIM:0.9407, Training:13.6000s, Eval:0.00078610s, FPS:1272.1076
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/178/gaussian_model_178.pth.tar
+Test PSNR:35.6032, MS_SSIM:0.941037
+Frame179_Training Complete in 14.0805s, Eval time:0.00069242s, FPS:1444.2201
+Frame_179: 1080x1920, PSNR:35.6032, MS-SSIM:0.9410, Training:14.0805s, Eval:0.00069242s, FPS:1444.2201
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/179/gaussian_model_179.pth.tar
+Test PSNR:35.6082, MS_SSIM:0.940917
+Frame180_Training Complete in 12.5887s, Eval time:0.00069301s, FPS:1442.9779
+Frame_180: 1080x1920, PSNR:35.6082, MS-SSIM:0.9409, Training:12.5887s, Eval:0.00069301s, FPS:1442.9779
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/180/gaussian_model_180.pth.tar
+Test PSNR:35.6059, MS_SSIM:0.940693
+Frame181_Training Complete in 12.5705s, Eval time:0.00078259s, FPS:1277.8123
+Frame_181: 1080x1920, PSNR:35.6059, MS-SSIM:0.9407, Training:12.5705s, Eval:0.00078259s, FPS:1277.8123
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/181/gaussian_model_181.pth.tar
+Test PSNR:35.6119, MS_SSIM:0.940694
+Frame182_Training Complete in 13.8799s, Eval time:0.00069360s, FPS:1441.7528
+Frame_182: 1080x1920, PSNR:35.6119, MS-SSIM:0.9407, Training:13.8799s, Eval:0.00069360s, FPS:1441.7528
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/182/gaussian_model_182.pth.tar
+Test PSNR:35.6193, MS_SSIM:0.940987
+Frame183_Training Complete in 15.1274s, Eval time:0.00065805s, FPS:1519.6478
+Frame_183: 1080x1920, PSNR:35.6193, MS-SSIM:0.9410, Training:15.1274s, Eval:0.00065805s, FPS:1519.6478
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/183/gaussian_model_183.pth.tar
+Test PSNR:35.6311, MS_SSIM:0.941039
+Frame184_Training Complete in 12.7566s, Eval time:0.00066186s, FPS:1510.8892
+Frame_184: 1080x1920, PSNR:35.6311, MS-SSIM:0.9410, Training:12.7566s, Eval:0.00066186s, FPS:1510.8892
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/184/gaussian_model_184.pth.tar
+Test PSNR:35.6526, MS_SSIM:0.941136
+Frame185_Training Complete in 13.8961s, Eval time:0.00066487s, FPS:1504.0625
+Frame_185: 1080x1920, PSNR:35.6526, MS-SSIM:0.9411, Training:13.8961s, Eval:0.00066487s, FPS:1504.0625
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/185/gaussian_model_185.pth.tar
+Test PSNR:35.6537, MS_SSIM:0.941232
+Frame186_Training Complete in 14.5522s, Eval time:0.00069722s, FPS:1434.2688
+Frame_186: 1080x1920, PSNR:35.6537, MS-SSIM:0.9412, Training:14.5522s, Eval:0.00069722s, FPS:1434.2688
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/186/gaussian_model_186.pth.tar
+Test PSNR:35.6556, MS_SSIM:0.941364
+Frame187_Training Complete in 12.0215s, Eval time:0.00066323s, FPS:1507.7716
+Frame_187: 1080x1920, PSNR:35.6556, MS-SSIM:0.9414, Training:12.0215s, Eval:0.00066323s, FPS:1507.7716
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/187/gaussian_model_187.pth.tar
+Test PSNR:35.6565, MS_SSIM:0.941479
+Frame188_Training Complete in 12.3500s, Eval time:0.00066174s, FPS:1511.1614
+Frame_188: 1080x1920, PSNR:35.6565, MS-SSIM:0.9415, Training:12.3500s, Eval:0.00066174s, FPS:1511.1614
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/188/gaussian_model_188.pth.tar
+Test PSNR:35.6819, MS_SSIM:0.941730
+Frame189_Training Complete in 14.2537s, Eval time:0.00066557s, FPS:1502.4678
+Frame_189: 1080x1920, PSNR:35.6819, MS-SSIM:0.9417, Training:14.2537s, Eval:0.00066557s, FPS:1502.4678
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/189/gaussian_model_189.pth.tar
+Test PSNR:35.6766, MS_SSIM:0.941642
+Frame190_Training Complete in 13.2711s, Eval time:0.00069653s, FPS:1435.6827
+Frame_190: 1080x1920, PSNR:35.6766, MS-SSIM:0.9416, Training:13.2711s, Eval:0.00069653s, FPS:1435.6827
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/190/gaussian_model_190.pth.tar
+Test PSNR:35.6723, MS_SSIM:0.941426
+Frame191_Training Complete in 13.3562s, Eval time:0.00069966s, FPS:1429.2738
+Frame_191: 1080x1920, PSNR:35.6723, MS-SSIM:0.9414, Training:13.3562s, Eval:0.00069966s, FPS:1429.2738
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/191/gaussian_model_191.pth.tar
+Test PSNR:35.6626, MS_SSIM:0.941362
+Frame192_Training Complete in 14.4161s, Eval time:0.00066543s, FPS:1502.7800
+Frame_192: 1080x1920, PSNR:35.6626, MS-SSIM:0.9414, Training:14.4161s, Eval:0.00066543s, FPS:1502.7800
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/192/gaussian_model_192.pth.tar
+Test PSNR:35.6465, MS_SSIM:0.941292
+Frame193_Training Complete in 13.8306s, Eval time:0.00066732s, FPS:1498.5223
+Frame_193: 1080x1920, PSNR:35.6465, MS-SSIM:0.9413, Training:13.8306s, Eval:0.00066732s, FPS:1498.5223
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/193/gaussian_model_193.pth.tar
+Test PSNR:35.6366, MS_SSIM:0.941116
+Frame194_Training Complete in 12.9272s, Eval time:0.00066717s, FPS:1498.8757
+Frame_194: 1080x1920, PSNR:35.6366, MS-SSIM:0.9411, Training:12.9272s, Eval:0.00066717s, FPS:1498.8757
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/194/gaussian_model_194.pth.tar
+Test PSNR:35.6122, MS_SSIM:0.940906
+Frame195_Training Complete in 13.1646s, Eval time:0.00067322s, FPS:1485.4087
+Frame_195: 1080x1920, PSNR:35.6122, MS-SSIM:0.9409, Training:13.1646s, Eval:0.00067322s, FPS:1485.4087
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/195/gaussian_model_195.pth.tar
+Test PSNR:35.6005, MS_SSIM:0.940848
+Frame196_Training Complete in 12.3491s, Eval time:0.00070178s, FPS:1424.9570
+Frame_196: 1080x1920, PSNR:35.6005, MS-SSIM:0.9408, Training:12.3491s, Eval:0.00070178s, FPS:1424.9570
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/196/gaussian_model_196.pth.tar
+Test PSNR:35.5993, MS_SSIM:0.941142
+Frame197_Training Complete in 15.9738s, Eval time:0.00070174s, FPS:1425.0296
+Frame_197: 1080x1920, PSNR:35.5993, MS-SSIM:0.9411, Training:15.9738s, Eval:0.00070174s, FPS:1425.0296
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/197/gaussian_model_197.pth.tar
+Test PSNR:35.5871, MS_SSIM:0.941313
+Frame198_Training Complete in 12.1902s, Eval time:0.00066921s, FPS:1494.3047
+Frame_198: 1080x1920, PSNR:35.5871, MS-SSIM:0.9413, Training:12.1902s, Eval:0.00066921s, FPS:1494.3047
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/198/gaussian_model_198.pth.tar
+Test PSNR:35.5854, MS_SSIM:0.941042
+Frame199_Training Complete in 13.7774s, Eval time:0.00067732s, FPS:1476.4049
+Frame_199: 1080x1920, PSNR:35.5854, MS-SSIM:0.9410, Training:13.7774s, Eval:0.00067732s, FPS:1476.4049
+Test PSNR:35.8566, MS_SSIM:0.946651
+Frame200_Training Complete in 110.5201s, Eval time:0.00060657s, FPS:1648.6202
+Frame_200: 1080x1920, PSNR:35.8566, MS-SSIM:0.9467, Training:110.5201s, Eval:0.00060657s, FPS:1648.6202
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/200/gaussian_model_200.pth.tar
+Test PSNR:35.5882, MS_SSIM:0.940624
+Frame201_Training Complete in 12.1292s, Eval time:0.00064085s, FPS:1560.4274
+Frame_201: 1080x1920, PSNR:35.5882, MS-SSIM:0.9406, Training:12.1292s, Eval:0.00064085s, FPS:1560.4274
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/201/gaussian_model_201.pth.tar
+Test PSNR:35.5924, MS_SSIM:0.940626
+Frame202_Training Complete in 11.2163s, Eval time:0.00060988s, FPS:1639.6618
+Frame_202: 1080x1920, PSNR:35.5924, MS-SSIM:0.9406, Training:11.2163s, Eval:0.00060988s, FPS:1639.6618
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/202/gaussian_model_202.pth.tar
+Test PSNR:35.5969, MS_SSIM:0.940874
+Frame203_Training Complete in 14.9234s, Eval time:0.00064398s, FPS:1552.8535
+Frame_203: 1080x1920, PSNR:35.5969, MS-SSIM:0.9409, Training:14.9234s, Eval:0.00064398s, FPS:1552.8535
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/203/gaussian_model_203.pth.tar
+Test PSNR:35.6064, MS_SSIM:0.941160
+Frame204_Training Complete in 11.5294s, Eval time:0.00064492s, FPS:1550.5802
+Frame_204: 1080x1920, PSNR:35.6064, MS-SSIM:0.9412, Training:11.5294s, Eval:0.00064492s, FPS:1550.5802
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/204/gaussian_model_204.pth.tar
+Test PSNR:35.6153, MS_SSIM:0.941366
+Frame205_Training Complete in 11.1501s, Eval time:0.00064799s, FPS:1543.2377
+Frame_205: 1080x1920, PSNR:35.6153, MS-SSIM:0.9414, Training:11.1501s, Eval:0.00064799s, FPS:1543.2377
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/205/gaussian_model_205.pth.tar
+Test PSNR:35.6208, MS_SSIM:0.941275
+Frame206_Training Complete in 12.9511s, Eval time:0.00064956s, FPS:1539.4992
+Frame_206: 1080x1920, PSNR:35.6208, MS-SSIM:0.9413, Training:12.9511s, Eval:0.00064956s, FPS:1539.4992
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/206/gaussian_model_206.pth.tar
+Test PSNR:35.6378, MS_SSIM:0.941465
+Frame207_Training Complete in 13.4337s, Eval time:0.00062547s, FPS:1598.7863
+Frame_207: 1080x1920, PSNR:35.6378, MS-SSIM:0.9415, Training:13.4337s, Eval:0.00062547s, FPS:1598.7863
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/207/gaussian_model_207.pth.tar
+Test PSNR:35.6429, MS_SSIM:0.941435
+Frame208_Training Complete in 13.0289s, Eval time:0.00063021s, FPS:1586.7621
+Frame_208: 1080x1920, PSNR:35.6429, MS-SSIM:0.9414, Training:13.0289s, Eval:0.00063021s, FPS:1586.7621
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/208/gaussian_model_208.pth.tar
+Test PSNR:35.6602, MS_SSIM:0.941731
+Frame209_Training Complete in 14.4911s, Eval time:0.00062929s, FPS:1589.0826
+Frame_209: 1080x1920, PSNR:35.6602, MS-SSIM:0.9417, Training:14.4911s, Eval:0.00062929s, FPS:1589.0826
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/209/gaussian_model_209.pth.tar
+Test PSNR:35.6617, MS_SSIM:0.941787
+Frame210_Training Complete in 12.0498s, Eval time:0.00066103s, FPS:1512.7856
+Frame_210: 1080x1920, PSNR:35.6617, MS-SSIM:0.9418, Training:12.0498s, Eval:0.00066103s, FPS:1512.7856
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/210/gaussian_model_210.pth.tar
+Test PSNR:35.6568, MS_SSIM:0.941843
+Frame211_Training Complete in 13.7677s, Eval time:0.00063246s, FPS:1581.1393
+Frame_211: 1080x1920, PSNR:35.6568, MS-SSIM:0.9418, Training:13.7677s, Eval:0.00063246s, FPS:1581.1393
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/211/gaussian_model_211.pth.tar
+Test PSNR:35.6689, MS_SSIM:0.942102
+Frame212_Training Complete in 13.8040s, Eval time:0.00066989s, FPS:1492.7783
+Frame_212: 1080x1920, PSNR:35.6689, MS-SSIM:0.9421, Training:13.8040s, Eval:0.00066989s, FPS:1492.7783
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/212/gaussian_model_212.pth.tar
+Test PSNR:35.6632, MS_SSIM:0.942329
+Frame213_Training Complete in 11.7334s, Eval time:0.00066718s, FPS:1498.8543
+Frame_213: 1080x1920, PSNR:35.6632, MS-SSIM:0.9423, Training:11.7334s, Eval:0.00066718s, FPS:1498.8543
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/213/gaussian_model_213.pth.tar
+Test PSNR:35.6409, MS_SSIM:0.942461
+Frame214_Training Complete in 13.5640s, Eval time:0.00063941s, FPS:1563.9417
+Frame_214: 1080x1920, PSNR:35.6409, MS-SSIM:0.9425, Training:13.5640s, Eval:0.00063941s, FPS:1563.9417
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/214/gaussian_model_214.pth.tar
+Test PSNR:35.6297, MS_SSIM:0.942678
+Frame215_Training Complete in 12.8044s, Eval time:0.00067194s, FPS:1488.2284
+Frame_215: 1080x1920, PSNR:35.6297, MS-SSIM:0.9427, Training:12.8044s, Eval:0.00067194s, FPS:1488.2284
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/215/gaussian_model_215.pth.tar
+Test PSNR:35.6388, MS_SSIM:0.942904
+Frame216_Training Complete in 13.5905s, Eval time:0.00064291s, FPS:1555.4161
+Frame_216: 1080x1920, PSNR:35.6388, MS-SSIM:0.9429, Training:13.5905s, Eval:0.00064291s, FPS:1555.4161
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/216/gaussian_model_216.pth.tar
+Test PSNR:35.6415, MS_SSIM:0.942993
+Frame217_Training Complete in 12.6600s, Eval time:0.00068215s, FPS:1465.9607
+Frame_217: 1080x1920, PSNR:35.6415, MS-SSIM:0.9430, Training:12.6600s, Eval:0.00068215s, FPS:1465.9607
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/217/gaussian_model_217.pth.tar
+Test PSNR:35.6229, MS_SSIM:0.943103
+Frame218_Training Complete in 11.8259s, Eval time:0.00068033s, FPS:1469.8856
+Frame_218: 1080x1920, PSNR:35.6229, MS-SSIM:0.9431, Training:11.8259s, Eval:0.00068033s, FPS:1469.8856
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/218/gaussian_model_218.pth.tar
+Test PSNR:35.6227, MS_SSIM:0.943165
+Frame219_Training Complete in 12.4735s, Eval time:0.00065178s, FPS:1534.2620
+Frame_219: 1080x1920, PSNR:35.6227, MS-SSIM:0.9432, Training:12.4735s, Eval:0.00065178s, FPS:1534.2620
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/219/gaussian_model_219.pth.tar
+Test PSNR:35.6405, MS_SSIM:0.943215
+Frame220_Training Complete in 13.6335s, Eval time:0.00078625s, FPS:1271.8530
+Frame_220: 1080x1920, PSNR:35.6405, MS-SSIM:0.9432, Training:13.6335s, Eval:0.00078625s, FPS:1271.8530
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/220/gaussian_model_220.pth.tar
+Test PSNR:35.6361, MS_SSIM:0.943037
+Frame221_Training Complete in 13.5824s, Eval time:0.00068449s, FPS:1460.9464
+Frame_221: 1080x1920, PSNR:35.6361, MS-SSIM:0.9430, Training:13.5824s, Eval:0.00068449s, FPS:1460.9464
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/221/gaussian_model_221.pth.tar
+Test PSNR:35.6368, MS_SSIM:0.943350
+Frame222_Training Complete in 12.3854s, Eval time:0.00068074s, FPS:1469.0002
+Frame_222: 1080x1920, PSNR:35.6368, MS-SSIM:0.9434, Training:12.3854s, Eval:0.00068074s, FPS:1469.0002
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/222/gaussian_model_222.pth.tar
+Test PSNR:35.6191, MS_SSIM:0.943440
+Frame223_Training Complete in 14.3250s, Eval time:0.00068262s, FPS:1464.9366
+Frame_223: 1080x1920, PSNR:35.6191, MS-SSIM:0.9434, Training:14.3250s, Eval:0.00068262s, FPS:1464.9366
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/223/gaussian_model_223.pth.tar
+Test PSNR:35.5981, MS_SSIM:0.943446
+Frame224_Training Complete in 13.3970s, Eval time:0.00065477s, FPS:1527.2563
+Frame_224: 1080x1920, PSNR:35.5981, MS-SSIM:0.9434, Training:13.3970s, Eval:0.00065477s, FPS:1527.2563
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/224/gaussian_model_224.pth.tar
+Test PSNR:35.5970, MS_SSIM:0.943671
+Frame225_Training Complete in 12.8575s, Eval time:0.00069018s, FPS:1448.8897
+Frame_225: 1080x1920, PSNR:35.5970, MS-SSIM:0.9437, Training:12.8575s, Eval:0.00069018s, FPS:1448.8897
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/225/gaussian_model_225.pth.tar
+Test PSNR:35.5941, MS_SSIM:0.943844
+Frame226_Training Complete in 15.9638s, Eval time:0.00069117s, FPS:1446.8206
+Frame_226: 1080x1920, PSNR:35.5941, MS-SSIM:0.9438, Training:15.9638s, Eval:0.00069117s, FPS:1446.8206
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/226/gaussian_model_226.pth.tar
+Test PSNR:35.5999, MS_SSIM:0.943679
+Frame227_Training Complete in 12.7924s, Eval time:0.00068797s, FPS:1453.5544
+Frame_227: 1080x1920, PSNR:35.5999, MS-SSIM:0.9437, Training:12.7924s, Eval:0.00068797s, FPS:1453.5544
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/227/gaussian_model_227.pth.tar
+Test PSNR:35.6091, MS_SSIM:0.943684
+Frame228_Training Complete in 16.0001s, Eval time:0.00078629s, FPS:1271.8028
+Frame_228: 1080x1920, PSNR:35.6091, MS-SSIM:0.9437, Training:16.0001s, Eval:0.00078629s, FPS:1271.8028
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/228/gaussian_model_228.pth.tar
+Test PSNR:35.5846, MS_SSIM:0.943368
+Frame229_Training Complete in 12.6216s, Eval time:0.00069079s, FPS:1447.6196
+Frame_229: 1080x1920, PSNR:35.5846, MS-SSIM:0.9434, Training:12.6216s, Eval:0.00069079s, FPS:1447.6196
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/229/gaussian_model_229.pth.tar
+Test PSNR:35.5917, MS_SSIM:0.943424
+Frame230_Training Complete in 12.8839s, Eval time:0.00069885s, FPS:1430.9268
+Frame_230: 1080x1920, PSNR:35.5917, MS-SSIM:0.9434, Training:12.8839s, Eval:0.00069885s, FPS:1430.9268
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/230/gaussian_model_230.pth.tar
+Test PSNR:35.5779, MS_SSIM:0.943267
+Frame231_Training Complete in 12.4726s, Eval time:0.00069490s, FPS:1439.0569
+Frame_231: 1080x1920, PSNR:35.5779, MS-SSIM:0.9433, Training:12.4726s, Eval:0.00069490s, FPS:1439.0569
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/231/gaussian_model_231.pth.tar
+Test PSNR:35.5939, MS_SSIM:0.943239
+Frame232_Training Complete in 13.9191s, Eval time:0.00069971s, FPS:1429.1618
+Frame_232: 1080x1920, PSNR:35.5939, MS-SSIM:0.9432, Training:13.9191s, Eval:0.00069971s, FPS:1429.1618
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/232/gaussian_model_232.pth.tar
+Test PSNR:35.6020, MS_SSIM:0.943054
+Frame233_Training Complete in 13.8038s, Eval time:0.00069927s, FPS:1430.0730
+Frame_233: 1080x1920, PSNR:35.6020, MS-SSIM:0.9431, Training:13.8038s, Eval:0.00069927s, FPS:1430.0730
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/233/gaussian_model_233.pth.tar
+Test PSNR:35.6089, MS_SSIM:0.942916
+Frame234_Training Complete in 13.2143s, Eval time:0.00078892s, FPS:1267.5596
+Frame_234: 1080x1920, PSNR:35.6089, MS-SSIM:0.9429, Training:13.2143s, Eval:0.00078892s, FPS:1267.5596
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/234/gaussian_model_234.pth.tar
+Test PSNR:35.6131, MS_SSIM:0.942835
+Frame235_Training Complete in 14.4777s, Eval time:0.00079287s, FPS:1261.2400
+Frame_235: 1080x1920, PSNR:35.6131, MS-SSIM:0.9428, Training:14.4777s, Eval:0.00079287s, FPS:1261.2400
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/235/gaussian_model_235.pth.tar
+Test PSNR:35.6020, MS_SSIM:0.942677
+Frame236_Training Complete in 16.1369s, Eval time:0.00078710s, FPS:1270.4815
+Frame_236: 1080x1920, PSNR:35.6020, MS-SSIM:0.9427, Training:16.1369s, Eval:0.00078710s, FPS:1270.4815
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/236/gaussian_model_236.pth.tar
+Test PSNR:35.5967, MS_SSIM:0.942572
+Frame237_Training Complete in 13.7167s, Eval time:0.00070540s, FPS:1417.6316
+Frame_237: 1080x1920, PSNR:35.5967, MS-SSIM:0.9426, Training:13.7167s, Eval:0.00070540s, FPS:1417.6316
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/237/gaussian_model_237.pth.tar
+Test PSNR:35.5933, MS_SSIM:0.942602
+Frame238_Training Complete in 13.3027s, Eval time:0.00078601s, FPS:1272.2503
+Frame_238: 1080x1920, PSNR:35.5933, MS-SSIM:0.9426, Training:13.3027s, Eval:0.00078601s, FPS:1272.2503
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/238/gaussian_model_238.pth.tar
+Test PSNR:35.5671, MS_SSIM:0.942281
+Frame239_Training Complete in 14.7157s, Eval time:0.00069825s, FPS:1432.1581
+Frame_239: 1080x1920, PSNR:35.5671, MS-SSIM:0.9423, Training:14.7157s, Eval:0.00069825s, FPS:1432.1581
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/239/gaussian_model_239.pth.tar
+Test PSNR:35.5616, MS_SSIM:0.942273
+Frame240_Training Complete in 12.3133s, Eval time:0.00079350s, FPS:1260.2471
+Frame_240: 1080x1920, PSNR:35.5616, MS-SSIM:0.9423, Training:12.3133s, Eval:0.00079350s, FPS:1260.2471
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/240/gaussian_model_240.pth.tar
+Test PSNR:35.5501, MS_SSIM:0.942165
+Frame241_Training Complete in 13.1169s, Eval time:0.00070567s, FPS:1417.0903
+Frame_241: 1080x1920, PSNR:35.5501, MS-SSIM:0.9422, Training:13.1169s, Eval:0.00070567s, FPS:1417.0903
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/241/gaussian_model_241.pth.tar
+Test PSNR:35.5699, MS_SSIM:0.942394
+Frame242_Training Complete in 13.6885s, Eval time:0.00078835s, FPS:1268.4681
+Frame_242: 1080x1920, PSNR:35.5699, MS-SSIM:0.9424, Training:13.6885s, Eval:0.00078835s, FPS:1268.4681
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/242/gaussian_model_242.pth.tar
+Test PSNR:35.5623, MS_SSIM:0.942041
+Frame243_Training Complete in 14.5523s, Eval time:0.00078447s, FPS:1274.7405
+Frame_243: 1080x1920, PSNR:35.5623, MS-SSIM:0.9420, Training:14.5523s, Eval:0.00078447s, FPS:1274.7405
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/243/gaussian_model_243.pth.tar
+Test PSNR:35.5563, MS_SSIM:0.941961
+Frame244_Training Complete in 12.4145s, Eval time:0.00079494s, FPS:1257.9641
+Frame_244: 1080x1920, PSNR:35.5563, MS-SSIM:0.9420, Training:12.4145s, Eval:0.00079494s, FPS:1257.9641
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/244/gaussian_model_244.pth.tar
+Test PSNR:35.5542, MS_SSIM:0.942022
+Frame245_Training Complete in 13.6288s, Eval time:0.00070738s, FPS:1413.6610
+Frame_245: 1080x1920, PSNR:35.5542, MS-SSIM:0.9420, Training:13.6288s, Eval:0.00070738s, FPS:1413.6610
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/245/gaussian_model_245.pth.tar
+Test PSNR:35.5503, MS_SSIM:0.941879
+Frame246_Training Complete in 12.6090s, Eval time:0.00079340s, FPS:1260.3948
+Frame_246: 1080x1920, PSNR:35.5503, MS-SSIM:0.9419, Training:12.6090s, Eval:0.00079340s, FPS:1260.3948
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/246/gaussian_model_246.pth.tar
+Test PSNR:35.5448, MS_SSIM:0.941754
+Frame247_Training Complete in 14.1622s, Eval time:0.00079707s, FPS:1254.5927
+Frame_247: 1080x1920, PSNR:35.5448, MS-SSIM:0.9418, Training:14.1622s, Eval:0.00079707s, FPS:1254.5927
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/247/gaussian_model_247.pth.tar
+Test PSNR:35.5549, MS_SSIM:0.942024
+Frame248_Training Complete in 12.4248s, Eval time:0.00070848s, FPS:1411.4774
+Frame_248: 1080x1920, PSNR:35.5549, MS-SSIM:0.9420, Training:12.4248s, Eval:0.00070848s, FPS:1411.4774
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/248/gaussian_model_248.pth.tar
+Test PSNR:35.5436, MS_SSIM:0.942054
+Frame249_Training Complete in 14.0109s, Eval time:0.00070555s, FPS:1417.3346
+Frame_249: 1080x1920, PSNR:35.5436, MS-SSIM:0.9421, Training:14.0109s, Eval:0.00070555s, FPS:1417.3346
+Test PSNR:35.7693, MS_SSIM:0.946629
+Frame250_Training Complete in 110.0097s, Eval time:0.00078463s, FPS:1274.4848
+Frame_250: 1080x1920, PSNR:35.7693, MS-SSIM:0.9466, Training:110.0097s, Eval:0.00078463s, FPS:1274.4848
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/250/gaussian_model_250.pth.tar
+Test PSNR:35.4736, MS_SSIM:0.940272
+Frame251_Training Complete in 15.0324s, Eval time:0.00077653s, FPS:1287.7853
+Frame_251: 1080x1920, PSNR:35.4736, MS-SSIM:0.9403, Training:15.0324s, Eval:0.00077653s, FPS:1287.7853
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/251/gaussian_model_251.pth.tar
+Test PSNR:35.4692, MS_SSIM:0.940148
+Frame252_Training Complete in 11.4925s, Eval time:0.00076759s, FPS:1302.7731
+Frame_252: 1080x1920, PSNR:35.4692, MS-SSIM:0.9401, Training:11.4925s, Eval:0.00076759s, FPS:1302.7731
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/252/gaussian_model_252.pth.tar
+Test PSNR:35.4666, MS_SSIM:0.940253
+Frame253_Training Complete in 13.9693s, Eval time:0.00076544s, FPS:1306.4333
+Frame_253: 1080x1920, PSNR:35.4666, MS-SSIM:0.9403, Training:13.9693s, Eval:0.00076544s, FPS:1306.4333
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/253/gaussian_model_253.pth.tar
+Test PSNR:35.4700, MS_SSIM:0.940646
+Frame254_Training Complete in 13.4122s, Eval time:0.00077020s, FPS:1298.3612
+Frame_254: 1080x1920, PSNR:35.4700, MS-SSIM:0.9406, Training:13.4122s, Eval:0.00077020s, FPS:1298.3612
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/254/gaussian_model_254.pth.tar
+Test PSNR:35.4707, MS_SSIM:0.940702
+Frame255_Training Complete in 13.8020s, Eval time:0.00065481s, FPS:1527.1673
+Frame_255: 1080x1920, PSNR:35.4707, MS-SSIM:0.9407, Training:13.8020s, Eval:0.00065481s, FPS:1527.1673
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/255/gaussian_model_255.pth.tar
+Test PSNR:35.4655, MS_SSIM:0.940912
+Frame256_Training Complete in 12.2556s, Eval time:0.00062379s, FPS:1603.1005
+Frame_256: 1080x1920, PSNR:35.4655, MS-SSIM:0.9409, Training:12.2556s, Eval:0.00062379s, FPS:1603.1005
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/256/gaussian_model_256.pth.tar
+Test PSNR:35.4644, MS_SSIM:0.940932
+Frame257_Training Complete in 15.4255s, Eval time:0.00074206s, FPS:1347.6065
+Frame_257: 1080x1920, PSNR:35.4644, MS-SSIM:0.9409, Training:15.4255s, Eval:0.00074206s, FPS:1347.6065
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/257/gaussian_model_257.pth.tar
+Test PSNR:35.4746, MS_SSIM:0.940961
+Frame258_Training Complete in 11.2935s, Eval time:0.00062706s, FPS:1594.7560
+Frame_258: 1080x1920, PSNR:35.4746, MS-SSIM:0.9410, Training:11.2935s, Eval:0.00062706s, FPS:1594.7560
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/258/gaussian_model_258.pth.tar
+Test PSNR:35.4760, MS_SSIM:0.940935
+Frame259_Training Complete in 12.5533s, Eval time:0.00076225s, FPS:1311.9007
+Frame_259: 1080x1920, PSNR:35.4760, MS-SSIM:0.9409, Training:12.5533s, Eval:0.00076225s, FPS:1311.9007
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/259/gaussian_model_259.pth.tar
+Test PSNR:35.4920, MS_SSIM:0.940959
+Frame260_Training Complete in 12.1292s, Eval time:0.00066826s, FPS:1496.4212
+Frame_260: 1080x1920, PSNR:35.4920, MS-SSIM:0.9410, Training:12.1292s, Eval:0.00066826s, FPS:1496.4212
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/260/gaussian_model_260.pth.tar
+Test PSNR:35.5034, MS_SSIM:0.940816
+Frame261_Training Complete in 14.6687s, Eval time:0.00077514s, FPS:1290.0906
+Frame_261: 1080x1920, PSNR:35.5034, MS-SSIM:0.9408, Training:14.6687s, Eval:0.00077514s, FPS:1290.0906
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/261/gaussian_model_261.pth.tar
+Test PSNR:35.5219, MS_SSIM:0.940986
+Frame262_Training Complete in 15.6600s, Eval time:0.00076659s, FPS:1304.4748
+Frame_262: 1080x1920, PSNR:35.5219, MS-SSIM:0.9410, Training:15.6600s, Eval:0.00076659s, FPS:1304.4748
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/262/gaussian_model_262.pth.tar
+Test PSNR:35.5207, MS_SSIM:0.940945
+Frame263_Training Complete in 12.5559s, Eval time:0.00067319s, FPS:1485.4561
+Frame_263: 1080x1920, PSNR:35.5207, MS-SSIM:0.9409, Training:12.5559s, Eval:0.00067319s, FPS:1485.4561
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/263/gaussian_model_263.pth.tar
+Test PSNR:35.5068, MS_SSIM:0.941068
+Frame264_Training Complete in 12.6119s, Eval time:0.00067193s, FPS:1488.2549
+Frame_264: 1080x1920, PSNR:35.5068, MS-SSIM:0.9411, Training:12.6119s, Eval:0.00067193s, FPS:1488.2549
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/264/gaussian_model_264.pth.tar
+Test PSNR:35.4993, MS_SSIM:0.941150
+Frame265_Training Complete in 15.4861s, Eval time:0.00067995s, FPS:1470.6948
+Frame_265: 1080x1920, PSNR:35.4993, MS-SSIM:0.9412, Training:15.4861s, Eval:0.00067995s, FPS:1470.6948
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/265/gaussian_model_265.pth.tar
+Test PSNR:35.5202, MS_SSIM:0.941332
+Frame266_Training Complete in 15.8031s, Eval time:0.00077624s, FPS:1288.2679
+Frame_266: 1080x1920, PSNR:35.5202, MS-SSIM:0.9413, Training:15.8031s, Eval:0.00077624s, FPS:1288.2679
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/266/gaussian_model_266.pth.tar
+Test PSNR:35.5377, MS_SSIM:0.941583
+Frame267_Training Complete in 15.8030s, Eval time:0.00068189s, FPS:1466.5040
+Frame_267: 1080x1920, PSNR:35.5377, MS-SSIM:0.9416, Training:15.8030s, Eval:0.00068189s, FPS:1466.5040
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/267/gaussian_model_267.pth.tar
+Test PSNR:35.5433, MS_SSIM:0.941642
+Frame268_Training Complete in 13.9717s, Eval time:0.00064416s, FPS:1552.3995
+Frame_268: 1080x1920, PSNR:35.5433, MS-SSIM:0.9416, Training:13.9717s, Eval:0.00064416s, FPS:1552.3995
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/268/gaussian_model_268.pth.tar
+Test PSNR:35.5328, MS_SSIM:0.941617
+Frame269_Training Complete in 14.9134s, Eval time:0.00068639s, FPS:1456.9019
+Frame_269: 1080x1920, PSNR:35.5328, MS-SSIM:0.9416, Training:14.9134s, Eval:0.00068639s, FPS:1456.9019
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/269/gaussian_model_269.pth.tar
+Test PSNR:35.5349, MS_SSIM:0.941755
+Frame270_Training Complete in 13.6242s, Eval time:0.00068174s, FPS:1466.8373
+Frame_270: 1080x1920, PSNR:35.5349, MS-SSIM:0.9418, Training:13.6242s, Eval:0.00068174s, FPS:1466.8373
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/270/gaussian_model_270.pth.tar
+Test PSNR:35.5080, MS_SSIM:0.941638
+Frame271_Training Complete in 14.9525s, Eval time:0.00078135s, FPS:1279.8360
+Frame_271: 1080x1920, PSNR:35.5080, MS-SSIM:0.9416, Training:14.9525s, Eval:0.00078135s, FPS:1279.8360
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/271/gaussian_model_271.pth.tar
+Test PSNR:35.5128, MS_SSIM:0.941800
+Frame272_Training Complete in 12.6634s, Eval time:0.00077933s, FPS:1283.1523
+Frame_272: 1080x1920, PSNR:35.5128, MS-SSIM:0.9418, Training:12.6634s, Eval:0.00077933s, FPS:1283.1523
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/272/gaussian_model_272.pth.tar
+Test PSNR:35.5047, MS_SSIM:0.941860
+Frame273_Training Complete in 12.3977s, Eval time:0.00069078s, FPS:1447.6446
+Frame_273: 1080x1920, PSNR:35.5047, MS-SSIM:0.9419, Training:12.3977s, Eval:0.00069078s, FPS:1447.6446
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/273/gaussian_model_273.pth.tar
+Test PSNR:35.5100, MS_SSIM:0.942146
+Frame274_Training Complete in 12.7418s, Eval time:0.00066361s, FPS:1506.8995
+Frame_274: 1080x1920, PSNR:35.5100, MS-SSIM:0.9421, Training:12.7418s, Eval:0.00066361s, FPS:1506.8995
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/274/gaussian_model_274.pth.tar
+Test PSNR:35.4371, MS_SSIM:0.941877
+Frame275_Training Complete in 12.4629s, Eval time:0.00069147s, FPS:1446.2020
+Frame_275: 1080x1920, PSNR:35.4371, MS-SSIM:0.9419, Training:12.4629s, Eval:0.00069147s, FPS:1446.2020
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/275/gaussian_model_275.pth.tar
+Test PSNR:35.4193, MS_SSIM:0.942325
+Frame276_Training Complete in 14.4620s, Eval time:0.00069377s, FPS:1441.3961
+Frame_276: 1080x1920, PSNR:35.4193, MS-SSIM:0.9423, Training:14.4620s, Eval:0.00069377s, FPS:1441.3961
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/276/gaussian_model_276.pth.tar
+Test PSNR:35.4379, MS_SSIM:0.942307
+Frame277_Training Complete in 13.2372s, Eval time:0.00069320s, FPS:1442.5908
+Frame_277: 1080x1920, PSNR:35.4379, MS-SSIM:0.9423, Training:13.2372s, Eval:0.00069320s, FPS:1442.5908
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/277/gaussian_model_277.pth.tar
+Test PSNR:35.4663, MS_SSIM:0.942448
+Frame278_Training Complete in 13.3290s, Eval time:0.00078193s, FPS:1278.8916
+Frame_278: 1080x1920, PSNR:35.4663, MS-SSIM:0.9424, Training:13.3290s, Eval:0.00078193s, FPS:1278.8916
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/278/gaussian_model_278.pth.tar
+Test PSNR:35.4499, MS_SSIM:0.942164
+Frame279_Training Complete in 12.3221s, Eval time:0.00069538s, FPS:1438.0652
+Frame_279: 1080x1920, PSNR:35.4499, MS-SSIM:0.9422, Training:12.3221s, Eval:0.00069538s, FPS:1438.0652
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/279/gaussian_model_279.pth.tar
+Test PSNR:35.4773, MS_SSIM:0.942282
+Frame280_Training Complete in 16.0343s, Eval time:0.00069805s, FPS:1432.5640
+Frame_280: 1080x1920, PSNR:35.4773, MS-SSIM:0.9423, Training:16.0343s, Eval:0.00069805s, FPS:1432.5640
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/280/gaussian_model_280.pth.tar
+Test PSNR:35.4846, MS_SSIM:0.942195
+Frame281_Training Complete in 12.3666s, Eval time:0.00069570s, FPS:1437.3998
+Frame_281: 1080x1920, PSNR:35.4846, MS-SSIM:0.9422, Training:12.3666s, Eval:0.00069570s, FPS:1437.3998
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/281/gaussian_model_281.pth.tar
+Test PSNR:35.5061, MS_SSIM:0.942316
+Frame282_Training Complete in 16.0841s, Eval time:0.00069679s, FPS:1435.1620
+Frame_282: 1080x1920, PSNR:35.5061, MS-SSIM:0.9423, Training:16.0841s, Eval:0.00069679s, FPS:1435.1620
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/282/gaussian_model_282.pth.tar
+Test PSNR:35.5127, MS_SSIM:0.942227
+Frame283_Training Complete in 14.1551s, Eval time:0.00067253s, FPS:1486.9306
+Frame_283: 1080x1920, PSNR:35.5127, MS-SSIM:0.9422, Training:14.1551s, Eval:0.00067253s, FPS:1486.9306
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/283/gaussian_model_283.pth.tar
+Test PSNR:35.5370, MS_SSIM:0.942464
+Frame284_Training Complete in 12.4647s, Eval time:0.00069725s, FPS:1434.2149
+Frame_284: 1080x1920, PSNR:35.5370, MS-SSIM:0.9425, Training:12.4647s, Eval:0.00069725s, FPS:1434.2149
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/284/gaussian_model_284.pth.tar
+Test PSNR:35.5591, MS_SSIM:0.942432
+Frame285_Training Complete in 12.2956s, Eval time:0.00070021s, FPS:1428.1447
+Frame_285: 1080x1920, PSNR:35.5591, MS-SSIM:0.9424, Training:12.2956s, Eval:0.00070021s, FPS:1428.1447
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/285/gaussian_model_285.pth.tar
+Test PSNR:35.5798, MS_SSIM:0.942817
+Frame286_Training Complete in 13.2274s, Eval time:0.00070135s, FPS:1425.8144
+Frame_286: 1080x1920, PSNR:35.5798, MS-SSIM:0.9428, Training:13.2274s, Eval:0.00070135s, FPS:1425.8144
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/286/gaussian_model_286.pth.tar
+Test PSNR:35.5722, MS_SSIM:0.942781
+Frame287_Training Complete in 16.1409s, Eval time:0.00078662s, FPS:1271.2593
+Frame_287: 1080x1920, PSNR:35.5722, MS-SSIM:0.9428, Training:16.1409s, Eval:0.00078662s, FPS:1271.2593
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/287/gaussian_model_287.pth.tar
+Test PSNR:35.5866, MS_SSIM:0.942781
+Frame288_Training Complete in 12.9956s, Eval time:0.00070327s, FPS:1421.9377
+Frame_288: 1080x1920, PSNR:35.5866, MS-SSIM:0.9428, Training:12.9956s, Eval:0.00070327s, FPS:1421.9377
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/288/gaussian_model_288.pth.tar
+Test PSNR:35.5914, MS_SSIM:0.942811
+Frame289_Training Complete in 12.5099s, Eval time:0.00070588s, FPS:1416.6691
+Frame_289: 1080x1920, PSNR:35.5914, MS-SSIM:0.9428, Training:12.5099s, Eval:0.00070588s, FPS:1416.6691
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/289/gaussian_model_289.pth.tar
+Test PSNR:35.5896, MS_SSIM:0.942719
+Frame290_Training Complete in 12.6840s, Eval time:0.00078842s, FPS:1268.3530
+Frame_290: 1080x1920, PSNR:35.5896, MS-SSIM:0.9427, Training:12.6840s, Eval:0.00078842s, FPS:1268.3530
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/290/gaussian_model_290.pth.tar
+Test PSNR:35.5899, MS_SSIM:0.942623
+Frame291_Training Complete in 16.1798s, Eval time:0.00076327s, FPS:1310.1591
+Frame_291: 1080x1920, PSNR:35.5899, MS-SSIM:0.9426, Training:16.1798s, Eval:0.00076327s, FPS:1310.1591
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/291/gaussian_model_291.pth.tar
+Test PSNR:35.5871, MS_SSIM:0.942584
+Frame292_Training Complete in 12.5601s, Eval time:0.00067484s, FPS:1481.8296
+Frame_292: 1080x1920, PSNR:35.5871, MS-SSIM:0.9426, Training:12.5601s, Eval:0.00067484s, FPS:1481.8296
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/292/gaussian_model_292.pth.tar
+Test PSNR:35.5928, MS_SSIM:0.942754
+Frame293_Training Complete in 12.8804s, Eval time:0.00078788s, FPS:1269.2243
+Frame_293: 1080x1920, PSNR:35.5928, MS-SSIM:0.9428, Training:12.8804s, Eval:0.00078788s, FPS:1269.2243
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/293/gaussian_model_293.pth.tar
+Test PSNR:35.5866, MS_SSIM:0.942636
+Frame294_Training Complete in 12.4938s, Eval time:0.00070510s, FPS:1418.2356
+Frame_294: 1080x1920, PSNR:35.5866, MS-SSIM:0.9426, Training:12.4938s, Eval:0.00070510s, FPS:1418.2356
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/294/gaussian_model_294.pth.tar
+Test PSNR:35.5879, MS_SSIM:0.942653
+Frame295_Training Complete in 13.7976s, Eval time:0.00078777s, FPS:1269.4087
+Frame_295: 1080x1920, PSNR:35.5879, MS-SSIM:0.9427, Training:13.7976s, Eval:0.00078777s, FPS:1269.4087
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/295/gaussian_model_295.pth.tar
+Test PSNR:35.5740, MS_SSIM:0.942391
+Frame296_Training Complete in 12.9375s, Eval time:0.00079102s, FPS:1264.1937
+Frame_296: 1080x1920, PSNR:35.5740, MS-SSIM:0.9424, Training:12.9375s, Eval:0.00079102s, FPS:1264.1937
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/296/gaussian_model_296.pth.tar
+Test PSNR:35.5766, MS_SSIM:0.942557
+Frame297_Training Complete in 13.5851s, Eval time:0.00071395s, FPS:1400.6505
+Frame_297: 1080x1920, PSNR:35.5766, MS-SSIM:0.9426, Training:13.5851s, Eval:0.00071395s, FPS:1400.6505
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/297/gaussian_model_297.pth.tar
+Test PSNR:35.5743, MS_SSIM:0.942665
+Frame298_Training Complete in 12.6754s, Eval time:0.00071388s, FPS:1400.7955
+Frame_298: 1080x1920, PSNR:35.5743, MS-SSIM:0.9427, Training:12.6754s, Eval:0.00071388s, FPS:1400.7955
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/298/gaussian_model_298.pth.tar
+Test PSNR:35.5623, MS_SSIM:0.942557
+Frame299_Training Complete in 13.2655s, Eval time:0.00071238s, FPS:1403.7538
+Frame_299: 1080x1920, PSNR:35.5623, MS-SSIM:0.9426, Training:13.2655s, Eval:0.00071238s, FPS:1403.7538
+Test PSNR:35.8015, MS_SSIM:0.947910
+Frame300_Training Complete in 108.1959s, Eval time:0.00064199s, FPS:1557.6458
+Frame_300: 1080x1920, PSNR:35.8015, MS-SSIM:0.9479, Training:108.1959s, Eval:0.00064199s, FPS:1557.6458
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/300/gaussian_model_300.pth.tar
+Test PSNR:35.5005, MS_SSIM:0.941654
+Frame301_Training Complete in 11.1162s, Eval time:0.00064161s, FPS:1558.5777
+Frame_301: 1080x1920, PSNR:35.5005, MS-SSIM:0.9417, Training:11.1162s, Eval:0.00064161s, FPS:1558.5777
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/301/gaussian_model_301.pth.tar
+Test PSNR:35.4909, MS_SSIM:0.941700
+Frame302_Training Complete in 12.9087s, Eval time:0.00064885s, FPS:1541.1849
+Frame_302: 1080x1920, PSNR:35.4909, MS-SSIM:0.9417, Training:12.9087s, Eval:0.00064885s, FPS:1541.1849
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/302/gaussian_model_302.pth.tar
+Test PSNR:35.4817, MS_SSIM:0.941584
+Frame303_Training Complete in 12.2460s, Eval time:0.00065057s, FPS:1537.1070
+Frame_303: 1080x1920, PSNR:35.4817, MS-SSIM:0.9416, Training:12.2460s, Eval:0.00065057s, FPS:1537.1070
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/303/gaussian_model_303.pth.tar
+Test PSNR:35.4946, MS_SSIM:0.941689
+Frame304_Training Complete in 11.8235s, Eval time:0.00065544s, FPS:1525.6952
+Frame_304: 1080x1920, PSNR:35.4946, MS-SSIM:0.9417, Training:11.8235s, Eval:0.00065544s, FPS:1525.6952
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/304/gaussian_model_304.pth.tar
+Test PSNR:35.5053, MS_SSIM:0.941510
+Frame305_Training Complete in 13.5003s, Eval time:0.00077347s, FPS:1292.8743
+Frame_305: 1080x1920, PSNR:35.5053, MS-SSIM:0.9415, Training:13.5003s, Eval:0.00077347s, FPS:1292.8743
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/305/gaussian_model_305.pth.tar
+Test PSNR:35.5089, MS_SSIM:0.941341
+Frame306_Training Complete in 12.3853s, Eval time:0.00077477s, FPS:1290.7139
+Frame_306: 1080x1920, PSNR:35.5089, MS-SSIM:0.9413, Training:12.3853s, Eval:0.00077477s, FPS:1290.7139
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/306/gaussian_model_306.pth.tar
+Test PSNR:35.5277, MS_SSIM:0.941524
+Frame307_Training Complete in 11.6666s, Eval time:0.00078441s, FPS:1274.8489
+Frame_307: 1080x1920, PSNR:35.5277, MS-SSIM:0.9415, Training:11.6666s, Eval:0.00078441s, FPS:1274.8489
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/307/gaussian_model_307.pth.tar
+Test PSNR:35.5347, MS_SSIM:0.941292
+Frame308_Training Complete in 13.1829s, Eval time:0.00077843s, FPS:1284.6339
+Frame_308: 1080x1920, PSNR:35.5347, MS-SSIM:0.9413, Training:13.1829s, Eval:0.00077843s, FPS:1284.6339
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/308/gaussian_model_308.pth.tar
+Test PSNR:35.5563, MS_SSIM:0.941571
+Frame309_Training Complete in 12.2570s, Eval time:0.00066853s, FPS:1495.8288
+Frame_309: 1080x1920, PSNR:35.5563, MS-SSIM:0.9416, Training:12.2570s, Eval:0.00066853s, FPS:1495.8288
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/309/gaussian_model_309.pth.tar
+Test PSNR:35.5573, MS_SSIM:0.941762
+Frame310_Training Complete in 12.5797s, Eval time:0.00063375s, FPS:1577.9212
+Frame_310: 1080x1920, PSNR:35.5573, MS-SSIM:0.9418, Training:12.5797s, Eval:0.00063375s, FPS:1577.9212
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/310/gaussian_model_310.pth.tar
+Test PSNR:35.5794, MS_SSIM:0.941917
+Frame311_Training Complete in 12.2209s, Eval time:0.00078260s, FPS:1277.7851
+Frame_311: 1080x1920, PSNR:35.5794, MS-SSIM:0.9419, Training:12.2209s, Eval:0.00078260s, FPS:1277.7851
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/311/gaussian_model_311.pth.tar
+Test PSNR:35.5844, MS_SSIM:0.942074
+Frame312_Training Complete in 15.7639s, Eval time:0.00078351s, FPS:1276.3114
+Frame_312: 1080x1920, PSNR:35.5844, MS-SSIM:0.9421, Training:15.7639s, Eval:0.00078351s, FPS:1276.3114
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/312/gaussian_model_312.pth.tar
+Test PSNR:35.5956, MS_SSIM:0.942188
+Frame313_Training Complete in 14.7795s, Eval time:0.00077005s, FPS:1298.6185
+Frame_313: 1080x1920, PSNR:35.5956, MS-SSIM:0.9422, Training:14.7795s, Eval:0.00077005s, FPS:1298.6185
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/313/gaussian_model_313.pth.tar
+Test PSNR:35.6147, MS_SSIM:0.942358
+Frame314_Training Complete in 13.4080s, Eval time:0.00067195s, FPS:1488.2126
+Frame_314: 1080x1920, PSNR:35.6147, MS-SSIM:0.9424, Training:13.4080s, Eval:0.00067195s, FPS:1488.2126
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/314/gaussian_model_314.pth.tar
+Test PSNR:35.6153, MS_SSIM:0.942436
+Frame315_Training Complete in 14.9736s, Eval time:0.00064407s, FPS:1552.6351
+Frame_315: 1080x1920, PSNR:35.6153, MS-SSIM:0.9424, Training:14.9736s, Eval:0.00064407s, FPS:1552.6351
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/315/gaussian_model_315.pth.tar
+Test PSNR:35.6379, MS_SSIM:0.942671
+Frame316_Training Complete in 13.3602s, Eval time:0.00064358s, FPS:1553.8085
+Frame_316: 1080x1920, PSNR:35.6379, MS-SSIM:0.9427, Training:13.3602s, Eval:0.00064358s, FPS:1553.8085
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/316/gaussian_model_316.pth.tar
+Test PSNR:35.6462, MS_SSIM:0.942710
+Frame317_Training Complete in 12.4106s, Eval time:0.00068535s, FPS:1459.1066
+Frame_317: 1080x1920, PSNR:35.6462, MS-SSIM:0.9427, Training:12.4106s, Eval:0.00068535s, FPS:1459.1066
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/317/gaussian_model_317.pth.tar
+Test PSNR:35.6576, MS_SSIM:0.942929
+Frame318_Training Complete in 12.4603s, Eval time:0.00068175s, FPS:1466.8168
+Frame_318: 1080x1920, PSNR:35.6576, MS-SSIM:0.9429, Training:12.4603s, Eval:0.00068175s, FPS:1466.8168
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/318/gaussian_model_318.pth.tar
+Test PSNR:35.6503, MS_SSIM:0.942709
+Frame319_Training Complete in 12.7044s, Eval time:0.00078802s, FPS:1269.0093
+Frame_319: 1080x1920, PSNR:35.6503, MS-SSIM:0.9427, Training:12.7044s, Eval:0.00078802s, FPS:1269.0093
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/319/gaussian_model_319.pth.tar
+Test PSNR:35.6651, MS_SSIM:0.943120
+Frame320_Training Complete in 11.8265s, Eval time:0.00068326s, FPS:1463.5616
+Frame_320: 1080x1920, PSNR:35.6651, MS-SSIM:0.9431, Training:11.8265s, Eval:0.00068326s, FPS:1463.5616
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/320/gaussian_model_320.pth.tar
+Test PSNR:35.6776, MS_SSIM:0.943403
+Frame321_Training Complete in 12.1727s, Eval time:0.00065774s, FPS:1520.3474
+Frame_321: 1080x1920, PSNR:35.6776, MS-SSIM:0.9434, Training:12.1727s, Eval:0.00065774s, FPS:1520.3474
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/321/gaussian_model_321.pth.tar
+Test PSNR:35.6722, MS_SSIM:0.943367
+Frame322_Training Complete in 12.9555s, Eval time:0.00065274s, FPS:1531.9980
+Frame_322: 1080x1920, PSNR:35.6722, MS-SSIM:0.9434, Training:12.9555s, Eval:0.00065274s, FPS:1531.9980
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/322/gaussian_model_322.pth.tar
+Test PSNR:35.6833, MS_SSIM:0.943645
+Frame323_Training Complete in 11.9569s, Eval time:0.00065471s, FPS:1527.3953
+Frame_323: 1080x1920, PSNR:35.6833, MS-SSIM:0.9436, Training:11.9569s, Eval:0.00065471s, FPS:1527.3953
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/323/gaussian_model_323.pth.tar
+Test PSNR:35.6679, MS_SSIM:0.943648
+Frame324_Training Complete in 12.7398s, Eval time:0.00068465s, FPS:1460.6106
+Frame_324: 1080x1920, PSNR:35.6679, MS-SSIM:0.9436, Training:12.7398s, Eval:0.00068465s, FPS:1460.6106
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/324/gaussian_model_324.pth.tar
+Test PSNR:35.6572, MS_SSIM:0.943841
+Frame325_Training Complete in 12.3171s, Eval time:0.00080167s, FPS:1247.3952
+Frame_325: 1080x1920, PSNR:35.6572, MS-SSIM:0.9438, Training:12.3171s, Eval:0.00080167s, FPS:1247.3952
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/325/gaussian_model_325.pth.tar
+Test PSNR:35.6579, MS_SSIM:0.943823
+Frame326_Training Complete in 12.4788s, Eval time:0.00068997s, FPS:1449.3303
+Frame_326: 1080x1920, PSNR:35.6579, MS-SSIM:0.9438, Training:12.4788s, Eval:0.00068997s, FPS:1449.3303
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/326/gaussian_model_326.pth.tar
+Test PSNR:35.6483, MS_SSIM:0.943876
+Frame327_Training Complete in 12.9449s, Eval time:0.00078784s, FPS:1269.2934
+Frame_327: 1080x1920, PSNR:35.6483, MS-SSIM:0.9439, Training:12.9449s, Eval:0.00078784s, FPS:1269.2934
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/327/gaussian_model_327.pth.tar
+Test PSNR:35.6288, MS_SSIM:0.943702
+Frame328_Training Complete in 13.4953s, Eval time:0.00069572s, FPS:1437.3604
+Frame_328: 1080x1920, PSNR:35.6288, MS-SSIM:0.9437, Training:13.4953s, Eval:0.00069572s, FPS:1437.3604
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/328/gaussian_model_328.pth.tar
+Test PSNR:35.6375, MS_SSIM:0.943833
+Frame329_Training Complete in 12.8311s, Eval time:0.00066157s, FPS:1511.5644
+Frame_329: 1080x1920, PSNR:35.6375, MS-SSIM:0.9438, Training:12.8311s, Eval:0.00066157s, FPS:1511.5644
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/329/gaussian_model_329.pth.tar
+Test PSNR:35.6228, MS_SSIM:0.943832
+Frame330_Training Complete in 15.3931s, Eval time:0.00066177s, FPS:1511.0961
+Frame_330: 1080x1920, PSNR:35.6228, MS-SSIM:0.9438, Training:15.3931s, Eval:0.00066177s, FPS:1511.0961
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/330/gaussian_model_330.pth.tar
+Test PSNR:35.5916, MS_SSIM:0.943616
+Frame331_Training Complete in 13.9541s, Eval time:0.00069368s, FPS:1441.5843
+Frame_331: 1080x1920, PSNR:35.5916, MS-SSIM:0.9436, Training:13.9541s, Eval:0.00069368s, FPS:1441.5843
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/331/gaussian_model_331.pth.tar
+Test PSNR:35.6012, MS_SSIM:0.943889
+Frame332_Training Complete in 12.0947s, Eval time:0.00069863s, FPS:1431.3761
+Frame_332: 1080x1920, PSNR:35.6012, MS-SSIM:0.9439, Training:12.0947s, Eval:0.00069863s, FPS:1431.3761
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/332/gaussian_model_332.pth.tar
+Test PSNR:35.5982, MS_SSIM:0.943805
+Frame333_Training Complete in 12.2722s, Eval time:0.00070330s, FPS:1421.8606
+Frame_333: 1080x1920, PSNR:35.5982, MS-SSIM:0.9438, Training:12.2722s, Eval:0.00070330s, FPS:1421.8606
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/333/gaussian_model_333.pth.tar
+Test PSNR:35.5925, MS_SSIM:0.943917
+Frame334_Training Complete in 12.8148s, Eval time:0.00078645s, FPS:1271.5368
+Frame_334: 1080x1920, PSNR:35.5925, MS-SSIM:0.9439, Training:12.8148s, Eval:0.00078645s, FPS:1271.5368
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/334/gaussian_model_334.pth.tar
+Test PSNR:35.6038, MS_SSIM:0.943902
+Frame335_Training Complete in 12.4185s, Eval time:0.00069883s, FPS:1430.9561
+Frame_335: 1080x1920, PSNR:35.6038, MS-SSIM:0.9439, Training:12.4185s, Eval:0.00069883s, FPS:1430.9561
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/335/gaussian_model_335.pth.tar
+Test PSNR:35.6286, MS_SSIM:0.944094
+Frame336_Training Complete in 12.3705s, Eval time:0.00070073s, FPS:1427.0903
+Frame_336: 1080x1920, PSNR:35.6286, MS-SSIM:0.9441, Training:12.3705s, Eval:0.00070073s, FPS:1427.0903
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/336/gaussian_model_336.pth.tar
+Test PSNR:35.6358, MS_SSIM:0.944084
+Frame337_Training Complete in 12.6767s, Eval time:0.00070150s, FPS:1425.5140
+Frame_337: 1080x1920, PSNR:35.6358, MS-SSIM:0.9441, Training:12.6767s, Eval:0.00070150s, FPS:1425.5140
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/337/gaussian_model_337.pth.tar
+Test PSNR:35.6351, MS_SSIM:0.943923
+Frame338_Training Complete in 12.3601s, Eval time:0.00070091s, FPS:1426.7214
+Frame_338: 1080x1920, PSNR:35.6351, MS-SSIM:0.9439, Training:12.3601s, Eval:0.00070091s, FPS:1426.7214
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/338/gaussian_model_338.pth.tar
+Test PSNR:35.6491, MS_SSIM:0.943910
+Frame339_Training Complete in 13.6140s, Eval time:0.00078803s, FPS:1268.9901
+Frame_339: 1080x1920, PSNR:35.6491, MS-SSIM:0.9439, Training:13.6140s, Eval:0.00078803s, FPS:1268.9901
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/339/gaussian_model_339.pth.tar
+Test PSNR:35.6566, MS_SSIM:0.943751
+Frame340_Training Complete in 12.4178s, Eval time:0.00081574s, FPS:1225.8813
+Frame_340: 1080x1920, PSNR:35.6566, MS-SSIM:0.9438, Training:12.4178s, Eval:0.00081574s, FPS:1225.8813
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/340/gaussian_model_340.pth.tar
+Test PSNR:35.6556, MS_SSIM:0.943682
+Frame341_Training Complete in 15.0506s, Eval time:0.00070341s, FPS:1421.6486
+Frame_341: 1080x1920, PSNR:35.6556, MS-SSIM:0.9437, Training:15.0506s, Eval:0.00070341s, FPS:1421.6486
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/341/gaussian_model_341.pth.tar
+Test PSNR:35.6644, MS_SSIM:0.943787
+Frame342_Training Complete in 12.5452s, Eval time:0.00067540s, FPS:1480.6108
+Frame_342: 1080x1920, PSNR:35.6644, MS-SSIM:0.9438, Training:12.5452s, Eval:0.00067540s, FPS:1480.6108
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/342/gaussian_model_342.pth.tar
+Test PSNR:35.6630, MS_SSIM:0.943838
+Frame343_Training Complete in 14.1154s, Eval time:0.00078808s, FPS:1268.9094
+Frame_343: 1080x1920, PSNR:35.6630, MS-SSIM:0.9438, Training:14.1154s, Eval:0.00078808s, FPS:1268.9094
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/343/gaussian_model_343.pth.tar
+Test PSNR:35.6618, MS_SSIM:0.943860
+Frame344_Training Complete in 13.4084s, Eval time:0.00079918s, FPS:1251.2877
+Frame_344: 1080x1920, PSNR:35.6618, MS-SSIM:0.9439, Training:13.4084s, Eval:0.00079918s, FPS:1251.2877
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/344/gaussian_model_344.pth.tar
+Test PSNR:35.6652, MS_SSIM:0.943876
+Frame345_Training Complete in 15.5926s, Eval time:0.00070801s, FPS:1412.3995
+Frame_345: 1080x1920, PSNR:35.6652, MS-SSIM:0.9439, Training:15.5926s, Eval:0.00070801s, FPS:1412.3995
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/345/gaussian_model_345.pth.tar
+Test PSNR:35.6632, MS_SSIM:0.943829
+Frame346_Training Complete in 12.7817s, Eval time:0.00070853s, FPS:1411.3729
+Frame_346: 1080x1920, PSNR:35.6632, MS-SSIM:0.9438, Training:12.7817s, Eval:0.00070853s, FPS:1411.3729
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/346/gaussian_model_346.pth.tar
+Test PSNR:35.6594, MS_SSIM:0.943838
+Frame347_Training Complete in 13.6590s, Eval time:0.00072279s, FPS:1383.5236
+Frame_347: 1080x1920, PSNR:35.6594, MS-SSIM:0.9438, Training:13.6590s, Eval:0.00072279s, FPS:1383.5236
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/347/gaussian_model_347.pth.tar
+Test PSNR:35.6477, MS_SSIM:0.944068
+Frame348_Training Complete in 14.2769s, Eval time:0.00070805s, FPS:1412.3234
+Frame_348: 1080x1920, PSNR:35.6477, MS-SSIM:0.9441, Training:14.2769s, Eval:0.00070805s, FPS:1412.3234
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/348/gaussian_model_348.pth.tar
+Test PSNR:35.6547, MS_SSIM:0.944226
+Frame349_Training Complete in 12.7417s, Eval time:0.00079450s, FPS:1258.6550
+Frame_349: 1080x1920, PSNR:35.6547, MS-SSIM:0.9442, Training:12.7417s, Eval:0.00079450s, FPS:1258.6550
+Test PSNR:35.9072, MS_SSIM:0.949372
+Frame350_Training Complete in 119.1109s, Eval time:0.00077328s, FPS:1293.1932
+Frame_350: 1080x1920, PSNR:35.9072, MS-SSIM:0.9494, Training:119.1109s, Eval:0.00077328s, FPS:1293.1932
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/350/gaussian_model_350.pth.tar
+Test PSNR:35.6057, MS_SSIM:0.943525
+Frame351_Training Complete in 12.9862s, Eval time:0.00077275s, FPS:1294.0869
+Frame_351: 1080x1920, PSNR:35.6057, MS-SSIM:0.9435, Training:12.9862s, Eval:0.00077275s, FPS:1294.0869
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/351/gaussian_model_351.pth.tar
+Test PSNR:35.6194, MS_SSIM:0.943627
+Frame352_Training Complete in 12.7913s, Eval time:0.00077174s, FPS:1295.7701
+Frame_352: 1080x1920, PSNR:35.6194, MS-SSIM:0.9436, Training:12.7913s, Eval:0.00077174s, FPS:1295.7701
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/352/gaussian_model_352.pth.tar
+Test PSNR:35.6004, MS_SSIM:0.943667
+Frame353_Training Complete in 13.4649s, Eval time:0.00065151s, FPS:1534.8908
+Frame_353: 1080x1920, PSNR:35.6004, MS-SSIM:0.9437, Training:13.4649s, Eval:0.00065151s, FPS:1534.8908
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/353/gaussian_model_353.pth.tar
+Test PSNR:35.5831, MS_SSIM:0.943823
+Frame354_Training Complete in 14.7444s, Eval time:0.00065611s, FPS:1524.1318
+Frame_354: 1080x1920, PSNR:35.5831, MS-SSIM:0.9438, Training:14.7444s, Eval:0.00065611s, FPS:1524.1318
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/354/gaussian_model_354.pth.tar
+Test PSNR:35.5774, MS_SSIM:0.944113
+Frame355_Training Complete in 11.1796s, Eval time:0.00062478s, FPS:1600.5678
+Frame_355: 1080x1920, PSNR:35.5774, MS-SSIM:0.9441, Training:11.1796s, Eval:0.00062478s, FPS:1600.5678
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/355/gaussian_model_355.pth.tar
+Test PSNR:35.5815, MS_SSIM:0.944213
+Frame356_Training Complete in 12.1737s, Eval time:0.00065744s, FPS:1521.0476
+Frame_356: 1080x1920, PSNR:35.5815, MS-SSIM:0.9442, Training:12.1737s, Eval:0.00065744s, FPS:1521.0476
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/356/gaussian_model_356.pth.tar
+Test PSNR:35.6091, MS_SSIM:0.944169
+Frame357_Training Complete in 11.6554s, Eval time:0.00077314s, FPS:1293.4205
+Frame_357: 1080x1920, PSNR:35.6091, MS-SSIM:0.9442, Training:11.6554s, Eval:0.00077314s, FPS:1293.4205
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/357/gaussian_model_357.pth.tar
+Test PSNR:35.6386, MS_SSIM:0.944510
+Frame358_Training Complete in 12.7399s, Eval time:0.00066628s, FPS:1500.8763
+Frame_358: 1080x1920, PSNR:35.6386, MS-SSIM:0.9445, Training:12.7399s, Eval:0.00066628s, FPS:1500.8763
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/358/gaussian_model_358.pth.tar
+Test PSNR:35.6501, MS_SSIM:0.944429
+Frame359_Training Complete in 13.9853s, Eval time:0.00066903s, FPS:1494.7041
+Frame_359: 1080x1920, PSNR:35.6501, MS-SSIM:0.9444, Training:13.9853s, Eval:0.00066903s, FPS:1494.7041
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/359/gaussian_model_359.pth.tar
+Test PSNR:35.6619, MS_SSIM:0.944696
+Frame360_Training Complete in 12.6217s, Eval time:0.00063989s, FPS:1562.7588
+Frame_360: 1080x1920, PSNR:35.6619, MS-SSIM:0.9447, Training:12.6217s, Eval:0.00063989s, FPS:1562.7588
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/360/gaussian_model_360.pth.tar
+Test PSNR:35.6823, MS_SSIM:0.944796
+Frame361_Training Complete in 13.2583s, Eval time:0.00066990s, FPS:1492.7624
+Frame_361: 1080x1920, PSNR:35.6823, MS-SSIM:0.9448, Training:13.2583s, Eval:0.00066990s, FPS:1492.7624
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/361/gaussian_model_361.pth.tar
+Test PSNR:35.6933, MS_SSIM:0.944857
+Frame362_Training Complete in 11.8321s, Eval time:0.00067196s, FPS:1488.1809
+Frame_362: 1080x1920, PSNR:35.6933, MS-SSIM:0.9449, Training:11.8321s, Eval:0.00067196s, FPS:1488.1809
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/362/gaussian_model_362.pth.tar
+Test PSNR:35.6979, MS_SSIM:0.944808
+Frame363_Training Complete in 11.9230s, Eval time:0.00064999s, FPS:1538.4828
+Frame_363: 1080x1920, PSNR:35.6979, MS-SSIM:0.9448, Training:11.9230s, Eval:0.00064999s, FPS:1538.4828
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/363/gaussian_model_363.pth.tar
+Test PSNR:35.6839, MS_SSIM:0.944757
+Frame364_Training Complete in 14.4403s, Eval time:0.00077281s, FPS:1293.9791
+Frame_364: 1080x1920, PSNR:35.6839, MS-SSIM:0.9448, Training:14.4403s, Eval:0.00077281s, FPS:1293.9791
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/364/gaussian_model_364.pth.tar
+Test PSNR:35.6818, MS_SSIM:0.944882
+Frame365_Training Complete in 11.7669s, Eval time:0.00068328s, FPS:1463.5207
+Frame_365: 1080x1920, PSNR:35.6818, MS-SSIM:0.9449, Training:11.7669s, Eval:0.00068328s, FPS:1463.5207
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/365/gaussian_model_365.pth.tar
+Test PSNR:35.6567, MS_SSIM:0.944822
+Frame366_Training Complete in 12.6901s, Eval time:0.00064760s, FPS:1544.1638
+Frame_366: 1080x1920, PSNR:35.6567, MS-SSIM:0.9448, Training:12.6901s, Eval:0.00064760s, FPS:1544.1638
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/366/gaussian_model_366.pth.tar
+Test PSNR:35.6713, MS_SSIM:0.944977
+Frame367_Training Complete in 13.2420s, Eval time:0.00065469s, FPS:1527.4510
+Frame_367: 1080x1920, PSNR:35.6713, MS-SSIM:0.9450, Training:13.2420s, Eval:0.00065469s, FPS:1527.4510
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/367/gaussian_model_367.pth.tar
+Test PSNR:35.6737, MS_SSIM:0.944924
+Frame368_Training Complete in 12.0183s, Eval time:0.00067974s, FPS:1471.1488
+Frame_368: 1080x1920, PSNR:35.6737, MS-SSIM:0.9449, Training:12.0183s, Eval:0.00067974s, FPS:1471.1488
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/368/gaussian_model_368.pth.tar
+Test PSNR:35.6920, MS_SSIM:0.945046
+Frame369_Training Complete in 13.3139s, Eval time:0.00068614s, FPS:1457.4233
+Frame_369: 1080x1920, PSNR:35.6920, MS-SSIM:0.9450, Training:13.3139s, Eval:0.00068614s, FPS:1457.4233
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/369/gaussian_model_369.pth.tar
+Test PSNR:35.7057, MS_SSIM:0.945130
+Frame370_Training Complete in 14.1143s, Eval time:0.00068465s, FPS:1460.5953
+Frame_370: 1080x1920, PSNR:35.7057, MS-SSIM:0.9451, Training:14.1143s, Eval:0.00068465s, FPS:1460.5953
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/370/gaussian_model_370.pth.tar
+Test PSNR:35.7260, MS_SSIM:0.945267
+Frame371_Training Complete in 12.8139s, Eval time:0.00068909s, FPS:1451.1857
+Frame_371: 1080x1920, PSNR:35.7260, MS-SSIM:0.9453, Training:12.8139s, Eval:0.00068909s, FPS:1451.1857
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/371/gaussian_model_371.pth.tar
+Test PSNR:35.7381, MS_SSIM:0.945408
+Frame372_Training Complete in 13.5638s, Eval time:0.00069795s, FPS:1432.7696
+Frame_372: 1080x1920, PSNR:35.7381, MS-SSIM:0.9454, Training:13.5638s, Eval:0.00069795s, FPS:1432.7696
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/372/gaussian_model_372.pth.tar
+Test PSNR:35.7347, MS_SSIM:0.945389
+Frame373_Training Complete in 13.1857s, Eval time:0.00069178s, FPS:1445.5391
+Frame_373: 1080x1920, PSNR:35.7347, MS-SSIM:0.9454, Training:13.1857s, Eval:0.00069178s, FPS:1445.5391
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/373/gaussian_model_373.pth.tar
+Test PSNR:35.7214, MS_SSIM:0.945337
+Frame374_Training Complete in 13.1947s, Eval time:0.00069165s, FPS:1445.8231
+Frame_374: 1080x1920, PSNR:35.7214, MS-SSIM:0.9453, Training:13.1947s, Eval:0.00069165s, FPS:1445.8231
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/374/gaussian_model_374.pth.tar
+Test PSNR:35.7099, MS_SSIM:0.945125
+Frame375_Training Complete in 13.1866s, Eval time:0.00078295s, FPS:1277.2248
+Frame_375: 1080x1920, PSNR:35.7099, MS-SSIM:0.9451, Training:13.1866s, Eval:0.00078295s, FPS:1277.2248
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/375/gaussian_model_375.pth.tar
+Test PSNR:35.7231, MS_SSIM:0.945077
+Frame376_Training Complete in 13.1577s, Eval time:0.00078872s, FPS:1267.8815
+Frame_376: 1080x1920, PSNR:35.7231, MS-SSIM:0.9451, Training:13.1577s, Eval:0.00078872s, FPS:1267.8815
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/376/gaussian_model_376.pth.tar
+Test PSNR:35.7312, MS_SSIM:0.944995
+Frame377_Training Complete in 13.6480s, Eval time:0.00078775s, FPS:1269.4394
+Frame_377: 1080x1920, PSNR:35.7312, MS-SSIM:0.9450, Training:13.6480s, Eval:0.00078775s, FPS:1269.4394
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/377/gaussian_model_377.pth.tar
+Test PSNR:35.7511, MS_SSIM:0.945264
+Frame378_Training Complete in 13.3323s, Eval time:0.00079272s, FPS:1261.4752
+Frame_378: 1080x1920, PSNR:35.7511, MS-SSIM:0.9453, Training:13.3323s, Eval:0.00079272s, FPS:1261.4752
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/378/gaussian_model_378.pth.tar
+Test PSNR:35.7453, MS_SSIM:0.945072
+Frame379_Training Complete in 14.7434s, Eval time:0.00075660s, FPS:1321.6942
+Frame_379: 1080x1920, PSNR:35.7453, MS-SSIM:0.9451, Training:14.7434s, Eval:0.00075660s, FPS:1321.6942
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/379/gaussian_model_379.pth.tar
+Test PSNR:35.7426, MS_SSIM:0.945163
+Frame380_Training Complete in 13.2609s, Eval time:0.00078912s, FPS:1267.2264
+Frame_380: 1080x1920, PSNR:35.7426, MS-SSIM:0.9452, Training:13.2609s, Eval:0.00078912s, FPS:1267.2264
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/380/gaussian_model_380.pth.tar
+Test PSNR:35.7322, MS_SSIM:0.945200
+Frame381_Training Complete in 13.9772s, Eval time:0.00069735s, FPS:1434.0040
+Frame_381: 1080x1920, PSNR:35.7322, MS-SSIM:0.9452, Training:13.9772s, Eval:0.00069735s, FPS:1434.0040
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/381/gaussian_model_381.pth.tar
+Test PSNR:35.7204, MS_SSIM:0.945562
+Frame382_Training Complete in 14.5733s, Eval time:0.00079206s, FPS:1262.5270
+Frame_382: 1080x1920, PSNR:35.7204, MS-SSIM:0.9456, Training:14.5733s, Eval:0.00079206s, FPS:1262.5270
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/382/gaussian_model_382.pth.tar
+Test PSNR:35.6845, MS_SSIM:0.945524
+Frame383_Training Complete in 12.4011s, Eval time:0.00070397s, FPS:1420.5171
+Frame_383: 1080x1920, PSNR:35.6845, MS-SSIM:0.9455, Training:12.4011s, Eval:0.00070397s, FPS:1420.5171
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/383/gaussian_model_383.pth.tar
+Test PSNR:35.6524, MS_SSIM:0.945644
+Frame384_Training Complete in 12.5457s, Eval time:0.00079337s, FPS:1260.4516
+Frame_384: 1080x1920, PSNR:35.6524, MS-SSIM:0.9456, Training:12.5457s, Eval:0.00079337s, FPS:1260.4516
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/384/gaussian_model_384.pth.tar
+Test PSNR:35.6378, MS_SSIM:0.945486
+Frame385_Training Complete in 13.9959s, Eval time:0.00079255s, FPS:1261.7560
+Frame_385: 1080x1920, PSNR:35.6378, MS-SSIM:0.9455, Training:13.9959s, Eval:0.00079255s, FPS:1261.7560
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/385/gaussian_model_385.pth.tar
+Test PSNR:35.6621, MS_SSIM:0.945878
+Frame386_Training Complete in 12.9908s, Eval time:0.00079113s, FPS:1264.0185
+Frame_386: 1080x1920, PSNR:35.6621, MS-SSIM:0.9459, Training:12.9908s, Eval:0.00079113s, FPS:1264.0185
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/386/gaussian_model_386.pth.tar
+Test PSNR:35.6747, MS_SSIM:0.945811
+Frame387_Training Complete in 12.5817s, Eval time:0.00070924s, FPS:1409.9543
+Frame_387: 1080x1920, PSNR:35.6747, MS-SSIM:0.9458, Training:12.5817s, Eval:0.00070924s, FPS:1409.9543
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/387/gaussian_model_387.pth.tar
+Test PSNR:35.6772, MS_SSIM:0.945937
+Frame388_Training Complete in 13.4116s, Eval time:0.00078809s, FPS:1268.8941
+Frame_388: 1080x1920, PSNR:35.6772, MS-SSIM:0.9459, Training:13.4116s, Eval:0.00078809s, FPS:1268.8941
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/388/gaussian_model_388.pth.tar
+Test PSNR:35.6541, MS_SSIM:0.945937
+Frame389_Training Complete in 13.9399s, Eval time:0.00078710s, FPS:1270.4853
+Frame_389: 1080x1920, PSNR:35.6541, MS-SSIM:0.9459, Training:13.9399s, Eval:0.00078710s, FPS:1270.4853
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/389/gaussian_model_389.pth.tar
+Test PSNR:35.6474, MS_SSIM:0.946108
+Frame390_Training Complete in 12.9791s, Eval time:0.00070625s, FPS:1415.9231
+Frame_390: 1080x1920, PSNR:35.6474, MS-SSIM:0.9461, Training:12.9791s, Eval:0.00070625s, FPS:1415.9231
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/390/gaussian_model_390.pth.tar
+Test PSNR:35.6442, MS_SSIM:0.946245
+Frame391_Training Complete in 12.5398s, Eval time:0.00079814s, FPS:1252.9137
+Frame_391: 1080x1920, PSNR:35.6442, MS-SSIM:0.9462, Training:12.5398s, Eval:0.00079814s, FPS:1252.9137
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/391/gaussian_model_391.pth.tar
+Test PSNR:35.6584, MS_SSIM:0.946248
+Frame392_Training Complete in 15.3430s, Eval time:0.00079060s, FPS:1264.8685
+Frame_392: 1080x1920, PSNR:35.6584, MS-SSIM:0.9462, Training:15.3430s, Eval:0.00079060s, FPS:1264.8685
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/392/gaussian_model_392.pth.tar
+Test PSNR:35.6812, MS_SSIM:0.946241
+Frame393_Training Complete in 15.7054s, Eval time:0.00071039s, FPS:1407.6735
+Frame_393: 1080x1920, PSNR:35.6812, MS-SSIM:0.9462, Training:15.7054s, Eval:0.00071039s, FPS:1407.6735
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/393/gaussian_model_393.pth.tar
+Test PSNR:35.6965, MS_SSIM:0.946382
+Frame394_Training Complete in 13.2004s, Eval time:0.00071102s, FPS:1406.4321
+Frame_394: 1080x1920, PSNR:35.6965, MS-SSIM:0.9464, Training:13.2004s, Eval:0.00071102s, FPS:1406.4321
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/394/gaussian_model_394.pth.tar
+Test PSNR:35.7001, MS_SSIM:0.946297
+Frame395_Training Complete in 13.3678s, Eval time:0.00079546s, FPS:1257.1384
+Frame_395: 1080x1920, PSNR:35.7001, MS-SSIM:0.9463, Training:13.3678s, Eval:0.00079546s, FPS:1257.1384
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/395/gaussian_model_395.pth.tar
+Test PSNR:35.6982, MS_SSIM:0.946315
+Frame396_Training Complete in 15.3689s, Eval time:0.00071810s, FPS:1392.5682
+Frame_396: 1080x1920, PSNR:35.6982, MS-SSIM:0.9463, Training:15.3689s, Eval:0.00071810s, FPS:1392.5682
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/396/gaussian_model_396.pth.tar
+Test PSNR:35.6968, MS_SSIM:0.946166
+Frame397_Training Complete in 12.6354s, Eval time:0.00079211s, FPS:1262.4586
+Frame_397: 1080x1920, PSNR:35.6968, MS-SSIM:0.9462, Training:12.6354s, Eval:0.00079211s, FPS:1262.4586
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/397/gaussian_model_397.pth.tar
+Test PSNR:35.6979, MS_SSIM:0.946019
+Frame398_Training Complete in 13.4601s, Eval time:0.00071631s, FPS:1396.0352
+Frame_398: 1080x1920, PSNR:35.6979, MS-SSIM:0.9460, Training:13.4601s, Eval:0.00071631s, FPS:1396.0352
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/398/gaussian_model_398.pth.tar
+Test PSNR:35.6992, MS_SSIM:0.945872
+Frame399_Training Complete in 13.1063s, Eval time:0.00071723s, FPS:1394.2625
+Frame_399: 1080x1920, PSNR:35.6992, MS-SSIM:0.9459, Training:13.1063s, Eval:0.00071723s, FPS:1394.2625
+Test PSNR:35.9432, MS_SSIM:0.950494
+Frame400_Training Complete in 109.2590s, Eval time:0.00076998s, FPS:1298.7271
+Frame_400: 1080x1920, PSNR:35.9432, MS-SSIM:0.9505, Training:109.2590s, Eval:0.00076998s, FPS:1298.7271
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/400/gaussian_model_400.pth.tar
+Test PSNR:35.6754, MS_SSIM:0.944776
+Frame401_Training Complete in 13.8044s, Eval time:0.00077544s, FPS:1289.5869
+Frame_401: 1080x1920, PSNR:35.6754, MS-SSIM:0.9448, Training:13.8044s, Eval:0.00077544s, FPS:1289.5869
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/401/gaussian_model_401.pth.tar
+Test PSNR:35.6702, MS_SSIM:0.944297
+Frame402_Training Complete in 11.3073s, Eval time:0.00077835s, FPS:1284.7638
+Frame_402: 1080x1920, PSNR:35.6702, MS-SSIM:0.9443, Training:11.3073s, Eval:0.00077835s, FPS:1284.7638
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/402/gaussian_model_402.pth.tar
+Test PSNR:35.6999, MS_SSIM:0.944369
+Frame403_Training Complete in 12.1680s, Eval time:0.00065578s, FPS:1524.9020
+Frame_403: 1080x1920, PSNR:35.6999, MS-SSIM:0.9444, Training:12.1680s, Eval:0.00065578s, FPS:1524.9020
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/403/gaussian_model_403.pth.tar
+Test PSNR:35.6956, MS_SSIM:0.944177
+Frame404_Training Complete in 13.8564s, Eval time:0.00065528s, FPS:1526.0672
+Frame_404: 1080x1920, PSNR:35.6956, MS-SSIM:0.9442, Training:13.8564s, Eval:0.00065528s, FPS:1526.0672
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/404/gaussian_model_404.pth.tar
+Test PSNR:35.6877, MS_SSIM:0.944222
+Frame405_Training Complete in 12.8286s, Eval time:0.00066099s, FPS:1512.8838
+Frame_405: 1080x1920, PSNR:35.6877, MS-SSIM:0.9442, Training:12.8286s, Eval:0.00066099s, FPS:1512.8838
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/405/gaussian_model_405.pth.tar
+Test PSNR:35.6760, MS_SSIM:0.944102
+Frame406_Training Complete in 15.3172s, Eval time:0.00065907s, FPS:1517.2785
+Frame_406: 1080x1920, PSNR:35.6760, MS-SSIM:0.9441, Training:15.3172s, Eval:0.00065907s, FPS:1517.2785
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/406/gaussian_model_406.pth.tar
+Test PSNR:35.6676, MS_SSIM:0.943930
+Frame407_Training Complete in 13.0978s, Eval time:0.00077013s, FPS:1298.4738
+Frame_407: 1080x1920, PSNR:35.6676, MS-SSIM:0.9439, Training:13.0978s, Eval:0.00077013s, FPS:1298.4738
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/407/gaussian_model_407.pth.tar
+Test PSNR:35.6743, MS_SSIM:0.944034
+Frame408_Training Complete in 11.5732s, Eval time:0.00066055s, FPS:1513.8831
+Frame_408: 1080x1920, PSNR:35.6743, MS-SSIM:0.9440, Training:11.5732s, Eval:0.00066055s, FPS:1513.8831
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/408/gaussian_model_408.pth.tar
+Test PSNR:35.6898, MS_SSIM:0.944152
+Frame409_Training Complete in 12.4978s, Eval time:0.00066733s, FPS:1498.5062
+Frame_409: 1080x1920, PSNR:35.6898, MS-SSIM:0.9442, Training:12.4978s, Eval:0.00066733s, FPS:1498.5062
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/409/gaussian_model_409.pth.tar
+Test PSNR:35.6914, MS_SSIM:0.943872
+Frame410_Training Complete in 11.8085s, Eval time:0.00067005s, FPS:1492.4224
+Frame_410: 1080x1920, PSNR:35.6914, MS-SSIM:0.9439, Training:11.8085s, Eval:0.00067005s, FPS:1492.4224
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/410/gaussian_model_410.pth.tar
+Test PSNR:35.6918, MS_SSIM:0.943910
+Frame411_Training Complete in 12.2089s, Eval time:0.00066797s, FPS:1497.0675
+Frame_411: 1080x1920, PSNR:35.6918, MS-SSIM:0.9439, Training:12.2089s, Eval:0.00066797s, FPS:1497.0675
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/411/gaussian_model_411.pth.tar
+Test PSNR:35.6724, MS_SSIM:0.943623
+Frame412_Training Complete in 12.3266s, Eval time:0.00067969s, FPS:1471.2571
+Frame_412: 1080x1920, PSNR:35.6724, MS-SSIM:0.9436, Training:12.3266s, Eval:0.00067969s, FPS:1471.2571
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/412/gaussian_model_412.pth.tar
+Test PSNR:35.6708, MS_SSIM:0.943594
+Frame413_Training Complete in 13.3957s, Eval time:0.00076566s, FPS:1306.0549
+Frame_413: 1080x1920, PSNR:35.6708, MS-SSIM:0.9436, Training:13.3957s, Eval:0.00076566s, FPS:1306.0549
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/413/gaussian_model_413.pth.tar
+Test PSNR:35.6803, MS_SSIM:0.943844
+Frame414_Training Complete in 12.8827s, Eval time:0.00067311s, FPS:1485.6455
+Frame_414: 1080x1920, PSNR:35.6803, MS-SSIM:0.9438, Training:12.8827s, Eval:0.00067311s, FPS:1485.6455
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/414/gaussian_model_414.pth.tar
+Test PSNR:35.6975, MS_SSIM:0.944032
+Frame415_Training Complete in 15.7447s, Eval time:0.00079556s, FPS:1256.9802
+Frame_415: 1080x1920, PSNR:35.6975, MS-SSIM:0.9440, Training:15.7447s, Eval:0.00079556s, FPS:1256.9802
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/415/gaussian_model_415.pth.tar
+Test PSNR:35.6843, MS_SSIM:0.943942
+Frame416_Training Complete in 11.7630s, Eval time:0.00067659s, FPS:1478.0073
+Frame_416: 1080x1920, PSNR:35.6843, MS-SSIM:0.9439, Training:11.7630s, Eval:0.00067659s, FPS:1478.0073
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/416/gaussian_model_416.pth.tar
+Test PSNR:35.6707, MS_SSIM:0.944094
+Frame417_Training Complete in 13.6457s, Eval time:0.00068243s, FPS:1465.3614
+Frame_417: 1080x1920, PSNR:35.6707, MS-SSIM:0.9441, Training:13.6457s, Eval:0.00068243s, FPS:1465.3614
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/417/gaussian_model_417.pth.tar
+Test PSNR:35.6628, MS_SSIM:0.944088
+Frame418_Training Complete in 13.6825s, Eval time:0.00067998s, FPS:1470.6226
+Frame_418: 1080x1920, PSNR:35.6628, MS-SSIM:0.9441, Training:13.6825s, Eval:0.00067998s, FPS:1470.6226
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/418/gaussian_model_418.pth.tar
+Test PSNR:35.6671, MS_SSIM:0.944115
+Frame419_Training Complete in 13.6620s, Eval time:0.00077906s, FPS:1283.5999
+Frame_419: 1080x1920, PSNR:35.6671, MS-SSIM:0.9441, Training:13.6620s, Eval:0.00077906s, FPS:1283.5999
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/419/gaussian_model_419.pth.tar
+Test PSNR:35.6641, MS_SSIM:0.944113
+Frame420_Training Complete in 13.8121s, Eval time:0.00068464s, FPS:1460.6259
+Frame_420: 1080x1920, PSNR:35.6641, MS-SSIM:0.9441, Training:13.8121s, Eval:0.00068464s, FPS:1460.6259
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/420/gaussian_model_420.pth.tar
+Test PSNR:35.6671, MS_SSIM:0.944174
+Frame421_Training Complete in 12.6763s, Eval time:0.00065208s, FPS:1533.5495
+Frame_421: 1080x1920, PSNR:35.6671, MS-SSIM:0.9442, Training:12.6763s, Eval:0.00065208s, FPS:1533.5495
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/421/gaussian_model_421.pth.tar
+Test PSNR:35.6655, MS_SSIM:0.944072
+Frame422_Training Complete in 12.2557s, Eval time:0.00068357s, FPS:1462.9133
+Frame_422: 1080x1920, PSNR:35.6655, MS-SSIM:0.9441, Training:12.2557s, Eval:0.00068357s, FPS:1462.9133
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/422/gaussian_model_422.pth.tar
+Test PSNR:35.6667, MS_SSIM:0.943911
+Frame423_Training Complete in 13.4489s, Eval time:0.00065528s, FPS:1526.0672
+Frame_423: 1080x1920, PSNR:35.6667, MS-SSIM:0.9439, Training:13.4489s, Eval:0.00065528s, FPS:1526.0672
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/423/gaussian_model_423.pth.tar
+Test PSNR:35.6774, MS_SSIM:0.944090
+Frame424_Training Complete in 12.7679s, Eval time:0.00069187s, FPS:1445.3548
+Frame_424: 1080x1920, PSNR:35.6774, MS-SSIM:0.9441, Training:12.7679s, Eval:0.00069187s, FPS:1445.3548
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/424/gaussian_model_424.pth.tar
+Test PSNR:35.6569, MS_SSIM:0.943798
+Frame425_Training Complete in 13.3671s, Eval time:0.00066864s, FPS:1495.5675
+Frame_425: 1080x1920, PSNR:35.6569, MS-SSIM:0.9438, Training:13.3671s, Eval:0.00066864s, FPS:1495.5675
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/425/gaussian_model_425.pth.tar
+Test PSNR:35.6475, MS_SSIM:0.943955
+Frame426_Training Complete in 12.0305s, Eval time:0.00069240s, FPS:1444.2499
+Frame_426: 1080x1920, PSNR:35.6475, MS-SSIM:0.9440, Training:12.0305s, Eval:0.00069240s, FPS:1444.2499
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/426/gaussian_model_426.pth.tar
+Test PSNR:35.6618, MS_SSIM:0.944205
+Frame427_Training Complete in 12.1599s, Eval time:0.00072460s, FPS:1380.0730
+Frame_427: 1080x1920, PSNR:35.6618, MS-SSIM:0.9442, Training:12.1599s, Eval:0.00072460s, FPS:1380.0730
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/427/gaussian_model_427.pth.tar
+Test PSNR:35.6560, MS_SSIM:0.944105
+Frame428_Training Complete in 12.7154s, Eval time:0.00065912s, FPS:1517.1632
+Frame_428: 1080x1920, PSNR:35.6560, MS-SSIM:0.9441, Training:12.7154s, Eval:0.00065912s, FPS:1517.1632
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/428/gaussian_model_428.pth.tar
+Test PSNR:35.6621, MS_SSIM:0.944192
+Frame429_Training Complete in 15.0018s, Eval time:0.00069695s, FPS:1434.8282
+Frame_429: 1080x1920, PSNR:35.6621, MS-SSIM:0.9442, Training:15.0018s, Eval:0.00069695s, FPS:1434.8282
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/429/gaussian_model_429.pth.tar
+Test PSNR:35.6783, MS_SSIM:0.944680
+Frame430_Training Complete in 12.4351s, Eval time:0.00078934s, FPS:1266.8858
+Frame_430: 1080x1920, PSNR:35.6783, MS-SSIM:0.9447, Training:12.4351s, Eval:0.00078934s, FPS:1266.8858
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/430/gaussian_model_430.pth.tar
+Test PSNR:35.6856, MS_SSIM:0.944651
+Frame431_Training Complete in 12.2794s, Eval time:0.00067482s, FPS:1481.8820
+Frame_431: 1080x1920, PSNR:35.6856, MS-SSIM:0.9447, Training:12.2794s, Eval:0.00067482s, FPS:1481.8820
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/431/gaussian_model_431.pth.tar
+Test PSNR:35.6868, MS_SSIM:0.945097
+Frame432_Training Complete in 13.3906s, Eval time:0.00069800s, FPS:1432.6668
+Frame_432: 1080x1920, PSNR:35.6868, MS-SSIM:0.9451, Training:13.3906s, Eval:0.00069800s, FPS:1432.6668
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/432/gaussian_model_432.pth.tar
+Test PSNR:35.6767, MS_SSIM:0.944800
+Frame433_Training Complete in 12.4251s, Eval time:0.00069963s, FPS:1429.3176
+Frame_433: 1080x1920, PSNR:35.6767, MS-SSIM:0.9448, Training:12.4251s, Eval:0.00069963s, FPS:1429.3176
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/433/gaussian_model_433.pth.tar
+Test PSNR:35.6915, MS_SSIM:0.944995
+Frame434_Training Complete in 12.9533s, Eval time:0.00070027s, FPS:1428.0135
+Frame_434: 1080x1920, PSNR:35.6915, MS-SSIM:0.9450, Training:12.9533s, Eval:0.00070027s, FPS:1428.0135
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/434/gaussian_model_434.pth.tar
+Test PSNR:35.6813, MS_SSIM:0.944943
+Frame435_Training Complete in 12.3589s, Eval time:0.00070568s, FPS:1417.0712
+Frame_435: 1080x1920, PSNR:35.6813, MS-SSIM:0.9449, Training:12.3589s, Eval:0.00070568s, FPS:1417.0712
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/435/gaussian_model_435.pth.tar
+Test PSNR:35.6879, MS_SSIM:0.945000
+Frame436_Training Complete in 12.9979s, Eval time:0.00067789s, FPS:1475.1639
+Frame_436: 1080x1920, PSNR:35.6879, MS-SSIM:0.9450, Training:12.9979s, Eval:0.00067789s, FPS:1475.1639
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/436/gaussian_model_436.pth.tar
+Test PSNR:35.6974, MS_SSIM:0.944869
+Frame437_Training Complete in 12.4724s, Eval time:0.00070284s, FPS:1422.8012
+Frame_437: 1080x1920, PSNR:35.6974, MS-SSIM:0.9449, Training:12.4724s, Eval:0.00070284s, FPS:1422.8012
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/437/gaussian_model_437.pth.tar
+Test PSNR:35.7031, MS_SSIM:0.944914
+Frame438_Training Complete in 12.4610s, Eval time:0.00070825s, FPS:1411.9288
+Frame_438: 1080x1920, PSNR:35.7031, MS-SSIM:0.9449, Training:12.4610s, Eval:0.00070825s, FPS:1411.9288
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/438/gaussian_model_438.pth.tar
+Test PSNR:35.7047, MS_SSIM:0.944773
+Frame439_Training Complete in 12.3494s, Eval time:0.00070768s, FPS:1413.0657
+Frame_439: 1080x1920, PSNR:35.7047, MS-SSIM:0.9448, Training:12.3494s, Eval:0.00070768s, FPS:1413.0657
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/439/gaussian_model_439.pth.tar
+Test PSNR:35.7088, MS_SSIM:0.944655
+Frame440_Training Complete in 12.2905s, Eval time:0.00071099s, FPS:1406.4840
+Frame_440: 1080x1920, PSNR:35.7088, MS-SSIM:0.9447, Training:12.2905s, Eval:0.00071099s, FPS:1406.4840
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/440/gaussian_model_440.pth.tar
+Test PSNR:35.6974, MS_SSIM:0.944515
+Frame441_Training Complete in 16.2074s, Eval time:0.00079365s, FPS:1259.9972
+Frame_441: 1080x1920, PSNR:35.6974, MS-SSIM:0.9445, Training:16.2074s, Eval:0.00079365s, FPS:1259.9972
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/441/gaussian_model_441.pth.tar
+Test PSNR:35.6762, MS_SSIM:0.944491
+Frame442_Training Complete in 14.0138s, Eval time:0.00070882s, FPS:1410.7890
+Frame_442: 1080x1920, PSNR:35.6762, MS-SSIM:0.9445, Training:14.0138s, Eval:0.00070882s, FPS:1410.7890
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/442/gaussian_model_442.pth.tar
+Test PSNR:35.6709, MS_SSIM:0.944403
+Frame443_Training Complete in 14.5126s, Eval time:0.00070616s, FPS:1416.1143
+Frame_443: 1080x1920, PSNR:35.6709, MS-SSIM:0.9444, Training:14.5126s, Eval:0.00070616s, FPS:1416.1143
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/443/gaussian_model_443.pth.tar
+Test PSNR:35.6661, MS_SSIM:0.944259
+Frame444_Training Complete in 12.6707s, Eval time:0.00070705s, FPS:1414.3236
+Frame_444: 1080x1920, PSNR:35.6661, MS-SSIM:0.9443, Training:12.6707s, Eval:0.00070705s, FPS:1414.3236
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/444/gaussian_model_444.pth.tar
+Test PSNR:35.6661, MS_SSIM:0.944345
+Frame445_Training Complete in 12.5444s, Eval time:0.00071144s, FPS:1405.6073
+Frame_445: 1080x1920, PSNR:35.6661, MS-SSIM:0.9443, Training:12.5444s, Eval:0.00071144s, FPS:1405.6073
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/445/gaussian_model_445.pth.tar
+Test PSNR:35.6538, MS_SSIM:0.944342
+Frame446_Training Complete in 13.3208s, Eval time:0.00080091s, FPS:1248.5835
+Frame_446: 1080x1920, PSNR:35.6538, MS-SSIM:0.9443, Training:13.3208s, Eval:0.00080091s, FPS:1248.5835
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/446/gaussian_model_446.pth.tar
+Test PSNR:35.6556, MS_SSIM:0.944241
+Frame447_Training Complete in 12.4274s, Eval time:0.00079086s, FPS:1264.4491
+Frame_447: 1080x1920, PSNR:35.6556, MS-SSIM:0.9442, Training:12.4274s, Eval:0.00079086s, FPS:1264.4491
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/447/gaussian_model_447.pth.tar
+Test PSNR:35.6614, MS_SSIM:0.944175
+Frame448_Training Complete in 12.9460s, Eval time:0.00079271s, FPS:1261.4979
+Frame_448: 1080x1920, PSNR:35.6614, MS-SSIM:0.9442, Training:12.9460s, Eval:0.00079271s, FPS:1261.4979
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/448/gaussian_model_448.pth.tar
+Test PSNR:35.6668, MS_SSIM:0.944289
+Frame449_Training Complete in 13.1235s, Eval time:0.00071267s, FPS:1403.1762
+Frame_449: 1080x1920, PSNR:35.6668, MS-SSIM:0.9443, Training:13.1235s, Eval:0.00071267s, FPS:1403.1762
+Test PSNR:35.8792, MS_SSIM:0.949010
+Frame450_Training Complete in 112.8439s, Eval time:0.00064016s, FPS:1562.1069
+Frame_450: 1080x1920, PSNR:35.8792, MS-SSIM:0.9490, Training:112.8439s, Eval:0.00064016s, FPS:1562.1069
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/450/gaussian_model_450.pth.tar
+Test PSNR:35.5794, MS_SSIM:0.942675
+Frame451_Training Complete in 12.6093s, Eval time:0.00064746s, FPS:1544.4993
+Frame_451: 1080x1920, PSNR:35.5794, MS-SSIM:0.9427, Training:12.6093s, Eval:0.00064746s, FPS:1544.4993
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/451/gaussian_model_451.pth.tar
+Test PSNR:35.5856, MS_SSIM:0.942744
+Frame452_Training Complete in 13.8551s, Eval time:0.00065349s, FPS:1530.2485
+Frame_452: 1080x1920, PSNR:35.5856, MS-SSIM:0.9427, Training:13.8551s, Eval:0.00065349s, FPS:1530.2485
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/452/gaussian_model_452.pth.tar
+Test PSNR:35.5864, MS_SSIM:0.942627
+Frame453_Training Complete in 13.1896s, Eval time:0.00065061s, FPS:1537.0226
+Frame_453: 1080x1920, PSNR:35.5864, MS-SSIM:0.9426, Training:13.1896s, Eval:0.00065061s, FPS:1537.0226
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/453/gaussian_model_453.pth.tar
+Test PSNR:35.5618, MS_SSIM:0.942518
+Frame454_Training Complete in 12.8906s, Eval time:0.00078248s, FPS:1277.9837
+Frame_454: 1080x1920, PSNR:35.5618, MS-SSIM:0.9425, Training:12.8906s, Eval:0.00078248s, FPS:1277.9837
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/454/gaussian_model_454.pth.tar
+Test PSNR:35.5482, MS_SSIM:0.942506
+Frame455_Training Complete in 13.3295s, Eval time:0.00077076s, FPS:1297.4214
+Frame_455: 1080x1920, PSNR:35.5482, MS-SSIM:0.9425, Training:13.3295s, Eval:0.00077076s, FPS:1297.4214
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/455/gaussian_model_455.pth.tar
+Test PSNR:35.5764, MS_SSIM:0.942927
+Frame456_Training Complete in 13.1129s, Eval time:0.00065902s, FPS:1517.3993
+Frame_456: 1080x1920, PSNR:35.5764, MS-SSIM:0.9429, Training:13.1129s, Eval:0.00065902s, FPS:1517.3993
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/456/gaussian_model_456.pth.tar
+Test PSNR:35.5941, MS_SSIM:0.943087
+Frame457_Training Complete in 12.1727s, Eval time:0.00065941s, FPS:1516.5050
+Frame_457: 1080x1920, PSNR:35.5941, MS-SSIM:0.9431, Training:12.1727s, Eval:0.00065941s, FPS:1516.5050
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/457/gaussian_model_457.pth.tar
+Test PSNR:35.6163, MS_SSIM:0.943359
+Frame458_Training Complete in 13.5703s, Eval time:0.00078032s, FPS:1281.5292
+Frame_458: 1080x1920, PSNR:35.6163, MS-SSIM:0.9434, Training:13.5703s, Eval:0.00078032s, FPS:1281.5292
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/458/gaussian_model_458.pth.tar
+Test PSNR:35.6250, MS_SSIM:0.943429
+Frame459_Training Complete in 13.2750s, Eval time:0.00066486s, FPS:1504.0733
+Frame_459: 1080x1920, PSNR:35.6250, MS-SSIM:0.9434, Training:13.2750s, Eval:0.00066486s, FPS:1504.0733
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/459/gaussian_model_459.pth.tar
+Test PSNR:35.6324, MS_SSIM:0.943624
+Frame460_Training Complete in 12.7508s, Eval time:0.00078024s, FPS:1281.6623
+Frame_460: 1080x1920, PSNR:35.6324, MS-SSIM:0.9436, Training:12.7508s, Eval:0.00078024s, FPS:1281.6623
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/460/gaussian_model_460.pth.tar
+Test PSNR:35.6386, MS_SSIM:0.943748
+Frame461_Training Complete in 12.9880s, Eval time:0.00067202s, FPS:1488.0595
+Frame_461: 1080x1920, PSNR:35.6386, MS-SSIM:0.9437, Training:12.9880s, Eval:0.00067202s, FPS:1488.0595
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/461/gaussian_model_461.pth.tar
+Test PSNR:35.6500, MS_SSIM:0.943870
+Frame462_Training Complete in 15.5014s, Eval time:0.00067473s, FPS:1482.0757
+Frame_462: 1080x1920, PSNR:35.6500, MS-SSIM:0.9439, Training:15.5014s, Eval:0.00067473s, FPS:1482.0757
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/462/gaussian_model_462.pth.tar
+Test PSNR:35.6418, MS_SSIM:0.943741
+Frame463_Training Complete in 12.9190s, Eval time:0.00078049s, FPS:1281.2512
+Frame_463: 1080x1920, PSNR:35.6418, MS-SSIM:0.9437, Training:12.9190s, Eval:0.00078049s, FPS:1281.2512
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/463/gaussian_model_463.pth.tar
+Test PSNR:35.6382, MS_SSIM:0.943622
+Frame464_Training Complete in 13.6446s, Eval time:0.00067569s, FPS:1479.9787
+Frame_464: 1080x1920, PSNR:35.6382, MS-SSIM:0.9436, Training:13.6446s, Eval:0.00067569s, FPS:1479.9787
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/464/gaussian_model_464.pth.tar
+Test PSNR:35.6538, MS_SSIM:0.944002
+Frame465_Training Complete in 13.2372s, Eval time:0.00068638s, FPS:1456.9221
+Frame_465: 1080x1920, PSNR:35.6538, MS-SSIM:0.9440, Training:13.2372s, Eval:0.00068638s, FPS:1456.9221
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/465/gaussian_model_465.pth.tar
+Test PSNR:35.6399, MS_SSIM:0.943927
+Frame466_Training Complete in 12.9608s, Eval time:0.00067659s, FPS:1478.0021
+Frame_466: 1080x1920, PSNR:35.6399, MS-SSIM:0.9439, Training:12.9608s, Eval:0.00067659s, FPS:1478.0021
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/466/gaussian_model_466.pth.tar
+Test PSNR:35.6356, MS_SSIM:0.944118
+Frame467_Training Complete in 13.8229s, Eval time:0.00068353s, FPS:1462.9949
+Frame_467: 1080x1920, PSNR:35.6356, MS-SSIM:0.9441, Training:13.8229s, Eval:0.00068353s, FPS:1462.9949
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/467/gaussian_model_467.pth.tar
+Test PSNR:35.6097, MS_SSIM:0.943859
+Frame468_Training Complete in 12.7140s, Eval time:0.00068598s, FPS:1457.7779
+Frame_468: 1080x1920, PSNR:35.6097, MS-SSIM:0.9439, Training:12.7140s, Eval:0.00068598s, FPS:1457.7779
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/468/gaussian_model_468.pth.tar
+Test PSNR:35.6124, MS_SSIM:0.944008
+Frame469_Training Complete in 11.9737s, Eval time:0.00079021s, FPS:1265.4791
+Frame_469: 1080x1920, PSNR:35.6124, MS-SSIM:0.9440, Training:11.9737s, Eval:0.00079021s, FPS:1265.4791
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/469/gaussian_model_469.pth.tar
+Test PSNR:35.6193, MS_SSIM:0.944089
+Frame470_Training Complete in 12.2254s, Eval time:0.00078532s, FPS:1273.3705
+Frame_470: 1080x1920, PSNR:35.6193, MS-SSIM:0.9441, Training:12.2254s, Eval:0.00078532s, FPS:1273.3705
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/470/gaussian_model_470.pth.tar
+Test PSNR:35.6227, MS_SSIM:0.944198
+Frame471_Training Complete in 12.2785s, Eval time:0.00078198s, FPS:1278.8097
+Frame_471: 1080x1920, PSNR:35.6227, MS-SSIM:0.9442, Training:12.2785s, Eval:0.00078198s, FPS:1278.8097
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/471/gaussian_model_471.pth.tar
+Test PSNR:35.6197, MS_SSIM:0.944268
+Frame472_Training Complete in 14.1245s, Eval time:0.00066731s, FPS:1498.5437
+Frame_472: 1080x1920, PSNR:35.6197, MS-SSIM:0.9443, Training:14.1245s, Eval:0.00066731s, FPS:1498.5437
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/472/gaussian_model_472.pth.tar
+Test PSNR:35.6138, MS_SSIM:0.943968
+Frame473_Training Complete in 13.1052s, Eval time:0.00078172s, FPS:1279.2348
+Frame_473: 1080x1920, PSNR:35.6138, MS-SSIM:0.9440, Training:13.1052s, Eval:0.00078172s, FPS:1279.2348
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/473/gaussian_model_473.pth.tar
+Test PSNR:35.6114, MS_SSIM:0.944116
+Frame474_Training Complete in 14.7938s, Eval time:0.00078185s, FPS:1279.0164
+Frame_474: 1080x1920, PSNR:35.6114, MS-SSIM:0.9441, Training:14.7938s, Eval:0.00078185s, FPS:1279.0164
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/474/gaussian_model_474.pth.tar
+Test PSNR:35.6059, MS_SSIM:0.943972
+Frame475_Training Complete in 12.8396s, Eval time:0.00079273s, FPS:1261.4714
+Frame_475: 1080x1920, PSNR:35.6059, MS-SSIM:0.9440, Training:12.8396s, Eval:0.00079273s, FPS:1261.4714
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/475/gaussian_model_475.pth.tar
+Test PSNR:35.6031, MS_SSIM:0.943861
+Frame476_Training Complete in 13.0142s, Eval time:0.00078335s, FPS:1276.5717
+Frame_476: 1080x1920, PSNR:35.6031, MS-SSIM:0.9439, Training:13.0142s, Eval:0.00078335s, FPS:1276.5717
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/476/gaussian_model_476.pth.tar
+Test PSNR:35.6096, MS_SSIM:0.944046
+Frame477_Training Complete in 13.0952s, Eval time:0.00078816s, FPS:1268.7828
+Frame_477: 1080x1920, PSNR:35.6096, MS-SSIM:0.9440, Training:13.0952s, Eval:0.00078816s, FPS:1268.7828
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/477/gaussian_model_477.pth.tar
+Test PSNR:35.6084, MS_SSIM:0.943917
+Frame478_Training Complete in 12.9691s, Eval time:0.00078894s, FPS:1267.5290
+Frame_478: 1080x1920, PSNR:35.6084, MS-SSIM:0.9439, Training:12.9691s, Eval:0.00078894s, FPS:1267.5290
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/478/gaussian_model_478.pth.tar
+Test PSNR:35.6122, MS_SSIM:0.943974
+Frame479_Training Complete in 12.5261s, Eval time:0.00071220s, FPS:1404.0921
+Frame_479: 1080x1920, PSNR:35.6122, MS-SSIM:0.9440, Training:12.5261s, Eval:0.00071220s, FPS:1404.0921
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/479/gaussian_model_479.pth.tar
+Test PSNR:35.6175, MS_SSIM:0.943843
+Frame480_Training Complete in 12.2969s, Eval time:0.00069771s, FPS:1433.2543
+Frame_480: 1080x1920, PSNR:35.6175, MS-SSIM:0.9438, Training:12.2969s, Eval:0.00069771s, FPS:1433.2543
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/480/gaussian_model_480.pth.tar
+Test PSNR:35.6117, MS_SSIM:0.943607
+Frame481_Training Complete in 14.8844s, Eval time:0.00070026s, FPS:1428.0426
+Frame_481: 1080x1920, PSNR:35.6117, MS-SSIM:0.9436, Training:14.8844s, Eval:0.00070026s, FPS:1428.0426
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/481/gaussian_model_481.pth.tar
+Test PSNR:35.6133, MS_SSIM:0.943588
+Frame482_Training Complete in 12.9420s, Eval time:0.00070289s, FPS:1422.6902
+Frame_482: 1080x1920, PSNR:35.6133, MS-SSIM:0.9436, Training:12.9420s, Eval:0.00070289s, FPS:1422.6902
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/482/gaussian_model_482.pth.tar
+Test PSNR:35.6110, MS_SSIM:0.943580
+Frame483_Training Complete in 14.1260s, Eval time:0.00070248s, FPS:1423.5255
+Frame_483: 1080x1920, PSNR:35.6110, MS-SSIM:0.9436, Training:14.1260s, Eval:0.00070248s, FPS:1423.5255
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/483/gaussian_model_483.pth.tar
+Test PSNR:35.6095, MS_SSIM:0.943662
+Frame484_Training Complete in 12.4190s, Eval time:0.00070339s, FPS:1421.6823
+Frame_484: 1080x1920, PSNR:35.6095, MS-SSIM:0.9437, Training:12.4190s, Eval:0.00070339s, FPS:1421.6823
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/484/gaussian_model_484.pth.tar
+Test PSNR:35.5864, MS_SSIM:0.943348
+Frame485_Training Complete in 12.9369s, Eval time:0.00079096s, FPS:1264.2852
+Frame_485: 1080x1920, PSNR:35.5864, MS-SSIM:0.9433, Training:12.9369s, Eval:0.00079096s, FPS:1264.2852
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/485/gaussian_model_485.pth.tar
+Test PSNR:35.5738, MS_SSIM:0.943161
+Frame486_Training Complete in 12.3057s, Eval time:0.00078671s, FPS:1271.1129
+Frame_486: 1080x1920, PSNR:35.5738, MS-SSIM:0.9432, Training:12.3057s, Eval:0.00078671s, FPS:1271.1129
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/486/gaussian_model_486.pth.tar
+Test PSNR:35.5696, MS_SSIM:0.943196
+Frame487_Training Complete in 12.4749s, Eval time:0.00079229s, FPS:1262.1698
+Frame_487: 1080x1920, PSNR:35.5696, MS-SSIM:0.9432, Training:12.4749s, Eval:0.00079229s, FPS:1262.1698
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/487/gaussian_model_487.pth.tar
+Test PSNR:35.5748, MS_SSIM:0.943250
+Frame488_Training Complete in 14.6075s, Eval time:0.00067701s, FPS:1477.0808
+Frame_488: 1080x1920, PSNR:35.5748, MS-SSIM:0.9433, Training:14.6075s, Eval:0.00067701s, FPS:1477.0808
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/488/gaussian_model_488.pth.tar
+Test PSNR:35.5735, MS_SSIM:0.943351
+Frame489_Training Complete in 15.2012s, Eval time:0.00067637s, FPS:1478.4814
+Frame_489: 1080x1920, PSNR:35.5735, MS-SSIM:0.9434, Training:15.2012s, Eval:0.00067637s, FPS:1478.4814
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/489/gaussian_model_489.pth.tar
+Test PSNR:35.5673, MS_SSIM:0.943301
+Frame490_Training Complete in 13.2193s, Eval time:0.00070793s, FPS:1412.5708
+Frame_490: 1080x1920, PSNR:35.5673, MS-SSIM:0.9433, Training:13.2193s, Eval:0.00070793s, FPS:1412.5708
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/490/gaussian_model_490.pth.tar
+Test PSNR:35.5646, MS_SSIM:0.943250
+Frame491_Training Complete in 12.9647s, Eval time:0.00079717s, FPS:1254.4313
+Frame_491: 1080x1920, PSNR:35.5646, MS-SSIM:0.9433, Training:12.9647s, Eval:0.00079717s, FPS:1254.4313
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/491/gaussian_model_491.pth.tar
+Test PSNR:35.5723, MS_SSIM:0.943357
+Frame492_Training Complete in 12.9613s, Eval time:0.00071574s, FPS:1397.1466
+Frame_492: 1080x1920, PSNR:35.5723, MS-SSIM:0.9434, Training:12.9613s, Eval:0.00071574s, FPS:1397.1466
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/492/gaussian_model_492.pth.tar
+Test PSNR:35.5722, MS_SSIM:0.943456
+Frame493_Training Complete in 13.6429s, Eval time:0.00071289s, FPS:1402.7444
+Frame_493: 1080x1920, PSNR:35.5722, MS-SSIM:0.9435, Training:13.6429s, Eval:0.00071289s, FPS:1402.7444
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/493/gaussian_model_493.pth.tar
+Test PSNR:35.5808, MS_SSIM:0.943590
+Frame494_Training Complete in 13.2034s, Eval time:0.00070857s, FPS:1411.3017
+Frame_494: 1080x1920, PSNR:35.5808, MS-SSIM:0.9436, Training:13.2034s, Eval:0.00070857s, FPS:1411.3017
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/494/gaussian_model_494.pth.tar
+Test PSNR:35.5910, MS_SSIM:0.943730
+Frame495_Training Complete in 13.5334s, Eval time:0.00071362s, FPS:1401.2963
+Frame_495: 1080x1920, PSNR:35.5910, MS-SSIM:0.9437, Training:13.5334s, Eval:0.00071362s, FPS:1401.2963
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/495/gaussian_model_495.pth.tar
+Test PSNR:35.5877, MS_SSIM:0.943697
+Frame496_Training Complete in 13.2706s, Eval time:0.00071680s, FPS:1395.0879
+Frame_496: 1080x1920, PSNR:35.5877, MS-SSIM:0.9437, Training:13.2706s, Eval:0.00071680s, FPS:1395.0879
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/496/gaussian_model_496.pth.tar
+Test PSNR:35.5859, MS_SSIM:0.943712
+Frame497_Training Complete in 13.0078s, Eval time:0.00078802s, FPS:1269.0093
+Frame_497: 1080x1920, PSNR:35.5859, MS-SSIM:0.9437, Training:13.0078s, Eval:0.00078802s, FPS:1269.0093
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/497/gaussian_model_497.pth.tar
+Test PSNR:35.6020, MS_SSIM:0.943800
+Frame498_Training Complete in 13.3258s, Eval time:0.00078999s, FPS:1265.8381
+Frame_498: 1080x1920, PSNR:35.6020, MS-SSIM:0.9438, Training:13.3258s, Eval:0.00078999s, FPS:1265.8381
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/498/gaussian_model_498.pth.tar
+Test PSNR:35.6123, MS_SSIM:0.943857
+Frame499_Training Complete in 13.6605s, Eval time:0.00079106s, FPS:1264.1289
+Frame_499: 1080x1920, PSNR:35.6123, MS-SSIM:0.9439, Training:13.6605s, Eval:0.00079106s, FPS:1264.1289
+Test PSNR:35.8360, MS_SSIM:0.948533
+Frame500_Training Complete in 114.6656s, Eval time:0.00080199s, FPS:1246.8983
+Frame_500: 1080x1920, PSNR:35.8360, MS-SSIM:0.9485, Training:114.6656s, Eval:0.00080199s, FPS:1246.8983
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/500/gaussian_model_500.pth.tar
+Test PSNR:35.5509, MS_SSIM:0.942418
+Frame501_Training Complete in 11.9830s, Eval time:0.00064905s, FPS:1540.7094
+Frame_501: 1080x1920, PSNR:35.5509, MS-SSIM:0.9424, Training:11.9830s, Eval:0.00064905s, FPS:1540.7094
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/501/gaussian_model_501.pth.tar
+Test PSNR:35.5645, MS_SSIM:0.942390
+Frame502_Training Complete in 15.3033s, Eval time:0.00077345s, FPS:1292.9062
+Frame_502: 1080x1920, PSNR:35.5645, MS-SSIM:0.9424, Training:15.3033s, Eval:0.00077345s, FPS:1292.9062
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/502/gaussian_model_502.pth.tar
+Test PSNR:35.5689, MS_SSIM:0.942325
+Frame503_Training Complete in 12.1282s, Eval time:0.00077596s, FPS:1288.7191
+Frame_503: 1080x1920, PSNR:35.5689, MS-SSIM:0.9423, Training:12.1282s, Eval:0.00077596s, FPS:1288.7191
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/503/gaussian_model_503.pth.tar
+Test PSNR:35.5606, MS_SSIM:0.942291
+Frame504_Training Complete in 12.8742s, Eval time:0.00065673s, FPS:1522.6932
+Frame_504: 1080x1920, PSNR:35.5606, MS-SSIM:0.9423, Training:12.8742s, Eval:0.00065673s, FPS:1522.6932
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/504/gaussian_model_504.pth.tar
+Test PSNR:35.5663, MS_SSIM:0.942146
+Frame505_Training Complete in 14.9066s, Eval time:0.00078016s, FPS:1281.7955
+Frame_505: 1080x1920, PSNR:35.5663, MS-SSIM:0.9421, Training:14.9066s, Eval:0.00078016s, FPS:1281.7955
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/505/gaussian_model_505.pth.tar
+Test PSNR:35.5670, MS_SSIM:0.942059
+Frame506_Training Complete in 12.6338s, Eval time:0.00065786s, FPS:1520.0774
+Frame_506: 1080x1920, PSNR:35.5670, MS-SSIM:0.9421, Training:12.6338s, Eval:0.00065786s, FPS:1520.0774
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/506/gaussian_model_506.pth.tar
+Test PSNR:35.5717, MS_SSIM:0.942153
+Frame507_Training Complete in 12.5809s, Eval time:0.00066337s, FPS:1507.4519
+Frame_507: 1080x1920, PSNR:35.5717, MS-SSIM:0.9422, Training:12.5809s, Eval:0.00066337s, FPS:1507.4519
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/507/gaussian_model_507.pth.tar
+Test PSNR:35.5741, MS_SSIM:0.942145
+Frame508_Training Complete in 11.8521s, Eval time:0.00062979s, FPS:1587.8193
+Frame_508: 1080x1920, PSNR:35.5741, MS-SSIM:0.9421, Training:11.8521s, Eval:0.00062979s, FPS:1587.8193
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/508/gaussian_model_508.pth.tar
+Test PSNR:35.5690, MS_SSIM:0.942088
+Frame509_Training Complete in 12.2119s, Eval time:0.00077699s, FPS:1287.0108
+Frame_509: 1080x1920, PSNR:35.5690, MS-SSIM:0.9421, Training:12.2119s, Eval:0.00077699s, FPS:1287.0108
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/509/gaussian_model_509.pth.tar
+Test PSNR:35.5633, MS_SSIM:0.942178
+Frame510_Training Complete in 13.7851s, Eval time:0.00077591s, FPS:1288.8063
+Frame_510: 1080x1920, PSNR:35.5633, MS-SSIM:0.9422, Training:13.7851s, Eval:0.00077591s, FPS:1288.8063
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/510/gaussian_model_510.pth.tar
+Test PSNR:35.5512, MS_SSIM:0.942025
+Frame511_Training Complete in 12.2349s, Eval time:0.00066970s, FPS:1493.2088
+Frame_511: 1080x1920, PSNR:35.5512, MS-SSIM:0.9420, Training:12.2349s, Eval:0.00066970s, FPS:1493.2088
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/511/gaussian_model_511.pth.tar
+Test PSNR:35.5271, MS_SSIM:0.941685
+Frame512_Training Complete in 14.7639s, Eval time:0.00078215s, FPS:1278.5212
+Frame_512: 1080x1920, PSNR:35.5271, MS-SSIM:0.9417, Training:14.7639s, Eval:0.00078215s, FPS:1278.5212
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/512/gaussian_model_512.pth.tar
+Test PSNR:35.5252, MS_SSIM:0.941818
+Frame513_Training Complete in 13.1546s, Eval time:0.00068549s, FPS:1458.8122
+Frame_513: 1080x1920, PSNR:35.5252, MS-SSIM:0.9418, Training:13.1546s, Eval:0.00068549s, FPS:1458.8122
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/513/gaussian_model_513.pth.tar
+Test PSNR:35.5359, MS_SSIM:0.942112
+Frame514_Training Complete in 12.2986s, Eval time:0.00064500s, FPS:1550.3968
+Frame_514: 1080x1920, PSNR:35.5359, MS-SSIM:0.9421, Training:12.2986s, Eval:0.00064500s, FPS:1550.3968
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/514/gaussian_model_514.pth.tar
+Test PSNR:35.5337, MS_SSIM:0.941998
+Frame515_Training Complete in 13.9897s, Eval time:0.00078045s, FPS:1281.3138
+Frame_515: 1080x1920, PSNR:35.5337, MS-SSIM:0.9420, Training:13.9897s, Eval:0.00078045s, FPS:1281.3138
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/515/gaussian_model_515.pth.tar
+Test PSNR:35.5475, MS_SSIM:0.941968
+Frame516_Training Complete in 12.2539s, Eval time:0.00078575s, FPS:1272.6634
+Frame_516: 1080x1920, PSNR:35.5475, MS-SSIM:0.9420, Training:12.2539s, Eval:0.00078575s, FPS:1272.6634
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/516/gaussian_model_516.pth.tar
+Test PSNR:35.5437, MS_SSIM:0.941800
+Frame517_Training Complete in 13.1149s, Eval time:0.00068564s, FPS:1458.4927
+Frame_517: 1080x1920, PSNR:35.5437, MS-SSIM:0.9418, Training:13.1149s, Eval:0.00068564s, FPS:1458.4927
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/517/gaussian_model_517.pth.tar
+Test PSNR:35.5465, MS_SSIM:0.941853
+Frame518_Training Complete in 13.1612s, Eval time:0.00068215s, FPS:1465.9453
+Frame_518: 1080x1920, PSNR:35.5465, MS-SSIM:0.9419, Training:13.1612s, Eval:0.00068215s, FPS:1465.9453
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/518/gaussian_model_518.pth.tar
+Test PSNR:35.5462, MS_SSIM:0.941783
+Frame519_Training Complete in 12.3921s, Eval time:0.00068901s, FPS:1451.3564
+Frame_519: 1080x1920, PSNR:35.5462, MS-SSIM:0.9418, Training:12.3921s, Eval:0.00068901s, FPS:1451.3564
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/519/gaussian_model_519.pth.tar
+Test PSNR:35.5456, MS_SSIM:0.941796
+Frame520_Training Complete in 12.7567s, Eval time:0.00078256s, FPS:1277.8591
+Frame_520: 1080x1920, PSNR:35.5456, MS-SSIM:0.9418, Training:12.7567s, Eval:0.00078256s, FPS:1277.8591
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/520/gaussian_model_520.pth.tar
+Test PSNR:35.5508, MS_SSIM:0.941745
+Frame521_Training Complete in 15.6043s, Eval time:0.00069439s, FPS:1440.1192
+Frame_521: 1080x1920, PSNR:35.5508, MS-SSIM:0.9417, Training:15.6043s, Eval:0.00069439s, FPS:1440.1192
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/521/gaussian_model_521.pth.tar
+Test PSNR:35.5452, MS_SSIM:0.941574
+Frame522_Training Complete in 13.4891s, Eval time:0.00078623s, FPS:1271.8877
+Frame_522: 1080x1920, PSNR:35.5452, MS-SSIM:0.9416, Training:13.4891s, Eval:0.00078623s, FPS:1271.8877
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/522/gaussian_model_522.pth.tar
+Test PSNR:35.5346, MS_SSIM:0.941434
+Frame523_Training Complete in 12.8770s, Eval time:0.00069664s, FPS:1435.4518
+Frame_523: 1080x1920, PSNR:35.5346, MS-SSIM:0.9414, Training:12.8770s, Eval:0.00069664s, FPS:1435.4518
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/523/gaussian_model_523.pth.tar
+Test PSNR:35.5224, MS_SSIM:0.941271
+Frame524_Training Complete in 12.5260s, Eval time:0.00069379s, FPS:1441.3663
+Frame_524: 1080x1920, PSNR:35.5224, MS-SSIM:0.9413, Training:12.5260s, Eval:0.00069379s, FPS:1441.3663
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/524/gaussian_model_524.pth.tar
+Test PSNR:35.5309, MS_SSIM:0.941298
+Frame525_Training Complete in 14.4544s, Eval time:0.00069685s, FPS:1435.0196
+Frame_525: 1080x1920, PSNR:35.5309, MS-SSIM:0.9413, Training:14.4544s, Eval:0.00069685s, FPS:1435.0196
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/525/gaussian_model_525.pth.tar
+Test PSNR:35.5371, MS_SSIM:0.941300
+Frame526_Training Complete in 13.0223s, Eval time:0.00069389s, FPS:1441.1435
+Frame_526: 1080x1920, PSNR:35.5371, MS-SSIM:0.9413, Training:13.0223s, Eval:0.00069389s, FPS:1441.1435
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/526/gaussian_model_526.pth.tar
+Test PSNR:35.5351, MS_SSIM:0.941201
+Frame527_Training Complete in 13.3614s, Eval time:0.00069712s, FPS:1434.4797
+Frame_527: 1080x1920, PSNR:35.5351, MS-SSIM:0.9412, Training:13.3614s, Eval:0.00069712s, FPS:1434.4797
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/527/gaussian_model_527.pth.tar
+Test PSNR:35.5472, MS_SSIM:0.941304
+Frame528_Training Complete in 13.6167s, Eval time:0.00080706s, FPS:1239.0671
+Frame_528: 1080x1920, PSNR:35.5472, MS-SSIM:0.9413, Training:13.6167s, Eval:0.00080706s, FPS:1239.0671
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/528/gaussian_model_528.pth.tar
+Test PSNR:35.5438, MS_SSIM:0.941300
+Frame529_Training Complete in 12.6102s, Eval time:0.00069776s, FPS:1433.1661
+Frame_529: 1080x1920, PSNR:35.5438, MS-SSIM:0.9413, Training:12.6102s, Eval:0.00069776s, FPS:1433.1661
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/529/gaussian_model_529.pth.tar
+Test PSNR:35.5442, MS_SSIM:0.941427
+Frame530_Training Complete in 13.2502s, Eval time:0.00069908s, FPS:1430.4583
+Frame_530: 1080x1920, PSNR:35.5442, MS-SSIM:0.9414, Training:13.2502s, Eval:0.00069908s, FPS:1430.4583
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/530/gaussian_model_530.pth.tar
+Test PSNR:35.5421, MS_SSIM:0.941455
+Frame531_Training Complete in 13.1355s, Eval time:0.00069557s, FPS:1437.6758
+Frame_531: 1080x1920, PSNR:35.5421, MS-SSIM:0.9415, Training:13.1355s, Eval:0.00069557s, FPS:1437.6758
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/531/gaussian_model_531.pth.tar
+Test PSNR:35.5416, MS_SSIM:0.941651
+Frame532_Training Complete in 12.7624s, Eval time:0.00079342s, FPS:1260.3683
+Frame_532: 1080x1920, PSNR:35.5416, MS-SSIM:0.9417, Training:12.7624s, Eval:0.00079342s, FPS:1260.3683
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/532/gaussian_model_532.pth.tar
+Test PSNR:35.5394, MS_SSIM:0.941703
+Frame533_Training Complete in 13.7476s, Eval time:0.00070333s, FPS:1421.7980
+Frame_533: 1080x1920, PSNR:35.5394, MS-SSIM:0.9417, Training:13.7476s, Eval:0.00070333s, FPS:1421.7980
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/533/gaussian_model_533.pth.tar
+Test PSNR:35.5324, MS_SSIM:0.941643
+Frame534_Training Complete in 13.2477s, Eval time:0.00080716s, FPS:1238.9134
+Frame_534: 1080x1920, PSNR:35.5324, MS-SSIM:0.9416, Training:13.2477s, Eval:0.00080716s, FPS:1238.9134
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/534/gaussian_model_534.pth.tar
+Test PSNR:35.5348, MS_SSIM:0.941508
+Frame535_Training Complete in 14.6834s, Eval time:0.00083848s, FPS:1192.6377
+Frame_535: 1080x1920, PSNR:35.5348, MS-SSIM:0.9415, Training:14.6834s, Eval:0.00083848s, FPS:1192.6377
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/535/gaussian_model_535.pth.tar
+Test PSNR:35.5359, MS_SSIM:0.941549
+Frame536_Training Complete in 12.1765s, Eval time:0.00078723s, FPS:1270.2814
+Frame_536: 1080x1920, PSNR:35.5359, MS-SSIM:0.9415, Training:12.1765s, Eval:0.00078723s, FPS:1270.2814
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/536/gaussian_model_536.pth.tar
+Test PSNR:35.5311, MS_SSIM:0.941450
+Frame537_Training Complete in 14.2307s, Eval time:0.00070346s, FPS:1421.5378
+Frame_537: 1080x1920, PSNR:35.5311, MS-SSIM:0.9414, Training:14.2307s, Eval:0.00070346s, FPS:1421.5378
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/537/gaussian_model_537.pth.tar
+Test PSNR:35.5362, MS_SSIM:0.941757
+Frame538_Training Complete in 14.8557s, Eval time:0.00070691s, FPS:1414.6003
+Frame_538: 1080x1920, PSNR:35.5362, MS-SSIM:0.9418, Training:14.8557s, Eval:0.00070691s, FPS:1414.6003
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/538/gaussian_model_538.pth.tar
+Test PSNR:35.5392, MS_SSIM:0.941804
+Frame539_Training Complete in 12.3288s, Eval time:0.00070768s, FPS:1413.0752
+Frame_539: 1080x1920, PSNR:35.5392, MS-SSIM:0.9418, Training:12.3288s, Eval:0.00070768s, FPS:1413.0752
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/539/gaussian_model_539.pth.tar
+Test PSNR:35.5295, MS_SSIM:0.941925
+Frame540_Training Complete in 12.5199s, Eval time:0.00070355s, FPS:1421.3691
+Frame_540: 1080x1920, PSNR:35.5295, MS-SSIM:0.9419, Training:12.5199s, Eval:0.00070355s, FPS:1421.3691
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/540/gaussian_model_540.pth.tar
+Test PSNR:35.5221, MS_SSIM:0.941972
+Frame541_Training Complete in 12.7721s, Eval time:0.00079438s, FPS:1258.8438
+Frame_541: 1080x1920, PSNR:35.5221, MS-SSIM:0.9420, Training:12.7721s, Eval:0.00079438s, FPS:1258.8438
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/541/gaussian_model_541.pth.tar
+Test PSNR:35.5231, MS_SSIM:0.942171
+Frame542_Training Complete in 13.9135s, Eval time:0.00071023s, FPS:1407.9901
+Frame_542: 1080x1920, PSNR:35.5231, MS-SSIM:0.9422, Training:13.9135s, Eval:0.00071023s, FPS:1407.9901
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/542/gaussian_model_542.pth.tar
+Test PSNR:35.5297, MS_SSIM:0.942162
+Frame543_Training Complete in 13.2701s, Eval time:0.00067583s, FPS:1479.6654
+Frame_543: 1080x1920, PSNR:35.5297, MS-SSIM:0.9422, Training:13.2701s, Eval:0.00067583s, FPS:1479.6654
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/543/gaussian_model_543.pth.tar
+Test PSNR:35.5386, MS_SSIM:0.942092
+Frame544_Training Complete in 12.8748s, Eval time:0.00070623s, FPS:1415.9757
+Frame_544: 1080x1920, PSNR:35.5386, MS-SSIM:0.9421, Training:12.8748s, Eval:0.00070623s, FPS:1415.9757
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/544/gaussian_model_544.pth.tar
+Test PSNR:35.5328, MS_SSIM:0.942020
+Frame545_Training Complete in 12.9177s, Eval time:0.00071040s, FPS:1407.6499
+Frame_545: 1080x1920, PSNR:35.5328, MS-SSIM:0.9420, Training:12.9177s, Eval:0.00071040s, FPS:1407.6499
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/545/gaussian_model_545.pth.tar
+Test PSNR:35.5196, MS_SSIM:0.941954
+Frame546_Training Complete in 12.4373s, Eval time:0.00071141s, FPS:1405.6591
+Frame_546: 1080x1920, PSNR:35.5196, MS-SSIM:0.9420, Training:12.4373s, Eval:0.00071141s, FPS:1405.6591
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/546/gaussian_model_546.pth.tar
+Test PSNR:35.5236, MS_SSIM:0.942003
+Frame547_Training Complete in 14.3637s, Eval time:0.00079042s, FPS:1265.1432
+Frame_547: 1080x1920, PSNR:35.5236, MS-SSIM:0.9420, Training:14.3637s, Eval:0.00079042s, FPS:1265.1432
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/547/gaussian_model_547.pth.tar
+Test PSNR:35.5140, MS_SSIM:0.941799
+Frame548_Training Complete in 13.2968s, Eval time:0.00071249s, FPS:1403.5189
+Frame_548: 1080x1920, PSNR:35.5140, MS-SSIM:0.9418, Training:13.2968s, Eval:0.00071249s, FPS:1403.5189
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/548/gaussian_model_548.pth.tar
+Test PSNR:35.5216, MS_SSIM:0.941945
+Frame549_Training Complete in 13.1424s, Eval time:0.00071296s, FPS:1402.5990
+Frame_549: 1080x1920, PSNR:35.5216, MS-SSIM:0.9419, Training:13.1424s, Eval:0.00071296s, FPS:1402.5990
+Test PSNR:35.7286, MS_SSIM:0.946896
+Frame550_Training Complete in 105.5474s, Eval time:0.00063671s, FPS:1570.5651
+Frame_550: 1080x1920, PSNR:35.7286, MS-SSIM:0.9469, Training:105.5474s, Eval:0.00063671s, FPS:1570.5651
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/550/gaussian_model_550.pth.tar
+Test PSNR:35.4535, MS_SSIM:0.940713
+Frame551_Training Complete in 11.4589s, Eval time:0.00064312s, FPS:1554.9202
+Frame_551: 1080x1920, PSNR:35.4535, MS-SSIM:0.9407, Training:11.4589s, Eval:0.00064312s, FPS:1554.9202
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/551/gaussian_model_551.pth.tar
+Test PSNR:35.4639, MS_SSIM:0.940536
+Frame552_Training Complete in 15.2225s, Eval time:0.00077068s, FPS:1297.5539
+Frame_552: 1080x1920, PSNR:35.4639, MS-SSIM:0.9405, Training:15.2225s, Eval:0.00077068s, FPS:1297.5539
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/552/gaussian_model_552.pth.tar
+Test PSNR:35.4772, MS_SSIM:0.940713
+Frame553_Training Complete in 12.4264s, Eval time:0.00065061s, FPS:1537.0169
+Frame_553: 1080x1920, PSNR:35.4772, MS-SSIM:0.9407, Training:12.4264s, Eval:0.00065061s, FPS:1537.0169
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/553/gaussian_model_553.pth.tar
+Test PSNR:35.4950, MS_SSIM:0.941104
+Frame554_Training Complete in 11.8047s, Eval time:0.00065215s, FPS:1533.3926
+Frame_554: 1080x1920, PSNR:35.4950, MS-SSIM:0.9411, Training:11.8047s, Eval:0.00065215s, FPS:1533.3926
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/554/gaussian_model_554.pth.tar
+Test PSNR:35.5016, MS_SSIM:0.941183
+Frame555_Training Complete in 12.4686s, Eval time:0.00065624s, FPS:1523.8383
+Frame_555: 1080x1920, PSNR:35.5016, MS-SSIM:0.9412, Training:12.4686s, Eval:0.00065624s, FPS:1523.8383
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/555/gaussian_model_555.pth.tar
+Test PSNR:35.4947, MS_SSIM:0.941082
+Frame556_Training Complete in 11.6494s, Eval time:0.00066215s, FPS:1510.2309
+Frame_556: 1080x1920, PSNR:35.4947, MS-SSIM:0.9411, Training:11.6494s, Eval:0.00066215s, FPS:1510.2309
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/556/gaussian_model_556.pth.tar
+Test PSNR:35.4964, MS_SSIM:0.941183
+Frame557_Training Complete in 12.7705s, Eval time:0.00066210s, FPS:1510.3506
+Frame_557: 1080x1920, PSNR:35.4964, MS-SSIM:0.9412, Training:12.7705s, Eval:0.00066210s, FPS:1510.3506
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/557/gaussian_model_557.pth.tar
+Test PSNR:35.5151, MS_SSIM:0.941373
+Frame558_Training Complete in 11.5304s, Eval time:0.00066277s, FPS:1508.8239
+Frame_558: 1080x1920, PSNR:35.5151, MS-SSIM:0.9414, Training:11.5304s, Eval:0.00066277s, FPS:1508.8239
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/558/gaussian_model_558.pth.tar
+Test PSNR:35.5158, MS_SSIM:0.941454
+Frame559_Training Complete in 12.1941s, Eval time:0.00062788s, FPS:1592.6547
+Frame_559: 1080x1920, PSNR:35.5158, MS-SSIM:0.9415, Training:12.1941s, Eval:0.00062788s, FPS:1592.6547
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/559/gaussian_model_559.pth.tar
+Test PSNR:35.5162, MS_SSIM:0.941339
+Frame560_Training Complete in 11.8707s, Eval time:0.00066678s, FPS:1499.7386
+Frame_560: 1080x1920, PSNR:35.5162, MS-SSIM:0.9413, Training:11.8707s, Eval:0.00066678s, FPS:1499.7386
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/560/gaussian_model_560.pth.tar
+Test PSNR:35.5203, MS_SSIM:0.941367
+Frame561_Training Complete in 12.1623s, Eval time:0.00066611s, FPS:1501.2470
+Frame_561: 1080x1920, PSNR:35.5203, MS-SSIM:0.9414, Training:12.1623s, Eval:0.00066611s, FPS:1501.2470
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/561/gaussian_model_561.pth.tar
+Test PSNR:35.5158, MS_SSIM:0.941101
+Frame562_Training Complete in 15.5940s, Eval time:0.00077781s, FPS:1285.6538
+Frame_562: 1080x1920, PSNR:35.5158, MS-SSIM:0.9411, Training:15.5940s, Eval:0.00077781s, FPS:1285.6538
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/562/gaussian_model_562.pth.tar
+Test PSNR:35.5277, MS_SSIM:0.940917
+Frame563_Training Complete in 12.9318s, Eval time:0.00066883s, FPS:1495.1516
+Frame_563: 1080x1920, PSNR:35.5277, MS-SSIM:0.9409, Training:12.9318s, Eval:0.00066883s, FPS:1495.1516
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/563/gaussian_model_563.pth.tar
+Test PSNR:35.5461, MS_SSIM:0.941170
+Frame564_Training Complete in 11.9804s, Eval time:0.00066881s, FPS:1495.1889
+Frame_564: 1080x1920, PSNR:35.5461, MS-SSIM:0.9412, Training:11.9804s, Eval:0.00066881s, FPS:1495.1889
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/564/gaussian_model_564.pth.tar
+Test PSNR:35.5397, MS_SSIM:0.941140
+Frame565_Training Complete in 12.4326s, Eval time:0.00067048s, FPS:1491.4725
+Frame_565: 1080x1920, PSNR:35.5397, MS-SSIM:0.9411, Training:12.4326s, Eval:0.00067048s, FPS:1491.4725
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/565/gaussian_model_565.pth.tar
+Test PSNR:35.5464, MS_SSIM:0.941267
+Frame566_Training Complete in 12.5694s, Eval time:0.00067781s, FPS:1475.3403
+Frame_566: 1080x1920, PSNR:35.5464, MS-SSIM:0.9413, Training:12.5694s, Eval:0.00067781s, FPS:1475.3403
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/566/gaussian_model_566.pth.tar
+Test PSNR:35.5444, MS_SSIM:0.941412
+Frame567_Training Complete in 12.1280s, Eval time:0.00078120s, FPS:1280.0899
+Frame_567: 1080x1920, PSNR:35.5444, MS-SSIM:0.9414, Training:12.1280s, Eval:0.00078120s, FPS:1280.0899
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/567/gaussian_model_567.pth.tar
+Test PSNR:35.5531, MS_SSIM:0.941565
+Frame568_Training Complete in 12.4553s, Eval time:0.00068249s, FPS:1465.2232
+Frame_568: 1080x1920, PSNR:35.5531, MS-SSIM:0.9416, Training:12.4553s, Eval:0.00068249s, FPS:1465.2232
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/568/gaussian_model_568.pth.tar
+Test PSNR:35.5428, MS_SSIM:0.941658
+Frame569_Training Complete in 12.6355s, Eval time:0.00068093s, FPS:1468.5733
+Frame_569: 1080x1920, PSNR:35.5428, MS-SSIM:0.9417, Training:12.6355s, Eval:0.00068093s, FPS:1468.5733
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/569/gaussian_model_569.pth.tar
+Test PSNR:35.5418, MS_SSIM:0.941817
+Frame570_Training Complete in 13.5011s, Eval time:0.00077826s, FPS:1284.9251
+Frame_570: 1080x1920, PSNR:35.5418, MS-SSIM:0.9418, Training:13.5011s, Eval:0.00077826s, FPS:1284.9251
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/570/gaussian_model_570.pth.tar
+Test PSNR:35.5258, MS_SSIM:0.941700
+Frame571_Training Complete in 12.6246s, Eval time:0.00068521s, FPS:1459.4163
+Frame_571: 1080x1920, PSNR:35.5258, MS-SSIM:0.9417, Training:12.6246s, Eval:0.00068521s, FPS:1459.4163
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/571/gaussian_model_571.pth.tar
+Test PSNR:35.5197, MS_SSIM:0.941699
+Frame572_Training Complete in 12.3531s, Eval time:0.00078393s, FPS:1275.6321
+Frame_572: 1080x1920, PSNR:35.5197, MS-SSIM:0.9417, Training:12.3531s, Eval:0.00078393s, FPS:1275.6321
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/572/gaussian_model_572.pth.tar
+Test PSNR:35.5280, MS_SSIM:0.942158
+Frame573_Training Complete in 12.6912s, Eval time:0.00078736s, FPS:1270.0737
+Frame_573: 1080x1920, PSNR:35.5280, MS-SSIM:0.9422, Training:12.6912s, Eval:0.00078736s, FPS:1270.0737
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/573/gaussian_model_573.pth.tar
+Test PSNR:35.5186, MS_SSIM:0.941945
+Frame574_Training Complete in 12.7308s, Eval time:0.00069319s, FPS:1442.5958
+Frame_574: 1080x1920, PSNR:35.5186, MS-SSIM:0.9419, Training:12.7308s, Eval:0.00069319s, FPS:1442.5958
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/574/gaussian_model_574.pth.tar
+Test PSNR:35.5105, MS_SSIM:0.941970
+Frame575_Training Complete in 14.5013s, Eval time:0.00078557s, FPS:1272.9685
+Frame_575: 1080x1920, PSNR:35.5105, MS-SSIM:0.9420, Training:14.5013s, Eval:0.00078557s, FPS:1272.9685
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/575/gaussian_model_575.pth.tar
+Test PSNR:35.5028, MS_SSIM:0.941814
+Frame576_Training Complete in 12.9567s, Eval time:0.00069191s, FPS:1445.2652
+Frame_576: 1080x1920, PSNR:35.5028, MS-SSIM:0.9418, Training:12.9567s, Eval:0.00069191s, FPS:1445.2652
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/576/gaussian_model_576.pth.tar
+Test PSNR:35.5082, MS_SSIM:0.941638
+Frame577_Training Complete in 13.3903s, Eval time:0.00078602s, FPS:1272.2272
+Frame_577: 1080x1920, PSNR:35.5082, MS-SSIM:0.9416, Training:13.3903s, Eval:0.00078602s, FPS:1272.2272
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/577/gaussian_model_577.pth.tar
+Test PSNR:35.5019, MS_SSIM:0.941394
+Frame578_Training Complete in 12.8272s, Eval time:0.00078907s, FPS:1267.3145
+Frame_578: 1080x1920, PSNR:35.5019, MS-SSIM:0.9414, Training:12.8272s, Eval:0.00078907s, FPS:1267.3145
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/578/gaussian_model_578.pth.tar
+Test PSNR:35.5160, MS_SSIM:0.941343
+Frame579_Training Complete in 12.4550s, Eval time:0.00066199s, FPS:1510.5899
+Frame_579: 1080x1920, PSNR:35.5160, MS-SSIM:0.9413, Training:12.4550s, Eval:0.00066199s, FPS:1510.5899
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/579/gaussian_model_579.pth.tar
+Test PSNR:35.5085, MS_SSIM:0.941096
+Frame580_Training Complete in 13.0662s, Eval time:0.00078651s, FPS:1271.4443
+Frame_580: 1080x1920, PSNR:35.5085, MS-SSIM:0.9411, Training:13.0662s, Eval:0.00078651s, FPS:1271.4443
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/580/gaussian_model_580.pth.tar
+Test PSNR:35.5095, MS_SSIM:0.941047
+Frame581_Training Complete in 12.5883s, Eval time:0.00069800s, FPS:1432.6717
+Frame_581: 1080x1920, PSNR:35.5095, MS-SSIM:0.9410, Training:12.5883s, Eval:0.00069800s, FPS:1432.6717
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/581/gaussian_model_581.pth.tar
+Test PSNR:35.5276, MS_SSIM:0.941207
+Frame582_Training Complete in 13.2171s, Eval time:0.00069720s, FPS:1434.3031
+Frame_582: 1080x1920, PSNR:35.5276, MS-SSIM:0.9412, Training:13.2171s, Eval:0.00069720s, FPS:1434.3031
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/582/gaussian_model_582.pth.tar
+Test PSNR:35.5202, MS_SSIM:0.941013
+Frame583_Training Complete in 13.5047s, Eval time:0.00078852s, FPS:1268.1958
+Frame_583: 1080x1920, PSNR:35.5202, MS-SSIM:0.9410, Training:13.5047s, Eval:0.00078852s, FPS:1268.1958
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/583/gaussian_model_583.pth.tar
+Test PSNR:35.5443, MS_SSIM:0.941147
+Frame584_Training Complete in 13.2399s, Eval time:0.00079325s, FPS:1260.6335
+Frame_584: 1080x1920, PSNR:35.5443, MS-SSIM:0.9411, Training:13.2399s, Eval:0.00079325s, FPS:1260.6335
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/584/gaussian_model_584.pth.tar
+Test PSNR:35.5515, MS_SSIM:0.941115
+Frame585_Training Complete in 13.1464s, Eval time:0.00078163s, FPS:1279.3753
+Frame_585: 1080x1920, PSNR:35.5515, MS-SSIM:0.9411, Training:13.1464s, Eval:0.00078163s, FPS:1279.3753
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/585/gaussian_model_585.pth.tar
+Test PSNR:35.5613, MS_SSIM:0.941225
+Frame586_Training Complete in 12.7070s, Eval time:0.00079283s, FPS:1261.3082
+Frame_586: 1080x1920, PSNR:35.5613, MS-SSIM:0.9412, Training:12.7070s, Eval:0.00079283s, FPS:1261.3082
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/586/gaussian_model_586.pth.tar
+Test PSNR:35.5619, MS_SSIM:0.941216
+Frame587_Training Complete in 15.8843s, Eval time:0.00079698s, FPS:1254.7353
+Frame_587: 1080x1920, PSNR:35.5619, MS-SSIM:0.9412, Training:15.8843s, Eval:0.00079698s, FPS:1254.7353
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/587/gaussian_model_587.pth.tar
+Test PSNR:35.5710, MS_SSIM:0.941615
+Frame588_Training Complete in 13.3509s, Eval time:0.00078637s, FPS:1271.6679
+Frame_588: 1080x1920, PSNR:35.5710, MS-SSIM:0.9416, Training:13.3509s, Eval:0.00078637s, FPS:1271.6679
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/588/gaussian_model_588.pth.tar
+Test PSNR:35.5595, MS_SSIM:0.941505
+Frame589_Training Complete in 13.0063s, Eval time:0.00070260s, FPS:1423.2888
+Frame_589: 1080x1920, PSNR:35.5595, MS-SSIM:0.9415, Training:13.0063s, Eval:0.00070260s, FPS:1423.2888
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/589/gaussian_model_589.pth.tar
+Test PSNR:35.5654, MS_SSIM:0.941742
+Frame590_Training Complete in 12.8756s, Eval time:0.00070573s, FPS:1416.9707
+Frame_590: 1080x1920, PSNR:35.5654, MS-SSIM:0.9417, Training:12.8756s, Eval:0.00070573s, FPS:1416.9707
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/590/gaussian_model_590.pth.tar
+Test PSNR:35.5754, MS_SSIM:0.941691
+Frame591_Training Complete in 16.2694s, Eval time:0.00078764s, FPS:1269.6085
+Frame_591: 1080x1920, PSNR:35.5754, MS-SSIM:0.9417, Training:16.2694s, Eval:0.00078764s, FPS:1269.6085
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/591/gaussian_model_591.pth.tar
+Test PSNR:35.5825, MS_SSIM:0.941586
+Frame592_Training Complete in 13.1639s, Eval time:0.00070323s, FPS:1422.0101
+Frame_592: 1080x1920, PSNR:35.5825, MS-SSIM:0.9416, Training:13.1639s, Eval:0.00070323s, FPS:1422.0101
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/592/gaussian_model_592.pth.tar
+Test PSNR:35.5959, MS_SSIM:0.941491
+Frame593_Training Complete in 13.2122s, Eval time:0.00078632s, FPS:1271.7527
+Frame_593: 1080x1920, PSNR:35.5959, MS-SSIM:0.9415, Training:13.2122s, Eval:0.00078632s, FPS:1271.7527
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/593/gaussian_model_593.pth.tar
+Test PSNR:35.5995, MS_SSIM:0.941446
+Frame594_Training Complete in 12.7798s, Eval time:0.00079105s, FPS:1264.1442
+Frame_594: 1080x1920, PSNR:35.5995, MS-SSIM:0.9414, Training:12.7798s, Eval:0.00079105s, FPS:1264.1442
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/594/gaussian_model_594.pth.tar
+Test PSNR:35.6149, MS_SSIM:0.941702
+Frame595_Training Complete in 13.9158s, Eval time:0.00078824s, FPS:1268.6484
+Frame_595: 1080x1920, PSNR:35.6149, MS-SSIM:0.9417, Training:13.9158s, Eval:0.00078824s, FPS:1268.6484
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/595/gaussian_model_595.pth.tar
+Test PSNR:35.6174, MS_SSIM:0.941498
+Frame596_Training Complete in 14.0458s, Eval time:0.00078892s, FPS:1267.5519
+Frame_596: 1080x1920, PSNR:35.6174, MS-SSIM:0.9415, Training:14.0458s, Eval:0.00078892s, FPS:1267.5519
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/596/gaussian_model_596.pth.tar
+Test PSNR:35.6178, MS_SSIM:0.941608
+Frame597_Training Complete in 13.3699s, Eval time:0.00080227s, FPS:1246.4573
+Frame_597: 1080x1920, PSNR:35.6178, MS-SSIM:0.9416, Training:13.3699s, Eval:0.00080227s, FPS:1246.4573
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/597/gaussian_model_597.pth.tar
+Test PSNR:35.6122, MS_SSIM:0.941574
+Frame598_Training Complete in 14.8935s, Eval time:0.00078958s, FPS:1266.5032
+Frame_598: 1080x1920, PSNR:35.6122, MS-SSIM:0.9416, Training:14.8935s, Eval:0.00078958s, FPS:1266.5032
+loading model path:checkpoints/Beauty/GaussianImage_Cholesky/598/gaussian_model_598.pth.tar
+Test PSNR:35.6195, MS_SSIM:0.941646
+Frame599_Training Complete in 13.7849s, Eval time:0.00079166s, FPS:1263.1620
+Frame_599: 1080x1920, PSNR:35.6195, MS-SSIM:0.9416, Training:13.7849s, Eval:0.00079166s, FPS:1263.1620
+Test PSNR:35.8867, MS_SSIM:0.947513
+Frame600_Training Complete in 115.6818s, Eval time:0.00077265s, FPS:1294.2427
+Frame_600: 1080x1920, PSNR:35.8867, MS-SSIM:0.9475, Training:115.6818s, Eval:0.00077265s, FPS:1294.2427
+Average: 1080x1920, PSNR:35.5705, MS-SSIM:0.9422, Training:15.3031s, Eval:0.00070685s, FPS:1422.4243
