@@ -22,7 +22,7 @@ total_frames = file_size // frame_size
 def yuv420_to_rgb(yuv_frame, width, height):
     y_size = width * height
     uv_size = y_size // 4
-    pdb.set_trace()
+    #pdb.set_trace()
     # Separate Y, U, and V planes
     y = yuv_frame[:y_size].reshape((height, width))
     u = yuv_frame[y_size:y_size + uv_size].reshape((height // 2, width // 2))
@@ -30,8 +30,8 @@ def yuv420_to_rgb(yuv_frame, width, height):
 
     rgb_img = np.zeros((height, width, 3), dtype=np.uint8)
     # Upsample U and V to the same size as Y
-    #u = np.repeat(np.repeat(u, 2, axis=0), 2, axis=1)
-    #v = np.repeat(np.repeat(v, 2, axis=0), 2, axis=1)
+    u = np.repeat(np.repeat(u, 2, axis=0), 2, axis=1)
+    v = np.repeat(np.repeat(v, 2, axis=0), 2, axis=1)
     
     # Convert YUV to RGB
     #c = y - 16
