@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from tqdm import tqdm
-
+import matplotlib as plt
 # 文件路径
 file_path = '/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
 
@@ -41,10 +41,10 @@ with open(file_path, 'rb') as f:
 if video_frames:
     first_frame = video_frames[0]
     
-    # 显示第一帧
-    cv2.imshow('First Frame', first_frame)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # 使用matplotlib展示第一帧
+    plt.imshow(cv2.cvtColor(first_frame, cv2.COLOR_BGR2RGB))
+    plt.axis('off')  # 隐藏坐标轴
+    plt.show()
     
     # 保存第一帧为图片文件
     cv2.imwrite('first_frame.png', first_frame)
