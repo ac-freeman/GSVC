@@ -37,9 +37,9 @@ def yuv420_to_rgb(yuv_frame, width, height):
     c = y - 16
     d = u - 128
     e = v - 128
-    r = (c + 409 * e + 128) >> 8
-    g = (c - 100 * d - 208 * e + 128) >> 8
-    b = (c + 516 * d + 128) >> 8
+    r = (298 *c + 409 * e + 128) >> 8
+    g = (298 *c - 100 * d - 208 * e + 128) >> 8
+    b = (298 *c + 516 * d + 128) >> 8
     
     # Clip values to be between 0 and 255
     r = np.clip(r, 0, 255).astype(np.uint8)
