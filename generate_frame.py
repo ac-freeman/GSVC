@@ -19,33 +19,57 @@ file_size = os.path.getsize(file_path)
 total_frames = file_size // frame_size
 
 # YUV to RGB conversion function
+# def yuv420_to_rgb(yuv_frame, width, height):
+#     y_size = width * height
+#     uv_size = y_size // 4
+#     #pdb.set_trace()
+#     # Separate Y, U, and V planes
+#     y = yuv_frame[:y_size].reshape((height, width))
+#     u = yuv_frame[y_size:y_size + uv_size].reshape((height // 2, width // 2))
+#     v = yuv_frame[y_size + uv_size:].reshape((height // 2, width // 2))
+
+#     # Upsample U and V to the same size as Y
+#     u = np.repeat(np.repeat(u, 2, axis=0), 2, axis=1)
+#     v = np.repeat(np.repeat(v, 2, axis=0), 2, axis=1)
+    
+#     # Convert YUV to RGB
+#     c = y - 16
+#     d = u - 128
+#     e = v - 128
+#     r = (298 *c + 409 * e + 128) >> 8
+#     g = (298 *c - 100 * d - 208 * e + 128) >> 8
+#     b = (298 *c + 516 * d + 128) >> 8
+    
+#     # Clip values to be between 0 and 255
+#     r = np.clip(r, 0, 255).astype(np.uint8)
+#     g = np.clip(g, 0, 255).astype(np.uint8)
+#     b = np.clip(b, 0, 255).astype(np.uint8)
+    
+#     # Stack the channels to form an RGB image
+#     rgb_frame = np.stack([r, g, b], axis=-1)
+#     return rgb_frame
 def yuv420_to_rgb(yuv_frame, width, height):
     y_size = width * height
     uv_size = y_size // 4
-    #pdb.set_trace()
-    # Separate Y, U, and V planes
+
+    # 分离 Y、U、V 分量
     y = yuv_frame[:y_size].reshape((height, width))
     u = yuv_frame[y_size:y_size + uv_size].reshape((height // 2, width // 2))
     v = yuv_frame[y_size + uv_size:].reshape((height // 2, width // 2))
 
-    # Upsample U and V to the same size as Y
+    # 将 U 和 V 上采样至与 Y 相同的分辨率
     u = np.repeat(np.repeat(u, 2, axis=0), 2, axis=1)
     v = np.repeat(np.repeat(v, 2, axis=0), 2, axis=1)
-    
-    # Convert YUV to RGB
+
+    # 使用不同的缩放因子进行 YUV 到 RGB 转换
     c = y - 16
     d = u - 128
     e = v - 128
-    r = (298 *c + 409 * e + 128) >> 8
-    g = (298 *c - 100 * d - 208 * e + 128) >> 8
-    b = (298 *c + 516 * d + 128) >> 8
-    
-    # Clip values to be between 0 and 255
-    r = np.clip(r, 0, 255).astype(np.uint8)
-    g = np.clip(g, 0, 255).astype(np.uint8)
-    b = np.clip(b, 0, 255).astype(np.uint8)
-    
-    # Stack the channels to form an RGB image
+    r = (1.164 * c + 1.596 * e).clip(0, 255).astype(np.uint8)
+    g = (1.164 * c - 0.392 * d - 0.813 * e).clip(0, 255).astype(np.uint8)
+    b = (1.164 * c + 2.017 * d).clip(0, 255).astype(np.uint8)
+
+    # 叠加 R、G、B 三个通道形成 RGB 图像
     rgb_frame = np.stack([r, g, b], axis=-1)
     return rgb_frame
 
