@@ -19,7 +19,8 @@ class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
         self,
-        image_path: Path,
+        image,
+        frame_num,
         num_points: int = 2000,
         model_name:str = "GaussianImage_Cholesky",
         iterations:int = 30000,
@@ -27,8 +28,8 @@ class SimpleTrainer2d:
         args = None,
     ):
         self.device = torch.device("cuda:0")
-        self.gt_image = image_path_to_tensor(image_path).to(self.device)
-
+        self.gt_image = image_to_tensor(image).to(self.device)
+        self.frame_num=frame_num
         self.num_points = num_points
         image_path = Path(image_path)
         self.image_name = image_path.stem
@@ -36,7 +37,7 @@ class SimpleTrainer2d:
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
         self.iterations = iterations
         self.save_imgs = args.save_imgs
-        self.log_dir = Path(f"./checkpoints/{args.data_name}/{model_name}_{args.iterations}_{num_points}/{self.image_name}")
+        self.log_dir = Path(f"./checkpoints/{args.data_name}/{model_name}/{frame_num}")
         
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky import GaussianImage_Cholesky
@@ -66,7 +67,6 @@ class SimpleTrainer2d:
     def train(self):     
         psnr_list, iter_list = [], []
         progress_bar = tqdm(range(1, self.iterations+1), desc="Training progress")
-        best_psnr = 0
         self.gaussian_model.train()
         start_time = time.time()
         for iter in range(1, self.iterations+1):
@@ -87,35 +87,18 @@ class SimpleTrainer2d:
                 _ = self.gaussian_model()
             test_end_time = (time.time() - test_start_time)/100
 
-        self.logwriter.write("Training Complete in {:.4f}s, Eval time:{:.8f}s, FPS:{:.4f}".format(end_time, test_end_time, 1/test_end_time))
-        torch.save(self.gaussian_model.state_dict(), self.log_dir / "gaussian_model.pth.tar")
-        np.save(self.log_dir / "training.npy", {"iterations": iter_list, "training_psnr": psnr_list, "training_time": end_time, 
-        "psnr": psnr_value, "ms-ssim": ms_ssim_value, "rendering_time": test_end_time, "rendering_fps": 1/test_end_time})
+        self.logwriter.write("Frame{}_Training Complete in {:.4f}s, Eval time:{:.8f}s, FPS:{:.4f}".format(self.frame_num+1,end_time, test_end_time, 1/test_end_time))
+        torch.save(self.gaussian_model.state_dict(), self.log_dir / "gaussian_model_{}.pth.tar".format(self.frame_num))
+        np.save(self.log_dir / "training.npy", {"iterations": iter_list, "training_psnr": psnr_list, "training_time": end_time, "psnr": psnr_value, "ms-ssim": ms_ssim_value, "rendering_time": test_end_time, "rendering_fps": 1/test_end_time})
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time
 
-    def test(self):
-        self.gaussian_model.eval()
-        with torch.no_grad():
-            out = self.gaussian_model()
-        mse_loss = F.mse_loss(out["render"].float(), self.gt_image.float())
-        psnr = 10 * math.log10(1.0 / mse_loss.item())
-        ms_ssim_value = ms_ssim(out["render"].float(), self.gt_image.float(), data_range=1, size_average=True).item()
-        self.logwriter.write("Test PSNR:{:.4f}, MS_SSIM:{:.6f}".format(psnr, ms_ssim_value))
-        if self.save_imgs:
-            transform = transforms.ToPILImage()
-            img = transform(out["render"].float().squeeze(0))
-            name = self.image_name + "_fitting.png" 
-            img.save(str(self.log_dir / name))
-        return psnr, ms_ssim_value
-
-def image_path_to_tensor(image_path: Path):
-    img = Image.open(image_path)
-    transform = transforms.ToTensor()
-    img_tensor = transform(img).unsqueeze(0) #[1, C, H, W]
-    return img_tensor
 
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
+    # transform = transforms.Compose([
+    #     transforms.Resize(target_size),  # 调整图像大小
+    #     transforms.ToTensor()            # 转换为Tensor并将通道放在前面
+    # ])
     img_tensor = transform(img).unsqueeze(0)  # [1, C, H, W]
     return img_tensor
 
@@ -124,10 +107,10 @@ def image_to_tensor(img: Image.Image):
 def parse_args(argv):
     parser = argparse.ArgumentParser(description="Example training script.")
     parser.add_argument(
-        "-d", "--dataset", type=str, default='./datasets/kodak/', help="Training dataset"
+        "-d", "--dataset", type=str, default='../data/UVG/Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--data_name", type=str, default='kodak', help="Training dataset"
+        "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
         "--iterations", type=int, default=50000, help="number of training epochs (default: %(default)s)"
@@ -158,9 +141,13 @@ def parse_args(argv):
 
 def main(argv):
     args = parse_args(argv)
+    args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
+    args.model_name="GaussianImage_Cholesky"
+    args.data_name='Beauty'
+    width = 1920
+    height = 1080
     # Cache the args as a text string to save them in the output dir later
     args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
-
     if args.seed is not None:
         torch.manual_seed(args.seed)
         random.seed(args.seed)
@@ -169,13 +156,12 @@ def main(argv):
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
 
-    logwriter = LogWriter(Path(f"./checkpoints/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
+    logwriter = LogWriter(Path(f"./checkpoints/{args.data_name}/{args.model_name}"))
     psnrs, ms_ssims, training_times, eval_times, eval_fpses = [], [], [], [], []
     image_h, image_w = 0, 0
-    if args.data_name == "kodak":
-        image_length, start = 24, 0
-    elif args.data_name == "DIV2K_valid_LRX2":
-        image_length, start = 100, 800
+    video_frames = process_yuv_video(args.dataset, width, height)
+    image_length,start=len(video_frames),0
+
     for i in range(start, start+image_length):
         if args.data_name == "kodak":
             image_path = Path(args.dataset) / f'kodim{i+1:02}.png'
@@ -208,6 +194,7 @@ def main(argv):
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps))    
 
 if __name__ == "__main__":
+    
     main(sys.argv[1:])
 
 
