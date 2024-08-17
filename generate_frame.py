@@ -34,34 +34,21 @@ def yuv420_to_rgb(yuv_frame, width, height):
     v = np.repeat(np.repeat(v, 2, axis=0), 2, axis=1)
     
     # Convert YUV to RGB
-    #c = y - 16
-    #d = u - 128
-    #e = v - 128
-    #r = (298 * c + 409 * e + 128) >> 8
-    #g = (298 * c - 100 * d - 208 * e + 128) >> 8
-    #b = (298 * c + 516 * d + 128) >> 8
+    c = y - 16
+    d = u - 128
+    e = v - 128
+    r = (c + 409 * e + 128) >> 8
+    g = (c - 100 * d - 208 * e + 128) >> 8
+    b = (c + 516 * d + 128) >> 8
     
     # Clip values to be between 0 and 255
-    #r = np.clip(r, 0, 255).astype(np.uint8)
-    #g = np.clip(g, 0, 255).astype(np.uint8)
-    #b = np.clip(b, 0, 255).astype(np.uint8)
+    r = np.clip(r, 0, 255).astype(np.uint8)
+    g = np.clip(g, 0, 255).astype(np.uint8)
+    b = np.clip(b, 0, 255).astype(np.uint8)
     
     # Stack the channels to form an RGB image
-    #rgb_frame = np.stack([r, g, b], axis=-1)
-    for i in range(height):
-        for j in range(width):
-            y_val = y[i, j]
-            u_val = u[i, j]
-            v_val = v[i, j]
-
-            r = y_val + 1.4075 * (v_val - 128)
-            g = y_val - 0.3455 * (u_val - 128) - 0.7169 * (v_val - 128)
-            b = y_val + 1.7790 * (u_val - 128)
-
-            rgb_img[i, j, 0] = np.clip(r, 0, 255)
-            rgb_img[i, j, 1] = np.clip(g, 0, 255)
-            rgb_img[i, j, 2] = np.clip(b, 0, 255)
-    return rgb_img
+    rgb_frame = np.stack([r, g, b], axis=-1)
+    return rgb_frame
 
 # 打开YUV文件
 with open(file_path, 'rb') as f:
