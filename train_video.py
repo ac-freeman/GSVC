@@ -87,7 +87,7 @@ class SimpleTrainer2d:
                 _ = self.gaussian_model()
             test_end_time = (time.time() - test_start_time)/100
 
-        self.logwriter.write("Frame{}_Training Complete in {:.4f}s, Eval time:{:.8f}s, FPS:{:.4f}".format(self.frame_num+1,end_time, test_end_time, 1/test_end_time))
+        self.logwriter.write("Frame{}_Training Complete in {:.4f}s, Eval time:{:.8f}s, FPS:{:.4f}".format(self.frame_num,end_time, test_end_time, 1/test_end_time))
         torch.save(self.gaussian_model.state_dict(), self.log_dir / "gaussian_model_{}.pth.tar".format(self.frame_num))
         np.save(self.log_dir / "training.npy", {"iterations": iter_list, "training_psnr": psnr_list, "training_time": end_time, "psnr": psnr_value, "ms-ssim": ms_ssim_value, "rendering_time": test_end_time, "rendering_fps": 1/test_end_time})
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time
@@ -163,13 +163,14 @@ def main(argv):
     image_length,start=len(video_frames),0
 
     for i in range(start, start+image_length):
-        if args.data_name == "kodak":
-            image_path = Path(args.dataset) / f'kodim{i+1:02}.png'
-        elif args.data_name == "DIV2K_valid_LRX2":
-            image_path = Path(args.dataset) /  f'{i+1:04}x2.png'
-
-        trainer = SimpleTrainer2d(image_path=image_path, num_points=args.num_points, 
-            iterations=args.iterations, model_name=args.model_name, args=args, model_path=args.model_path)
+        frame_num=i+1
+        if frame_num ==1 or frame_num%50==0:
+            trainer = SimpleTrainer2d(image_path=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
+                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None)
+        else:
+            model_path = Path("./checkpoints") / args.data_name / args.model_name / str(i) / f"gaussian_model_{i}.pth.tar"
+            trainer = SimpleTrainer2d(image_path=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
+                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=model_path)
         psnr, ms_ssim, training_time, eval_time, eval_fps = trainer.train()
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
@@ -178,9 +179,8 @@ def main(argv):
         eval_fpses.append(eval_fps)
         image_h += trainer.H
         image_w += trainer.W
-        image_name = image_path.stem
-        logwriter.write("{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
-            image_name, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
+        logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
+            frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
 
     avg_psnr = torch.tensor(psnrs).mean().item()
     avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
