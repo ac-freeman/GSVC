@@ -2,6 +2,8 @@ import numpy as np
 from tqdm import tqdm
 import os
 from PIL import Image
+import cv2
+import pdb
 # 视频分辨率
 width = 1920
 height = 1080
@@ -21,7 +23,7 @@ total_frames = file_size // frame_size
 def yuv420_to_rgb(yuv_frame, width, height):
     y_size = width * height
     uv_size = y_size // 4
-    
+    pdb.set_trace()
     # Separate Y, U, and V planes
     y = yuv_frame[:y_size].reshape((height, width))
     u = yuv_frame[y_size:y_size + uv_size].reshape((height // 2, width // 2))
