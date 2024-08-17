@@ -50,17 +50,17 @@ def yuv420_to_rgb(yuv_frame, width, height):
     #rgb_frame = np.stack([r, g, b], axis=-1)
     for i in range(height):
         for j in range(width):
-        y_val = y[i, j]
-        u_val = u[i, j]
-        v_val = v[i, j]
+            y_val = y[i, j]
+            u_val = u[i, j]
+            v_val = v[i, j]
 
-        r = y_val + 1.4075 * (v_val - 128)
-        g = y_val - 0.3455 * (u_val - 128) - 0.7169 * (v_val - 128)
-        b = y_val + 1.7790 * (u_val - 128)
+            r = y_val + 1.4075 * (v_val - 128)
+            g = y_val - 0.3455 * (u_val - 128) - 0.7169 * (v_val - 128)
+            b = y_val + 1.7790 * (u_val - 128)
 
-        rgb_img[i, j, 0] = np.clip(r, 0, 255)
-        rgb_img[i, j, 1] = np.clip(g, 0, 255)
-        rgb_img[i, j, 2] = np.clip(b, 0, 255)
+            rgb_img[i, j, 0] = np.clip(r, 0, 255)
+            rgb_img[i, j, 1] = np.clip(g, 0, 255)
+            rgb_img[i, j, 2] = np.clip(b, 0, 255)
     return rgb_img
 
 # 打开YUV文件
