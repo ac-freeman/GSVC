@@ -69,7 +69,6 @@ with open(file_path, 'rb') as f:
 
 # 现在 video_frames_rgb 中包含所有的RGB帧数据
 print(f"Total frames: {len(video_frames_rgb)}")
-print(np.shape(video_frames_rgb))
 
 if video_frames_rgb:
     first_frame = video_frames_rgb[0]
