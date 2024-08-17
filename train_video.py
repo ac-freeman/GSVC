@@ -67,7 +67,7 @@ class SimpleTrainer2d:
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
-        for iter in range(1, self.iterations+1):
+        for iter in range(1, int(self.iterations)+1):
             loss, psnr = self.gaussian_model.train_iter(self.gt_image)
             psnr_list.append(psnr)
             iter_list.append(iter)
