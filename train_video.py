@@ -64,7 +64,7 @@ class SimpleTrainer2d:
 
     def train(self):     
         psnr_list, iter_list = [], []
-        progress_bar = tqdm(range(1, self.iterations+1), desc="Training progress")
+        progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
         for iter in range(1, self.iterations+1):
