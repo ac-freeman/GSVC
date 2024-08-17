@@ -28,7 +28,6 @@ def yuv420_to_rgb(yuv_frame, width, height):
     u = yuv_frame[y_size:y_size + uv_size].reshape((height // 2, width // 2))
     v = yuv_frame[y_size + uv_size:].reshape((height // 2, width // 2))
 
-    rgb_img = np.zeros((height, width, 3), dtype=np.uint8)
     # Upsample U and V to the same size as Y
     u = np.repeat(np.repeat(u, 2, axis=0), 2, axis=1)
     v = np.repeat(np.repeat(v, 2, axis=0), 2, axis=1)
@@ -69,7 +68,7 @@ with open(file_path, 'rb') as f:
 
 # 现在 video_frames_rgb 中包含所有的RGB帧数据
 print(f"Total frames: {len(video_frames_rgb)}")
-
+print(np.shape(video_frames_rgb))
 if video_frames_rgb:
     first_frame = video_frames_rgb[0]
     img = Image.fromarray(first_frame)
