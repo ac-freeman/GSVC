@@ -44,5 +44,6 @@ if __name__ == "__main__":
         plt.show()
         # 保存第一帧为图片文件
         cv2.imwrite('first_frame.png', first_frame)
+        print(np.shape(first_frame))
     else:
         print("No frames were read from the file.")
