@@ -12,4 +12,4 @@
 
 # Activate the environment if needed
 source activate torch     # Replace 'myenv' with the name of your conda environment
-srun python generate_frame.py
+srun python train_video.py
