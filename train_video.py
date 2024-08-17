@@ -31,8 +31,6 @@ class SimpleTrainer2d:
         self.gt_image = image_to_tensor(image).to(self.device)
         self.frame_num=frame_num
         self.num_points = num_points
-        image_path = Path(image_path)
-        self.image_name = image_path.stem
         BLOCK_H, BLOCK_W = 16, 16
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
         self.iterations = iterations
