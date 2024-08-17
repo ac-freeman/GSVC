@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from tqdm import tqdm
-import matplotlib as plt
+import matplotlib.pyplot as plt
 # 文件路径
 file_path = '/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
 
