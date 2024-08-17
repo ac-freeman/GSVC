@@ -1,7 +1,7 @@
 import numpy as np
 from tqdm import tqdm
 import os
-
+from PIL import Image
 # 视频分辨率
 width = 1920
 height = 1080
@@ -69,3 +69,10 @@ with open(file_path, 'rb') as f:
 print(f"Total frames: {len(video_frames_rgb)}")
 print(np.shape(video_frames_rgb))
 
+if video_frames_rgb:
+    first_frame = video_frames_rgb[0]
+    img = Image.fromarray(first_frame)
+    img.save("first_frame.png")  # Save to your preferred location
+    print("First frame saved successfully.")
+else:
+    print("No frames available to save.")
