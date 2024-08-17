@@ -89,7 +89,20 @@ class SimpleTrainer2d:
         torch.save(self.gaussian_model.state_dict(), self.log_dir / "gaussian_model_{}.pth.tar".format(self.frame_num))
         np.save(self.log_dir / "training.npy", {"iterations": iter_list, "training_psnr": psnr_list, "training_time": end_time, "psnr": psnr_value, "ms-ssim": ms_ssim_value, "rendering_time": test_end_time, "rendering_fps": 1/test_end_time})
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time
-
+    def test(self):
+        self.gaussian_model.eval()
+        with torch.no_grad():
+            out = self.gaussian_model()
+        mse_loss = F.mse_loss(out["render"].float(), self.gt_image.float())
+        psnr = 10 * math.log10(1.0 / mse_loss.item())
+        ms_ssim_value = ms_ssim(out["render"].float(), self.gt_image.float(), data_range=1, size_average=True).item()
+        self.logwriter.write("Test PSNR:{:.4f}, MS_SSIM:{:.6f}".format(psnr, ms_ssim_value))
+        if self.save_imgs:
+            transform = transforms.ToPILImage()
+            img = transform(out["render"].float().squeeze(0))
+            name = self.frame_num + "_fitting.png" 
+            img.save(str(self.log_dir / name))
+        return psnr, ms_ssim_value
 
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
