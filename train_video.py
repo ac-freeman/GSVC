@@ -165,11 +165,11 @@ def main(argv):
     for i in range(start, start+image_length):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
-            trainer = SimpleTrainer2d(image_path=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
+            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
                 iterations=args.iterations, model_name=args.model_name, args=args, model_path=None)
         else:
             model_path = Path("./checkpoints") / args.data_name / args.model_name / str(i) / f"gaussian_model_{i}.pth.tar"
-            trainer = SimpleTrainer2d(image_path=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
+            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
                 iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=model_path)
         psnr, ms_ssim, training_time, eval_time, eval_fps = trainer.train()
         psnrs.append(psnr)
