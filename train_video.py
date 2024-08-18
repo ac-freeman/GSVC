@@ -158,9 +158,9 @@ def parse_args(argv):
 
 def main(argv):
     args = parse_args(argv)
-    args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
+    # args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
     args.model_name="GaussianImage_Cholesky"
-    args.data_name='Beauty'
+    # args.data_name='Beauty'
     args.save_imgs=True
     width = 1920
     height = 1080
