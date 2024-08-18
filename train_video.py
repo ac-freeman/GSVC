@@ -84,9 +84,13 @@ class SimpleTrainer2d:
             for i in range(100):
                 _ = self.gaussian_model()
             test_end_time = (time.time() - test_start_time)/100
-
+        # 定义文件路径
+        save_path_gaussian = self.log_dir / "Guassians"
+        # 如果路径中的文件夹不存在，创建它们
+        save_path_gaussian.mkdir(parents=True, exist_ok=True)
+        # 保存模型
+        torch.save(self.gaussian_model.state_dict(), save_path_gaussian / "gaussian_model_{}.pth.tar".format(self.frame_num))
         #self.logwriter.write("Frame{}_Training Complete in {:.4f}s, Eval time:{:.8f}s, FPS:{:.4f}".format(self.frame_num,end_time, test_end_time, 1/test_end_time))
-        torch.save(self.gaussian_model.state_dict(), self.log_dir / "gaussian_model_{}.pth.tar".format(self.frame_num))
         #np.save(self.log_dir / "training.npy", {"iterations": iter_list, "training_psnr": psnr_list, "training_time": end_time, "psnr": psnr_value, "ms-ssim": ms_ssim_value, "rendering_time": test_end_time, "rendering_fps": 1/test_end_time})
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time
     def test(self):
@@ -98,10 +102,12 @@ class SimpleTrainer2d:
         ms_ssim_value = ms_ssim(out["render"].float(), self.gt_image.float(), data_range=1, size_average=True).item()
         #self.logwriter.write("Test PSNR:{:.4f}, MS_SSIM:{:.6f}".format(psnr, ms_ssim_value))
         if self.save_imgs:
+            save_path_img = self.log_dir / "img"
+            save_path_img.mkdir(parents=True, exist_ok=True)
             transform = transforms.ToPILImage()
             img = transform(out["render"].float().squeeze(0))
             name = self.frame_num + "_fitting.png" 
-            img.save(str(self.log_dir / name))
+            img.save(str(save_path_img / name))
         return psnr, ms_ssim_value
 
 def image_to_tensor(img: Image.Image):
@@ -155,6 +161,7 @@ def main(argv):
     args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
     args.model_name="GaussianImage_Cholesky"
     args.data_name='Beauty'
+    args.save_imgs=True
     width = 1920
     height = 1080
     # Cache the args as a text string to save them in the output dir later
@@ -172,7 +179,7 @@ def main(argv):
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-
+    image_length=120
     for i in range(start, start+image_length):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
