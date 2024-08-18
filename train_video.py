@@ -106,7 +106,7 @@ class SimpleTrainer2d:
             save_path_img.mkdir(parents=True, exist_ok=True)
             transform = transforms.ToPILImage()
             img = transform(out["render"].float().squeeze(0))
-            name = self.frame_num + "_fitting.png" 
+            name =str(self.frame_num) + "_fitting.png" 
             img.save(str(save_path_img / name))
         return psnr, ms_ssim_value
 
