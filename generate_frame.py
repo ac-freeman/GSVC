@@ -23,9 +23,9 @@ def process_yuv_video(file_path, width, height):
             # 将YUV数据转换为numpy数组
             yuv = np.frombuffer(yuv_frame, dtype=np.uint8).reshape((height * 3 // 2, width))
             # 将YUV420转换为BGR格式
-            bgr_frame = cv2.cvtColor(yuv, cv2.COLOR_YUV2BGR_I420)
+            rgb_frame = cv2.cvtColor(yuv, cv2.COLOR_YUV2RGB_I420)
             # 将BGR帧存入列表
-            video_frames.append(bgr_frame)
+            video_frames.append(rgb_frame)
     return video_frames
 
 if __name__ == "__main__":
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     if video_frames:
         first_frame = video_frames[0]
         # 使用matplotlib展示第一帧
-        plt.imshow(cv2.cvtColor(first_frame, cv2.COLOR_BGR2RGB))
+        plt.imshow(first_frame)
         plt.axis('off')  # 隐藏坐标轴
         plt.show()
         # 保存第一帧为图片文件
