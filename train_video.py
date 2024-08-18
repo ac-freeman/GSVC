@@ -186,7 +186,7 @@ def main(argv):
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
                 iterations=args.iterations, model_name=args.model_name, args=args, model_path=None)
         else:
-            model_path = Path("./result") / args.data_name / args.model_name / f"gaussian_model_{i}.pth.tar"
+            model_path = Path("./result") / args.data_name / args.model_name / f"Guassians/gaussian_model_{i}.pth.tar"
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
                 iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=model_path)
         psnr, ms_ssim, training_time, eval_time, eval_fps = trainer.train()
