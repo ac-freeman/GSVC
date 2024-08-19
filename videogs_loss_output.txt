@@ -1,0 +1,390 @@
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_1.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_2.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_3.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_4.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_5.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_6.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_7.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_8.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_9.pth.tar
+Frame_10: 1080x1920, PSNR:35.3180, MS-SSIM:0.9379, Training:19.4498s, Eval:0.00112197s, FPS:891.2863
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_10.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_11.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_12.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_13.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_14.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_15.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_16.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_17.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_18.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_19.pth.tar
+Frame_20: 1080x1920, PSNR:35.2681, MS-SSIM:0.9378, Training:20.3754s, Eval:0.00117413s, FPS:851.6941
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_20.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_21.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_22.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_23.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_24.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_25.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_26.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_27.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_28.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_29.pth.tar
+Frame_30: 1080x1920, PSNR:35.2465, MS-SSIM:0.9387, Training:21.0906s, Eval:0.00121527s, FPS:822.8611
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_30.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_31.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_32.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_33.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_34.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_35.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_36.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_37.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_38.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_39.pth.tar
+Frame_40: 1080x1920, PSNR:35.3721, MS-SSIM:0.9389, Training:21.6196s, Eval:0.00124547s, FPS:802.9128
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_40.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_41.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_42.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_43.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_44.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_45.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_46.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_47.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_48.pth.tar
+Frame_50: 1080x1920, PSNR:35.7611, MS-SSIM:0.9462, Training:187.2813s, Eval:0.00104044s, FPS:961.1344
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_50.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_51.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_52.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_53.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_54.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_55.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_56.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_57.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_58.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_59.pth.tar
+Frame_60: 1080x1920, PSNR:35.4918, MS-SSIM:0.9410, Training:19.5339s, Eval:0.00112077s, FPS:892.2399
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_60.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_61.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_62.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_63.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_64.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_65.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_66.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_67.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_68.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_69.pth.tar
+Frame_70: 1080x1920, PSNR:35.4863, MS-SSIM:0.9413, Training:20.5274s, Eval:0.00116661s, FPS:857.1822
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_70.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_71.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_72.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_73.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_74.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_75.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_76.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_77.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_78.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_79.pth.tar
+Frame_80: 1080x1920, PSNR:35.5379, MS-SSIM:0.9412, Training:21.2272s, Eval:0.00120139s, FPS:832.3667
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_80.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_81.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_82.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_83.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_84.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_85.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_86.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_87.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_88.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_89.pth.tar
+Frame_90: 1080x1920, PSNR:35.5625, MS-SSIM:0.9403, Training:21.6924s, Eval:0.00123056s, FPS:812.6386
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_90.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_91.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_92.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_93.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_94.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_95.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_96.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_97.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_98.pth.tar
+Frame_100: 1080x1920, PSNR:35.8827, MS-SSIM:0.9477, Training:188.4726s, Eval:0.00102433s, FPS:976.2459
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_100.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_101.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_102.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_103.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_104.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_105.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_106.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_107.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_108.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_109.pth.tar
+Frame_110: 1080x1920, PSNR:35.5830, MS-SSIM:0.9414, Training:19.6290s, Eval:0.00111943s, FPS:893.3155
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_110.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_111.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_112.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_113.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_114.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_115.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_116.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_117.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_118.pth.tar
+loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_119.pth.tar
+Frame_120: 1080x1920, PSNR:35.5892, MS-SSIM:0.9424, Training:20.5945s, Eval:0.00116740s, FPS:856.6010
+Average: 1080x1920, PSNR:35.4473, MS-SSIM:0.9402, Training:24.6401s, Eval:0.00116585s, FPS:860.4636
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_1.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_2.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_3.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_4.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_5.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_6.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_7.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_8.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_9.pth.tar
+Frame_10: 1080x1920, PSNR:38.7343, MS-SSIM:0.9879, Training:20.4523s, Eval:0.00114250s, FPS:875.2721
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_10.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_11.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_12.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_13.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_14.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_15.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_16.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_17.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_18.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_19.pth.tar
+Frame_20: 1080x1920, PSNR:38.8114, MS-SSIM:0.9880, Training:21.1518s, Eval:0.00118497s, FPS:843.9023
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_20.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_21.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_22.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_23.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_24.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_25.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_26.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_27.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_28.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_29.pth.tar
+Frame_30: 1080x1920, PSNR:38.8690, MS-SSIM:0.9881, Training:21.7050s, Eval:0.00121230s, FPS:824.8775
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_30.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_31.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_32.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_33.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_34.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_35.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_36.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_37.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_38.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_39.pth.tar
+Frame_40: 1080x1920, PSNR:38.9059, MS-SSIM:0.9882, Training:22.1009s, Eval:0.00123584s, FPS:809.1645
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_40.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_41.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_42.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_43.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_44.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_45.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_46.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_47.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_48.pth.tar
+Frame_50: 1080x1920, PSNR:38.7019, MS-SSIM:0.9882, Training:194.7035s, Eval:0.00107221s, FPS:932.6520
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_50.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_51.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_52.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_53.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_54.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_55.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_56.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_57.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_58.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_59.pth.tar
+Frame_60: 1080x1920, PSNR:38.7387, MS-SSIM:0.9879, Training:20.7148s, Eval:0.00115546s, FPS:865.4581
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_60.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_61.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_62.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_63.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_64.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_65.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_66.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_67.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_68.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_69.pth.tar
+Frame_70: 1080x1920, PSNR:38.8412, MS-SSIM:0.9881, Training:21.4490s, Eval:0.00118551s, FPS:843.5221
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_70.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_71.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_72.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_73.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_74.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_75.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_76.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_77.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_78.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_79.pth.tar
+Frame_80: 1080x1920, PSNR:38.8664, MS-SSIM:0.9881, Training:21.7066s, Eval:0.00121244s, FPS:824.7818
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_80.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_81.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_82.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_83.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_84.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_85.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_86.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_87.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_88.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_89.pth.tar
+Frame_90: 1080x1920, PSNR:38.9172, MS-SSIM:0.9882, Training:22.3165s, Eval:0.00123889s, FPS:807.1759
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_90.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_91.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_92.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_93.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_94.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_95.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_96.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_97.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_98.pth.tar
+Frame_100: 1080x1920, PSNR:38.6796, MS-SSIM:0.9882, Training:192.6547s, Eval:0.00106993s, FPS:934.6409
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_100.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_101.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_102.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_103.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_104.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_105.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_106.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_107.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_108.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_109.pth.tar
+Frame_110: 1080x1920, PSNR:38.7440, MS-SSIM:0.9879, Training:20.7429s, Eval:0.00115131s, FPS:868.5729
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_110.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_111.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_112.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_113.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_114.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_115.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_116.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_117.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_118.pth.tar
+loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_119.pth.tar
+Frame_120: 1080x1920, PSNR:38.8358, MS-SSIM:0.9881, Training:21.4009s, Eval:0.00118844s, FPS:841.4423
+Average: 1080x1920, PSNR:38.8048, MS-SSIM:0.9880, Training:25.5439s, Eval:0.00118328s, FPS:846.5608
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_1.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_2.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_3.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_4.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_5.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_6.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_7.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_8.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_9.pth.tar
+Frame_10: 1080x1920, PSNR:39.8720, MS-SSIM:0.9856, Training:20.9138s, Eval:0.00117726s, FPS:849.4294
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_10.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_11.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_12.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_13.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_14.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_15.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_16.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_17.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_18.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_19.pth.tar
+Frame_20: 1080x1920, PSNR:40.0543, MS-SSIM:0.9860, Training:21.8312s, Eval:0.00125291s, FPS:798.1427
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_20.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_21.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_22.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_23.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_24.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_25.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_26.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_27.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_28.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_29.pth.tar
+Frame_30: 1080x1920, PSNR:40.1654, MS-SSIM:0.9862, Training:22.4388s, Eval:0.00130439s, FPS:766.6444
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_30.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_31.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_32.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_33.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_34.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_35.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_36.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_37.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_38.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_39.pth.tar
+Frame_40: 1080x1920, PSNR:40.2230, MS-SSIM:0.9866, Training:23.0081s, Eval:0.00134835s, FPS:741.6498
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_40.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_41.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_42.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_43.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_44.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_45.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_46.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_47.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_48.pth.tar
+Frame_50: 1080x1920, PSNR:40.2314, MS-SSIM:0.9872, Training:193.4423s, Eval:0.00106350s, FPS:940.2920
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_50.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_51.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_52.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_53.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_54.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_55.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_56.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_57.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_58.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_59.pth.tar
+Frame_60: 1080x1920, PSNR:39.9493, MS-SSIM:0.9856, Training:20.7401s, Eval:0.00117437s, FPS:851.5178
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_60.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_61.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_62.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_63.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_64.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_65.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_66.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_67.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_68.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_69.pth.tar
+Frame_70: 1080x1920, PSNR:39.9519, MS-SSIM:0.9859, Training:22.3654s, Eval:0.00124779s, FPS:801.4185
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_70.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_71.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_72.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_73.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_74.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_75.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_76.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_77.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_78.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_79.pth.tar
+Frame_80: 1080x1920, PSNR:39.8523, MS-SSIM:0.9859, Training:22.2931s, Eval:0.00129124s, FPS:774.4469
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_80.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_81.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_82.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_83.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_84.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_85.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_86.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_87.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_88.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_89.pth.tar
+Frame_90: 1080x1920, PSNR:40.0021, MS-SSIM:0.9863, Training:22.8688s, Eval:0.00132891s, FPS:752.4940
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_90.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_91.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_92.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_93.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_94.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_95.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_96.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_97.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_98.pth.tar
+Frame_100: 1080x1920, PSNR:40.2981, MS-SSIM:0.9873, Training:187.1259s, Eval:0.00105837s, FPS:944.8503
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_100.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_101.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_102.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_103.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_104.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_105.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_106.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_107.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_108.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_109.pth.tar
+Frame_110: 1080x1920, PSNR:40.1355, MS-SSIM:0.9860, Training:20.7185s, Eval:0.00117459s, FPS:851.3605
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_110.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_111.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_112.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_113.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_114.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_115.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_116.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_117.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_118.pth.tar
+loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_119.pth.tar
+Frame_120: 1080x1920, PSNR:40.3538, MS-SSIM:0.9861, Training:21.6572s, Eval:0.00123763s, FPS:807.9969
+Average: 1080x1920, PSNR:40.0268, MS-SSIM:0.9860, Training:25.9818s, Eval:0.00124296s, FPS:808.5336
