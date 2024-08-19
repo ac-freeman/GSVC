@@ -11,6 +11,7 @@ import torch.nn.functional as F
 from pytorch_msssim import ms_ssim
 from utils import *
 from generate_frame import process_yuv_video
+from generate_video import generate_video
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
@@ -112,10 +113,6 @@ class SimpleTrainer2d:
 
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
-    # transform = transforms.Compose([
-    #     transforms.Resize(target_size),  # 调整图像大小
-    #     transforms.ToTensor()            # 转换为Tensor并将通道放在前面
-    # ])
     img_tensor = transform(img).unsqueeze(0)  # [1, C, H, W]
     return img_tensor
 
@@ -131,6 +128,9 @@ def parse_args(argv):
     )
     parser.add_argument(
         "--iterations", type=int, default=50000, help="number of training epochs (default: %(default)s)"
+    )
+    parser.add_argument(
+        "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
     )
     parser.add_argument(
         "--model_name", type=str, default="GaussianImage_Cholesky", help="model selection: GaussianImage_Cholesky, GaussianImage_RS, 3DGS"
@@ -162,6 +162,7 @@ def main(argv):
     args.model_name="GaussianImage_Cholesky"
     # args.data_name='Beauty'
     args.save_imgs=True
+    args.fps=120
     width = 1920
     height = 1080
     # Cache the args as a text string to save them in the output dir later
@@ -179,7 +180,7 @@ def main(argv):
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    image_length=120
+    #image_length=120
     for i in range(start, start+image_length):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
@@ -209,7 +210,9 @@ def main(argv):
     avg_w = image_w//image_length
 
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
-        avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps))    
+        avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps))
+
+    generate_video(image_length, args.data_name, args.model_name,args.fps)  
 
 if __name__ == "__main__":
     
