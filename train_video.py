@@ -206,7 +206,7 @@ def main(argv):
                 trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
                     iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel)
             psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img = trainer.train()
-            img_list.appemd(img)
+            img_list.append(img)
             psnrs.append(psnr)
             ms_ssims.append(ms_ssim)
             training_times.append(training_time) 
