@@ -1,6 +1,7 @@
 from pathlib import Path
 from tqdm import tqdm
 import cv2
+import numpy as np
 
 def path_generate_video(num_frames, data_name, model_name,fps):
     image_files = []
@@ -45,13 +46,14 @@ def generate_video(image_list, data_name, model_name,fps):
     filename = "video.mp4"
     # Get the size of the first image dynamically
     first_image = image_list[0]
-    height, width, _ = first_image.shape  # Extract the size of the first image
+    width, height = first_image.size  # Extract the size of the first image
     # Create the video writer with the actual image dimensions
     output_size = (width, height)
     video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
     # Add images to the video writer
     for img in tqdm(image_list, desc="Processing images", unit="image"):  # Iterate directly over the image_list      
-        video.write(img)
+        img_cv = np.array(img)
+        video.write(img_cv)
     # Finalize and close the video writer
     video.release()
     print("MP4 video created successfully.")
