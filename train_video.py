@@ -192,7 +192,7 @@ def main(argv):
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    image_length=5
+    # image_length=5
     Gmodel=None
     img_list=[]
     gmodels_state_dict = {}
@@ -200,11 +200,11 @@ def main(argv):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
-                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=None)
+                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None)
         else:
             #model_path = Path("./result") / args.data_name / args.model_name / f"Guassians/gaussian_model_{i}.pth.tar"
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
-                iterations=args.iterations/100, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel)
+                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel)
         psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img = trainer.train()
         img_list.append(img)
         psnrs.append(psnr)
