@@ -171,7 +171,7 @@ def main(argv):
     # args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
     args.model_name="GaussianImage_Cholesky"
     # args.data_name='Beauty'
-    args.save_imgs=True
+    args.save_imgs=False
     args.fps=120
     width = 1920
     height = 1080
@@ -195,32 +195,29 @@ def main(argv):
     image_length=10
     Gmodel=None
     img_list=[]
-    with h5py.File(gmodel_save_path / "Gmodels.h5", "w") as h5file:
-        for i in range(start, start+image_length):
-            frame_num=i+1
-            if frame_num ==1 or frame_num%50==0:
-                trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
-                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None)
-            else:
-                #model_path = Path("./result") / args.data_name / args.model_name / f"Guassians/gaussian_model_{i}.pth.tar"
-                trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
-                    iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel)
-            psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img = trainer.train()
-            img_list.append(img)
-            psnrs.append(psnr)
-            ms_ssims.append(ms_ssim)
-            training_times.append(training_time) 
-            eval_times.append(eval_time)
-            eval_fpses.append(eval_fps)
-            image_h += trainer.H
-            image_w += trainer.W
-            model_group = h5file.create_group(f"frame_{frame_num}")
-            model_group.create_dataset("frame_num", data=frame_num)
-            for name, param in Gmodel.named_parameters():
-                model_group.create_dataset(name, data=param.detach().cpu().numpy())
-            if (i+1)%10==0:
-                logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
-
+    gmodels_state_dict = {}
+    for i in range(start, start+image_length):
+        frame_num=i+1
+        if frame_num ==1 or frame_num%50==0:
+            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
+                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None)
+        else:
+            #model_path = Path("./result") / args.data_name / args.model_name / f"Guassians/gaussian_model_{i}.pth.tar"
+            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
+                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel)
+        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img = trainer.train()
+        img_list.append(img)
+        psnrs.append(psnr)
+        ms_ssims.append(ms_ssim)
+        training_times.append(training_time) 
+        eval_times.append(eval_time)
+        eval_fpses.append(eval_fps)
+        image_h += trainer.H
+        image_w += trainer.W
+        gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
+        if (i+1)%10==0:
+            logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
+    torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
     avg_psnr = torch.tensor(psnrs).mean().item()
     avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
     avg_training_time = torch.tensor(training_times).mean().item()

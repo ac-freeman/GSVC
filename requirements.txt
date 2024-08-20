@@ -7,4 +7,3 @@ PyYAML
 tqdm
 vector-quantize-pytorch
 opencv-python
-h5py
