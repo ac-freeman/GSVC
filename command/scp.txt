@@ -6,3 +6,4 @@ scp -r e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/checkpoint
 scp -r e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/result/ C:/Myself/learn/2DGS/GaussianVideo/
 
 scp -r e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/result/HoneyBee/GaussianImage_Cholesky/video C:/Myself/learn/2DGS/GaussianVideo/result/HoneyBee/GaussianImage_Cholesky
+scp -r e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/result C:/Myself/learn/2DGS/GaussianVideo/
