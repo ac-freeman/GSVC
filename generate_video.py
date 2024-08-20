@@ -52,8 +52,8 @@ def generate_video(image_list, data_name, model_name,fps):
     video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
     # Add images to the video writer
     for img in tqdm(image_list, desc="Processing images", unit="image"):  # Iterate directly over the image_list      
-        #img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-        video.write(img)
+        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        video.write(img_cv)
     # Finalize and close the video writer
     video.release()
     print("MP4 video created successfully.")
