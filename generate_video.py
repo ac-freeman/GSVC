@@ -39,8 +39,8 @@ def path_generate_video(num_frames, data_name, model_name,fps):
     video.release()
     print("MP4 video created successfully.")
 
-def generate_video(image_list, data_name, model_name,fps):
-    video_path = Path("./result") / data_name / model_name / "video"
+def generate_video(image_list, data_name, model_name,fps,iterations,num_points):
+    video_path = Path(f"./result/{data_name}/{model_name}_{iterations}_{num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
     # Define the output video file name
     filename = "video.mp4"

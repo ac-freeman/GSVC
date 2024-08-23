@@ -3,3 +3,4 @@ checkpoints/
 videogs_loss_error.txt
 videogs_loss_output.txt  
 result/
+models/

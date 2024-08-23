@@ -34,11 +34,13 @@ class SimpleTrainer2d:
         self.gt_image = image_to_tensor(image).to(self.device)
         self.frame_num=frame_num
         self.num_points = num_points
+        self.model_name=model_name
+        self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
         self.iterations = iterations
         self.save_imgs = args.save_imgs
-        self.log_dir = Path(f"./result/{args.data_name}/{model_name}")
+        self.log_dir = Path(f"./result/{args.data_name}/{model_name}_{iterations}_{num_points}")
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky import GaussianImage_Cholesky
             self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
@@ -92,9 +94,10 @@ class SimpleTrainer2d:
                 _ = self.gaussian_model()
             test_end_time = (time.time() - test_start_time)/100
         # 定义文件路径
-        save_path_gaussian = self.log_dir / "Guassians"
+        #save_path_gaussian = Path(f"./Models/{self.data_name}/{self.model_name}/{self.num_points}")
+        #save_path_gaussian = self.log_dir / "Guassians"
         # 如果路径中的文件夹不存在，创建它们
-        save_path_gaussian.mkdir(parents=True, exist_ok=True)
+        #save_path_gaussian.mkdir(parents=True, exist_ok=True)
         # 保存模型
         #torch.save(self.gaussian_model.state_dict(), save_path_gaussian / "gaussian_model_{}.pth.tar".format(self.frame_num))
         #self.logwriter.write("Frame{}_Training Complete in {:.4f}s, Eval time:{:.8f}s, FPS:{:.4f}".format(self.frame_num,end_time, test_end_time, 1/test_end_time))
@@ -175,7 +178,7 @@ def main(argv):
     args.fps=120
     width = 1920
     height = 1080
-    gmodel_save_path = Path("./result") / args.data_name / args.model_name / "Gmodel"
+    gmodel_save_path = Path(f"./models/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)  # 确保保存目录存在
     # Cache the args as a text string to save them in the output dir later
     args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
@@ -187,7 +190,7 @@ def main(argv):
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
 
-    logwriter = LogWriter(Path(f"./result/{args.data_name}/{args.model_name}"))
+    logwriter = LogWriter(Path(f"./result/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
     psnrs, ms_ssims, training_times, eval_times, eval_fpses = [], [], [], [], []
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
@@ -215,7 +218,7 @@ def main(argv):
         image_h += trainer.H
         image_w += trainer.W
         gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
-        if (i+1)%10==0:
+        if i==0 or (i+1)%10==0:
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
     avg_psnr = torch.tensor(psnrs).mean().item()
@@ -229,7 +232,7 @@ def main(argv):
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps))
 
-    generate_video(img_list, args.data_name, args.model_name,args.fps)  
+    generate_video(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points)  
 
 if __name__ == "__main__":
     

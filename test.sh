@@ -3,7 +3,7 @@
 #SBATCH --job-name=videogs_loss_job    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
-#SBATCH --time=24:00:00                 # Time limit hrs:min:sec
+#SBATCH --time=72:00:00                 # Time limit hrs:min:sec
 #SBATCH --gres=gpu:a100-40:1
 #SBATCH --mail-type=ALL                 # Get email for all status updates
 #SBATCH --mail-user=wanglongan@comp.nus.edu.sg # Email for notifications
@@ -22,7 +22,9 @@ datasets=(
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  
+  for num_points in 800 1000 3000 5000 7000 9000 10000; do
   # Run the training script for each dataset
-  srun python train_video.py --dataset $dataset_path --data_name $data_name
+    srun python train_video.py --dataset $dataset_path --data_name $data_name --num_points $num_points
+    done
 done
+
