@@ -1,1 +1,1 @@
-scp -r e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/result C:/Myself/wwork/2DGS/GaussianVideo/
+scp -r e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/result C:/Myself/work/2DGS/GaussianVideo/
