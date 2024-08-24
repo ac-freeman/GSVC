@@ -1,390 +1,771 @@
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_1.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_2.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_3.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_4.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_5.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_6.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_7.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_8.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_9.pth.tar
-Frame_10: 1080x1920, PSNR:35.3180, MS-SSIM:0.9379, Training:19.4498s, Eval:0.00112197s, FPS:891.2863
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_10.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_11.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_12.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_13.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_14.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_15.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_16.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_17.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_18.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_19.pth.tar
-Frame_20: 1080x1920, PSNR:35.2681, MS-SSIM:0.9378, Training:20.3754s, Eval:0.00117413s, FPS:851.6941
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_20.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_21.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_22.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_23.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_24.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_25.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_26.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_27.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_28.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_29.pth.tar
-Frame_30: 1080x1920, PSNR:35.2465, MS-SSIM:0.9387, Training:21.0906s, Eval:0.00121527s, FPS:822.8611
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_30.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_31.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_32.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_33.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_34.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_35.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_36.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_37.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_38.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_39.pth.tar
-Frame_40: 1080x1920, PSNR:35.3721, MS-SSIM:0.9389, Training:21.6196s, Eval:0.00124547s, FPS:802.9128
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_40.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_41.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_42.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_43.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_44.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_45.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_46.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_47.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_48.pth.tar
-Frame_50: 1080x1920, PSNR:35.7611, MS-SSIM:0.9462, Training:187.2813s, Eval:0.00104044s, FPS:961.1344
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_50.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_51.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_52.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_53.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_54.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_55.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_56.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_57.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_58.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_59.pth.tar
-Frame_60: 1080x1920, PSNR:35.4918, MS-SSIM:0.9410, Training:19.5339s, Eval:0.00112077s, FPS:892.2399
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_60.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_61.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_62.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_63.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_64.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_65.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_66.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_67.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_68.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_69.pth.tar
-Frame_70: 1080x1920, PSNR:35.4863, MS-SSIM:0.9413, Training:20.5274s, Eval:0.00116661s, FPS:857.1822
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_70.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_71.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_72.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_73.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_74.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_75.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_76.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_77.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_78.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_79.pth.tar
-Frame_80: 1080x1920, PSNR:35.5379, MS-SSIM:0.9412, Training:21.2272s, Eval:0.00120139s, FPS:832.3667
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_80.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_81.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_82.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_83.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_84.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_85.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_86.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_87.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_88.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_89.pth.tar
-Frame_90: 1080x1920, PSNR:35.5625, MS-SSIM:0.9403, Training:21.6924s, Eval:0.00123056s, FPS:812.6386
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_90.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_91.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_92.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_93.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_94.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_95.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_96.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_97.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_98.pth.tar
-Frame_100: 1080x1920, PSNR:35.8827, MS-SSIM:0.9477, Training:188.4726s, Eval:0.00102433s, FPS:976.2459
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_100.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_101.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_102.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_103.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_104.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_105.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_106.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_107.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_108.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_109.pth.tar
-Frame_110: 1080x1920, PSNR:35.5830, MS-SSIM:0.9414, Training:19.6290s, Eval:0.00111943s, FPS:893.3155
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_110.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_111.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_112.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_113.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_114.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_115.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_116.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_117.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_118.pth.tar
-loading model path:result/Beauty/GaussianImage_Cholesky/Guassians/gaussian_model_119.pth.tar
-Frame_120: 1080x1920, PSNR:35.5892, MS-SSIM:0.9424, Training:20.5945s, Eval:0.00116740s, FPS:856.6010
-Average: 1080x1920, PSNR:35.4473, MS-SSIM:0.9402, Training:24.6401s, Eval:0.00116585s, FPS:860.4636
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_1.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_2.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_3.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_4.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_5.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_6.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_7.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_8.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_9.pth.tar
-Frame_10: 1080x1920, PSNR:38.7343, MS-SSIM:0.9879, Training:20.4523s, Eval:0.00114250s, FPS:875.2721
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_10.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_11.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_12.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_13.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_14.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_15.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_16.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_17.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_18.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_19.pth.tar
-Frame_20: 1080x1920, PSNR:38.8114, MS-SSIM:0.9880, Training:21.1518s, Eval:0.00118497s, FPS:843.9023
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_20.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_21.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_22.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_23.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_24.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_25.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_26.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_27.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_28.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_29.pth.tar
-Frame_30: 1080x1920, PSNR:38.8690, MS-SSIM:0.9881, Training:21.7050s, Eval:0.00121230s, FPS:824.8775
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_30.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_31.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_32.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_33.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_34.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_35.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_36.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_37.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_38.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_39.pth.tar
-Frame_40: 1080x1920, PSNR:38.9059, MS-SSIM:0.9882, Training:22.1009s, Eval:0.00123584s, FPS:809.1645
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_40.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_41.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_42.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_43.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_44.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_45.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_46.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_47.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_48.pth.tar
-Frame_50: 1080x1920, PSNR:38.7019, MS-SSIM:0.9882, Training:194.7035s, Eval:0.00107221s, FPS:932.6520
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_50.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_51.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_52.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_53.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_54.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_55.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_56.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_57.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_58.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_59.pth.tar
-Frame_60: 1080x1920, PSNR:38.7387, MS-SSIM:0.9879, Training:20.7148s, Eval:0.00115546s, FPS:865.4581
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_60.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_61.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_62.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_63.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_64.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_65.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_66.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_67.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_68.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_69.pth.tar
-Frame_70: 1080x1920, PSNR:38.8412, MS-SSIM:0.9881, Training:21.4490s, Eval:0.00118551s, FPS:843.5221
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_70.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_71.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_72.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_73.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_74.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_75.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_76.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_77.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_78.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_79.pth.tar
-Frame_80: 1080x1920, PSNR:38.8664, MS-SSIM:0.9881, Training:21.7066s, Eval:0.00121244s, FPS:824.7818
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_80.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_81.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_82.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_83.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_84.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_85.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_86.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_87.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_88.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_89.pth.tar
-Frame_90: 1080x1920, PSNR:38.9172, MS-SSIM:0.9882, Training:22.3165s, Eval:0.00123889s, FPS:807.1759
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_90.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_91.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_92.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_93.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_94.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_95.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_96.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_97.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_98.pth.tar
-Frame_100: 1080x1920, PSNR:38.6796, MS-SSIM:0.9882, Training:192.6547s, Eval:0.00106993s, FPS:934.6409
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_100.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_101.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_102.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_103.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_104.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_105.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_106.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_107.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_108.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_109.pth.tar
-Frame_110: 1080x1920, PSNR:38.7440, MS-SSIM:0.9879, Training:20.7429s, Eval:0.00115131s, FPS:868.5729
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_110.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_111.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_112.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_113.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_114.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_115.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_116.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_117.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_118.pth.tar
-loading model path:result/HoneyBee/GaussianImage_Cholesky/Guassians/gaussian_model_119.pth.tar
-Frame_120: 1080x1920, PSNR:38.8358, MS-SSIM:0.9881, Training:21.4009s, Eval:0.00118844s, FPS:841.4423
-Average: 1080x1920, PSNR:38.8048, MS-SSIM:0.9880, Training:25.5439s, Eval:0.00118328s, FPS:846.5608
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_1.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_2.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_3.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_4.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_5.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_6.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_7.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_8.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_9.pth.tar
-Frame_10: 1080x1920, PSNR:39.8720, MS-SSIM:0.9856, Training:20.9138s, Eval:0.00117726s, FPS:849.4294
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_10.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_11.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_12.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_13.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_14.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_15.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_16.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_17.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_18.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_19.pth.tar
-Frame_20: 1080x1920, PSNR:40.0543, MS-SSIM:0.9860, Training:21.8312s, Eval:0.00125291s, FPS:798.1427
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_20.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_21.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_22.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_23.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_24.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_25.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_26.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_27.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_28.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_29.pth.tar
-Frame_30: 1080x1920, PSNR:40.1654, MS-SSIM:0.9862, Training:22.4388s, Eval:0.00130439s, FPS:766.6444
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_30.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_31.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_32.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_33.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_34.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_35.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_36.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_37.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_38.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_39.pth.tar
-Frame_40: 1080x1920, PSNR:40.2230, MS-SSIM:0.9866, Training:23.0081s, Eval:0.00134835s, FPS:741.6498
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_40.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_41.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_42.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_43.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_44.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_45.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_46.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_47.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_48.pth.tar
-Frame_50: 1080x1920, PSNR:40.2314, MS-SSIM:0.9872, Training:193.4423s, Eval:0.00106350s, FPS:940.2920
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_50.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_51.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_52.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_53.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_54.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_55.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_56.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_57.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_58.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_59.pth.tar
-Frame_60: 1080x1920, PSNR:39.9493, MS-SSIM:0.9856, Training:20.7401s, Eval:0.00117437s, FPS:851.5178
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_60.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_61.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_62.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_63.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_64.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_65.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_66.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_67.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_68.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_69.pth.tar
-Frame_70: 1080x1920, PSNR:39.9519, MS-SSIM:0.9859, Training:22.3654s, Eval:0.00124779s, FPS:801.4185
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_70.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_71.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_72.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_73.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_74.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_75.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_76.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_77.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_78.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_79.pth.tar
-Frame_80: 1080x1920, PSNR:39.8523, MS-SSIM:0.9859, Training:22.2931s, Eval:0.00129124s, FPS:774.4469
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_80.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_81.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_82.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_83.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_84.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_85.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_86.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_87.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_88.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_89.pth.tar
-Frame_90: 1080x1920, PSNR:40.0021, MS-SSIM:0.9863, Training:22.8688s, Eval:0.00132891s, FPS:752.4940
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_90.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_91.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_92.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_93.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_94.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_95.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_96.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_97.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_98.pth.tar
-Frame_100: 1080x1920, PSNR:40.2981, MS-SSIM:0.9873, Training:187.1259s, Eval:0.00105837s, FPS:944.8503
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_100.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_101.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_102.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_103.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_104.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_105.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_106.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_107.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_108.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_109.pth.tar
-Frame_110: 1080x1920, PSNR:40.1355, MS-SSIM:0.9860, Training:20.7185s, Eval:0.00117459s, FPS:851.3605
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_110.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_111.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_112.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_113.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_114.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_115.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_116.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_117.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_118.pth.tar
-loading model path:result/Jockey/GaussianImage_Cholesky/Guassians/gaussian_model_119.pth.tar
-Frame_120: 1080x1920, PSNR:40.3538, MS-SSIM:0.9861, Training:21.6572s, Eval:0.00123763s, FPS:807.9969
-Average: 1080x1920, PSNR:40.0268, MS-SSIM:0.9860, Training:25.9818s, Eval:0.00124296s, FPS:808.5336
+Frame_1: 1080x1920, PSNR:31.5731, MS-SSIM:0.8767, Training:84.9785s, Eval:0.00076567s, FPS:1306.0427
+Frame_10: 1080x1920, PSNR:32.5350, MS-SSIM:0.8856, Training:9.1994s, Eval:0.00053669s, FPS:1863.2656
+Frame_20: 1080x1920, PSNR:32.4626, MS-SSIM:0.8809, Training:9.4700s, Eval:0.00055255s, FPS:1809.7931
+Frame_30: 1080x1920, PSNR:32.4378, MS-SSIM:0.8819, Training:9.6386s, Eval:0.00057173s, FPS:1749.0915
+Frame_40: 1080x1920, PSNR:33.0391, MS-SSIM:0.8887, Training:9.7451s, Eval:0.00058558s, FPS:1707.6951
+Frame_1: 1080x1920, PSNR:32.1346, MS-SSIM:0.8885, Training:89.1080s, Eval:0.00050527s, FPS:1979.1361
+Frame_10: 1080x1920, PSNR:32.8996, MS-SSIM:0.8932, Training:9.2784s, Eval:0.00052921s, FPS:1889.5985
+Frame_20: 1080x1920, PSNR:32.8892, MS-SSIM:0.8909, Training:9.5375s, Eval:0.00054741s, FPS:1826.7795
+Frame_30: 1080x1920, PSNR:32.8857, MS-SSIM:0.8911, Training:9.7481s, Eval:0.00055981s, FPS:1786.3153
+Frame_40: 1080x1920, PSNR:33.3520, MS-SSIM:0.8954, Training:9.8836s, Eval:0.00057176s, FPS:1748.9821
+Frame_50: 1080x1920, PSNR:33.3952, MS-SSIM:0.8972, Training:90.0917s, Eval:0.00050124s, FPS:1995.0551
+Frame_60: 1080x1920, PSNR:33.3748, MS-SSIM:0.8981, Training:9.2713s, Eval:0.00052752s, FPS:1895.6621
+Frame_70: 1080x1920, PSNR:33.4940, MS-SSIM:0.8987, Training:9.5028s, Eval:0.00054313s, FPS:1841.1655
+Frame_80: 1080x1920, PSNR:33.7183, MS-SSIM:0.9010, Training:9.6822s, Eval:0.00055968s, FPS:1786.7338
+Frame_90: 1080x1920, PSNR:33.8983, MS-SSIM:0.9008, Training:9.8026s, Eval:0.00055893s, FPS:1789.1422
+Frame_100: 1080x1920, PSNR:33.6293, MS-SSIM:0.9010, Training:90.2431s, Eval:0.00050319s, FPS:1987.3320
+Frame_110: 1080x1920, PSNR:33.7217, MS-SSIM:0.9010, Training:9.2716s, Eval:0.00052695s, FPS:1897.7291
+Frame_120: 1080x1920, PSNR:33.5845, MS-SSIM:0.9012, Training:9.4815s, Eval:0.00054376s, FPS:1839.0505
+Frame_130: 1080x1920, PSNR:33.8635, MS-SSIM:0.9033, Training:9.6523s, Eval:0.00055087s, FPS:1815.3231
+Frame_140: 1080x1920, PSNR:33.8735, MS-SSIM:0.9024, Training:9.7592s, Eval:0.00056241s, FPS:1778.0536
+Frame_150: 1080x1920, PSNR:33.8315, MS-SSIM:0.8989, Training:89.0564s, Eval:0.00049747s, FPS:2010.1719
+Frame_160: 1080x1920, PSNR:33.8472, MS-SSIM:0.8985, Training:10.0680s, Eval:0.00051870s, FPS:1927.8838
+Frame_170: 1080x1920, PSNR:33.9428, MS-SSIM:0.9014, Training:9.4268s, Eval:0.00053286s, FPS:1876.6797
+Frame_180: 1080x1920, PSNR:33.9672, MS-SSIM:0.9025, Training:9.6080s, Eval:0.00054290s, FPS:1841.9579
+Frame_190: 1080x1920, PSNR:34.0696, MS-SSIM:0.9031, Training:9.6898s, Eval:0.00055350s, FPS:1806.6982
+Frame_200: 1080x1920, PSNR:33.8034, MS-SSIM:0.9008, Training:89.6269s, Eval:0.00049668s, FPS:2013.3658
+Frame_210: 1080x1920, PSNR:33.8740, MS-SSIM:0.9021, Training:9.2542s, Eval:0.00052192s, FPS:1915.9859
+Frame_220: 1080x1920, PSNR:33.5585, MS-SSIM:0.9041, Training:9.4611s, Eval:0.00053641s, FPS:1864.2511
+Frame_230: 1080x1920, PSNR:33.4173, MS-SSIM:0.9042, Training:9.6260s, Eval:0.00055150s, FPS:1813.2513
+Frame_240: 1080x1920, PSNR:33.4513, MS-SSIM:0.9020, Training:9.8095s, Eval:0.00056529s, FPS:1769.0170
+Frame_250: 1080x1920, PSNR:33.1627, MS-SSIM:0.8987, Training:98.8105s, Eval:0.00050109s, FPS:1995.6626
+Frame_260: 1080x1920, PSNR:33.2340, MS-SSIM:0.8995, Training:9.3173s, Eval:0.00053116s, FPS:1882.6605
+Frame_270: 1080x1920, PSNR:33.4849, MS-SSIM:0.9006, Training:9.4940s, Eval:0.00053555s, FPS:1867.2223
+Frame_280: 1080x1920, PSNR:33.1887, MS-SSIM:0.8985, Training:9.6509s, Eval:0.00055920s, FPS:1788.2650
+Frame_290: 1080x1920, PSNR:33.3753, MS-SSIM:0.9018, Training:9.8188s, Eval:0.00056546s, FPS:1768.4576
+Frame_300: 1080x1920, PSNR:33.0316, MS-SSIM:0.8992, Training:93.0856s, Eval:0.00050142s, FPS:1994.3246
+Frame_310: 1080x1920, PSNR:33.4126, MS-SSIM:0.9022, Training:9.3421s, Eval:0.00053320s, FPS:1875.4629
+Frame_320: 1080x1920, PSNR:33.7320, MS-SSIM:0.9053, Training:9.5767s, Eval:0.00054757s, FPS:1826.2545
+Frame_330: 1080x1920, PSNR:33.5906, MS-SSIM:0.9042, Training:9.7156s, Eval:0.00055913s, FPS:1788.4785
+Frame_340: 1080x1920, PSNR:33.7625, MS-SSIM:0.9066, Training:9.8774s, Eval:0.00057484s, FPS:1739.6100
+Frame_350: 1080x1920, PSNR:33.3612, MS-SSIM:0.9047, Training:89.7820s, Eval:0.00050218s, FPS:1991.3231
+Frame_360: 1080x1920, PSNR:33.3983, MS-SSIM:0.9060, Training:9.3481s, Eval:0.00053324s, FPS:1875.3204
+Frame_370: 1080x1920, PSNR:33.6725, MS-SSIM:0.9076, Training:9.5760s, Eval:0.00054877s, FPS:1822.2477
+Frame_380: 1080x1920, PSNR:33.8274, MS-SSIM:0.9093, Training:9.7313s, Eval:0.00056474s, FPS:1770.7123
+Frame_390: 1080x1920, PSNR:33.3603, MS-SSIM:0.9077, Training:9.8862s, Eval:0.00056922s, FPS:1756.7986
+Frame_400: 1080x1920, PSNR:33.3745, MS-SSIM:0.9072, Training:91.3681s, Eval:0.00050668s, FPS:1973.6508
+Frame_410: 1080x1920, PSNR:33.7301, MS-SSIM:0.9061, Training:9.3029s, Eval:0.00052746s, FPS:1895.8934
+Frame_420: 1080x1920, PSNR:33.6524, MS-SSIM:0.9048, Training:9.5064s, Eval:0.00054393s, FPS:1838.4862
+Frame_430: 1080x1920, PSNR:33.7044, MS-SSIM:0.9061, Training:10.8207s, Eval:0.00056209s, FPS:1779.0793
+Frame_440: 1080x1920, PSNR:33.7989, MS-SSIM:0.9067, Training:9.8494s, Eval:0.00056675s, FPS:1764.4477
+Frame_450: 1080x1920, PSNR:33.3522, MS-SSIM:0.9032, Training:96.6822s, Eval:0.00050114s, FPS:1995.4632
+Frame_460: 1080x1920, PSNR:33.4193, MS-SSIM:0.9046, Training:9.2909s, Eval:0.00052447s, FPS:1906.6925
+Frame_470: 1080x1920, PSNR:33.4748, MS-SSIM:0.9046, Training:9.5913s, Eval:0.00055038s, FPS:1816.9116
+Frame_480: 1080x1920, PSNR:33.5080, MS-SSIM:0.9053, Training:9.7718s, Eval:0.00056361s, FPS:1774.2703
+Frame_490: 1080x1920, PSNR:33.3681, MS-SSIM:0.9038, Training:9.9201s, Eval:0.00057671s, FPS:1733.9860
+Frame_500: 1080x1920, PSNR:33.2783, MS-SSIM:0.9025, Training:89.2980s, Eval:0.00050319s, FPS:1987.3320
+Frame_510: 1080x1920, PSNR:33.6260, MS-SSIM:0.9032, Training:9.2825s, Eval:0.00052837s, FPS:1892.6084
+Frame_520: 1080x1920, PSNR:33.6198, MS-SSIM:0.9024, Training:9.5461s, Eval:0.00054414s, FPS:1837.7531
+Frame_530: 1080x1920, PSNR:33.7258, MS-SSIM:0.9026, Training:9.6962s, Eval:0.00055632s, FPS:1797.5306
+Frame_540: 1080x1920, PSNR:33.6942, MS-SSIM:0.9029, Training:9.8540s, Eval:0.00056769s, FPS:1761.5281
+Frame_550: 1080x1920, PSNR:33.4311, MS-SSIM:0.9005, Training:88.0455s, Eval:0.00049841s, FPS:2006.3832
+Frame_560: 1080x1920, PSNR:33.6209, MS-SSIM:0.9012, Training:9.5736s, Eval:0.00052359s, FPS:1909.9049
+Frame_570: 1080x1920, PSNR:33.6031, MS-SSIM:0.9015, Training:9.4890s, Eval:0.00054054s, FPS:1850.0174
+Frame_580: 1080x1920, PSNR:33.6226, MS-SSIM:0.9024, Training:9.6575s, Eval:0.00055670s, FPS:1796.2989
+Frame_590: 1080x1920, PSNR:33.6600, MS-SSIM:0.9028, Training:9.7833s, Eval:0.00056337s, FPS:1775.0287
+Frame_600: 1080x1920, PSNR:33.6463, MS-SSIM:0.9031, Training:92.5994s, Eval:0.00049881s, FPS:2004.7625
+Average: 1080x1920, PSNR:33.5495, MS-SSIM:0.9020, Training:11.3935s, Eval:0.00054614s, FPS:1833.8552
+MP4 video created successfully.
+Frame_1: 1080x1920, PSNR:32.5849, MS-SSIM:0.8959, Training:102.5949s, Eval:0.00078116s, FPS:1280.1445
+Frame_10: 1080x1920, PSNR:33.2907, MS-SSIM:0.8986, Training:9.4015s, Eval:0.00053038s, FPS:1885.4279
+Frame_20: 1080x1920, PSNR:33.3561, MS-SSIM:0.8971, Training:9.6330s, Eval:0.00054778s, FPS:1825.5630
+Frame_30: 1080x1920, PSNR:33.3138, MS-SSIM:0.8973, Training:9.8304s, Eval:0.00056302s, FPS:1776.1487
+Frame_40: 1080x1920, PSNR:33.6808, MS-SSIM:0.9004, Training:10.0141s, Eval:0.00058119s, FPS:1720.6201
+Frame_50: 1080x1920, PSNR:33.7394, MS-SSIM:0.9036, Training:93.1799s, Eval:0.00050792s, FPS:1968.8240
+Frame_60: 1080x1920, PSNR:33.7280, MS-SSIM:0.9039, Training:9.4103s, Eval:0.00052709s, FPS:1897.2141
+Frame_70: 1080x1920, PSNR:33.8022, MS-SSIM:0.9036, Training:9.5880s, Eval:0.00054127s, FPS:1847.5238
+Frame_80: 1080x1920, PSNR:33.9801, MS-SSIM:0.9053, Training:9.7677s, Eval:0.00055094s, FPS:1815.0874
+Frame_90: 1080x1920, PSNR:34.0955, MS-SSIM:0.9046, Training:9.8901s, Eval:0.00055832s, FPS:1791.0828
+Frame_100: 1080x1920, PSNR:33.9198, MS-SSIM:0.9062, Training:89.6332s, Eval:0.00050443s, FPS:1982.4288
+Frame_110: 1080x1920, PSNR:33.9468, MS-SSIM:0.9051, Training:9.4217s, Eval:0.00052557s, FPS:1902.6792
+Frame_120: 1080x1920, PSNR:33.8874, MS-SSIM:0.9057, Training:9.6259s, Eval:0.00054117s, FPS:1847.8331
+Frame_130: 1080x1920, PSNR:34.1036, MS-SSIM:0.9069, Training:9.7958s, Eval:0.00055297s, FPS:1808.4041
+Frame_140: 1080x1920, PSNR:34.0809, MS-SSIM:0.9059, Training:9.9018s, Eval:0.00056325s, FPS:1775.4194
+Frame_150: 1080x1920, PSNR:34.0272, MS-SSIM:0.9033, Training:96.5711s, Eval:0.00050869s, FPS:1965.8527
+Frame_160: 1080x1920, PSNR:34.0546, MS-SSIM:0.9025, Training:9.3686s, Eval:0.00052393s, FPS:1908.6621
+Frame_170: 1080x1920, PSNR:34.1486, MS-SSIM:0.9052, Training:9.5903s, Eval:0.00053659s, FPS:1863.6216
+Frame_180: 1080x1920, PSNR:34.1359, MS-SSIM:0.9059, Training:9.7229s, Eval:0.00054207s, FPS:1844.7935
+Frame_190: 1080x1920, PSNR:34.2525, MS-SSIM:0.9066, Training:9.8258s, Eval:0.00055067s, FPS:1815.9676
+Frame_200: 1080x1920, PSNR:34.0355, MS-SSIM:0.9058, Training:91.3960s, Eval:0.00050965s, FPS:1962.1282
+Frame_210: 1080x1920, PSNR:34.0589, MS-SSIM:0.9059, Training:9.3882s, Eval:0.00052178s, FPS:1916.5112
+Frame_220: 1080x1920, PSNR:33.8451, MS-SSIM:0.9079, Training:9.6087s, Eval:0.00053506s, FPS:1868.9362
+Frame_230: 1080x1920, PSNR:33.6996, MS-SSIM:0.9079, Training:9.7871s, Eval:0.00055093s, FPS:1815.1110
+Frame_240: 1080x1920, PSNR:33.7021, MS-SSIM:0.9057, Training:9.9312s, Eval:0.00055940s, FPS:1787.6324
+Frame_250: 1080x1920, PSNR:33.5657, MS-SSIM:0.9047, Training:95.7148s, Eval:0.00050290s, FPS:1988.4815
+Frame_260: 1080x1920, PSNR:33.6009, MS-SSIM:0.9048, Training:9.4252s, Eval:0.00052927s, FPS:1889.3857
+Frame_270: 1080x1920, PSNR:33.8189, MS-SSIM:0.9056, Training:9.6209s, Eval:0.00054734s, FPS:1827.0182
+Frame_280: 1080x1920, PSNR:33.6265, MS-SSIM:0.9046, Training:9.8013s, Eval:0.00055966s, FPS:1786.8023
+Frame_290: 1080x1920, PSNR:33.7810, MS-SSIM:0.9068, Training:9.9826s, Eval:0.00056955s, FPS:1755.7617
+Frame_300: 1080x1920, PSNR:33.4342, MS-SSIM:0.9058, Training:91.4817s, Eval:0.00050419s, FPS:1983.3663
+Frame_310: 1080x1920, PSNR:33.7989, MS-SSIM:0.9069, Training:9.4478s, Eval:0.00053032s, FPS:1885.6483
+Frame_320: 1080x1920, PSNR:34.0411, MS-SSIM:0.9093, Training:9.6683s, Eval:0.00054416s, FPS:1837.6968
+Frame_330: 1080x1920, PSNR:33.9351, MS-SSIM:0.9091, Training:9.8707s, Eval:0.00055789s, FPS:1792.4682
+Frame_340: 1080x1920, PSNR:34.1030, MS-SSIM:0.9107, Training:10.0041s, Eval:0.00056815s, FPS:1760.0866
+Frame_350: 1080x1920, PSNR:33.6575, MS-SSIM:0.9097, Training:91.0635s, Eval:0.00050632s, FPS:1975.0356
+Frame_360: 1080x1920, PSNR:33.6563, MS-SSIM:0.9102, Training:9.4594s, Eval:0.00053082s, FPS:1883.8612
+Frame_370: 1080x1920, PSNR:33.9240, MS-SSIM:0.9116, Training:9.6887s, Eval:0.00055088s, FPS:1815.2838
+Frame_380: 1080x1920, PSNR:34.0697, MS-SSIM:0.9129, Training:9.8596s, Eval:0.00055681s, FPS:1795.9374
+Frame_390: 1080x1920, PSNR:33.6642, MS-SSIM:0.9119, Training:10.0762s, Eval:0.00057161s, FPS:1749.4563
+Frame_400: 1080x1920, PSNR:33.6740, MS-SSIM:0.9119, Training:89.5289s, Eval:0.00050713s, FPS:1971.8878
+Frame_410: 1080x1920, PSNR:33.9583, MS-SSIM:0.9099, Training:9.4240s, Eval:0.00052688s, FPS:1897.9524
+Frame_420: 1080x1920, PSNR:33.8799, MS-SSIM:0.9087, Training:9.6283s, Eval:0.00054306s, FPS:1841.4161
+Frame_430: 1080x1920, PSNR:33.9438, MS-SSIM:0.9100, Training:10.0229s, Eval:0.00055266s, FPS:1809.4417
+Frame_440: 1080x1920, PSNR:34.0118, MS-SSIM:0.9102, Training:9.9788s, Eval:0.00056305s, FPS:1776.0434
+Frame_450: 1080x1920, PSNR:33.6866, MS-SSIM:0.9081, Training:90.7516s, Eval:0.00050936s, FPS:1963.2578
+Frame_460: 1080x1920, PSNR:33.7732, MS-SSIM:0.9088, Training:9.4576s, Eval:0.00053340s, FPS:1874.7587
+Frame_470: 1080x1920, PSNR:33.7583, MS-SSIM:0.9089, Training:9.6992s, Eval:0.00055221s, FPS:1810.8948
+Frame_480: 1080x1920, PSNR:33.8550, MS-SSIM:0.9093, Training:9.8898s, Eval:0.00056112s, FPS:1782.1484
+Frame_490: 1080x1920, PSNR:33.7327, MS-SSIM:0.9078, Training:10.0262s, Eval:0.00056958s, FPS:1755.6882
+Frame_500: 1080x1920, PSNR:33.5925, MS-SSIM:0.9076, Training:88.4937s, Eval:0.00050764s, FPS:1969.9059
+Frame_510: 1080x1920, PSNR:33.8536, MS-SSIM:0.9068, Training:9.9723s, Eval:0.00052538s, FPS:1903.3958
+Frame_520: 1080x1920, PSNR:33.8776, MS-SSIM:0.9063, Training:9.6387s, Eval:0.00054738s, FPS:1826.8750
+Frame_530: 1080x1920, PSNR:33.9872, MS-SSIM:0.9062, Training:9.8071s, Eval:0.00058832s, FPS:1699.7504
+Frame_540: 1080x1920, PSNR:33.9504, MS-SSIM:0.9066, Training:9.9877s, Eval:0.00056833s, FPS:1759.5476
+Frame_550: 1080x1920, PSNR:33.6848, MS-SSIM:0.9054, Training:88.6042s, Eval:0.00050916s, FPS:1964.0300
+Frame_560: 1080x1920, PSNR:33.8566, MS-SSIM:0.9054, Training:10.0763s, Eval:0.00052777s, FPS:1894.7543
+Frame_570: 1080x1920, PSNR:33.8448, MS-SSIM:0.9058, Training:9.6224s, Eval:0.00057729s, FPS:1732.2458
+Frame_580: 1080x1920, PSNR:33.8472, MS-SSIM:0.9059, Training:9.7939s, Eval:0.00055909s, FPS:1788.6082
+Frame_590: 1080x1920, PSNR:33.8841, MS-SSIM:0.9064, Training:10.9748s, Eval:0.00056582s, FPS:1767.3473
+Frame_600: 1080x1920, PSNR:33.9816, MS-SSIM:0.9081, Training:90.9233s, Eval:0.00050539s, FPS:1978.6506
+Average: 1080x1920, PSNR:33.8348, MS-SSIM:0.9063, Training:11.5420s, Eval:0.00054682s, FPS:1831.5500
+MP4 video created successfully.
+Frame_1: 1080x1920, PSNR:32.8635, MS-SSIM:0.9013, Training:100.8508s, Eval:0.00078839s, FPS:1268.4106
+Frame_10: 1080x1920, PSNR:33.5578, MS-SSIM:0.9024, Training:9.5785s, Eval:0.00053516s, FPS:1868.6031
+Frame_20: 1080x1920, PSNR:33.6001, MS-SSIM:0.9014, Training:9.8562s, Eval:0.00055164s, FPS:1812.7732
+Frame_30: 1080x1920, PSNR:33.5653, MS-SSIM:0.9016, Training:10.0020s, Eval:0.00056176s, FPS:1780.1137
+Frame_40: 1080x1920, PSNR:33.9417, MS-SSIM:0.9044, Training:10.1815s, Eval:0.00057908s, FPS:1726.8896
+Frame_50: 1080x1920, PSNR:33.9125, MS-SSIM:0.9074, Training:94.2463s, Eval:0.00051636s, FPS:1936.6162
+Frame_60: 1080x1920, PSNR:33.9146, MS-SSIM:0.9070, Training:9.5960s, Eval:0.00053610s, FPS:1865.3289
+Frame_70: 1080x1920, PSNR:33.9943, MS-SSIM:0.9070, Training:9.8085s, Eval:0.00054591s, FPS:1831.8138
+Frame_80: 1080x1920, PSNR:34.1682, MS-SSIM:0.9086, Training:10.0221s, Eval:0.00055725s, FPS:1794.5312
+Frame_90: 1080x1920, PSNR:34.2664, MS-SSIM:0.9075, Training:10.1564s, Eval:0.00056540s, FPS:1768.6515
+Frame_100: 1080x1920, PSNR:34.1526, MS-SSIM:0.9104, Training:90.0425s, Eval:0.00051104s, FPS:1956.7822
+Frame_110: 1080x1920, PSNR:34.1528, MS-SSIM:0.9084, Training:9.6075s, Eval:0.00053166s, FPS:1880.9044
+Frame_120: 1080x1920, PSNR:34.0999, MS-SSIM:0.9094, Training:9.8152s, Eval:0.00054816s, FPS:1824.2846
+Frame_130: 1080x1920, PSNR:34.2852, MS-SSIM:0.9103, Training:10.0066s, Eval:0.00055491s, FPS:1802.0795
+Frame_140: 1080x1920, PSNR:34.2759, MS-SSIM:0.9094, Training:10.0918s, Eval:0.00056607s, FPS:1766.5732
+Frame_150: 1080x1920, PSNR:34.1923, MS-SSIM:0.9071, Training:91.7767s, Eval:0.00050755s, FPS:1970.2391
+Frame_160: 1080x1920, PSNR:34.2309, MS-SSIM:0.9062, Training:9.5853s, Eval:0.00052905s, FPS:1890.1690
+Frame_170: 1080x1920, PSNR:34.3027, MS-SSIM:0.9085, Training:9.7711s, Eval:0.00054027s, FPS:1850.9318
+Frame_180: 1080x1920, PSNR:34.3006, MS-SSIM:0.9091, Training:9.9156s, Eval:0.00054807s, FPS:1824.5783
+Frame_190: 1080x1920, PSNR:34.3910, MS-SSIM:0.9098, Training:10.0183s, Eval:0.00055467s, FPS:1802.8773
+Frame_200: 1080x1920, PSNR:34.2236, MS-SSIM:0.9096, Training:91.4324s, Eval:0.00051076s, FPS:1957.8783
+Frame_210: 1080x1920, PSNR:34.2561, MS-SSIM:0.9094, Training:9.6158s, Eval:0.00053062s, FPS:1884.5977
+Frame_220: 1080x1920, PSNR:34.0444, MS-SSIM:0.9113, Training:9.7686s, Eval:0.00054008s, FPS:1851.5773
+Frame_230: 1080x1920, PSNR:33.9524, MS-SSIM:0.9114, Training:9.9632s, Eval:0.00055251s, FPS:1809.9336
+Frame_240: 1080x1920, PSNR:34.0022, MS-SSIM:0.9096, Training:10.0710s, Eval:0.00056597s, FPS:1766.8932
+Frame_250: 1080x1920, PSNR:33.7616, MS-SSIM:0.9087, Training:92.4893s, Eval:0.00051485s, FPS:1942.3110
+Frame_260: 1080x1920, PSNR:33.7627, MS-SSIM:0.9079, Training:9.6385s, Eval:0.00053490s, FPS:1869.4943
+Frame_270: 1080x1920, PSNR:33.9784, MS-SSIM:0.9090, Training:9.8225s, Eval:0.00054419s, FPS:1837.6002
+Frame_280: 1080x1920, PSNR:33.7863, MS-SSIM:0.9082, Training:9.9849s, Eval:0.00055593s, FPS:1798.7717
+Frame_290: 1080x1920, PSNR:33.9646, MS-SSIM:0.9102, Training:10.1335s, Eval:0.00056255s, FPS:1777.6241
+Frame_300: 1080x1920, PSNR:33.6218, MS-SSIM:0.9099, Training:91.3350s, Eval:0.00051836s, FPS:1929.1518
+Frame_310: 1080x1920, PSNR:33.9995, MS-SSIM:0.9100, Training:9.6677s, Eval:0.00054039s, FPS:1850.5316
+Frame_320: 1080x1920, PSNR:34.2126, MS-SSIM:0.9122, Training:9.8890s, Eval:0.00054863s, FPS:1822.7228
+Frame_330: 1080x1920, PSNR:34.1262, MS-SSIM:0.9120, Training:10.0354s, Eval:0.00056114s, FPS:1782.0726
+Frame_340: 1080x1920, PSNR:34.2527, MS-SSIM:0.9133, Training:10.1849s, Eval:0.00057271s, FPS:1746.0698
+Frame_350: 1080x1920, PSNR:33.8872, MS-SSIM:0.9134, Training:94.8339s, Eval:0.00051659s, FPS:1935.7671
+Frame_360: 1080x1920, PSNR:33.9407, MS-SSIM:0.9136, Training:9.6619s, Eval:0.00053955s, FPS:1853.4100
+Frame_370: 1080x1920, PSNR:34.1594, MS-SSIM:0.9148, Training:9.9309s, Eval:0.00055136s, FPS:1813.7060
+Frame_380: 1080x1920, PSNR:34.2806, MS-SSIM:0.9158, Training:10.0658s, Eval:0.00056182s, FPS:1779.9400
+Frame_390: 1080x1920, PSNR:33.8883, MS-SSIM:0.9152, Training:10.2401s, Eval:0.00057594s, FPS:1736.2830
+Frame_400: 1080x1920, PSNR:33.9340, MS-SSIM:0.9156, Training:91.9752s, Eval:0.00051373s, FPS:1946.5657
+Frame_410: 1080x1920, PSNR:34.1671, MS-SSIM:0.9128, Training:9.6165s, Eval:0.00053739s, FPS:1860.8435
+Frame_420: 1080x1920, PSNR:34.1087, MS-SSIM:0.9122, Training:9.8255s, Eval:0.00054599s, FPS:1831.5418
+Frame_430: 1080x1920, PSNR:34.1422, MS-SSIM:0.9130, Training:10.0064s, Eval:0.00056114s, FPS:1782.0802
+Frame_440: 1080x1920, PSNR:34.2206, MS-SSIM:0.9133, Training:10.1645s, Eval:0.00057104s, FPS:1751.1874
+Frame_450: 1080x1920, PSNR:33.9702, MS-SSIM:0.9120, Training:96.2296s, Eval:0.00051574s, FPS:1938.9439
+Frame_460: 1080x1920, PSNR:34.0162, MS-SSIM:0.9118, Training:11.3736s, Eval:0.00053324s, FPS:1875.3120
+Frame_470: 1080x1920, PSNR:34.0190, MS-SSIM:0.9119, Training:9.8914s, Eval:0.00054894s, FPS:1821.6937
+Frame_480: 1080x1920, PSNR:34.0888, MS-SSIM:0.9122, Training:10.0506s, Eval:0.00056322s, FPS:1775.5171
+Frame_490: 1080x1920, PSNR:33.9553, MS-SSIM:0.9105, Training:10.1788s, Eval:0.00056784s, FPS:1761.0473
+Frame_500: 1080x1920, PSNR:33.9100, MS-SSIM:0.9117, Training:90.7422s, Eval:0.00051587s, FPS:1938.4869
+Frame_510: 1080x1920, PSNR:34.0914, MS-SSIM:0.9101, Training:9.7332s, Eval:0.00053262s, FPS:1877.4945
+Frame_520: 1080x1920, PSNR:34.0823, MS-SSIM:0.9092, Training:9.8642s, Eval:0.00055263s, FPS:1809.5276
+Frame_530: 1080x1920, PSNR:34.1676, MS-SSIM:0.9092, Training:10.0108s, Eval:0.00055829s, FPS:1791.1975
+Frame_540: 1080x1920, PSNR:34.1291, MS-SSIM:0.9095, Training:10.4876s, Eval:0.00057195s, FPS:1748.3989
+Frame_550: 1080x1920, PSNR:33.8624, MS-SSIM:0.9094, Training:89.8070s, Eval:0.00051373s, FPS:1946.5476
+Frame_560: 1080x1920, PSNR:34.0260, MS-SSIM:0.9086, Training:9.6186s, Eval:0.00053127s, FPS:1882.2972
+Frame_570: 1080x1920, PSNR:34.0194, MS-SSIM:0.9092, Training:9.9100s, Eval:0.00054318s, FPS:1840.9958
+Frame_580: 1080x1920, PSNR:34.0164, MS-SSIM:0.9088, Training:9.9760s, Eval:0.00056038s, FPS:1784.4989
+Frame_590: 1080x1920, PSNR:34.0564, MS-SSIM:0.9098, Training:10.1682s, Eval:0.00057302s, FPS:1745.1398
+Frame_600: 1080x1920, PSNR:34.1264, MS-SSIM:0.9113, Training:91.8580s, Eval:0.00050966s, FPS:1962.1006
+Average: 1080x1920, PSNR:34.0397, MS-SSIM:0.9096, Training:11.7110s, Eval:0.00055145s, FPS:1815.7880
+MP4 video created successfully.
+Frame_1: 1080x1920, PSNR:32.9688, MS-SSIM:0.9034, Training:99.7552s, Eval:0.00051684s, FPS:1934.8473
+Frame_10: 1080x1920, PSNR:33.5874, MS-SSIM:0.9042, Training:9.7129s, Eval:0.00054125s, FPS:1847.5726
+Frame_20: 1080x1920, PSNR:33.6027, MS-SSIM:0.9030, Training:9.9235s, Eval:0.00055510s, FPS:1801.4913
+Frame_30: 1080x1920, PSNR:33.6220, MS-SSIM:0.9033, Training:10.2001s, Eval:0.00056766s, FPS:1761.6168
+Frame_40: 1080x1920, PSNR:33.9315, MS-SSIM:0.9055, Training:10.3664s, Eval:0.00058162s, FPS:1719.3364
+Frame_50: 1080x1920, PSNR:34.0589, MS-SSIM:0.9093, Training:94.7468s, Eval:0.00051754s, FPS:1932.2179
+Frame_60: 1080x1920, PSNR:34.0319, MS-SSIM:0.9086, Training:9.7419s, Eval:0.00054298s, FPS:1841.6991
+Frame_70: 1080x1920, PSNR:34.0783, MS-SSIM:0.9087, Training:9.9424s, Eval:0.00055396s, FPS:1805.1897
+Frame_80: 1080x1920, PSNR:34.2267, MS-SSIM:0.9100, Training:10.1297s, Eval:0.00057398s, FPS:1742.2258
+Frame_90: 1080x1920, PSNR:34.3230, MS-SSIM:0.9089, Training:10.2492s, Eval:0.00057257s, FPS:1746.5060
+Frame_100: 1080x1920, PSNR:34.2147, MS-SSIM:0.9123, Training:90.9838s, Eval:0.00051557s, FPS:1939.5895
+Frame_110: 1080x1920, PSNR:34.2133, MS-SSIM:0.9101, Training:9.6880s, Eval:0.00053776s, FPS:1859.5812
+Frame_120: 1080x1920, PSNR:34.1882, MS-SSIM:0.9112, Training:9.9398s, Eval:0.00054689s, FPS:1828.5077
+Frame_130: 1080x1920, PSNR:34.3390, MS-SSIM:0.9118, Training:10.0406s, Eval:0.00055829s, FPS:1791.1746
+Frame_140: 1080x1920, PSNR:34.3297, MS-SSIM:0.9108, Training:10.1992s, Eval:0.00056722s, FPS:1762.9867
+Frame_150: 1080x1920, PSNR:34.2738, MS-SSIM:0.9085, Training:92.4684s, Eval:0.00051447s, FPS:1943.7422
+Frame_160: 1080x1920, PSNR:34.2783, MS-SSIM:0.9072, Training:9.6588s, Eval:0.00053757s, FPS:1860.2163
+Frame_170: 1080x1920, PSNR:34.3659, MS-SSIM:0.9096, Training:9.8560s, Eval:0.00054425s, FPS:1837.3748
+Frame_180: 1080x1920, PSNR:34.3547, MS-SSIM:0.9103, Training:10.0887s, Eval:0.00055733s, FPS:1794.2779
+Frame_190: 1080x1920, PSNR:34.4489, MS-SSIM:0.9109, Training:10.1697s, Eval:0.00055677s, FPS:1796.0835
+Frame_200: 1080x1920, PSNR:34.3252, MS-SSIM:0.9113, Training:90.5248s, Eval:0.00052021s, FPS:1922.2908
+Frame_210: 1080x1920, PSNR:34.3229, MS-SSIM:0.9106, Training:9.6991s, Eval:0.00052862s, FPS:1891.7291
+Frame_220: 1080x1920, PSNR:34.1242, MS-SSIM:0.9124, Training:9.9487s, Eval:0.00054749s, FPS:1826.5090
+Frame_230: 1080x1920, PSNR:34.0255, MS-SSIM:0.9126, Training:10.0668s, Eval:0.00055928s, FPS:1787.9982
+Frame_240: 1080x1920, PSNR:34.0546, MS-SSIM:0.9106, Training:10.2569s, Eval:0.00056804s, FPS:1760.4338
+Frame_250: 1080x1920, PSNR:33.9118, MS-SSIM:0.9106, Training:91.6861s, Eval:0.00051659s, FPS:1935.7582
+Frame_260: 1080x1920, PSNR:33.9282, MS-SSIM:0.9097, Training:9.7825s, Eval:0.00054043s, FPS:1850.3929
+Frame_270: 1080x1920, PSNR:34.0905, MS-SSIM:0.9104, Training:9.9924s, Eval:0.00055755s, FPS:1793.5567
+Frame_280: 1080x1920, PSNR:33.9228, MS-SSIM:0.9101, Training:10.1233s, Eval:0.00056441s, FPS:1771.7670
+Frame_290: 1080x1920, PSNR:34.0326, MS-SSIM:0.9116, Training:10.2268s, Eval:0.00057221s, FPS:1747.6121
+Frame_300: 1080x1920, PSNR:33.7934, MS-SSIM:0.9119, Training:91.9020s, Eval:0.00052078s, FPS:1920.1787
+Frame_310: 1080x1920, PSNR:34.0954, MS-SSIM:0.9113, Training:9.7547s, Eval:0.00054417s, FPS:1837.6726
+Frame_320: 1080x1920, PSNR:34.2859, MS-SSIM:0.9134, Training:9.9438s, Eval:0.00055194s, FPS:1811.8022
+Frame_330: 1080x1920, PSNR:34.2057, MS-SSIM:0.9133, Training:10.1228s, Eval:0.00056102s, FPS:1782.4816
+Frame_340: 1080x1920, PSNR:34.3284, MS-SSIM:0.9146, Training:10.2604s, Eval:0.00057374s, FPS:1742.9425
+Frame_350: 1080x1920, PSNR:34.0467, MS-SSIM:0.9151, Training:91.1972s, Eval:0.00051668s, FPS:1935.4366
+Frame_360: 1080x1920, PSNR:34.0934, MS-SSIM:0.9150, Training:9.8198s, Eval:0.00053959s, FPS:1853.2463
+Frame_370: 1080x1920, PSNR:34.2712, MS-SSIM:0.9159, Training:10.0144s, Eval:0.00056704s, FPS:1763.5501
+Frame_380: 1080x1920, PSNR:34.3771, MS-SSIM:0.9168, Training:10.1424s, Eval:0.00056372s, FPS:1773.9251
+Frame_390: 1080x1920, PSNR:34.0187, MS-SSIM:0.9163, Training:10.3327s, Eval:0.00057614s, FPS:1735.7010
+Frame_400: 1080x1920, PSNR:34.0855, MS-SSIM:0.9173, Training:91.1963s, Eval:0.00051756s, FPS:1932.1556
+Frame_410: 1080x1920, PSNR:34.2535, MS-SSIM:0.9142, Training:9.7775s, Eval:0.00053891s, FPS:1855.5829
+Frame_420: 1080x1920, PSNR:34.1933, MS-SSIM:0.9135, Training:9.9686s, Eval:0.00055442s, FPS:1803.6759
+Frame_430: 1080x1920, PSNR:34.2191, MS-SSIM:0.9145, Training:10.2087s, Eval:0.00056375s, FPS:1773.8501
+Frame_440: 1080x1920, PSNR:34.2940, MS-SSIM:0.9148, Training:10.4329s, Eval:0.00057343s, FPS:1743.8773
+Frame_450: 1080x1920, PSNR:34.1005, MS-SSIM:0.9138, Training:92.8610s, Eval:0.00052118s, FPS:1918.7118
+Frame_460: 1080x1920, PSNR:34.1088, MS-SSIM:0.9134, Training:14.7676s, Eval:0.00054056s, FPS:1849.9358
+Frame_470: 1080x1920, PSNR:34.1172, MS-SSIM:0.9135, Training:10.0339s, Eval:0.00055504s, FPS:1801.6770
+Frame_480: 1080x1920, PSNR:34.1572, MS-SSIM:0.9135, Training:10.2266s, Eval:0.00056338s, FPS:1775.0136
+Frame_490: 1080x1920, PSNR:34.0437, MS-SSIM:0.9123, Training:10.3505s, Eval:0.00057685s, FPS:1733.5416
+Frame_500: 1080x1920, PSNR:33.9853, MS-SSIM:0.9131, Training:91.6159s, Eval:0.00051819s, FPS:1929.8086
+Frame_510: 1080x1920, PSNR:34.1743, MS-SSIM:0.9113, Training:9.7689s, Eval:0.00053670s, FPS:1863.2490
+Frame_520: 1080x1920, PSNR:34.1652, MS-SSIM:0.9106, Training:9.9534s, Eval:0.00055188s, FPS:1811.9901
+Frame_530: 1080x1920, PSNR:34.2362, MS-SSIM:0.9104, Training:10.0760s, Eval:0.00056268s, FPS:1777.2098
+Frame_540: 1080x1920, PSNR:34.2024, MS-SSIM:0.9110, Training:10.5244s, Eval:0.00057371s, FPS:1743.0367
+Frame_550: 1080x1920, PSNR:34.0168, MS-SSIM:0.9109, Training:90.8883s, Eval:0.00051704s, FPS:1934.0890
+Frame_560: 1080x1920, PSNR:34.1345, MS-SSIM:0.9101, Training:9.7113s, Eval:0.00053991s, FPS:1852.1578
+Frame_570: 1080x1920, PSNR:34.1437, MS-SSIM:0.9105, Training:9.9225s, Eval:0.00054926s, FPS:1820.6341
+Frame_580: 1080x1920, PSNR:34.1508, MS-SSIM:0.9104, Training:10.0641s, Eval:0.00056263s, FPS:1777.3604
+Frame_590: 1080x1920, PSNR:34.1922, MS-SSIM:0.9110, Training:10.2219s, Eval:0.00056673s, FPS:1764.5220
+Frame_600: 1080x1920, PSNR:34.2646, MS-SSIM:0.9133, Training:90.9891s, Eval:0.00051342s, FPS:1947.7318
+Average: 1080x1920, PSNR:34.1246, MS-SSIM:0.9110, Training:11.8351s, Eval:0.00055460s, FPS:1804.9133
+MP4 video created successfully.
+Frame_1: 1080x1920, PSNR:29.4344, MS-SSIM:0.9123, Training:88.2173s, Eval:0.00052609s, FPS:1900.8080
+Frame_10: 1080x1920, PSNR:29.8252, MS-SSIM:0.9196, Training:9.4670s, Eval:0.00055916s, FPS:1788.4099
+Frame_20: 1080x1920, PSNR:29.9306, MS-SSIM:0.9214, Training:9.7603s, Eval:0.00058378s, FPS:1712.9746
+Frame_30: 1080x1920, PSNR:30.0276, MS-SSIM:0.9230, Training:9.9332s, Eval:0.00060648s, FPS:1648.8600
+Frame_40: 1080x1920, PSNR:30.0863, MS-SSIM:0.9241, Training:10.1283s, Eval:0.00062658s, FPS:1595.9697
+Frame_1: 1080x1920, PSNR:31.6109, MS-SSIM:0.9448, Training:91.5197s, Eval:0.00052760s, FPS:1895.3794
+Frame_10: 1080x1920, PSNR:31.9756, MS-SSIM:0.9489, Training:9.6686s, Eval:0.00055784s, FPS:1792.6368
+Frame_20: 1080x1920, PSNR:32.0905, MS-SSIM:0.9501, Training:9.8999s, Eval:0.00058291s, FPS:1715.5389
+Frame_30: 1080x1920, PSNR:32.1881, MS-SSIM:0.9510, Training:10.0288s, Eval:0.00059168s, FPS:1690.1067
+Frame_40: 1080x1920, PSNR:32.2635, MS-SSIM:0.9518, Training:10.1696s, Eval:0.00060523s, FPS:1652.2700
+Frame_50: 1080x1920, PSNR:31.6429, MS-SSIM:0.9449, Training:95.2207s, Eval:0.00052470s, FPS:1905.8521
+Frame_60: 1080x1920, PSNR:32.0027, MS-SSIM:0.9490, Training:9.7009s, Eval:0.00056437s, FPS:1771.8867
+Frame_70: 1080x1920, PSNR:32.1735, MS-SSIM:0.9506, Training:9.8778s, Eval:0.00058007s, FPS:1723.9298
+Frame_80: 1080x1920, PSNR:32.2565, MS-SSIM:0.9514, Training:10.0316s, Eval:0.00059526s, FPS:1679.9458
+Frame_90: 1080x1920, PSNR:32.3422, MS-SSIM:0.9522, Training:10.1882s, Eval:0.00060778s, FPS:1645.3348
+Frame_100: 1080x1920, PSNR:31.5361, MS-SSIM:0.9438, Training:98.2581s, Eval:0.00052622s, FPS:1900.3516
+Frame_110: 1080x1920, PSNR:31.9744, MS-SSIM:0.9488, Training:9.6983s, Eval:0.00055897s, FPS:1789.0201
+Frame_120: 1080x1920, PSNR:32.1244, MS-SSIM:0.9503, Training:9.9359s, Eval:0.00058405s, FPS:1712.1844
+Frame_130: 1080x1920, PSNR:32.2242, MS-SSIM:0.9513, Training:10.0813s, Eval:0.00060554s, FPS:1651.4243
+Frame_140: 1080x1920, PSNR:32.2718, MS-SSIM:0.9518, Training:10.2488s, Eval:0.00062337s, FPS:1604.1857
+Frame_150: 1080x1920, PSNR:31.6457, MS-SSIM:0.9446, Training:90.2386s, Eval:0.00052526s, FPS:1903.8278
+Frame_160: 1080x1920, PSNR:32.0429, MS-SSIM:0.9494, Training:9.6926s, Eval:0.00056137s, FPS:1781.3688
+Frame_170: 1080x1920, PSNR:32.1950, MS-SSIM:0.9508, Training:9.8830s, Eval:0.00058093s, FPS:1721.3686
+Frame_180: 1080x1920, PSNR:32.2846, MS-SSIM:0.9516, Training:10.0113s, Eval:0.00059108s, FPS:1691.8178
+Frame_190: 1080x1920, PSNR:32.3198, MS-SSIM:0.9518, Training:10.1287s, Eval:0.00060020s, FPS:1666.1121
+Frame_200: 1080x1920, PSNR:31.6534, MS-SSIM:0.9447, Training:94.3276s, Eval:0.00052773s, FPS:1894.8913
+Frame_210: 1080x1920, PSNR:32.0512, MS-SSIM:0.9494, Training:9.6814s, Eval:0.00056269s, FPS:1777.1797
+Frame_220: 1080x1920, PSNR:32.2010, MS-SSIM:0.9509, Training:9.9064s, Eval:0.00058692s, FPS:1703.8034
+Frame_230: 1080x1920, PSNR:32.3006, MS-SSIM:0.9517, Training:10.0711s, Eval:0.00060580s, FPS:1650.6964
+Frame_240: 1080x1920, PSNR:32.3462, MS-SSIM:0.9521, Training:10.2121s, Eval:0.00061640s, FPS:1622.3288
+Frame_250: 1080x1920, PSNR:31.7153, MS-SSIM:0.9452, Training:89.9962s, Eval:0.00052236s, FPS:1914.4031
+Frame_260: 1080x1920, PSNR:32.1322, MS-SSIM:0.9499, Training:9.7224s, Eval:0.00056095s, FPS:1782.6937
+Frame_270: 1080x1920, PSNR:32.2588, MS-SSIM:0.9512, Training:9.8873s, Eval:0.00058286s, FPS:1715.6793
+Frame_280: 1080x1920, PSNR:32.3296, MS-SSIM:0.9518, Training:10.0349s, Eval:0.00059178s, FPS:1689.8275
+Frame_290: 1080x1920, PSNR:32.3872, MS-SSIM:0.9523, Training:10.2216s, Eval:0.00060673s, FPS:1648.1732
+Frame_300: 1080x1920, PSNR:31.6498, MS-SSIM:0.9446, Training:93.3402s, Eval:0.00052588s, FPS:1901.5578
+Frame_310: 1080x1920, PSNR:32.0969, MS-SSIM:0.9498, Training:9.7247s, Eval:0.00056344s, FPS:1774.8109
+Frame_320: 1080x1920, PSNR:32.2414, MS-SSIM:0.9511, Training:9.9387s, Eval:0.00058461s, FPS:1710.5296
+Frame_330: 1080x1920, PSNR:32.3212, MS-SSIM:0.9520, Training:10.0449s, Eval:0.00059182s, FPS:1689.7050
+Frame_340: 1080x1920, PSNR:32.3692, MS-SSIM:0.9526, Training:10.1935s, Eval:0.00060552s, FPS:1651.4698
+Frame_350: 1080x1920, PSNR:31.6466, MS-SSIM:0.9449, Training:90.8740s, Eval:0.00052459s, FPS:1906.2505
+Frame_360: 1080x1920, PSNR:32.0245, MS-SSIM:0.9492, Training:9.6938s, Eval:0.00056273s, FPS:1777.0517
+Frame_370: 1080x1920, PSNR:32.1690, MS-SSIM:0.9507, Training:9.9117s, Eval:0.00058229s, FPS:1717.3512
+Frame_380: 1080x1920, PSNR:32.2482, MS-SSIM:0.9516, Training:10.0390s, Eval:0.00059653s, FPS:1676.3671
+Frame_390: 1080x1920, PSNR:32.3010, MS-SSIM:0.9520, Training:10.1805s, Eval:0.00060958s, FPS:1640.4762
+Frame_400: 1080x1920, PSNR:31.6274, MS-SSIM:0.9449, Training:93.1105s, Eval:0.00052452s, FPS:1906.5105
+Frame_410: 1080x1920, PSNR:32.0084, MS-SSIM:0.9493, Training:11.2789s, Eval:0.00056092s, FPS:1782.7771
+Frame_420: 1080x1920, PSNR:32.1381, MS-SSIM:0.9508, Training:9.9063s, Eval:0.00057647s, FPS:1734.6960
+Frame_430: 1080x1920, PSNR:32.1969, MS-SSIM:0.9513, Training:10.0182s, Eval:0.00058949s, FPS:1696.3818
+Frame_440: 1080x1920, PSNR:32.2552, MS-SSIM:0.9517, Training:10.1381s, Eval:0.00060247s, FPS:1659.8418
+Frame_450: 1080x1920, PSNR:31.5850, MS-SSIM:0.9447, Training:93.2405s, Eval:0.00052575s, FPS:1902.0579
+Frame_460: 1080x1920, PSNR:32.0033, MS-SSIM:0.9495, Training:9.7234s, Eval:0.00056758s, FPS:1761.8536
+Frame_470: 1080x1920, PSNR:32.1490, MS-SSIM:0.9510, Training:9.9746s, Eval:0.00059270s, FPS:1687.1969
+Frame_480: 1080x1920, PSNR:32.2250, MS-SSIM:0.9518, Training:10.1051s, Eval:0.00060249s, FPS:1659.7827
+Frame_490: 1080x1920, PSNR:32.2810, MS-SSIM:0.9523, Training:10.1862s, Eval:0.00060448s, FPS:1654.3163
+Frame_500: 1080x1920, PSNR:31.6548, MS-SSIM:0.9452, Training:89.9703s, Eval:0.00052544s, FPS:1903.1626
+Frame_510: 1080x1920, PSNR:32.0700, MS-SSIM:0.9499, Training:9.6823s, Eval:0.00056704s, FPS:1763.5575
+Frame_520: 1080x1920, PSNR:32.2121, MS-SSIM:0.9514, Training:9.9144s, Eval:0.00058162s, FPS:1719.3435
+Frame_530: 1080x1920, PSNR:32.2718, MS-SSIM:0.9522, Training:10.0345s, Eval:0.00059247s, FPS:1687.8419
+Frame_540: 1080x1920, PSNR:32.3500, MS-SSIM:0.9528, Training:10.1455s, Eval:0.00060080s, FPS:1664.4592
+Frame_550: 1080x1920, PSNR:31.7305, MS-SSIM:0.9459, Training:93.5327s, Eval:0.00052576s, FPS:1902.0148
+Frame_560: 1080x1920, PSNR:32.1230, MS-SSIM:0.9502, Training:11.3463s, Eval:0.00055650s, FPS:1796.9376
+Frame_570: 1080x1920, PSNR:32.2905, MS-SSIM:0.9515, Training:9.9013s, Eval:0.00058391s, FPS:1712.6039
+Frame_580: 1080x1920, PSNR:32.4155, MS-SSIM:0.9527, Training:10.0166s, Eval:0.00059174s, FPS:1689.9433
+Frame_590: 1080x1920, PSNR:32.5477, MS-SSIM:0.9537, Training:10.2020s, Eval:0.00061621s, FPS:1622.8121
+Frame_600: 1080x1920, PSNR:31.8486, MS-SSIM:0.9470, Training:93.6216s, Eval:0.00052429s, FPS:1907.3341
+Average: 1080x1920, PSNR:32.1738, MS-SSIM:0.9507, Training:11.7545s, Eval:0.00058448s, FPS:1714.5052
+MP4 video created successfully.
+Frame_1: 1080x1920, PSNR:32.9518, MS-SSIM:0.9587, Training:93.3310s, Eval:0.00052819s, FPS:1893.2747
+Frame_10: 1080x1920, PSNR:33.3539, MS-SSIM:0.9620, Training:9.8048s, Eval:0.00056272s, FPS:1777.0969
+Frame_20: 1080x1920, PSNR:33.4923, MS-SSIM:0.9630, Training:10.0066s, Eval:0.00058134s, FPS:1720.1614
+Frame_30: 1080x1920, PSNR:33.6277, MS-SSIM:0.9639, Training:10.1424s, Eval:0.00058846s, FPS:1699.3578
+Frame_40: 1080x1920, PSNR:33.7173, MS-SSIM:0.9646, Training:10.2839s, Eval:0.00060389s, FPS:1655.9361
+Frame_50: 1080x1920, PSNR:33.0061, MS-SSIM:0.9588, Training:93.3748s, Eval:0.00053316s, FPS:1875.5971
+Frame_60: 1080x1920, PSNR:33.3743, MS-SSIM:0.9618, Training:9.8152s, Eval:0.00055693s, FPS:1795.5683
+Frame_70: 1080x1920, PSNR:33.5331, MS-SSIM:0.9630, Training:10.0088s, Eval:0.00058348s, FPS:1713.8636
+Frame_80: 1080x1920, PSNR:33.6277, MS-SSIM:0.9637, Training:10.1852s, Eval:0.00059939s, FPS:1668.3521
+Frame_90: 1080x1920, PSNR:33.7095, MS-SSIM:0.9644, Training:10.3476s, Eval:0.00061218s, FPS:1633.5059
+Frame_100: 1080x1920, PSNR:32.9989, MS-SSIM:0.9588, Training:91.7061s, Eval:0.00053274s, FPS:1877.0744
+Frame_110: 1080x1920, PSNR:33.4065, MS-SSIM:0.9623, Training:9.8243s, Eval:0.00056337s, FPS:1775.0287
+Frame_120: 1080x1920, PSNR:33.5424, MS-SSIM:0.9634, Training:10.0032s, Eval:0.00057809s, FPS:1729.8453
+Frame_130: 1080x1920, PSNR:33.6498, MS-SSIM:0.9641, Training:10.1435s, Eval:0.00058932s, FPS:1696.8828
+Frame_140: 1080x1920, PSNR:33.7127, MS-SSIM:0.9645, Training:10.2826s, Eval:0.00060373s, FPS:1656.3742
+Frame_150: 1080x1920, PSNR:33.0921, MS-SSIM:0.9594, Training:93.1813s, Eval:0.00053098s, FPS:1883.3199
+Frame_160: 1080x1920, PSNR:33.4913, MS-SSIM:0.9626, Training:9.8280s, Eval:0.00055879s, FPS:1789.5926
+Frame_170: 1080x1920, PSNR:33.6435, MS-SSIM:0.9638, Training:10.0190s, Eval:0.00058370s, FPS:1713.2195
+Frame_180: 1080x1920, PSNR:33.7384, MS-SSIM:0.9645, Training:10.2161s, Eval:0.00060280s, FPS:1658.9292
+Frame_190: 1080x1920, PSNR:33.7775, MS-SSIM:0.9648, Training:10.3655s, Eval:0.00061826s, FPS:1617.4427
+Frame_200: 1080x1920, PSNR:33.0312, MS-SSIM:0.9593, Training:95.4369s, Eval:0.00052652s, FPS:1899.2501
+Frame_210: 1080x1920, PSNR:33.4413, MS-SSIM:0.9626, Training:9.8523s, Eval:0.00055823s, FPS:1791.3658
+Frame_220: 1080x1920, PSNR:33.5875, MS-SSIM:0.9636, Training:10.0167s, Eval:0.00058120s, FPS:1720.5778
+Frame_230: 1080x1920, PSNR:33.6821, MS-SSIM:0.9643, Training:10.1322s, Eval:0.00058791s, FPS:1700.9360
+Frame_240: 1080x1920, PSNR:33.7453, MS-SSIM:0.9647, Training:10.2433s, Eval:0.00060230s, FPS:1660.2886
+Frame_250: 1080x1920, PSNR:33.0167, MS-SSIM:0.9587, Training:107.0700s, Eval:0.00053204s, FPS:1879.5642
+Frame_260: 1080x1920, PSNR:33.4189, MS-SSIM:0.9619, Training:9.8033s, Eval:0.00055866s, FPS:1790.0050
+Frame_270: 1080x1920, PSNR:33.5944, MS-SSIM:0.9633, Training:10.0143s, Eval:0.00058275s, FPS:1716.0092
+Frame_280: 1080x1920, PSNR:33.6685, MS-SSIM:0.9638, Training:10.1876s, Eval:0.00059659s, FPS:1676.1795
+Frame_290: 1080x1920, PSNR:33.7299, MS-SSIM:0.9642, Training:10.2889s, Eval:0.00060681s, FPS:1647.9530
+Frame_300: 1080x1920, PSNR:33.0662, MS-SSIM:0.9592, Training:92.3283s, Eval:0.00053333s, FPS:1875.0018
+Frame_310: 1080x1920, PSNR:33.4767, MS-SSIM:0.9626, Training:9.8190s, Eval:0.00056073s, FPS:1783.3911
+Frame_320: 1080x1920, PSNR:33.6173, MS-SSIM:0.9637, Training:10.0332s, Eval:0.00058022s, FPS:1723.4765
+Frame_330: 1080x1920, PSNR:33.7023, MS-SSIM:0.9643, Training:10.1674s, Eval:0.00059658s, FPS:1676.2331
+Frame_340: 1080x1920, PSNR:33.7559, MS-SSIM:0.9646, Training:10.2243s, Eval:0.00060027s, FPS:1665.9070
+Frame_350: 1080x1920, PSNR:33.0679, MS-SSIM:0.9590, Training:92.2258s, Eval:0.00053344s, FPS:1874.6414
+Frame_360: 1080x1920, PSNR:33.4548, MS-SSIM:0.9623, Training:9.8270s, Eval:0.00056486s, FPS:1770.3386
+Frame_370: 1080x1920, PSNR:33.5903, MS-SSIM:0.9634, Training:10.0227s, Eval:0.00058282s, FPS:1715.7846
+Frame_380: 1080x1920, PSNR:33.6852, MS-SSIM:0.9642, Training:10.1555s, Eval:0.00059275s, FPS:1687.0408
+Frame_390: 1080x1920, PSNR:33.7495, MS-SSIM:0.9646, Training:10.2347s, Eval:0.00059818s, FPS:1671.7301
+Frame_400: 1080x1920, PSNR:33.0126, MS-SSIM:0.9591, Training:92.5976s, Eval:0.00053175s, FPS:1880.5755
+Frame_410: 1080x1920, PSNR:33.3966, MS-SSIM:0.9624, Training:9.8261s, Eval:0.00056077s, FPS:1783.2698
+Frame_420: 1080x1920, PSNR:33.5312, MS-SSIM:0.9635, Training:10.0339s, Eval:0.00058203s, FPS:1718.1250
+Frame_430: 1080x1920, PSNR:33.6209, MS-SSIM:0.9642, Training:10.1705s, Eval:0.00059411s, FPS:1683.1886
+Frame_440: 1080x1920, PSNR:33.7120, MS-SSIM:0.9646, Training:10.2273s, Eval:0.00059890s, FPS:1669.7336
+Frame_450: 1080x1920, PSNR:33.0665, MS-SSIM:0.9589, Training:94.1634s, Eval:0.00053085s, FPS:1883.7851
+Frame_460: 1080x1920, PSNR:33.4645, MS-SSIM:0.9620, Training:9.8078s, Eval:0.00055855s, FPS:1790.3642
+Frame_470: 1080x1920, PSNR:33.6309, MS-SSIM:0.9633, Training:10.0242s, Eval:0.00058258s, FPS:1716.5008
+Frame_480: 1080x1920, PSNR:33.7166, MS-SSIM:0.9640, Training:10.2052s, Eval:0.00060326s, FPS:1657.6508
+Frame_490: 1080x1920, PSNR:33.7828, MS-SSIM:0.9645, Training:10.2751s, Eval:0.00061387s, FPS:1629.0078
+Frame_500: 1080x1920, PSNR:33.0123, MS-SSIM:0.9589, Training:93.0772s, Eval:0.00053292s, FPS:1876.4530
+Frame_510: 1080x1920, PSNR:33.4217, MS-SSIM:0.9622, Training:9.7807s, Eval:0.00055983s, FPS:1786.2620
+Frame_520: 1080x1920, PSNR:33.5886, MS-SSIM:0.9635, Training:9.9921s, Eval:0.00057668s, FPS:1734.0577
+Frame_530: 1080x1920, PSNR:33.6687, MS-SSIM:0.9641, Training:10.1515s, Eval:0.00059023s, FPS:1694.2507
+Frame_540: 1080x1920, PSNR:33.7642, MS-SSIM:0.9646, Training:10.2644s, Eval:0.00060604s, FPS:1650.0535
+Frame_550: 1080x1920, PSNR:33.0859, MS-SSIM:0.9594, Training:93.0251s, Eval:0.00052553s, FPS:1902.8432
+Frame_560: 1080x1920, PSNR:33.5225, MS-SSIM:0.9630, Training:9.8084s, Eval:0.00056389s, FPS:1773.4076
+Frame_570: 1080x1920, PSNR:33.6869, MS-SSIM:0.9640, Training:9.9827s, Eval:0.00057709s, FPS:1732.8326
+Frame_580: 1080x1920, PSNR:33.7950, MS-SSIM:0.9647, Training:10.1287s, Eval:0.00058728s, FPS:1702.7521
+Frame_590: 1080x1920, PSNR:33.9086, MS-SSIM:0.9654, Training:10.2205s, Eval:0.00059349s, FPS:1684.9602
+Frame_600: 1080x1920, PSNR:33.3282, MS-SSIM:0.9607, Training:91.6979s, Eval:0.00053347s, FPS:1874.5158
+Average: 1080x1920, PSNR:33.5777, MS-SSIM:0.9633, Training:11.9084s, Eval:0.00058298s, FPS:1718.2327
+MP4 video created successfully.
+Frame_1: 1080x1920, PSNR:33.9681, MS-SSIM:0.9666, Training:100.6605s, Eval:0.00053835s, FPS:1857.5223
+Frame_10: 1080x1920, PSNR:34.3216, MS-SSIM:0.9690, Training:9.9060s, Eval:0.00056565s, FPS:1767.8911
+Frame_20: 1080x1920, PSNR:34.4574, MS-SSIM:0.9697, Training:10.0856s, Eval:0.00057642s, FPS:1734.8466
+Frame_30: 1080x1920, PSNR:34.5837, MS-SSIM:0.9704, Training:10.2206s, Eval:0.00058977s, FPS:1695.5657
+Frame_40: 1080x1920, PSNR:34.6534, MS-SSIM:0.9709, Training:10.3245s, Eval:0.00059777s, FPS:1672.8836
+Frame_50: 1080x1920, PSNR:33.9753, MS-SSIM:0.9666, Training:98.8538s, Eval:0.00053627s, FPS:1864.7318
+Frame_60: 1080x1920, PSNR:34.3448, MS-SSIM:0.9691, Training:9.9176s, Eval:0.00056226s, FPS:1778.5211
+Frame_70: 1080x1920, PSNR:34.5099, MS-SSIM:0.9701, Training:10.1154s, Eval:0.00057906s, FPS:1726.9323
+Frame_80: 1080x1920, PSNR:34.5840, MS-SSIM:0.9705, Training:10.2663s, Eval:0.00063315s, FPS:1579.4126
+Frame_90: 1080x1920, PSNR:34.6663, MS-SSIM:0.9710, Training:10.3855s, Eval:0.00060505s, FPS:1652.7583
+Frame_100: 1080x1920, PSNR:33.9867, MS-SSIM:0.9666, Training:94.9628s, Eval:0.00053493s, FPS:1869.3943
+Frame_110: 1080x1920, PSNR:34.3978, MS-SSIM:0.9692, Training:9.9297s, Eval:0.00056363s, FPS:1774.2027
+Frame_120: 1080x1920, PSNR:34.5638, MS-SSIM:0.9702, Training:10.1086s, Eval:0.00057782s, FPS:1730.6376
+Frame_130: 1080x1920, PSNR:34.6757, MS-SSIM:0.9708, Training:10.2722s, Eval:0.00059294s, FPS:1686.4981
+Frame_140: 1080x1920, PSNR:34.7363, MS-SSIM:0.9712, Training:10.4061s, Eval:0.00060042s, FPS:1665.5101
+Frame_150: 1080x1920, PSNR:34.0598, MS-SSIM:0.9668, Training:93.8220s, Eval:0.00053746s, FPS:1860.6041
+Frame_160: 1080x1920, PSNR:34.4578, MS-SSIM:0.9695, Training:9.9456s, Eval:0.00056962s, FPS:1755.5633
+Frame_170: 1080x1920, PSNR:34.6177, MS-SSIM:0.9705, Training:10.1192s, Eval:0.00058320s, FPS:1714.6763
+Frame_180: 1080x1920, PSNR:34.7201, MS-SSIM:0.9711, Training:10.2566s, Eval:0.00059467s, FPS:1681.5960
+Frame_190: 1080x1920, PSNR:34.7696, MS-SSIM:0.9714, Training:10.3437s, Eval:0.00060067s, FPS:1664.8159
+Frame_200: 1080x1920, PSNR:34.0442, MS-SSIM:0.9668, Training:92.9899s, Eval:0.00053728s, FPS:1861.2398
+Frame_210: 1080x1920, PSNR:34.4452, MS-SSIM:0.9695, Training:9.9527s, Eval:0.00056920s, FPS:1756.8575
+Frame_220: 1080x1920, PSNR:34.5932, MS-SSIM:0.9704, Training:10.1426s, Eval:0.00058838s, FPS:1699.5919
+Frame_230: 1080x1920, PSNR:34.7039, MS-SSIM:0.9709, Training:10.3099s, Eval:0.00060166s, FPS:1662.0715
+Frame_240: 1080x1920, PSNR:34.7635, MS-SSIM:0.9713, Training:10.4459s, Eval:0.00061182s, FPS:1634.4734
+Frame_250: 1080x1920, PSNR:33.9897, MS-SSIM:0.9666, Training:95.7544s, Eval:0.00053986s, FPS:1852.3460
+Frame_260: 1080x1920, PSNR:34.3826, MS-SSIM:0.9693, Training:9.9527s, Eval:0.00056566s, FPS:1767.8390
+Frame_270: 1080x1920, PSNR:34.5310, MS-SSIM:0.9702, Training:10.1099s, Eval:0.00057848s, FPS:1728.6547
+Frame_280: 1080x1920, PSNR:34.6136, MS-SSIM:0.9707, Training:10.2507s, Eval:0.00063122s, FPS:1584.2448
+Frame_290: 1080x1920, PSNR:34.6573, MS-SSIM:0.9710, Training:10.3488s, Eval:0.00060009s, FPS:1666.4100
+Frame_300: 1080x1920, PSNR:34.0071, MS-SSIM:0.9667, Training:95.0800s, Eval:0.00053860s, FPS:1856.6754
+Frame_310: 1080x1920, PSNR:34.4106, MS-SSIM:0.9695, Training:9.9197s, Eval:0.00056682s, FPS:1764.2177
+Frame_320: 1080x1920, PSNR:34.5577, MS-SSIM:0.9704, Training:10.0941s, Eval:0.00057851s, FPS:1728.5906
+Frame_330: 1080x1920, PSNR:34.6341, MS-SSIM:0.9709, Training:10.2688s, Eval:0.00059740s, FPS:1673.9185
+Frame_340: 1080x1920, PSNR:34.6858, MS-SSIM:0.9712, Training:10.3655s, Eval:0.00060198s, FPS:1661.1829
+Frame_350: 1080x1920, PSNR:34.0252, MS-SSIM:0.9670, Training:94.6493s, Eval:0.00053679s, FPS:1862.9180
+Frame_360: 1080x1920, PSNR:34.3922, MS-SSIM:0.9695, Training:9.9293s, Eval:0.00056617s, FPS:1766.2682
+Frame_370: 1080x1920, PSNR:34.5590, MS-SSIM:0.9704, Training:10.2476s, Eval:0.00058871s, FPS:1698.6283
+Frame_380: 1080x1920, PSNR:34.6700, MS-SSIM:0.9710, Training:10.3262s, Eval:0.00060287s, FPS:1658.7259
+Frame_390: 1080x1920, PSNR:34.7303, MS-SSIM:0.9713, Training:10.4062s, Eval:0.00060656s, FPS:1648.6526
+Frame_400: 1080x1920, PSNR:34.0195, MS-SSIM:0.9668, Training:95.5909s, Eval:0.00053714s, FPS:1861.7190
+Frame_410: 1080x1920, PSNR:34.4191, MS-SSIM:0.9696, Training:9.9284s, Eval:0.00056437s, FPS:1771.9017
+Frame_420: 1080x1920, PSNR:34.5665, MS-SSIM:0.9705, Training:10.1382s, Eval:0.00058214s, FPS:1717.8084
+Frame_430: 1080x1920, PSNR:34.6469, MS-SSIM:0.9710, Training:10.2880s, Eval:0.00059448s, FPS:1682.1490
+Frame_440: 1080x1920, PSNR:34.7179, MS-SSIM:0.9713, Training:10.3710s, Eval:0.00060570s, FPS:1650.9758
+Frame_450: 1080x1920, PSNR:34.0250, MS-SSIM:0.9666, Training:94.5873s, Eval:0.00053627s, FPS:1864.7401
+Frame_460: 1080x1920, PSNR:34.4325, MS-SSIM:0.9692, Training:9.9224s, Eval:0.00056523s, FPS:1769.1887
+Frame_470: 1080x1920, PSNR:34.5857, MS-SSIM:0.9703, Training:10.1180s, Eval:0.00057832s, FPS:1729.1464
+Frame_480: 1080x1920, PSNR:34.6698, MS-SSIM:0.9708, Training:10.2282s, Eval:0.00059161s, FPS:1690.3042
+Frame_490: 1080x1920, PSNR:34.7338, MS-SSIM:0.9712, Training:10.3330s, Eval:0.00059661s, FPS:1676.1393
+Frame_500: 1080x1920, PSNR:34.0297, MS-SSIM:0.9669, Training:93.7872s, Eval:0.00053741s, FPS:1860.7940
+Frame_510: 1080x1920, PSNR:34.4183, MS-SSIM:0.9693, Training:11.4595s, Eval:0.00056322s, FPS:1775.4945
+Frame_520: 1080x1920, PSNR:34.5821, MS-SSIM:0.9703, Training:10.1407s, Eval:0.00058558s, FPS:1707.6951
+Frame_530: 1080x1920, PSNR:34.6429, MS-SSIM:0.9707, Training:10.2959s, Eval:0.00060270s, FPS:1659.1917
+Frame_540: 1080x1920, PSNR:34.7293, MS-SSIM:0.9710, Training:10.3723s, Eval:0.00060796s, FPS:1644.8509
+Frame_550: 1080x1920, PSNR:34.0978, MS-SSIM:0.9672, Training:93.0687s, Eval:0.00053725s, FPS:1861.3224
+Frame_560: 1080x1920, PSNR:34.5007, MS-SSIM:0.9697, Training:10.9741s, Eval:0.00056281s, FPS:1776.8108
+Frame_570: 1080x1920, PSNR:34.6688, MS-SSIM:0.9705, Training:10.1119s, Eval:0.00057659s, FPS:1734.3230
+Frame_580: 1080x1920, PSNR:34.7782, MS-SSIM:0.9709, Training:10.4067s, Eval:0.00058751s, FPS:1702.1025
+Frame_590: 1080x1920, PSNR:34.9041, MS-SSIM:0.9716, Training:13.5485s, Eval:0.00060356s, FPS:1656.8323
+Frame_600: 1080x1920, PSNR:34.2512, MS-SSIM:0.9677, Training:93.0616s, Eval:0.00053149s, FPS:1881.5204
+Average: 1080x1920, PSNR:34.5543, MS-SSIM:0.9702, Training:12.0560s, Eval:0.00058420s, FPS:1714.1865
+MP4 video created successfully.
+Frame_1: 1080x1920, PSNR:34.3953, MS-SSIM:0.9694, Training:98.5656s, Eval:0.00054169s, FPS:1846.0601
+Frame_10: 1080x1920, PSNR:34.7608, MS-SSIM:0.9715, Training:10.0153s, Eval:0.00056395s, FPS:1773.1977
+Frame_20: 1080x1920, PSNR:34.8739, MS-SSIM:0.9722, Training:10.1920s, Eval:0.00058383s, FPS:1712.8417
+Frame_30: 1080x1920, PSNR:34.9835, MS-SSIM:0.9728, Training:10.3252s, Eval:0.00058975s, FPS:1695.6274
+Frame_40: 1080x1920, PSNR:35.0725, MS-SSIM:0.9733, Training:10.3927s, Eval:0.00059608s, FPS:1677.6142
+Frame_50: 1080x1920, PSNR:34.4262, MS-SSIM:0.9695, Training:99.8308s, Eval:0.00054026s, FPS:1850.9726
+Frame_60: 1080x1920, PSNR:34.7903, MS-SSIM:0.9716, Training:10.0232s, Eval:0.00056442s, FPS:1771.7445
+Frame_70: 1080x1920, PSNR:34.9541, MS-SSIM:0.9726, Training:10.2051s, Eval:0.00057527s, FPS:1738.3194
+Frame_80: 1080x1920, PSNR:35.0088, MS-SSIM:0.9729, Training:10.3467s, Eval:0.00059336s, FPS:1685.3258
+Frame_90: 1080x1920, PSNR:35.0908, MS-SSIM:0.9733, Training:10.4504s, Eval:0.00060261s, FPS:1659.4412
+Frame_100: 1080x1920, PSNR:34.4279, MS-SSIM:0.9695, Training:98.1173s, Eval:0.00053810s, FPS:1858.3947
+Frame_110: 1080x1920, PSNR:34.8081, MS-SSIM:0.9718, Training:10.0180s, Eval:0.00056570s, FPS:1767.7123
+Frame_120: 1080x1920, PSNR:34.9595, MS-SSIM:0.9726, Training:10.2182s, Eval:0.00058075s, FPS:1721.9198
+Frame_130: 1080x1920, PSNR:35.0572, MS-SSIM:0.9731, Training:10.3376s, Eval:0.00059833s, FPS:1671.3238
+Frame_140: 1080x1920, PSNR:35.1080, MS-SSIM:0.9733, Training:10.4366s, Eval:0.00060692s, FPS:1647.6617
+Frame_150: 1080x1920, PSNR:34.4171, MS-SSIM:0.9696, Training:97.3813s, Eval:0.00054508s, FPS:1834.5780
+Frame_160: 1080x1920, PSNR:34.8007, MS-SSIM:0.9719, Training:10.0227s, Eval:0.00056893s, FPS:1757.6747
+Frame_170: 1080x1920, PSNR:34.9379, MS-SSIM:0.9727, Training:10.2429s, Eval:0.00058861s, FPS:1698.9242
+Frame_180: 1080x1920, PSNR:35.0372, MS-SSIM:0.9732, Training:10.3443s, Eval:0.00059747s, FPS:1673.7181
+Frame_190: 1080x1920, PSNR:35.1007, MS-SSIM:0.9735, Training:10.4581s, Eval:0.00061119s, FPS:1636.1567
+Frame_200: 1080x1920, PSNR:34.4967, MS-SSIM:0.9696, Training:97.9497s, Eval:0.00054408s, FPS:1837.9706
+Frame_210: 1080x1920, PSNR:34.9005, MS-SSIM:0.9721, Training:10.0244s, Eval:0.00056409s, FPS:1772.7555
+Frame_220: 1080x1920, PSNR:35.0308, MS-SSIM:0.9729, Training:10.2078s, Eval:0.00058211s, FPS:1717.8787
+Frame_230: 1080x1920, PSNR:35.1361, MS-SSIM:0.9733, Training:10.3412s, Eval:0.00059115s, FPS:1691.6131
+Frame_240: 1080x1920, PSNR:35.2015, MS-SSIM:0.9737, Training:10.4538s, Eval:0.00060132s, FPS:1663.0007
+Frame_250: 1080x1920, PSNR:34.3892, MS-SSIM:0.9694, Training:94.9203s, Eval:0.00054205s, FPS:1844.8422
+Frame_260: 1080x1920, PSNR:34.7956, MS-SSIM:0.9717, Training:10.0092s, Eval:0.00056873s, FPS:1758.3158
+Frame_270: 1080x1920, PSNR:34.9534, MS-SSIM:0.9727, Training:10.2146s, Eval:0.00058164s, FPS:1719.2659
+Frame_280: 1080x1920, PSNR:35.0436, MS-SSIM:0.9731, Training:10.3622s, Eval:0.00059673s, FPS:1675.8112
+Frame_290: 1080x1920, PSNR:35.1004, MS-SSIM:0.9734, Training:10.4425s, Eval:0.00060100s, FPS:1663.8847
+Frame_300: 1080x1920, PSNR:34.4070, MS-SSIM:0.9694, Training:97.0912s, Eval:0.00054372s, FPS:1839.1795
+Frame_310: 1080x1920, PSNR:34.7838, MS-SSIM:0.9717, Training:10.0190s, Eval:0.00057278s, FPS:1745.8808
+Frame_320: 1080x1920, PSNR:34.9643, MS-SSIM:0.9726, Training:10.2345s, Eval:0.00058651s, FPS:1704.9947
+Frame_330: 1080x1920, PSNR:35.0545, MS-SSIM:0.9731, Training:10.3643s, Eval:0.00059418s, FPS:1682.9995
+Frame_340: 1080x1920, PSNR:35.1075, MS-SSIM:0.9734, Training:10.4665s, Eval:0.00060451s, FPS:1654.2315
+Frame_350: 1080x1920, PSNR:34.4037, MS-SSIM:0.9693, Training:96.2512s, Eval:0.00054327s, FPS:1840.6969
+Frame_360: 1080x1920, PSNR:34.7636, MS-SSIM:0.9715, Training:10.0178s, Eval:0.00056820s, FPS:1759.9315
+Frame_370: 1080x1920, PSNR:34.9230, MS-SSIM:0.9724, Training:10.2365s, Eval:0.00058506s, FPS:1709.2330
+Frame_380: 1080x1920, PSNR:35.0515, MS-SSIM:0.9731, Training:10.3430s, Eval:0.00059790s, FPS:1672.5167
+Frame_390: 1080x1920, PSNR:35.1218, MS-SSIM:0.9733, Training:10.4594s, Eval:0.00060325s, FPS:1657.6901
+Frame_400: 1080x1920, PSNR:34.4309, MS-SSIM:0.9696, Training:93.5357s, Eval:0.00054231s, FPS:1843.9743
+Frame_410: 1080x1920, PSNR:34.8223, MS-SSIM:0.9719, Training:10.0154s, Eval:0.00056746s, FPS:1762.2460
+Frame_420: 1080x1920, PSNR:34.9724, MS-SSIM:0.9728, Training:10.2415s, Eval:0.00058004s, FPS:1724.0148
+Frame_430: 1080x1920, PSNR:35.0831, MS-SSIM:0.9733, Training:10.3524s, Eval:0.00059546s, FPS:1679.3741
+Frame_440: 1080x1920, PSNR:35.1636, MS-SSIM:0.9736, Training:10.8843s, Eval:0.00060587s, FPS:1650.5145
+Frame_450: 1080x1920, PSNR:34.4261, MS-SSIM:0.9694, Training:97.4386s, Eval:0.00054241s, FPS:1843.6339
+Frame_460: 1080x1920, PSNR:34.8454, MS-SSIM:0.9718, Training:10.0118s, Eval:0.00056172s, FPS:1780.2422
+Frame_470: 1080x1920, PSNR:34.9969, MS-SSIM:0.9727, Training:10.1790s, Eval:0.00057720s, FPS:1732.4962
+Frame_480: 1080x1920, PSNR:35.0851, MS-SSIM:0.9732, Training:10.3081s, Eval:0.00059236s, FPS:1688.1680
+Frame_490: 1080x1920, PSNR:35.1539, MS-SSIM:0.9736, Training:10.4466s, Eval:0.00060366s, FPS:1656.5509
+Frame_500: 1080x1920, PSNR:34.4353, MS-SSIM:0.9694, Training:95.7782s, Eval:0.00054410s, FPS:1837.9142
+Frame_510: 1080x1920, PSNR:34.8352, MS-SSIM:0.9717, Training:10.0204s, Eval:0.00056690s, FPS:1763.9728
+Frame_520: 1080x1920, PSNR:34.9969, MS-SSIM:0.9725, Training:10.1970s, Eval:0.00058602s, FPS:1706.4167
+Frame_530: 1080x1920, PSNR:35.0624, MS-SSIM:0.9729, Training:10.3181s, Eval:0.00059309s, FPS:1686.0846
+Frame_540: 1080x1920, PSNR:35.1442, MS-SSIM:0.9732, Training:10.4473s, Eval:0.00059839s, FPS:1671.1373
+Frame_550: 1080x1920, PSNR:34.4651, MS-SSIM:0.9697, Training:97.6026s, Eval:0.00054412s, FPS:1837.8337
+Frame_560: 1080x1920, PSNR:34.8372, MS-SSIM:0.9720, Training:10.0188s, Eval:0.00056525s, FPS:1769.1439
+Frame_570: 1080x1920, PSNR:35.0207, MS-SSIM:0.9727, Training:10.2007s, Eval:0.00058272s, FPS:1716.0864
+Frame_580: 1080x1920, PSNR:35.1298, MS-SSIM:0.9732, Training:10.3091s, Eval:0.00059341s, FPS:1685.1633
+Frame_590: 1080x1920, PSNR:35.2469, MS-SSIM:0.9737, Training:10.4315s, Eval:0.00059823s, FPS:1671.6035
+Frame_600: 1080x1920, PSNR:34.6094, MS-SSIM:0.9704, Training:95.6486s, Eval:0.00053792s, FPS:1859.0125
+Average: 1080x1920, PSNR:34.9572, MS-SSIM:0.9725, Training:12.1377s, Eval:0.00058486s, FPS:1711.8379
+MP4 video created successfully.
+Frame_1: 1080x1920, PSNR:31.0850, MS-SSIM:0.9044, Training:87.9762s, Eval:0.00052709s, FPS:1897.2141
+Frame_10: 1080x1920, PSNR:31.1678, MS-SSIM:0.9030, Training:9.8528s, Eval:0.00059561s, FPS:1678.9640
+Frame_20: 1080x1920, PSNR:31.1752, MS-SSIM:0.9065, Training:10.4346s, Eval:0.00065501s, FPS:1526.6837
+Frame_30: 1080x1920, PSNR:30.7181, MS-SSIM:0.9011, Training:10.9631s, Eval:0.00070417s, FPS:1420.1035
+Frame_40: 1080x1920, PSNR:29.3926, MS-SSIM:0.8911, Training:11.3815s, Eval:0.00075019s, FPS:1332.9935
+Frame_1: 1080x1920, PSNR:33.0520, MS-SSIM:0.9325, Training:89.8979s, Eval:0.00053100s, FPS:1883.2268
+Frame_10: 1080x1920, PSNR:32.9410, MS-SSIM:0.9281, Training:9.9767s, Eval:0.00058792s, FPS:1700.9015
+Frame_20: 1080x1920, PSNR:33.2642, MS-SSIM:0.9330, Training:10.4880s, Eval:0.00063603s, FPS:1572.2489
+Frame_30: 1080x1920, PSNR:33.0490, MS-SSIM:0.9322, Training:10.9609s, Eval:0.00068237s, FPS:1465.4741
+Frame_40: 1080x1920, PSNR:32.7052, MS-SSIM:0.9300, Training:11.3442s, Eval:0.00071685s, FPS:1394.9951
+Frame_50: 1080x1920, PSNR:33.4518, MS-SSIM:0.9393, Training:93.3597s, Eval:0.00052677s, FPS:1898.3647
+Frame_60: 1080x1920, PSNR:33.5951, MS-SSIM:0.9353, Training:10.0068s, Eval:0.00058766s, FPS:1701.6537
+Frame_70: 1080x1920, PSNR:33.2126, MS-SSIM:0.9329, Training:10.5047s, Eval:0.00062850s, FPS:1591.1020
+Frame_80: 1080x1920, PSNR:32.9596, MS-SSIM:0.9298, Training:10.8758s, Eval:0.00066379s, FPS:1506.5098
+Frame_90: 1080x1920, PSNR:32.7217, MS-SSIM:0.9278, Training:11.2204s, Eval:0.00069909s, FPS:1430.4388
+Frame_100: 1080x1920, PSNR:33.7710, MS-SSIM:0.9441, Training:92.4917s, Eval:0.00052701s, FPS:1897.4973
+Frame_110: 1080x1920, PSNR:33.8967, MS-SSIM:0.9406, Training:9.9897s, Eval:0.00058806s, FPS:1700.4946
+Frame_120: 1080x1920, PSNR:34.4108, MS-SSIM:0.9461, Training:10.4423s, Eval:0.00062485s, FPS:1600.3724
+Frame_130: 1080x1920, PSNR:34.5508, MS-SSIM:0.9473, Training:10.8308s, Eval:0.00066107s, FPS:1512.7092
+Frame_140: 1080x1920, PSNR:34.1084, MS-SSIM:0.9459, Training:11.1336s, Eval:0.00069008s, FPS:1449.1150
+Frame_150: 1080x1920, PSNR:34.5690, MS-SSIM:0.9527, Training:92.4833s, Eval:0.00052694s, FPS:1897.7377
+Frame_160: 1080x1920, PSNR:34.3372, MS-SSIM:0.9483, Training:10.0349s, Eval:0.00059102s, FPS:1691.9816
+Frame_170: 1080x1920, PSNR:34.0003, MS-SSIM:0.9444, Training:10.5066s, Eval:0.00062471s, FPS:1600.7511
+Frame_180: 1080x1920, PSNR:34.1358, MS-SSIM:0.9428, Training:10.8257s, Eval:0.00064732s, FPS:1544.8292
+Frame_190: 1080x1920, PSNR:34.1583, MS-SSIM:0.9438, Training:11.1324s, Eval:0.00068129s, FPS:1467.8075
+Frame_200: 1080x1920, PSNR:34.8055, MS-SSIM:0.9584, Training:95.7735s, Eval:0.00052765s, FPS:1895.1995
+Frame_210: 1080x1920, PSNR:34.6141, MS-SSIM:0.9555, Training:10.0521s, Eval:0.00058886s, FPS:1698.1950
+Frame_220: 1080x1920, PSNR:34.4719, MS-SSIM:0.9545, Training:10.4902s, Eval:0.00062152s, FPS:1608.9610
+Frame_230: 1080x1920, PSNR:34.5466, MS-SSIM:0.9565, Training:10.7522s, Eval:0.00064708s, FPS:1545.3927
+Frame_240: 1080x1920, PSNR:35.0149, MS-SSIM:0.9579, Training:10.9742s, Eval:0.00066303s, FPS:1508.2162
+Frame_250: 1080x1920, PSNR:33.9941, MS-SSIM:0.9603, Training:91.2645s, Eval:0.00052238s, FPS:1914.2982
+Frame_260: 1080x1920, PSNR:34.2993, MS-SSIM:0.9600, Training:9.9184s, Eval:0.00057032s, FPS:1753.3983
+Frame_270: 1080x1920, PSNR:34.5387, MS-SSIM:0.9582, Training:10.2406s, Eval:0.00059957s, FPS:1667.8612
+Frame_280: 1080x1920, PSNR:34.5197, MS-SSIM:0.9583, Training:10.5286s, Eval:0.00062853s, FPS:1591.0235
+Frame_290: 1080x1920, PSNR:33.9274, MS-SSIM:0.9530, Training:10.7659s, Eval:0.00063803s, FPS:1567.3313
+Frame_300: 1080x1920, PSNR:33.5554, MS-SSIM:0.9570, Training:92.1702s, Eval:0.00052543s, FPS:1903.2144
+Frame_310: 1080x1920, PSNR:32.9810, MS-SSIM:0.9522, Training:9.9605s, Eval:0.00057167s, FPS:1749.2666
+Frame_320: 1080x1920, PSNR:34.1207, MS-SSIM:0.9552, Training:10.3682s, Eval:0.00060574s, FPS:1650.8783
+Frame_330: 1080x1920, PSNR:34.6603, MS-SSIM:0.9548, Training:10.6415s, Eval:0.00062363s, FPS:1603.5111
+Frame_340: 1080x1920, PSNR:34.7895, MS-SSIM:0.9537, Training:10.8588s, Eval:0.00063844s, FPS:1566.3070
+Frame_350: 1080x1920, PSNR:36.5040, MS-SSIM:0.9607, Training:97.8055s, Eval:0.00050962s, FPS:1962.2475
+Frame_360: 1080x1920, PSNR:36.4202, MS-SSIM:0.9544, Training:9.8633s, Eval:0.00056559s, FPS:1768.0625
+Frame_370: 1080x1920, PSNR:36.4994, MS-SSIM:0.9501, Training:10.2143s, Eval:0.00058890s, FPS:1698.0919
+Frame_380: 1080x1920, PSNR:36.9199, MS-SSIM:0.9481, Training:10.4609s, Eval:0.00059930s, FPS:1668.6043
+Frame_390: 1080x1920, PSNR:37.1689, MS-SSIM:0.9491, Training:10.6391s, Eval:0.00061911s, FPS:1615.2315
+Frame_400: 1080x1920, PSNR:37.5587, MS-SSIM:0.9543, Training:92.9713s, Eval:0.00050333s, FPS:1986.7578
+Frame_410: 1080x1920, PSNR:37.7886, MS-SSIM:0.9568, Training:9.6273s, Eval:0.00054102s, FPS:1848.3461
+Frame_420: 1080x1920, PSNR:38.0565, MS-SSIM:0.9590, Training:9.9517s, Eval:0.00056536s, FPS:1768.7858
+Frame_430: 1080x1920, PSNR:38.0108, MS-SSIM:0.9595, Training:10.1789s, Eval:0.00059072s, FPS:1692.8557
+Frame_440: 1080x1920, PSNR:37.9895, MS-SSIM:0.9601, Training:10.3964s, Eval:0.00060806s, FPS:1644.5671
+Frame_450: 1080x1920, PSNR:37.6255, MS-SSIM:0.9566, Training:92.4788s, Eval:0.00050910s, FPS:1964.2508
+Frame_460: 1080x1920, PSNR:37.6639, MS-SSIM:0.9577, Training:9.6340s, Eval:0.00053679s, FPS:1862.9180
+Frame_470: 1080x1920, PSNR:37.7672, MS-SSIM:0.9578, Training:9.9127s, Eval:0.00055951s, FPS:1787.2820
+Frame_480: 1080x1920, PSNR:37.7850, MS-SSIM:0.9572, Training:10.1523s, Eval:0.00057984s, FPS:1724.6174
+Frame_490: 1080x1920, PSNR:37.6274, MS-SSIM:0.9567, Training:10.3342s, Eval:0.00059660s, FPS:1676.1594
+Frame_500: 1080x1920, PSNR:37.2919, MS-SSIM:0.9542, Training:90.7539s, Eval:0.00050609s, FPS:1975.9474
+Frame_510: 1080x1920, PSNR:37.2221, MS-SSIM:0.9545, Training:9.6530s, Eval:0.00054864s, FPS:1822.6912
+Frame_520: 1080x1920, PSNR:37.1463, MS-SSIM:0.9563, Training:9.9904s, Eval:0.00057043s, FPS:1753.0538
+Frame_530: 1080x1920, PSNR:36.5238, MS-SSIM:0.9554, Training:10.2353s, Eval:0.00060824s, FPS:1644.0836
+Frame_540: 1080x1920, PSNR:36.6372, MS-SSIM:0.9540, Training:11.5069s, Eval:0.00061624s, FPS:1622.7493
+Frame_550: 1080x1920, PSNR:36.5120, MS-SSIM:0.9520, Training:91.2359s, Eval:0.00051331s, FPS:1948.1570
+Frame_560: 1080x1920, PSNR:36.5568, MS-SSIM:0.9521, Training:11.4040s, Eval:0.00071524s, FPS:1398.1246
+Frame_570: 1080x1920, PSNR:35.7236, MS-SSIM:0.9504, Training:10.0994s, Eval:0.00059056s, FPS:1693.3136
+Frame_580: 1080x1920, PSNR:35.4676, MS-SSIM:0.9486, Training:10.3656s, Eval:0.00061456s, FPS:1627.1813
+Frame_590: 1080x1920, PSNR:34.8344, MS-SSIM:0.9444, Training:10.6120s, Eval:0.00063279s, FPS:1580.3053
+Frame_600: 1080x1920, PSNR:35.6182, MS-SSIM:0.9495, Training:90.3799s, Eval:0.00051452s, FPS:1943.5710
+Average: 1080x1920, PSNR:35.1908, MS-SSIM:0.9491, Training:12.1644s, Eval:0.00060836s, FPS:1655.1156
+MP4 video created successfully.
+Frame_1: 1080x1920, PSNR:34.2489, MS-SSIM:0.9466, Training:105.5081s, Eval:0.00053535s, FPS:1867.9374
+Frame_10: 1080x1920, PSNR:34.1124, MS-SSIM:0.9423, Training:10.0170s, Eval:0.00058394s, FPS:1712.5060
+Frame_20: 1080x1920, PSNR:34.5275, MS-SSIM:0.9470, Training:10.5180s, Eval:0.00062541s, FPS:1598.9631
+Frame_30: 1080x1920, PSNR:34.5178, MS-SSIM:0.9482, Training:10.9042s, Eval:0.00065844s, FPS:1518.7454
+Frame_40: 1080x1920, PSNR:34.2214, MS-SSIM:0.9474, Training:11.1892s, Eval:0.00068258s, FPS:1465.0287
+Frame_50: 1080x1920, PSNR:34.7164, MS-SSIM:0.9523, Training:90.7601s, Eval:0.00052679s, FPS:1898.3046
+Frame_60: 1080x1920, PSNR:34.7056, MS-SSIM:0.9484, Training:10.0246s, Eval:0.00057924s, FPS:1726.4063
+Frame_70: 1080x1920, PSNR:34.6279, MS-SSIM:0.9480, Training:10.4872s, Eval:0.00061723s, FPS:1620.1418
+Frame_80: 1080x1920, PSNR:34.3396, MS-SSIM:0.9464, Training:10.8075s, Eval:0.00064311s, FPS:1554.9490
+Frame_90: 1080x1920, PSNR:34.3497, MS-SSIM:0.9471, Training:11.0711s, Eval:0.00066737s, FPS:1498.4099
+Frame_100: 1080x1920, PSNR:34.8704, MS-SSIM:0.9560, Training:91.6675s, Eval:0.00052717s, FPS:1896.9224
+Frame_110: 1080x1920, PSNR:35.0746, MS-SSIM:0.9537, Training:10.0131s, Eval:0.00057874s, FPS:1727.8927
+Frame_120: 1080x1920, PSNR:35.4540, MS-SSIM:0.9568, Training:10.4612s, Eval:0.00061245s, FPS:1632.7873
+Frame_130: 1080x1920, PSNR:35.6605, MS-SSIM:0.9584, Training:10.7611s, Eval:0.00063882s, FPS:1565.3776
+Frame_140: 1080x1920, PSNR:35.4434, MS-SSIM:0.9579, Training:11.0136s, Eval:0.00066245s, FPS:1509.5407
+Frame_150: 1080x1920, PSNR:35.6142, MS-SSIM:0.9624, Training:93.0128s, Eval:0.00053043s, FPS:1885.2499
+Frame_160: 1080x1920, PSNR:35.4995, MS-SSIM:0.9594, Training:10.1163s, Eval:0.00058249s, FPS:1716.7748
+Frame_170: 1080x1920, PSNR:35.3152, MS-SSIM:0.9569, Training:10.5499s, Eval:0.00061460s, FPS:1627.0740
+Frame_180: 1080x1920, PSNR:35.3900, MS-SSIM:0.9560, Training:10.8609s, Eval:0.00064460s, FPS:1551.3602
+Frame_190: 1080x1920, PSNR:35.4724, MS-SSIM:0.9575, Training:11.1174s, Eval:0.00066663s, FPS:1500.0873
+Frame_200: 1080x1920, PSNR:35.8421, MS-SSIM:0.9663, Training:91.9140s, Eval:0.00053165s, FPS:1880.9382
+Frame_210: 1080x1920, PSNR:35.7711, MS-SSIM:0.9642, Training:10.1535s, Eval:0.00058330s, FPS:1714.3749
+Frame_220: 1080x1920, PSNR:35.6918, MS-SSIM:0.9645, Training:10.5707s, Eval:0.00062234s, FPS:1606.8283
+Frame_230: 1080x1920, PSNR:35.7464, MS-SSIM:0.9646, Training:10.8339s, Eval:0.00064103s, FPS:1559.9921
+Frame_240: 1080x1920, PSNR:36.1930, MS-SSIM:0.9657, Training:11.0576s, Eval:0.00065741s, FPS:1521.1248
+Frame_250: 1080x1920, PSNR:35.2594, MS-SSIM:0.9670, Training:97.5520s, Eval:0.00052515s, FPS:1904.2168
+Frame_260: 1080x1920, PSNR:35.4878, MS-SSIM:0.9662, Training:10.0370s, Eval:0.00057618s, FPS:1735.5789
+Frame_270: 1080x1920, PSNR:35.7892, MS-SSIM:0.9650, Training:10.3543s, Eval:0.00059586s, FPS:1678.2519
+Frame_280: 1080x1920, PSNR:35.6728, MS-SSIM:0.9648, Training:10.6292s, Eval:0.00061730s, FPS:1619.9540
+Frame_290: 1080x1920, PSNR:35.0190, MS-SSIM:0.9610, Training:10.8915s, Eval:0.00063637s, FPS:1571.4006
+Frame_300: 1080x1920, PSNR:34.5505, MS-SSIM:0.9636, Training:93.1044s, Eval:0.00052737s, FPS:1896.2106
+Frame_310: 1080x1920, PSNR:34.1311, MS-SSIM:0.9600, Training:10.1016s, Eval:0.00058607s, FPS:1706.2779
+Frame_320: 1080x1920, PSNR:35.2869, MS-SSIM:0.9623, Training:10.4985s, Eval:0.00062246s, FPS:1606.5268
+Frame_330: 1080x1920, PSNR:35.8038, MS-SSIM:0.9612, Training:10.7363s, Eval:0.00061750s, FPS:1619.4349
+Frame_340: 1080x1920, PSNR:35.9267, MS-SSIM:0.9613, Training:10.9366s, Eval:0.00063139s, FPS:1583.8021
+Frame_350: 1080x1920, PSNR:37.2124, MS-SSIM:0.9655, Training:93.3711s, Eval:0.00051580s, FPS:1938.7377
+Frame_360: 1080x1920, PSNR:37.1269, MS-SSIM:0.9603, Training:9.9581s, Eval:0.00055683s, FPS:1795.8682
+Frame_370: 1080x1920, PSNR:37.2956, MS-SSIM:0.9570, Training:10.2855s, Eval:0.00057948s, FPS:1725.6959
+Frame_380: 1080x1920, PSNR:37.6040, MS-SSIM:0.9551, Training:10.5537s, Eval:0.00059213s, FPS:1688.8137
+Frame_390: 1080x1920, PSNR:37.7585, MS-SSIM:0.9557, Training:10.6743s, Eval:0.00060563s, FPS:1651.1838
+Frame_400: 1080x1920, PSNR:37.9784, MS-SSIM:0.9593, Training:93.0173s, Eval:0.00051234s, FPS:1951.8104
+Frame_410: 1080x1920, PSNR:38.1937, MS-SSIM:0.9609, Training:10.2343s, Eval:0.00054018s, FPS:1851.2422
+Frame_420: 1080x1920, PSNR:38.4433, MS-SSIM:0.9628, Training:10.0624s, Eval:0.00056669s, FPS:1764.6407
+Frame_430: 1080x1920, PSNR:38.3953, MS-SSIM:0.9630, Training:10.2442s, Eval:0.00057878s, FPS:1727.7646
+Frame_440: 1080x1920, PSNR:38.3889, MS-SSIM:0.9634, Training:10.4415s, Eval:0.00060024s, FPS:1665.9996
+Frame_450: 1080x1920, PSNR:38.0385, MS-SSIM:0.9613, Training:92.2384s, Eval:0.00051429s, FPS:1944.4360
+Frame_460: 1080x1920, PSNR:38.0928, MS-SSIM:0.9617, Training:9.7103s, Eval:0.00053643s, FPS:1864.1931
+Frame_470: 1080x1920, PSNR:38.2024, MS-SSIM:0.9619, Training:9.9919s, Eval:0.00055751s, FPS:1793.7024
+Frame_480: 1080x1920, PSNR:38.2385, MS-SSIM:0.9618, Training:10.2159s, Eval:0.00057706s, FPS:1732.9257
+Frame_490: 1080x1920, PSNR:38.1667, MS-SSIM:0.9618, Training:10.4588s, Eval:0.00059354s, FPS:1684.8113
+Frame_500: 1080x1920, PSNR:37.8123, MS-SSIM:0.9599, Training:94.2062s, Eval:0.00050974s, FPS:1961.7794
+Frame_510: 1080x1920, PSNR:37.7576, MS-SSIM:0.9600, Training:9.7501s, Eval:0.00054109s, FPS:1848.1344
+Frame_520: 1080x1920, PSNR:37.7888, MS-SSIM:0.9615, Training:10.0371s, Eval:0.00057147s, FPS:1749.8869
+Frame_530: 1080x1920, PSNR:37.3744, MS-SSIM:0.9611, Training:10.3137s, Eval:0.00059506s, FPS:1680.4910
+Frame_540: 1080x1920, PSNR:37.4085, MS-SSIM:0.9602, Training:10.5455s, Eval:0.00061822s, FPS:1617.5425
+Frame_550: 1080x1920, PSNR:37.1947, MS-SSIM:0.9592, Training:92.6203s, Eval:0.00051893s, FPS:1927.0335
+Frame_560: 1080x1920, PSNR:37.2095, MS-SSIM:0.9588, Training:9.8599s, Eval:0.00056151s, FPS:1780.9074
+Frame_570: 1080x1920, PSNR:36.6711, MS-SSIM:0.9584, Training:10.1628s, Eval:0.00058739s, FPS:1702.4410
+Frame_580: 1080x1920, PSNR:36.4063, MS-SSIM:0.9575, Training:10.4565s, Eval:0.00061626s, FPS:1622.6991
+Frame_590: 1080x1920, PSNR:36.0802, MS-SSIM:0.9553, Training:11.2432s, Eval:0.00062900s, FPS:1589.8355
+Frame_600: 1080x1920, PSNR:36.5239, MS-SSIM:0.9583, Training:92.3550s, Eval:0.00052161s, FPS:1917.1332
+Average: 1080x1920, PSNR:36.1792, MS-SSIM:0.9580, Training:12.2211s, Eval:0.00060121s, FPS:1672.1483
+MP4 video created successfully.
+Frame_1: 1080x1920, PSNR:35.1312, MS-SSIM:0.9557, Training:93.9125s, Eval:0.00053599s, FPS:1865.6940
+Frame_10: 1080x1920, PSNR:34.9703, MS-SSIM:0.9515, Training:10.1235s, Eval:0.00057777s, FPS:1730.8018
+Frame_20: 1080x1920, PSNR:35.4998, MS-SSIM:0.9561, Training:10.5849s, Eval:0.00061711s, FPS:1620.4673
+Frame_30: 1080x1920, PSNR:35.5375, MS-SSIM:0.9571, Training:10.9030s, Eval:0.00064668s, FPS:1546.3613
+Frame_40: 1080x1920, PSNR:35.2808, MS-SSIM:0.9562, Training:11.2023s, Eval:0.00068278s, FPS:1464.6092
+Frame_50: 1080x1920, PSNR:35.4209, MS-SSIM:0.9597, Training:94.8994s, Eval:0.00053386s, FPS:1873.1428
+Frame_60: 1080x1920, PSNR:35.4348, MS-SSIM:0.9564, Training:10.1166s, Eval:0.00058299s, FPS:1715.3004
+Frame_70: 1080x1920, PSNR:35.4645, MS-SSIM:0.9566, Training:10.5140s, Eval:0.00061270s, FPS:1632.1265
+Frame_80: 1080x1920, PSNR:35.3323, MS-SSIM:0.9559, Training:10.8228s, Eval:0.00063327s, FPS:1579.1034
+Frame_90: 1080x1920, PSNR:35.3378, MS-SSIM:0.9566, Training:11.0745s, Eval:0.00065767s, FPS:1520.5183
+Frame_100: 1080x1920, PSNR:35.8283, MS-SSIM:0.9632, Training:94.7960s, Eval:0.00053558s, FPS:1867.1391
+Frame_110: 1080x1920, PSNR:35.9780, MS-SSIM:0.9615, Training:10.1258s, Eval:0.00057933s, FPS:1726.1292
+Frame_120: 1080x1920, PSNR:36.4207, MS-SSIM:0.9642, Training:10.5671s, Eval:0.00061334s, FPS:1630.4199
+Frame_130: 1080x1920, PSNR:36.5581, MS-SSIM:0.9654, Training:10.8622s, Eval:0.00063651s, FPS:1571.0710
+Frame_140: 1080x1920, PSNR:36.3119, MS-SSIM:0.9649, Training:11.0931s, Eval:0.00065707s, FPS:1521.9141
+Frame_150: 1080x1920, PSNR:36.4206, MS-SSIM:0.9674, Training:95.8544s, Eval:0.00053459s, FPS:1870.5782
+Frame_160: 1080x1920, PSNR:36.3854, MS-SSIM:0.9654, Training:10.2529s, Eval:0.00058372s, FPS:1713.1635
+Frame_170: 1080x1920, PSNR:36.2417, MS-SSIM:0.9642, Training:10.6854s, Eval:0.00061525s, FPS:1625.3653
+Frame_180: 1080x1920, PSNR:36.4384, MS-SSIM:0.9639, Training:10.9188s, Eval:0.00063621s, FPS:1571.8187
+Frame_190: 1080x1920, PSNR:36.5020, MS-SSIM:0.9651, Training:11.1785s, Eval:0.00065640s, FPS:1523.4509
+Frame_200: 1080x1920, PSNR:36.6831, MS-SSIM:0.9708, Training:94.8578s, Eval:0.00053383s, FPS:1873.2516
+Frame_210: 1080x1920, PSNR:36.6998, MS-SSIM:0.9694, Training:10.2227s, Eval:0.00058482s, FPS:1709.9159
+Frame_220: 1080x1920, PSNR:36.5793, MS-SSIM:0.9700, Training:10.6854s, Eval:0.00061591s, FPS:1623.6225
+Frame_230: 1080x1920, PSNR:36.3615, MS-SSIM:0.9695, Training:10.9346s, Eval:0.00064120s, FPS:1559.5861
+Frame_240: 1080x1920, PSNR:36.9285, MS-SSIM:0.9702, Training:11.1540s, Eval:0.00065786s, FPS:1520.0884
+Frame_250: 1080x1920, PSNR:35.9092, MS-SSIM:0.9706, Training:97.3933s, Eval:0.00053229s, FPS:1878.6803
+Frame_260: 1080x1920, PSNR:36.0979, MS-SSIM:0.9699, Training:10.1638s, Eval:0.00057275s, FPS:1745.9535
+Frame_270: 1080x1920, PSNR:36.3986, MS-SSIM:0.9687, Training:10.4410s, Eval:0.00059391s, FPS:1683.7494
+Frame_280: 1080x1920, PSNR:36.2581, MS-SSIM:0.9682, Training:10.7564s, Eval:0.00063117s, FPS:1584.3585
+Frame_290: 1080x1920, PSNR:35.7782, MS-SSIM:0.9657, Training:10.9831s, Eval:0.00062883s, FPS:1590.2635
+Frame_300: 1080x1920, PSNR:35.1985, MS-SSIM:0.9677, Training:93.3977s, Eval:0.00052930s, FPS:1889.3006
+Frame_310: 1080x1920, PSNR:34.9012, MS-SSIM:0.9649, Training:10.2333s, Eval:0.00057386s, FPS:1742.5804
+Frame_320: 1080x1920, PSNR:35.9788, MS-SSIM:0.9665, Training:10.6190s, Eval:0.00059873s, FPS:1670.1990
+Frame_330: 1080x1920, PSNR:36.3566, MS-SSIM:0.9650, Training:10.8153s, Eval:0.00061798s, FPS:1618.1853
+Frame_340: 1080x1920, PSNR:36.5284, MS-SSIM:0.9653, Training:10.9939s, Eval:0.00062465s, FPS:1600.8855
+Frame_350: 1080x1920, PSNR:37.6947, MS-SSIM:0.9683, Training:93.6480s, Eval:0.00052094s, FPS:1919.5987
+Frame_360: 1080x1920, PSNR:37.5888, MS-SSIM:0.9638, Training:10.0632s, Eval:0.00055812s, FPS:1791.7179
+Frame_370: 1080x1920, PSNR:37.6638, MS-SSIM:0.9608, Training:10.3709s, Eval:0.00057506s, FPS:1738.9608
+Frame_380: 1080x1920, PSNR:38.0028, MS-SSIM:0.9593, Training:10.5733s, Eval:0.00059014s, FPS:1694.5177
+Frame_390: 1080x1920, PSNR:38.1393, MS-SSIM:0.9597, Training:10.7295s, Eval:0.00060425s, FPS:1654.9430
+Frame_400: 1080x1920, PSNR:38.2474, MS-SSIM:0.9626, Training:93.3046s, Eval:0.00051718s, FPS:1933.5629
+Frame_410: 1080x1920, PSNR:38.4298, MS-SSIM:0.9637, Training:9.8439s, Eval:0.00054749s, FPS:1826.5249
+Frame_420: 1080x1920, PSNR:38.7004, MS-SSIM:0.9653, Training:10.1357s, Eval:0.00056504s, FPS:1769.7709
+Frame_430: 1080x1920, PSNR:38.6943, MS-SSIM:0.9653, Training:14.6591s, Eval:0.00057558s, FPS:1737.3905
+Frame_440: 1080x1920, PSNR:38.6991, MS-SSIM:0.9659, Training:10.4925s, Eval:0.00059055s, FPS:1693.3273
+Frame_450: 1080x1920, PSNR:38.3696, MS-SSIM:0.9641, Training:96.0435s, Eval:0.00051650s, FPS:1936.1156
+Frame_460: 1080x1920, PSNR:38.4837, MS-SSIM:0.9643, Training:9.8657s, Eval:0.00054194s, FPS:1845.2074
+Frame_470: 1080x1920, PSNR:38.6102, MS-SSIM:0.9646, Training:10.0960s, Eval:0.00055977s, FPS:1786.4522
+Frame_480: 1080x1920, PSNR:38.6352, MS-SSIM:0.9645, Training:10.2772s, Eval:0.00057465s, FPS:1740.1946
+Frame_490: 1080x1920, PSNR:38.5767, MS-SSIM:0.9648, Training:10.4480s, Eval:0.00060245s, FPS:1659.8943
+Frame_500: 1080x1920, PSNR:38.0919, MS-SSIM:0.9632, Training:93.1308s, Eval:0.00052063s, FPS:1920.7591
+Frame_510: 1080x1920, PSNR:38.0950, MS-SSIM:0.9631, Training:9.8636s, Eval:0.00054587s, FPS:1831.9418
+Frame_520: 1080x1920, PSNR:38.2240, MS-SSIM:0.9648, Training:10.1577s, Eval:0.00056892s, FPS:1757.7115
+Frame_530: 1080x1920, PSNR:37.8222, MS-SSIM:0.9645, Training:10.9155s, Eval:0.00059600s, FPS:1677.8491
+Frame_540: 1080x1920, PSNR:37.9167, MS-SSIM:0.9641, Training:10.5969s, Eval:0.00061543s, FPS:1624.8805
+Frame_550: 1080x1920, PSNR:37.7249, MS-SSIM:0.9634, Training:95.7248s, Eval:0.00052371s, FPS:1909.4702
+Frame_560: 1080x1920, PSNR:37.6916, MS-SSIM:0.9629, Training:9.9682s, Eval:0.00056010s, FPS:1785.3800
+Frame_570: 1080x1920, PSNR:37.3149, MS-SSIM:0.9625, Training:10.6584s, Eval:0.00058623s, FPS:1705.8199
+Frame_580: 1080x1920, PSNR:37.0049, MS-SSIM:0.9622, Training:10.5613s, Eval:0.00061479s, FPS:1626.5693
+Frame_590: 1080x1920, PSNR:36.7615, MS-SSIM:0.9610, Training:10.8103s, Eval:0.00063217s, FPS:1581.8608
+Frame_600: 1080x1920, PSNR:37.1186, MS-SSIM:0.9633, Training:93.7742s, Eval:0.00052505s, FPS:1904.5799
+Average: 1080x1920, PSNR:36.8443, MS-SSIM:0.9633, Training:12.3738s, Eval:0.00060190s, FPS:1674.9880
+MP4 video created successfully.
+Frame_1: 1080x1920, PSNR:35.4803, MS-SSIM:0.9589, Training:100.0197s, Eval:0.00053586s, FPS:1866.1423
+Frame_10: 1080x1920, PSNR:35.2778, MS-SSIM:0.9549, Training:10.1663s, Eval:0.00057955s, FPS:1725.4901
+Frame_20: 1080x1920, PSNR:35.8304, MS-SSIM:0.9593, Training:10.6226s, Eval:0.00061652s, FPS:1622.0151
+Frame_30: 1080x1920, PSNR:35.9333, MS-SSIM:0.9606, Training:10.9706s, Eval:0.00064293s, FPS:1555.3700
+Frame_40: 1080x1920, PSNR:35.6925, MS-SSIM:0.9600, Training:11.2043s, Eval:0.00067314s, FPS:1485.5718
+Frame_50: 1080x1920, PSNR:35.8138, MS-SSIM:0.9625, Training:95.9108s, Eval:0.00053824s, FPS:1857.9008
+Frame_60: 1080x1920, PSNR:35.8196, MS-SSIM:0.9596, Training:10.1895s, Eval:0.00058174s, FPS:1718.9841
+Frame_70: 1080x1920, PSNR:35.8296, MS-SSIM:0.9599, Training:10.5796s, Eval:0.00061095s, FPS:1636.7952
+Frame_80: 1080x1920, PSNR:35.7090, MS-SSIM:0.9593, Training:10.8671s, Eval:0.00063352s, FPS:1578.4854
+Frame_90: 1080x1920, PSNR:35.7127, MS-SSIM:0.9600, Training:11.0719s, Eval:0.00065366s, FPS:1529.8522
+Frame_100: 1080x1920, PSNR:36.1625, MS-SSIM:0.9658, Training:95.7807s, Eval:0.00054096s, FPS:1848.5661
+Frame_110: 1080x1920, PSNR:36.2716, MS-SSIM:0.9640, Training:10.1879s, Eval:0.00058379s, FPS:1712.9396
+Frame_120: 1080x1920, PSNR:36.6716, MS-SSIM:0.9662, Training:10.5950s, Eval:0.00060878s, FPS:1642.6349
+Frame_130: 1080x1920, PSNR:36.8107, MS-SSIM:0.9674, Training:10.8681s, Eval:0.00063254s, FPS:1580.9367
+Frame_140: 1080x1920, PSNR:36.6747, MS-SSIM:0.9675, Training:11.1396s, Eval:0.00065819s, FPS:1519.3231
+Frame_150: 1080x1920, PSNR:36.6842, MS-SSIM:0.9695, Training:96.0685s, Eval:0.00054037s, FPS:1850.5806
+Frame_160: 1080x1920, PSNR:36.7179, MS-SSIM:0.9680, Training:10.2972s, Eval:0.00058937s, FPS:1696.7318
+Frame_170: 1080x1920, PSNR:36.5723, MS-SSIM:0.9671, Training:10.7008s, Eval:0.00062740s, FPS:1593.8894
+Frame_180: 1080x1920, PSNR:36.9030, MS-SSIM:0.9672, Training:10.9474s, Eval:0.00063568s, FPS:1573.1098
+Frame_190: 1080x1920, PSNR:36.8923, MS-SSIM:0.9677, Training:11.1701s, Eval:0.00064844s, FPS:1542.1596
+Frame_200: 1080x1920, PSNR:37.0690, MS-SSIM:0.9725, Training:93.8986s, Eval:0.00053360s, FPS:1874.0635
+Frame_210: 1080x1920, PSNR:36.9790, MS-SSIM:0.9713, Training:10.2935s, Eval:0.00058303s, FPS:1715.1812
+Frame_220: 1080x1920, PSNR:36.9800, MS-SSIM:0.9720, Training:10.7212s, Eval:0.00061549s, FPS:1624.7294
+Frame_230: 1080x1920, PSNR:36.9786, MS-SSIM:0.9715, Training:10.9787s, Eval:0.00063696s, FPS:1569.9655
+Frame_240: 1080x1920, PSNR:37.1888, MS-SSIM:0.9717, Training:11.1904s, Eval:0.00065447s, FPS:1527.9462
+Frame_250: 1080x1920, PSNR:36.2597, MS-SSIM:0.9720, Training:94.2952s, Eval:0.00052915s, FPS:1889.8113
+Frame_260: 1080x1920, PSNR:36.4553, MS-SSIM:0.9711, Training:10.1947s, Eval:0.00056844s, FPS:1759.2081
+Frame_270: 1080x1920, PSNR:36.7477, MS-SSIM:0.9700, Training:10.4884s, Eval:0.00059101s, FPS:1692.0294
+Frame_280: 1080x1920, PSNR:36.5720, MS-SSIM:0.9695, Training:10.7605s, Eval:0.00061141s, FPS:1635.5633
+Frame_290: 1080x1920, PSNR:36.0366, MS-SSIM:0.9674, Training:11.0383s, Eval:0.00063131s, FPS:1584.0055
+Frame_300: 1080x1920, PSNR:35.6421, MS-SSIM:0.9694, Training:93.5556s, Eval:0.00053474s, FPS:1870.0528
+Frame_310: 1080x1920, PSNR:35.1763, MS-SSIM:0.9662, Training:10.2732s, Eval:0.00057507s, FPS:1738.9104
+Frame_320: 1080x1920, PSNR:36.1672, MS-SSIM:0.9675, Training:10.6561s, Eval:0.00059958s, FPS:1667.8413
+Frame_330: 1080x1920, PSNR:36.6088, MS-SSIM:0.9663, Training:10.9327s, Eval:0.00062006s, FPS:1612.7534
+Frame_340: 1080x1920, PSNR:36.7462, MS-SSIM:0.9666, Training:11.1291s, Eval:0.00062679s, FPS:1595.4233
+Frame_350: 1080x1920, PSNR:37.8892, MS-SSIM:0.9694, Training:94.7031s, Eval:0.00052436s, FPS:1907.1000
+Frame_360: 1080x1920, PSNR:37.8461, MS-SSIM:0.9651, Training:10.1237s, Eval:0.00055969s, FPS:1786.7110
+Frame_370: 1080x1920, PSNR:37.9641, MS-SSIM:0.9622, Training:10.4263s, Eval:0.00057967s, FPS:1725.1281
+Frame_380: 1080x1920, PSNR:38.2165, MS-SSIM:0.9609, Training:10.6508s, Eval:0.00059736s, FPS:1674.0254
+Frame_390: 1080x1920, PSNR:38.3380, MS-SSIM:0.9612, Training:10.7883s, Eval:0.00060918s, FPS:1641.5549
+Frame_400: 1080x1920, PSNR:38.4005, MS-SSIM:0.9640, Training:94.3625s, Eval:0.00051974s, FPS:1924.0456
+Frame_410: 1080x1920, PSNR:38.6152, MS-SSIM:0.9648, Training:9.9057s, Eval:0.00055218s, FPS:1810.9886
+Frame_420: 1080x1920, PSNR:38.8832, MS-SSIM:0.9664, Training:10.1572s, Eval:0.00056451s, FPS:1771.4602
+Frame_430: 1080x1920, PSNR:38.8348, MS-SSIM:0.9663, Training:10.3697s, Eval:0.00058075s, FPS:1721.9128
+Frame_440: 1080x1920, PSNR:38.8460, MS-SSIM:0.9669, Training:10.5353s, Eval:0.00059235s, FPS:1688.1884
+Frame_450: 1080x1920, PSNR:38.4972, MS-SSIM:0.9655, Training:93.2060s, Eval:0.00052120s, FPS:1918.6591
+Frame_460: 1080x1920, PSNR:38.5607, MS-SSIM:0.9654, Training:9.9194s, Eval:0.00054373s, FPS:1839.1472
+Frame_470: 1080x1920, PSNR:38.7209, MS-SSIM:0.9658, Training:10.1688s, Eval:0.00056268s, FPS:1777.2173
+Frame_480: 1080x1920, PSNR:38.7642, MS-SSIM:0.9657, Training:10.3308s, Eval:0.00057372s, FPS:1743.0149
+Frame_490: 1080x1920, PSNR:38.7302, MS-SSIM:0.9661, Training:10.4906s, Eval:0.00058987s, FPS:1695.2779
+Frame_500: 1080x1920, PSNR:38.3334, MS-SSIM:0.9648, Training:96.6028s, Eval:0.00052457s, FPS:1906.3199
+Frame_510: 1080x1920, PSNR:38.2910, MS-SSIM:0.9644, Training:9.9361s, Eval:0.00055026s, FPS:1817.3288
+Frame_520: 1080x1920, PSNR:38.3905, MS-SSIM:0.9660, Training:11.7210s, Eval:0.00057557s, FPS:1737.3977
+Frame_530: 1080x1920, PSNR:38.1761, MS-SSIM:0.9663, Training:11.5620s, Eval:0.00059501s, FPS:1680.6325
+Frame_540: 1080x1920, PSNR:38.1126, MS-SSIM:0.9655, Training:10.6493s, Eval:0.00061435s, FPS:1627.7371
+Frame_550: 1080x1920, PSNR:37.8825, MS-SSIM:0.9652, Training:93.5798s, Eval:0.00052452s, FPS:1906.5192
+Frame_560: 1080x1920, PSNR:37.9266, MS-SSIM:0.9648, Training:11.0835s, Eval:0.00056633s, FPS:1765.7700
+Frame_570: 1080x1920, PSNR:37.5491, MS-SSIM:0.9644, Training:10.6710s, Eval:0.00059326s, FPS:1685.5899
+Frame_580: 1080x1920, PSNR:37.2845, MS-SSIM:0.9645, Training:10.6376s, Eval:0.00061271s, FPS:1632.0821
+Frame_590: 1080x1920, PSNR:37.0918, MS-SSIM:0.9636, Training:10.8387s, Eval:0.00062968s, FPS:1588.1139
+Frame_600: 1080x1920, PSNR:37.3466, MS-SSIM:0.9653, Training:93.8747s, Eval:0.00053091s, FPS:1883.5482
+Average: 1080x1920, PSNR:37.1255, MS-SSIM:0.9653, Training:12.4079s, Eval:0.00059967s, FPS:1674.2900
+MP4 video created successfully.
