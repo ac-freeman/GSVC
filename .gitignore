@@ -5,3 +5,4 @@ videogs_loss_output.txt
 result/
 models/
 __pycache__/
+result_pos/
