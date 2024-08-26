@@ -171,10 +171,11 @@ def parse_args(argv):
 
 def main(argv):
     args = parse_args(argv)
-    # args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
     args.model_name="GaussianImage_Cholesky"
-    # args.data_name='Beauty'
-    args.save_imgs=False
+    # args.save_imgs=False
+    args.save_imgs=True
+    args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
+    args.data_name='Beauty'
     args.fps=120
     width = 1920
     height = 1080
@@ -199,6 +200,7 @@ def main(argv):
     Gmodel=None
     img_list=[]
     gmodels_state_dict = {}
+    image_length=5
     for i in range(start, start+image_length):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:

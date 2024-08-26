@@ -184,7 +184,7 @@ def main(argv):
         image_length, start = 24, 0
     elif args.data_name == "DIV2K_valid_LRX2":
         image_length, start = 100, 800
-    image_length=5
+
     for i in range(start, start+image_length):
         if args.data_name == "kodak":
             image_path = Path(args.dataset) / f'kodim{i+1:02}.png'
