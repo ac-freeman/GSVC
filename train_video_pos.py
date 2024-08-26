@@ -71,7 +71,7 @@ class SimpleTrainer2d:
             pretrained_dict = {k: v for k, v in checkpoint.items() if k in model_dict}
             model_dict.update(pretrained_dict)
             self.gaussian_model.load_state_dict(model_dict)
-    def train(self):     
+    def train(self,epoch):     
         psnr_list, iter_list = [], []
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
@@ -86,7 +86,7 @@ class SimpleTrainer2d:
                     progress_bar.update(10)
         end_time = time.time() - start_time
         progress_bar.close()
-        psnr_value, ms_ssim_value,img = self.test()
+        psnr_value, ms_ssim_value,img = self.test(epoch)
         with torch.no_grad():
             self.gaussian_model.eval()
             test_start_time = time.time()
@@ -104,7 +104,7 @@ class SimpleTrainer2d:
         #np.save(self.log_dir / "training.npy", {"iterations": iter_list, "training_psnr": psnr_list, "training_time": end_time, "psnr": psnr_value, "ms-ssim": ms_ssim_value, "rendering_time": test_end_time, "rendering_fps": 1/test_end_time})
         Gmodel =self.gaussian_model.state_dict()
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, Gmodel,img
-    def test(self):
+    def test(self,epoch):
         self.gaussian_model.eval()
         with torch.no_grad():
             out = self.gaussian_model()
@@ -112,7 +112,7 @@ class SimpleTrainer2d:
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out["render"].float(), self.gt_image.float(), data_range=1, size_average=True).item()
         #self.logwriter.write("Test PSNR:{:.4f}, MS_SSIM:{:.6f}".format(psnr, ms_ssim_value))
-        if self.save_imgs:
+        if (epoch+1)%20==0 and self.save_imgs:
             save_path_img = self.log_dir / "img"
             save_path_img.mkdir(parents=True, exist_ok=True)
             transform = transforms.ToPILImage()
@@ -174,8 +174,8 @@ def main(argv):
     args.model_name="GaussianImage_Cholesky"
     # args.save_imgs=False
     args.save_imgs=True
-    args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
-    args.data_name='Beauty'
+    #args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
+    #args.data_name='Beauty'
     args.fps=120
     width = 1920
     height = 1080
@@ -210,7 +210,7 @@ def main(argv):
             #model_path = Path("./result") / args.data_name / args.model_name / f"Guassians/gaussian_model_{i}.pth.tar"
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
                 iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel)
-        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img = trainer.train()
+        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img = trainer.train(i)
         img_list.append(img)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
