@@ -40,7 +40,7 @@ class SimpleTrainer2d:
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
         self.iterations = iterations
         self.save_imgs = args.save_imgs
-        self.log_dir = Path(f"./result_pos/{args.data_name}/{model_name}_{iterations}_{num_points}")
+        self.log_dir = Path(f"./result_pos/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky_pos import GaussianImage_Cholesky
             self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 

@@ -25,7 +25,7 @@ class GaussianImage_Cholesky(nn.Module):
         self._xyz = nn.Parameter(torch.atanh(2 * (torch.rand(self.init_num_points, 2) - 0.5)))
         self._cholesky = nn.Parameter(torch.rand(self.init_num_points, 3))
         self.register_buffer('_opacity', torch.ones((self.init_num_points, 1)))
-        self._features_dc = nn.Parameter(torch.rand(self.init_num_points, 3))
+        self._features_dc = nn.Parameter(torch.ones(self.init_num_points, 3))
         self.last_size = (self.H, self.W)
         self.quantize = kwargs["quantize"]
         self.register_buffer('background', torch.ones(3))
