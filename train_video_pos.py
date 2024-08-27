@@ -112,7 +112,7 @@ class SimpleTrainer2d:
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out["render"].float(), self.gt_image.float(), data_range=1, size_average=True).item()
         #self.logwriter.write("Test PSNR:{:.4f}, MS_SSIM:{:.6f}".format(psnr, ms_ssim_value))
-        if self.save_imgs:
+        if (epoch==0 or (epoch+1)%10==0) and self.save_imgs:
             save_path_img = self.log_dir / "img"
             save_path_img.mkdir(parents=True, exist_ok=True)
             transform = transforms.ToPILImage()
@@ -200,7 +200,6 @@ def main(argv):
     Gmodel=None
     img_list=[]
     gmodels_state_dict = {}
-    image_length=5
     for i in range(start, start+image_length):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
