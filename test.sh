@@ -18,20 +18,10 @@ datasets=(
   "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
 )
 
-# Loop through the datasets
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 50000; do
-  # Run the training script for each dataset
-    srun python train_video_pos.py --dataset $dataset_path --data_name $data_name --num_points $num_points
-    done
-done
-
-for dataset in "${datasets[@]}"; do
-  dataset_path=$(echo $dataset | cut -d' ' -f1)
-  data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 50000; do
+  for num_points in 40000; do
   # Run the training script for each dataset
     srun python train_video.py --dataset $dataset_path --data_name $data_name --num_points $num_points
     done
