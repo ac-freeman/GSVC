@@ -171,9 +171,13 @@ def parse_args(argv):
 
 def main(argv):
     args = parse_args(argv)
-    args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
+    args.dataset='/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv'
+    args.data_name='Jockey'
+    args.dataset='/home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv'
+    args.data_name='HoneyBee'
+    # args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
+    # args.data_name='Beauty'
     args.model_name="GaussianImage_Cholesky"
-    args.data_name='Beauty'
     args.save_imgs=True
     args.fps=120
     width = 1920
