@@ -11,7 +11,7 @@ import torch.nn.functional as F
 from pytorch_msssim import ms_ssim
 from utils import *
 from generate_frame import process_yuv_video
-from generate_video import generate_video
+from generate_video import generate_video,generate_video_pos
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
@@ -112,7 +112,7 @@ class SimpleTrainer2d:
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out["render"].float(), self.gt_image.float(), data_range=1, size_average=True).item()
         #self.logwriter.write("Test PSNR:{:.4f}, MS_SSIM:{:.6f}".format(psnr, ms_ssim_value))
-        if (epoch+1)%20==0 and self.save_imgs:
+        if self.save_imgs:
             save_path_img = self.log_dir / "img"
             save_path_img.mkdir(parents=True, exist_ok=True)
             transform = transforms.ToPILImage()
@@ -234,7 +234,7 @@ def main(argv):
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps))
 
-    generate_video(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points)  
+    generate_video_pos(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points)  
 
 if __name__ == "__main__":
     
