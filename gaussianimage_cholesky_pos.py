@@ -25,7 +25,7 @@ class GaussianImage_Cholesky(nn.Module):
         self._xyz = nn.Parameter(torch.atanh(2 * (torch.rand(self.init_num_points, 2) - 0.5)))
         self._cholesky = nn.Parameter(torch.rand(self.init_num_points, 3))
         self.register_buffer('_opacity', torch.ones((self.init_num_points, 1)))
-        self._features_dc = nn.Parameter(torch.ones(self.init_num_points, 3))
+        self._features_dc = nn.Parameter(torch.rand(self.init_num_points, 3))
         self.last_size = (self.H, self.W)
         self.quantize = kwargs["quantize"]
         self.register_buffer('background', torch.ones(3))
@@ -40,9 +40,9 @@ class GaussianImage_Cholesky(nn.Module):
             self.cholesky_quantizer = UniformQuantizer(signed=False, bits=6, learned=True, num_channels=3)
 
         if kwargs["opt_type"] == "adam":
-            self.optimizer = torch.optim.Adam([self._xyz], lr=kwargs["lr"])
+            self.optimizer = torch.optim.Adam(self.parameters(), lr=kwargs["lr"])
         else:
-            self.optimizer = Adan([self._xyz], lr=kwargs["lr"])
+            self.optimizer = Adan(self.parameters(), lr=kwargs["lr"])
         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
 
     def _init_data(self):
@@ -66,6 +66,7 @@ class GaussianImage_Cholesky(nn.Module):
 
     def forward(self):
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
+        self._features_dc = nn.Parameter(torch.ones(self.init_num_points, 3))
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
                 self.get_features, self._opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
         out_img = torch.clamp(out_img, 0, 1) #[H, W, 3]

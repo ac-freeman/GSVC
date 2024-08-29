@@ -11,7 +11,7 @@ import torch.nn.functional as F
 from pytorch_msssim import ms_ssim
 from utils import *
 from generate_frame import process_yuv_video
-from generate_video import generate_video,generate_video_pos
+from generate_video import generate_video_pos
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
@@ -42,7 +42,7 @@ class SimpleTrainer2d:
         self.save_imgs = args.save_imgs
         self.log_dir = Path(f"./result_pos/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
         if model_name == "GaussianImage_Cholesky":
-            from filed.gaussianimage_cholesky_pos import GaussianImage_Cholesky
+            from gaussianimage_cholesky_pos import GaussianImage_Cholesky
             self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False).to(self.device)
 
@@ -103,7 +103,8 @@ class SimpleTrainer2d:
         #self.logwriter.write("Frame{}_Training Complete in {:.4f}s, Eval time:{:.8f}s, FPS:{:.4f}".format(self.frame_num,end_time, test_end_time, 1/test_end_time))
         #np.save(self.log_dir / "training.npy", {"iterations": iter_list, "training_psnr": psnr_list, "training_time": end_time, "psnr": psnr_value, "ms-ssim": ms_ssim_value, "rendering_time": test_end_time, "rendering_fps": 1/test_end_time})
         Gmodel =self.gaussian_model.state_dict()
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, Gmodel,img
+        num_gaussian_points =self.gaussian_model._xyz.size(0)
+        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, Gmodel,img,num_gaussian_points
     def test(self,epoch):
         self.gaussian_model.eval()
         with torch.no_grad():
@@ -140,7 +141,7 @@ def parse_args(argv):
         "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--iterations", type=int, default=50000, help="number of training epochs (default: %(default)s)"
+        "--iterations", type=int, default=10000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
@@ -196,10 +197,11 @@ def main(argv):
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    # image_length=5
+    image_length=1
     Gmodel=None
     img_list=[]
     gmodels_state_dict = {}
+    num_gaussian_points_dict={}
     for i in range(start, start+image_length):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
@@ -209,7 +211,7 @@ def main(argv):
             #model_path = Path("./result") / args.data_name / args.model_name / f"Guassians/gaussian_model_{i}.pth.tar"
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
                 iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel)
-        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img = trainer.train(i)
+        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img,num_gaussian_points = trainer.train(i)
         img_list.append(img)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
@@ -219,9 +221,13 @@ def main(argv):
         image_h += trainer.H
         image_w += trainer.W
         gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
+        num_gaussian_points_dict[[f"frame_{frame_num}"]]=num_gaussian_points
         if i==0 or (i+1)%10==0:
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
+    with open(gmodel_save_path / "num_gaussian_points_dict.txt", 'w') as f:
+        for key, value in num_gaussian_points_dict.items():
+            f.write(f'{key}: {value}\n')
     avg_psnr = torch.tensor(psnrs).mean().item()
     avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
     avg_training_time = torch.tensor(training_times).mean().item()
@@ -233,7 +239,7 @@ def main(argv):
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps))
 
-    generate_video_pos(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points)  
+    #generate_video_pos(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points)  
 
 if __name__ == "__main__":
     
