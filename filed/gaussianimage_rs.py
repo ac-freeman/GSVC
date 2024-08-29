@@ -6,7 +6,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 import math
-from quantize import *
+from filed.quantize import *
 from optimizer import Adan
 
 class GaussianImage_RS(nn.Module):

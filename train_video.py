@@ -15,7 +15,6 @@ from generate_video import generate_video
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-import h5py
 
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
@@ -47,12 +46,12 @@ class SimpleTrainer2d:
                 device=self.device, lr=args.lr, quantize=False).to(self.device)
 
         elif model_name == "GaussianImage_RS":
-            from gaussianimage_rs import GaussianImage_RS
+            from filed.gaussianimage_rs import GaussianImage_RS
             self.gaussian_model = GaussianImage_RS(loss_type="L2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False).to(self.device) 
 
         elif model_name == "3DGS":
-            from gaussiansplatting_3d import Gaussian3D
+            from filed.gaussiansplatting_3d import Gaussian3D
             self.gaussian_model = Gaussian3D(loss_type="Fusion2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, sh_degree=args.sh_degree, lr=args.lr).to(self.device)
 

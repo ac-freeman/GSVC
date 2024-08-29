@@ -49,7 +49,7 @@ class SimpleTrainer2d:
                 device=self.device, lr=args.lr, quantize=True).to(self.device)
             
         elif model_name == "GaussianImage_RS":
-            from gaussianimage_rs import GaussianImage_RS
+            from filed.gaussianimage_rs import GaussianImage_RS
             self.gaussian_model = GaussianImage_RS(loss_type="L2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=True).to(self.device)
             
