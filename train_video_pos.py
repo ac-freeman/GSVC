@@ -222,7 +222,7 @@ def main(argv):
         image_w += trainer.W
         gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
         num_gaussian_points_dict[f"frame_{frame_num}"]=num_gaussian_points
-        if i==0 or (i+1)%10==0:
+        if i==0 or (i+1)%50==0:
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
     with open(Path(f"./result_pos/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
