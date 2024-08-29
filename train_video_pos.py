@@ -175,8 +175,8 @@ def main(argv):
     args.model_name="GaussianImage_Cholesky"
     # args.save_imgs=False
     args.save_imgs=True
-    #args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
-    #args.data_name='Beauty'
+    args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
+    args.data_name='Beauty'
     args.fps=120
     width = 1920
     height = 1080
