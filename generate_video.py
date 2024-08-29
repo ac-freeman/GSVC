@@ -83,3 +83,23 @@ if __name__ == "__main__":
     model_name = "GaussianImage_Cholesky"
     fps=24
     path_generate_video(num_frames, data_name, model_name,fps)
+
+
+def generate_video_I(image_list, data_name, model_name,fps,iterations,num_points):
+    video_path = Path(f"./result_I/{data_name}/{model_name}_{iterations}_{num_points}/video")
+    video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
+    # Define the output video file name
+    filename = "video.mp4"
+    # Get the size of the first image dynamically
+    first_image = image_list[0]
+    width, height = first_image.size  # Extract the size of the first image
+    # Create the video writer with the actual image dimensions
+    output_size = (width, height)
+    video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
+    # Add images to the video writer
+    for img in tqdm(image_list, desc="Processing images", unit="image"):  # Iterate directly over the image_list      
+        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        video.write(img_cv)
+    # Finalize and close the video writer
+    video.release()
+    print("MP4 video created successfully.")
