@@ -155,7 +155,7 @@ def parse_args(argv):
     parser.add_argument(
         "--num_points",
         type=int,
-        default=10000,
+        default=50000,
         help="2D GS points (default: %(default)s)",
     )
     parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
@@ -172,10 +172,10 @@ def parse_args(argv):
 
 def main(argv):
     args = parse_args(argv)
-    args.model_name="GaussianImage_Cholesky"
+    #args.model_name="GaussianImage_Cholesky"
     # args.save_imgs=False
     args.save_imgs=True
-    args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
+    #args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
     args.data_name='Beauty'
     args.fps=120
     width = 1920
@@ -197,7 +197,7 @@ def main(argv):
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    image_length=1
+    # image_length=1
     Gmodel=None
     img_list=[]
     gmodels_state_dict = {}
@@ -225,7 +225,7 @@ def main(argv):
         if i==0 or (i+1)%10==0:
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
-    with open(Path(f"./result_pos/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points_dict.txt", 'w') as f:
+    with open(Path(f"./result_pos/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
         for key, value in num_gaussian_points_dict.items():
             f.write(f'{key}: {value}\n')
     avg_psnr = torch.tensor(psnrs).mean().item()
@@ -239,7 +239,7 @@ def main(argv):
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps))
 
-    #generate_video_pos(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points)  
+    generate_video_pos(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points)  
 
 if __name__ == "__main__":
     
