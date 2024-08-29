@@ -141,7 +141,7 @@ def parse_args(argv):
         "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--iterations", type=int, default=10000, help="number of training epochs (default: %(default)s)"
+        "--iterations", type=int, default=50000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
@@ -155,7 +155,7 @@ def parse_args(argv):
     parser.add_argument(
         "--num_points",
         type=int,
-        default=50000,
+        default=10000,
         help="2D GS points (default: %(default)s)",
     )
     parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
