@@ -71,8 +71,11 @@ class GaussianImage_Cholesky(nn.Module):
         out_img = torch.clamp(out_img, 0, 1) #[H, W, 3]
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render": out_img}
-
-    def train_iter(self, gt_image):
+    def density_control(self):
+        self._xyz, self._cholesky,self._features_dc
+    def train_iter(self, gt_image,iter):
+        if (iter+1) % (self.densification_interval) == 0 and iter > 0:
+            self.density_control()
         render_pkg = self.forward()
         image = render_pkg["render"]
         loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)

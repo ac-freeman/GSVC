@@ -34,6 +34,7 @@ class SimpleTrainer2d:
         self.frame_num=frame_num
         self.num_points = num_points
         self.model_name=model_name
+        self.densification_interval=args.densification_interval
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
@@ -41,7 +42,7 @@ class SimpleTrainer2d:
         self.save_imgs = args.save_imgs
         self.log_dir = Path(f"./result/{args.data_name}/{model_name}_{iterations}_{num_points}")
         if model_name == "GaussianImage_Cholesky":
-            from gaussianimage_cholesky import GaussianImage_Cholesky
+            from gaussianimage_cholesky_density import GaussianImage_Cholesky
             self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False).to(self.device)
 
@@ -76,7 +77,7 @@ class SimpleTrainer2d:
         self.gaussian_model.train()
         start_time = time.time()
         for iter in range(1, int(self.iterations)+1):
-            loss, psnr = self.gaussian_model.train_iter(self.gt_image)
+            loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter)
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -140,6 +141,9 @@ def parse_args(argv):
     )
     parser.add_argument(
         "--iterations", type=int, default=50000, help="number of training epochs (default: %(default)s)"
+    )
+    parser.add_argument(
+        "--densification_interval",type=int,default=300,help="densification_interval (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
