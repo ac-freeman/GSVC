@@ -117,32 +117,42 @@ class GaussianImage_Cholesky(nn.Module):
         clone_indices = top_10_percent_indices[top_gaussian_values <= gaussian_threshold]
 
         # 执行 Split 和 Clone 操作
-        current_num_points = self._xyz.shape[0]
-        potential_new_points = current_num_points + len(split_indices) + len(clone_indices)
+        original_num_points = self._xyz.shape[0]
+        potential_new_points = original_num_points + len(split_indices) + len(clone_indices)
         print(f"percentile_10_count: {percentile_10_count}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
 
         if potential_new_points > self.max_num_points:
-            remaining_slots =self.max_num_points - current_num_points
+            remaining_slots =self.max_num_points - original_num_points
             split_fraction = min(len(split_indices), remaining_slots // 2)
             clone_fraction = min(len(clone_indices), remaining_slots // 2)
 
             split_indices = split_indices[:split_fraction]
             clone_indices = clone_indices[:clone_fraction]
-
+        new_parameters = []
         # 执行 Split 操作
         if len(split_indices) > 0:
-            self._xyz = torch.cat([self._xyz, self._xyz[split_indices]], dim=0)
-            self._cholesky = torch.cat([self._cholesky, self._cholesky[split_indices] / 2], dim=0)
-            self._features_dc = torch.cat([self._features_dc, self._features_dc[split_indices]], dim=0)
+            self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[split_indices]], dim=0))
+            self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[split_indices] / 2], dim=0))
+            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[split_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[split_indices]], dim=0)
 
+        # 执行 Clone 操作
         if len(clone_indices) > 0:
-            self._xyz = torch.cat([self._xyz, self._xyz[clone_indices]], dim=0)
-            self._cholesky = torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0)
-            self._features_dc = torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0)
+            self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[clone_indices]], dim=0))
+            self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
+            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
-
         
+        new_parameters = [
+            self._xyz[original_num_points:],
+            self._cholesky[original_num_points:],
+            self._features_dc[original_num_points:],
+            self._opacity[original_num_points:]
+        ]
+        
+        if new_parameters:
+            for param_group in self.optimizer.param_groups:
+                param_group['params'].extend(new_parameters)
         print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
 
     def train_iter(self, gt_image,iter,isdensity):
