@@ -82,6 +82,7 @@ class SimpleTrainer2d:
         start_time = time.time()
         for iter in range(1, int(self.iterations)+1):
             loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter,self.isdensity)
+            Gmodel =self.gaussian_model.state_dict()
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -106,7 +107,7 @@ class SimpleTrainer2d:
         #torch.save(self.gaussian_model.state_dict(), save_path_gaussian / "gaussian_model_{}.pth.tar".format(self.frame_num))
         #self.logwriter.write("Frame{}_Training Complete in {:.4f}s, Eval time:{:.8f}s, FPS:{:.4f}".format(self.frame_num,end_time, test_end_time, 1/test_end_time))
         #np.save(self.log_dir / "training.npy", {"iterations": iter_list, "training_psnr": psnr_list, "training_time": end_time, "psnr": psnr_value, "ms-ssim": ms_ssim_value, "rendering_time": test_end_time, "rendering_fps": 1/test_end_time})
-        Gmodel =self.gaussian_model.state_dict()
+        
         num_gaussian_points =self.gaussian_model._xyz.size(0)
         # # 读取 Gmodel 并查看参数大小
         # xyz_shape = Gmodel['_xyz'].size()
