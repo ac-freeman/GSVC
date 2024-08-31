@@ -142,14 +142,14 @@ class GaussianImage_Cholesky(nn.Module):
             self._features_dc.data = torch.cat([self._features_dc.data, self._features_dc.data[clone_indices]], dim=0)
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
         
-        current_lr = self.optimizer.param_groups[0]['lr']
-        if isinstance(self.optimizer, Adan):
-            self.optimizer = Adan(self.parameters(), lr=current_lr)
-        else:
-            self.optimizer = torch.optim.Adam(self.parameters(), lr=current_lr)
+        # current_lr = self.optimizer.param_groups[0]['lr']
+        # if isinstance(self.optimizer, Adan):
+        #     self.optimizer = Adan(self.parameters(), lr=current_lr)
+        # else:
+        #     self.optimizer = torch.optim.Adam(self.parameters(), lr=current_lr)
 
-        # 重新初始化学习率调度器
-        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
+        # # 重新初始化学习率调度器
+        # self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
         print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
 
     def train_iter(self, gt_image,iter,isdensity):
