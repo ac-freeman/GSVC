@@ -109,6 +109,7 @@ class SimpleTrainer2d:
         self.gaussian_model.eval()
         with torch.no_grad():
             out = self.gaussian_model()
+            out_pos =self.gaussian_model.forward_pos()
         mse_loss = F.mse_loss(out["render"].float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out["render"].float(), self.gt_image.float(), data_range=1, size_average=True).item()
@@ -128,7 +129,7 @@ class SimpleTrainer2d:
             save_path_img.mkdir(parents=True, exist_ok=True)
             # 转换为PIL图像
             transform = transforms.ToPILImage()
-            img_pos = transform(out["render_pos"].float().squeeze(0))
+            img_pos = transform(out_pos["render_pos"].float().squeeze(0))
             img = transform(out["render"].float().squeeze(0))
             # 拼接图片
             combined_width = img_pos.width + img.width
@@ -166,7 +167,7 @@ def parse_args(argv):
         "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--iterations", type=int, default=50000, help="number of training epochs (default: %(default)s)"
+        "--iterations", type=int, default=10000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
