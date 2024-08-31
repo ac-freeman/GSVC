@@ -95,37 +95,32 @@ class GaussianImage_Cholesky(nn.Module):
         grad_xyz = self._xyz.grad
         if grad_xyz is None:
             raise RuntimeError("grad_xyz 为空，请检查 self._xyz 是否参与了计算图的构建。")
-        grad_magnitude = torch.norm(grad_xyz, dim=1)
-        percentile_10_count = int(0.1 * len(grad_magnitude))
-        sorted_grad_magnitude, _ = torch.sort(grad_magnitude)
-        high_gradient_threshold = sorted_grad_magnitude[0:percentile_10_count].min()
-
-        gaussian_values = torch.exp(-0.5 * torch.sum(self.get_xyz ** 2 / torch.clamp(self.get_cholesky_elements[:, [0, 2]], min=1e-6), dim=1))
-        gaussian_threshold = torch.median(gaussian_values)
-        # low_gaussian_threshold = 0.0005
         
+        grad_magnitude = torch.norm(grad_xyz, dim=1)
 
-        # Split large coordinate gradient & large gaussian values
-        split_mask = (grad_magnitude > high_gradient_threshold) & (gaussian_values > gaussian_threshold)
-        split_indices = torch.nonzero(split_mask).squeeze()
+        # 计算前10%的数量
+        percentile_10_count = int(0.1 * len(grad_magnitude))
 
-        # Clone large coordinate gradient & small gaussian values
-        clone_mask = (grad_magnitude > high_gradient_threshold) & (gaussian_values < gaussian_threshold)
-        clone_indices = torch.nonzero(clone_mask).squeeze()
+        # 对grad_magnitude排序并获取前10%的索引
+        sorted_grad_magnitude, sorted_indices = torch.sort(grad_magnitude)
+        top_10_percent_indices = sorted_indices[:percentile_10_count]
 
-        if split_indices.dim() > 0:
-            num_split_indices = len(split_indices)
-        else:
-            num_split_indices = 0  # 或者设置为其他默认值
+        # 获取这些点的gaussian_values
+        gaussian_values = torch.exp(-0.5 * torch.sum(self.get_xyz ** 2 / torch.clamp(self.get_cholesky_elements[:, [0, 2]], min=1e-6), dim=1))
+        top_gaussian_values = gaussian_values[top_10_percent_indices]
 
-        if clone_indices.dim() > 0:
-            num_clone_indices = len(clone_indices)
-        else:
-            num_clone_indices = 0  # 或者设置为其他默认值
+        # 计算gaussian_values的中位数
+        gaussian_threshold = torch.median(gaussian_values)
 
+        # 在前10%的点中进行分类
+        split_indices = top_10_percent_indices[top_gaussian_values > gaussian_threshold]
+        clone_indices = top_10_percent_indices[top_gaussian_values <= gaussian_threshold]
+
+        # 执行 Split 和 Clone 操作
         current_num_points = self._xyz.shape[0]
-        potential_new_points = current_num_points + num_split_indices + num_clone_indices
-        print(percentile_10_count,num_split_indices,num_clone_indices)
+        potential_new_points = current_num_points + len(split_indices) + len(clone_indices)
+        print(f"percentile_10_count: {percentile_10_count}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
+
         if potential_new_points > self.max_num_points:
             remaining_slots =self.max_num_points - current_num_points
             split_fraction = min(len(split_indices), remaining_slots // 2)
