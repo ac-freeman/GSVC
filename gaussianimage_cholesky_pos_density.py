@@ -103,7 +103,9 @@ class GaussianImage_Cholesky(nn.Module):
             self.optimizer = Adan(self.parameters(), lr=current_lr)
         else:
             self.optimizer = torch.optim.Adam(self.parameters(), lr=current_lr)
-
+        # 设置 initial_lr 参数
+        for param_group in self.optimizer.param_groups:
+            param_group['initial_lr'] = current_lr
         # 重新初始化学习率调度器
         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=step_size, gamma=gamma, last_epoch=last_epoch)
 
