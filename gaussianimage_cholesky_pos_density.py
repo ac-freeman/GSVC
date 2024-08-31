@@ -92,10 +92,6 @@ class GaussianImage_Cholesky(nn.Module):
         return {"render": out_img}
 
     def density_control(self):
-        if not self.get_xyz.requires_grad:
-            print("警告: get_xyz 不需要梯度")
-        else: 
-            print("get_xyz 需要梯度")
         if not self._xyz.requires_grad:
             print("警告: _xyz 不需要梯度")
         else: 
