@@ -23,7 +23,7 @@ class GaussianImage_Cholesky(nn.Module):
             1,
         ) # 
         self.device = kwargs["device"]
-
+        self.opt_type = kwargs["opt_type"]
         self._xyz = nn.Parameter(torch.atanh(2 * (torch.rand(self.init_num_points, 2) - 0.5)))
         self._cholesky = nn.Parameter(torch.rand(self.init_num_points, 3))
         self.register_buffer('_opacity', torch.ones((self.init_num_points, 1)))
@@ -35,16 +35,16 @@ class GaussianImage_Cholesky(nn.Module):
         self.rgb_activation = torch.sigmoid
         self.register_buffer('bound', torch.tensor([0.5, 0.5]).view(1, 2))
         self.register_buffer('cholesky_bound', torch.tensor([0.5, 0, 0.5]).view(1, 3))
-
+        self.lr = kwargs["lr"]
         if self.quantize:
             self.xyz_quantizer = FakeQuantizationHalf.apply 
             self.features_dc_quantizer = VectorQuantizer(codebook_dim=3, codebook_size=8, num_quantizers=2, vector_type="vector", kmeans_iters=5) 
             self.cholesky_quantizer = UniformQuantizer(signed=False, bits=6, learned=True, num_channels=3)
 
-        if kwargs["opt_type"] == "adam":
-            self.optimizer = torch.optim.Adam(self.parameters(), lr=kwargs["lr"])
+        if self.opt_type == "adam":
+            self.optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
         else:
-            self.optimizer = Adan(self.parameters(), lr=kwargs["lr"])
+            self.optimizer = Adan(self.parameters(), lr=self.lr)
         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
 
     def _init_data(self):
@@ -91,6 +91,16 @@ class GaussianImage_Cholesky(nn.Module):
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render": out_img}
 
+    def update_optimizer(self):
+        if self.opt_type == "adam":
+            self.optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
+        else:
+            self.optimizer = Adan(self.parameters(), lr=self.lr)
+        # 重新初始化学习率调度器
+        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
+
+
+
     def density_control(self):
         grad_xyz = self._xyz.grad
         if grad_xyz is None:
@@ -117,33 +127,32 @@ class GaussianImage_Cholesky(nn.Module):
         clone_indices = top_10_percent_indices[top_gaussian_values <= gaussian_threshold]
 
         # 执行 Split 和 Clone 操作
-        current_num_points = self._xyz.shape[0]
-        potential_new_points = current_num_points + len(split_indices) + len(clone_indices)
+        original_num_points = self._xyz.shape[0]
+        potential_new_points = original_num_points + len(split_indices) + len(clone_indices)
         print(f"percentile_10_count: {percentile_10_count}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
 
         if potential_new_points > self.max_num_points:
-            remaining_slots =self.max_num_points - current_num_points
+            remaining_slots =self.max_num_points - original_num_points
             split_fraction = min(len(split_indices), remaining_slots // 2)
             clone_fraction = min(len(clone_indices), remaining_slots // 2)
 
             split_indices = split_indices[:split_fraction]
             clone_indices = clone_indices[:clone_fraction]
-
-        # 执行 Split 操作
+        
         if len(split_indices) > 0:
-            self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[split_indices]], dim=0))
-            self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[split_indices] / 2], dim=0))
-            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[split_indices]], dim=0))
+            self._xyz.data = nn.Parameter(torch.cat([self._xyz.data, self._xyz.data[split_indices]], dim=0))
+            self._cholesky.data = nn.Parameter(torch.cat([self._cholesky.data, self._cholesky.data[split_indices] / 2], dim=0))
+            self._features_dc.data =nn.Parameter(torch.cat([self._features_dc.data, self._features_dc.data[split_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[split_indices]], dim=0)
 
         # 执行 Clone 操作
         if len(clone_indices) > 0:
-            self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[clone_indices]], dim=0))
-            self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
-            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
+            self._xyz.data = nn.Parameter(torch.cat([self._xyz.data, self._xyz.data[clone_indices]], dim=0))
+            self._cholesky.data = nn.Parameter(torch.cat([self._cholesky.data, self._cholesky.data[clone_indices]], dim=0))
+            self._features_dc.data = nn.Parameter(torch.cat([self._features_dc.data, self._features_dc.data[clone_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
         
-        
+        #self.update_optimizer()
         print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
 
     def train_iter(self, gt_image,iter,isdensity):
