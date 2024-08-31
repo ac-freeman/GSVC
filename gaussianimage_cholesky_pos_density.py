@@ -110,8 +110,18 @@ class GaussianImage_Cholesky(nn.Module):
         clone_mask = (grad_magnitude > high_gradient_threshold) & (gaussian_values < low_gaussian_threshold)
         clone_indices = torch.nonzero(clone_mask).squeeze()
 
+        if split_indices.dim() > 0:
+            num_split_indices = len(split_indices)
+        else:
+            num_split_indices = 0  # 或者设置为其他默认值
+
+        if clone_indices.dim() > 0:
+            num_clone_indices = len(clone_indices)
+        else:
+            num_clone_indices = 0  # 或者设置为其他默认值
+
         current_num_points = self._xyz.shape[0]
-        potential_new_points = current_num_points + len(split_indices) + len(clone_indices)
+        potential_new_points = current_num_points + num_split_indices + num_clone_indices
 
         if potential_new_points > self.max_num_points:
             remaining_slots =self.max_num_points - current_num_points
