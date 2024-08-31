@@ -58,11 +58,14 @@ def generate_video(image_list, data_name, model_name,fps,iterations,num_points):
     video.release()
     print("MP4 video created successfully.")
 
-def generate_video_pos(image_list, data_name, model_name,fps,iterations,num_points):
+def generate_video_pos(image_list, data_name, model_name,fps,iterations,num_points,origin):
     video_path = Path(f"./result_pos/{data_name}/{model_name}_{iterations}_{num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
     # Define the output video file name
-    filename = "video.mp4"
+    if origin:
+        filename = "video.mp4"
+    else:
+        filename = "video_pos.mp4"
     # Get the size of the first image dynamically
     first_image = image_list[0]
     width, height = first_image.size  # Extract the size of the first image

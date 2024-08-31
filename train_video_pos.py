@@ -86,7 +86,7 @@ class SimpleTrainer2d:
                     progress_bar.update(10)
         end_time = time.time() - start_time
         progress_bar.close()
-        psnr_value, ms_ssim_value,img = self.test(epoch)
+        psnr_value, ms_ssim_value,img,img_pos = self.test(epoch)
         with torch.no_grad():
             self.gaussian_model.eval()
             test_start_time = time.time()
@@ -104,7 +104,7 @@ class SimpleTrainer2d:
         #np.save(self.log_dir / "training.npy", {"iterations": iter_list, "training_psnr": psnr_list, "training_time": end_time, "psnr": psnr_value, "ms-ssim": ms_ssim_value, "rendering_time": test_end_time, "rendering_fps": 1/test_end_time})
         Gmodel =self.gaussian_model.state_dict()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, Gmodel,img,num_gaussian_points
+        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, Gmodel,img,img_pos,num_gaussian_points
     def test(self,epoch):
         self.gaussian_model.eval()
         with torch.no_grad():
@@ -117,13 +117,14 @@ class SimpleTrainer2d:
             save_path_img = self.log_dir / "img"
             save_path_img.mkdir(parents=True, exist_ok=True)
             transform = transforms.ToPILImage()
-            img = transform(out["render"].float().squeeze(0))
+            img = transform(out["render_pos"].float().squeeze(0))
             name =str(self.frame_num) + "_fitting.png" 
             img.save(str(save_path_img / name))
         else:
             transform = transforms.ToPILImage()
+            img_pos = transform(out["render_pos"].float().squeeze(0))
             img = transform(out["render"].float().squeeze(0))
-        return psnr, ms_ssim_value,img
+        return psnr, ms_ssim_value,img,img_pos
 
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
@@ -200,6 +201,7 @@ def main(argv):
     # image_length=1
     Gmodel=None
     img_list=[]
+    img_list_pos=[]
     gmodels_state_dict = {}
     num_gaussian_points_dict={}
     for i in range(start, start+image_length):
@@ -211,8 +213,9 @@ def main(argv):
             #model_path = Path("./result") / args.data_name / args.model_name / f"Guassians/gaussian_model_{i}.pth.tar"
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
                 iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel)
-        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img,num_gaussian_points = trainer.train(i)
+        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img,img_pos,num_gaussian_points = trainer.train(i)
         img_list.append(img)
+        img_list_pos.append(img_pos)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
         training_times.append(training_time) 
@@ -238,8 +241,8 @@ def main(argv):
 
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps))
-
-    generate_video_pos(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points)  
+    generate_video_pos(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
+    generate_video_pos(img_list_pos, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)  
 
 if __name__ == "__main__":
     
