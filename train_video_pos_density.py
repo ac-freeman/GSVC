@@ -97,6 +97,7 @@ class SimpleTrainer2d:
             for i in range(100):
                 _ = self.gaussian_model()
             test_end_time = (time.time() - test_start_time)/100
+        print(f"After split/clone: _cholesky size: {self.gaussian_model._cholesky.size()}, _features_dc size: {self.gaussian_model._features_dc.size()}")
         # 定义文件路径
         #save_path_gaussian = Path(f"./Models/{self.data_name}/{self.model_name}/{self.num_points}")
         #save_path_gaussian = self.log_dir / "Guassians"
@@ -108,17 +109,17 @@ class SimpleTrainer2d:
         #np.save(self.log_dir / "training.npy", {"iterations": iter_list, "training_psnr": psnr_list, "training_time": end_time, "psnr": psnr_value, "ms-ssim": ms_ssim_value, "rendering_time": test_end_time, "rendering_fps": 1/test_end_time})
         Gmodel =self.gaussian_model.state_dict()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
-        # 读取 Gmodel 并查看参数大小
-        xyz_shape = Gmodel['_xyz'].size()
-        cholesky_shape = Gmodel['_cholesky'].size()
-        features_dc_shape = Gmodel['_features_dc'].size()
-        opacity_shape = Gmodel['_opacity'].size()
+        # # 读取 Gmodel 并查看参数大小
+        # xyz_shape = Gmodel['_xyz'].size()
+        # cholesky_shape = Gmodel['_cholesky'].size()
+        # features_dc_shape = Gmodel['_features_dc'].size()
+        # opacity_shape = Gmodel['_opacity'].size()
 
-        # 打印参数的形状
-        print(f"_xyz shape: {xyz_shape}")
-        print(f"_cholesky shape: {cholesky_shape}")
-        print(f"_features_dc shape: {features_dc_shape}")
-        print(f"_opacity shape: {opacity_shape}")
+        # # 打印参数的形状
+        # print(f"_xyz shape: {xyz_shape}")
+        # print(f"_cholesky shape: {cholesky_shape}")
+        # print(f"_features_dc shape: {features_dc_shape}")
+        # print(f"_opacity shape: {opacity_shape}")
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, Gmodel,img,combined_img,num_gaussian_points
     def test(self,frame):
         self.gaussian_model.eval()
