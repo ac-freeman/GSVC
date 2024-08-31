@@ -99,14 +99,15 @@ class GaussianImage_Cholesky(nn.Module):
         gaussian_values = torch.exp(-0.5 * torch.sum(self.get_xyz ** 2 / torch.clamp(self.get_cholesky_elements[:, [0, 2]], min=1e-6), dim=1))
         high_gradient_threshold = 0.002
         high_gaussian_threshold = 0.75
+        low_gaussian_threshold = 0.0005
         
 
         # Split large coordinate gradient & large gaussian values
-        split_mask = (grad_magnitude > high_gradient_threshold) 
+        split_mask = (grad_magnitude > high_gradient_threshold) & (gaussian_values > high_gaussian_threshold)
         split_indices = torch.nonzero(split_mask).squeeze()
 
         # Clone large coordinate gradient & small gaussian values
-        clone_mask = (gaussian_values > high_gaussian_threshold) 
+        clone_mask = (grad_magnitude > high_gradient_threshold) & (gaussian_values < low_gaussian_threshold)
         clone_indices = torch.nonzero(clone_mask).squeeze()
 
         if split_indices.dim() > 0:
