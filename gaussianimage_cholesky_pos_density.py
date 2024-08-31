@@ -151,18 +151,20 @@ class GaussianImage_Cholesky(nn.Module):
         self._cholesky[original_num_points:],
         self._features_dc[original_num_points:],
         self._opacity[original_num_points:]
-    ]
+        ]
 
         if new_parameters:
             for param_group in self.optimizer.param_groups:
                 param_group['params'].extend(new_parameters)
             
-            # 这里需要手动管理优化器的内部状态（例如动量），视具体优化器实现而定
+            # 手动更新优化器的内部状态
             for state in self.optimizer.state.values():
                 if 'exp_avg' in state:
-                    state['exp_avg'] = torch.cat([state['exp_avg'], torch.zeros_like(new_parameters)], dim=0)
+                    exp_avg_new = [torch.zeros_like(p) for p in new_parameters]
+                    state['exp_avg'] = torch.cat([state['exp_avg']] + exp_avg_new, dim=0)
                 if 'exp_avg_sq' in state:
-                    state['exp_avg_sq'] = torch.cat([state['exp_avg_sq'], torch.zeros_like(new_parameters)], dim=0)
+                    exp_avg_sq_new = [torch.zeros_like(p) for p in new_parameters]
+                    state['exp_avg_sq'] = torch.cat([state['exp_avg_sq']] + exp_avg_sq_new, dim=0)
         
         
         print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
