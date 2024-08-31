@@ -270,7 +270,7 @@ def main(argv):
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps))
     generate_video_pos(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True,combined=False)  
     generate_video_pos(img_list_pos, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False,combined=False)
-    generate_video_pos(img_list_combined, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False,combined=True)    
+    generate_video_pos(img_list_combined, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True,combined=True)    
 
 if __name__ == "__main__":
     

@@ -81,7 +81,14 @@ def generate_video_pos(image_list, data_name, model_name,fps,iterations,num_poin
         video.write(img_cv)
     # Finalize and close the video writer
     video.release()
-    print("MP4 video created successfully.")
+    if combined:
+         print("video_combined.mp4: MP4 video created successfully.")
+    else:
+        if origin:
+             print("video.mp4: MP4 video created successfully.")
+        else:
+             print("video_pos.mp4: MP4 video created successfully.")
+
 
 if __name__ == "__main__":
     num_frames = 120

@@ -65,8 +65,9 @@ class GaussianImage_Cholesky(nn.Module):
         return self._cholesky+self.cholesky_bound
 
     def forward_pos(self):
-        self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
         self._features_dc = nn.Parameter(torch.ones(self.init_num_points, 3).to(self.device))
+        self._cholesky = nn.Parameter(torch.rand(self.init_num_points, 3))
+        self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
                 self.get_features, self._opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
         out_img = torch.clamp(out_img, 0, 1) #[H, W, 3]
