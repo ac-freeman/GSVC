@@ -132,15 +132,15 @@ class GaussianImage_Cholesky(nn.Module):
         # 执行 Split 操作
         if len(split_indices) > 0:
             self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[split_indices]], dim=0))
-            self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[split_indices] / 2], dim=0))
-            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[split_indices]], dim=0))
+            self._cholesky = torch.cat([self._cholesky, self._cholesky[split_indices] / 2], dim=0)
+            self._features_dc =torch.cat([self._features_dc, self._features_dc[split_indices]], dim=0)
             self._opacity = torch.cat([self._opacity, self._opacity[split_indices]], dim=0)
 
         # 执行 Clone 操作
         if len(clone_indices) > 0:
             self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[clone_indices]], dim=0))
-            self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
-            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
+            self._cholesky = torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0)
+            self._features_dc = torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0)
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
 
     def train_iter(self, gt_image,iter,isdensity):
@@ -153,7 +153,7 @@ class GaussianImage_Cholesky(nn.Module):
             psnr = 10 * math.log10(1.0 / mse_loss.item())
         if (iter+1) % (self.densification_interval) == 0 and iter > 0 and isdensity:
             self.density_control()
-            print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
+            #print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
         self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
 
