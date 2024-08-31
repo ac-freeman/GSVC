@@ -35,7 +35,8 @@ class GaussianImage_Cholesky(nn.Module):
         self.rgb_activation = torch.sigmoid
         self.register_buffer('bound', torch.tensor([0.5, 0.5]).view(1, 2))
         self.register_buffer('cholesky_bound', torch.tensor([0.5, 0, 0.5]).view(1, 3))
-
+        self.lr = kwargs["lr"]
+        self.opt_type =kwargs["opt_type"]
         if self.quantize:
             self.xyz_quantizer = FakeQuantizationHalf.apply 
             self.features_dc_quantizer = VectorQuantizer(codebook_dim=3, codebook_size=8, num_quantizers=2, vector_type="vector", kmeans_iters=5) 
@@ -91,6 +92,15 @@ class GaussianImage_Cholesky(nn.Module):
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render": out_img}
 
+
+    def update_optimizer(self):
+        if self.opt_type == "adam":
+            self.optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
+        else:
+            self.optimizer = Adan(self.parameters(), lr=self.lr)
+        # 重新初始化学习率调度器
+        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
+
     def density_control(self):
         grad_xyz = self._xyz.grad
         if grad_xyz is None:
@@ -142,6 +152,8 @@ class GaussianImage_Cholesky(nn.Module):
             self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
             self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
+
+        
         
         
         print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
