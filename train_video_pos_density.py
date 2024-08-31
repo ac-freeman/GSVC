@@ -82,21 +82,21 @@ class SimpleTrainer2d:
                     progress_bar.update(10)
         end_time = time.time() - start_time
         progress_bar.close()
-        psnr_value, ms_ssim_value,img,combined_img = self.test(frame)
+        num_gaussian_points =self.gaussian_model._xyz.size(0)
+        psnr_value, ms_ssim_value,img,combined_img = self.test(frame,num_gaussian_points)
         with torch.no_grad():
             self.gaussian_model.eval()
             test_start_time = time.time()
             for i in range(100):
                 _ = self.gaussian_model()
             test_end_time = (time.time() - test_start_time)/100       
-        num_gaussian_points =self.gaussian_model._xyz.size(0)
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel,img,combined_img,num_gaussian_points
-    def test(self,frame):
+    def test(self,frame,num_gaussian_points):
         self.gaussian_model.eval()
         with torch.no_grad():
             out = self.gaussian_model()
-            out_pos =self.gaussian_model.forward_pos()
-            out_pos_sca =self.gaussian_model.forward_pos_sca()
+            out_pos =self.gaussian_model.forward_pos(num_gaussian_points)
+            out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
         mse_loss = F.mse_loss(out["render"].float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out["render"].float(), self.gt_image.float(), data_range=1, size_average=True).item()

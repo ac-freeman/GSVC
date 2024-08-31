@@ -67,17 +67,17 @@ class GaussianImage_Cholesky(nn.Module):
     def get_cholesky_elements(self):
         return self._cholesky+self.cholesky_bound
 
-    def forward_pos_sca(self):
-        self._features_dc = nn.Parameter(torch.ones(self.init_num_points, 3).to(self.device))
-        self._cholesky = nn.Parameter(torch.rand(self.init_num_points, 3).to(self.device))
+    def forward_pos_sca(self,num_points):
+        self._features_dc = nn.Parameter(torch.ones(num_points, 3).to(self.device))
+        self._cholesky = nn.Parameter(torch.rand(num_points, 3).to(self.device))
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
                 self.get_features, self._opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
         out_img = torch.clamp(out_img, 0, 1) #[H, W, 3]
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render_pos_sca": out_img}
-    def forward_pos(self):
-        self._features_dc = nn.Parameter(torch.ones(self.init_num_points, 3).to(self.device))
+    def forward_pos(self,num_points):
+        self._features_dc = nn.Parameter(torch.ones(num_points, 3).to(self.device))
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
                 self.get_features, self._opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
