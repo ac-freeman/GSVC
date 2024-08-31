@@ -153,6 +153,7 @@ class GaussianImage_Cholesky(nn.Module):
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
         
         self.update_optimizer()
+        self.optimizer.step()
         print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
 
     def train_iter(self, gt_image,iter,isdensity):
@@ -165,8 +166,8 @@ class GaussianImage_Cholesky(nn.Module):
             psnr = 10 * math.log10(1.0 / mse_loss.item())
         if (iter+1) % (self.densification_interval) == 0 and iter > 0 and isdensity:
             self.density_control()
-            
-        self.optimizer.step()
+        else:   
+            self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
         
         self.scheduler.step()
