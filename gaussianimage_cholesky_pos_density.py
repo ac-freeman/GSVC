@@ -91,6 +91,24 @@ class GaussianImage_Cholesky(nn.Module):
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render": out_img}
 
+    def update_optimizer(self):
+        # 取得当前的学习率和调度器状态
+        current_lr = self.optimizer.param_groups[0]['lr']
+        step_size = self.scheduler.step_size
+        gamma = self.scheduler.gamma
+        last_epoch = self.scheduler.last_epoch
+
+        # 重新初始化优化器
+        if isinstance(self.optimizer, Adan):
+            self.optimizer = Adan(self.parameters(), lr=current_lr)
+        else:
+            self.optimizer = torch.optim.Adam(self.parameters(), lr=current_lr)
+
+        # 重新初始化学习率调度器
+        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=step_size, gamma=gamma, last_epoch=last_epoch)
+
+
+
     def density_control(self):
         grad_xyz = self._xyz.grad
         if grad_xyz is None:
@@ -142,14 +160,7 @@ class GaussianImage_Cholesky(nn.Module):
             self._features_dc.data = torch.cat([self._features_dc.data, self._features_dc.data[clone_indices]], dim=0)
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
         
-        # current_lr = self.optimizer.param_groups[0]['lr']
-        # if isinstance(self.optimizer, Adan):
-        #     self.optimizer = Adan(self.parameters(), lr=current_lr)
-        # else:
-        #     self.optimizer = torch.optim.Adam(self.parameters(), lr=current_lr)
-
-        # # 重新初始化学习率调度器
-        # self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
+        self.update_optimizer()
         print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
 
     def train_iter(self, gt_image,iter,isdensity):
