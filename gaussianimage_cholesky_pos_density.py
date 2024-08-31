@@ -94,8 +94,12 @@ class GaussianImage_Cholesky(nn.Module):
     def density_control(self):
         if not self.get_xyz.requires_grad:
             print("警告: get_xyz 不需要梯度")
+        else: 
+            print("get_xyz 需要梯度")
         if not self._xyz.requires_grad:
             print("警告: _xyz 不需要梯度")
+        else: 
+            print("_xyz 需要梯度")
          # 计算梯度
         grad_xyz = torch.autograd.grad(outputs=self.get_xyz, inputs=self.get_xyz, grad_outputs=torch.ones_like(self.get_xyz), create_graph=True, retain_graph=True)[0]
 
