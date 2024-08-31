@@ -28,7 +28,8 @@ class SimpleTrainer2d:
         iterations:int = 30000,
         model_path = None,
         args = None,
-        Trained_Model=None
+        Trained_Model=None,
+        isdensity=True
     ):
         self.device = torch.device("cuda:0")
         self.gt_image = image_to_tensor(image).to(self.device)
@@ -43,6 +44,7 @@ class SimpleTrainer2d:
         self.densification_interval=args.densification_interval
         self.save_imgs = args.save_imgs
         self.log_dir = Path(f"./result_pos_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
+        self.isdensity=isdensity
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky_pos_density import GaussianImage_Cholesky
             self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
@@ -79,7 +81,7 @@ class SimpleTrainer2d:
         self.gaussian_model.train()
         start_time = time.time()
         for iter in range(1, int(self.iterations)+1):
-            loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter)
+            loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter,self.isdensity)
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -244,11 +246,11 @@ def main(argv):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
-                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None)
+                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=True)
         else:
             #model_path = Path("./result") / args.data_name / args.model_name / f"Guassians/gaussian_model_{i}.pth.tar"
-            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
-                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel)
+            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=num_gaussian_points, 
+                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
         psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img,combined_img,num_gaussian_points = trainer.train(i)
         img_list.append(img)
         img_list_combined.append(combined_img)

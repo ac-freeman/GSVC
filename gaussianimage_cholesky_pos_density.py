@@ -143,7 +143,7 @@ class GaussianImage_Cholesky(nn.Module):
             self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
             #self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
 
-    def train_iter(self, gt_image,iter):
+    def train_iter(self, gt_image,iter,isdensity):
         render_pkg = self.forward()
         image = render_pkg["render"]
         loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
@@ -151,7 +151,7 @@ class GaussianImage_Cholesky(nn.Module):
         with torch.no_grad():
             mse_loss = F.mse_loss(image, gt_image)
             psnr = 10 * math.log10(1.0 / mse_loss.item())
-        if (iter+1) % (self.densification_interval) == 0 and iter > 0:
+        if (iter+1) % (self.densification_interval) == 0 and iter > 0 and isdensity:
             self.density_control()
         self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
