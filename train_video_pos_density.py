@@ -88,6 +88,7 @@ class SimpleTrainer2d:
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
+                if iter+1 % 300 == 0:
                     print(f"After split/clone: _cholesky size: {self.gaussian_model._cholesky.size()}, _features_dc size: {self.gaussian_model._features_dc.size()}")
         end_time = time.time() - start_time
         progress_bar.close()
