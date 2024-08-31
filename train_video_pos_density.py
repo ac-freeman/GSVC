@@ -15,7 +15,6 @@ from generate_video import generate_video_pos_density
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-import h5py
 
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
@@ -49,18 +48,6 @@ class SimpleTrainer2d:
             from gaussianimage_cholesky_pos_density import GaussianImage_Cholesky
             self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False).to(self.device)
-
-        # elif model_name == "GaussianImage_RS":
-        #     from filed.gaussianimage_rs import GaussianImage_RS
-        #     self.gaussian_model = GaussianImage_RS(loss_type="L2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
-        #         device=self.device, lr=args.lr, quantize=False).to(self.device) 
-
-        # elif model_name == "3DGS":
-        #     from filed.gaussiansplatting_3d import Gaussian3D
-        #     self.gaussian_model = Gaussian3D(loss_type="Fusion2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
-        #         device=self.device, sh_degree=args.sh_degree, lr=args.lr).to(self.device)
-
-        #self.logwriter = LogWriter(self.log_dir)
 
         if model_path is not None:
             print(f"loading model path:{model_path}")
@@ -101,29 +88,8 @@ class SimpleTrainer2d:
             test_start_time = time.time()
             for i in range(100):
                 _ = self.gaussian_model()
-            test_end_time = (time.time() - test_start_time)/100
-        # 定义文件路径
-        #save_path_gaussian = Path(f"./Models/{self.data_name}/{self.model_name}/{self.num_points}")
-        #save_path_gaussian = self.log_dir / "Guassians"
-        # 如果路径中的文件夹不存在，创建它们
-        #save_path_gaussian.mkdir(parents=True, exist_ok=True)
-        # 保存模型
-        #torch.save(self.gaussian_model.state_dict(), save_path_gaussian / "gaussian_model_{}.pth.tar".format(self.frame_num))
-        #self.logwriter.write("Frame{}_Training Complete in {:.4f}s, Eval time:{:.8f}s, FPS:{:.4f}".format(self.frame_num,end_time, test_end_time, 1/test_end_time))
-        #np.save(self.log_dir / "training.npy", {"iterations": iter_list, "training_psnr": psnr_list, "training_time": end_time, "psnr": psnr_value, "ms-ssim": ms_ssim_value, "rendering_time": test_end_time, "rendering_fps": 1/test_end_time})
-        
+            test_end_time = (time.time() - test_start_time)/100       
         num_gaussian_points =self.gaussian_model._xyz.size(0)
-        # # 读取 Gmodel 并查看参数大小
-        # xyz_shape = Gmodel['_xyz'].size()
-        # cholesky_shape = Gmodel['_cholesky'].size()
-        # features_dc_shape = Gmodel['_features_dc'].size()
-        # opacity_shape = Gmodel['_opacity'].size()
-
-        # # 打印参数的形状
-        # print(f"_xyz shape: {xyz_shape}")
-        # print(f"_cholesky shape: {cholesky_shape}")
-        # print(f"_features_dc shape: {features_dc_shape}")
-        # print(f"_opacity shape: {opacity_shape}")
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel,img,combined_img,num_gaussian_points
     def test(self,frame):
         self.gaussian_model.eval()
@@ -134,7 +100,6 @@ class SimpleTrainer2d:
         mse_loss = F.mse_loss(out["render"].float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out["render"].float(), self.gt_image.float(), data_range=1, size_average=True).item()
-        #self.logwriter.write("Test PSNR:{:.4f}, MS_SSIM:{:.6f}".format(psnr, ms_ssim_value))
         if frame==0 and self.save_imgs:
             # save_path_img = self.log_dir / "img"
             # save_path_img.mkdir(parents=True, exist_ok=True)
@@ -182,8 +147,6 @@ def image_to_tensor(img: Image.Image):
     img_tensor = transform(img).unsqueeze(0)  # [1, C, H, W]
     return img_tensor
 
-
-
 def parse_args(argv):
     parser = argparse.ArgumentParser(description="Example training script.")
     parser.add_argument(
@@ -196,7 +159,7 @@ def parse_args(argv):
         "--iterations", type=int, default=10000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
-        "--densification_interval",type=int,default=1000,help="densification_interval (default: %(default)s)"
+        "--densification_interval",type=int,default=2000,help="densification_interval (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
