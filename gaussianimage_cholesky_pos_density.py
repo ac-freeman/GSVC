@@ -101,7 +101,7 @@ class GaussianImage_Cholesky(nn.Module):
         else: 
             print("_xyz 需要梯度")
          # 计算梯度
-        grad_xyz = torch.autograd.grad(outputs=self.get_xyz, inputs=self.get_xyz, grad_outputs=torch.ones_like(self.get_xyz), create_graph=True, retain_graph=True)[0]
+        grad_xyz = torch.autograd.grad(outputs=self._xyz, inputs=self._xyz, grad_outputs=torch.ones_like(self.get_xyz), create_graph=True, retain_graph=True)[0]
 
         # 计算坐标梯度的模
         grad_magnitude = torch.norm(grad_xyz, dim=1)
