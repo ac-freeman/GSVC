@@ -145,6 +145,15 @@ class GaussianImage_Cholesky(nn.Module):
         self._xyz.retain_grad() 
         self._cholesky.retain_grad() 
         self._features_dc.retain_grad() 
+
+        new_size = self._xyz.shape[0] - original_num_points
+
+        for param_group in self.optimizer.param_groups:
+            for state in self.optimizer.state.values():
+                if 'exp_avg' in state:
+                    state['exp_avg'] = torch.cat([state['exp_avg'], torch.zeros(new_size, *state['exp_avg'].shape[1:], device=state['exp_avg'].device)], dim=0)
+                if 'exp_avg_sq' in state:
+                    state['exp_avg_sq'] = torch.cat([state['exp_avg_sq'], torch.zeros(new_size, *state['exp_avg_sq'].shape[1:], device=state['exp_avg_sq'].device)], dim=0)
         
         print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
 
