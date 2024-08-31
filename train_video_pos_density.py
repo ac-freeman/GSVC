@@ -34,6 +34,7 @@ class SimpleTrainer2d:
         self.gt_image = image_to_tensor(image).to(self.device)
         self.frame_num=frame_num
         self.num_points = num_points
+        self.max_num_points=num_points*2
         self.model_name=model_name
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
@@ -44,7 +45,7 @@ class SimpleTrainer2d:
         self.log_dir = Path(f"./result_pos_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky_pos_density import GaussianImage_Cholesky
-            self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points,densification_interval=self.densification_interval, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
+            self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False).to(self.device)
 
         elif model_name == "GaussianImage_RS":
