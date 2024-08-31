@@ -96,9 +96,12 @@ class GaussianImage_Cholesky(nn.Module):
         if grad_xyz is None:
             raise RuntimeError("grad_xyz 为空，请检查 self._xyz 是否参与了计算图的构建。")
         grad_magnitude = torch.norm(grad_xyz, dim=1)
+        percentile_10_count = int(0.1 * len(grad_magnitude))
+        sorted_grad_magnitude, _ = torch.sort(grad_magnitude)
+        high_gradient_threshold = sorted_grad_magnitude[0:percentile_10_count].min()
+        
         gaussian_values = torch.exp(-0.5 * torch.sum(self.get_xyz ** 2 / torch.clamp(self.get_cholesky_elements[:, [0, 2]], min=1e-6), dim=1))
-        high_gradient_threshold = 0.002
-        high_gaussian_threshold = 0.075
+        high_gaussian_threshold = torch.median(gaussian_values)
         # low_gaussian_threshold = 0.0005
         
 
