@@ -58,17 +58,14 @@ def generate_video(image_list, data_name, model_name,fps,iterations,num_points):
     video.release()
     print("MP4 video created successfully.")
 
-def generate_video_pos(image_list, data_name, model_name,fps,iterations,num_points,origin,combined):
+def generate_video_pos(image_list, data_name, model_name,fps,iterations,num_points,origin):
     video_path = Path(f"./result_pos/{data_name}/{model_name}_{iterations}_{num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
     # Define the output video file name
-    if combined:
-        filename = "video_combined"
+    if origin:
+        filename = "video.mp4"
     else:
-        if origin:
-            filename = "video.mp4"
-        else:
-            filename = "video_pos.mp4"
+        filename = "combined_video.mp4"
     # Get the size of the first image dynamically
     first_image = image_list[0]
     width, height = first_image.size  # Extract the size of the first image
@@ -81,13 +78,10 @@ def generate_video_pos(image_list, data_name, model_name,fps,iterations,num_poin
         video.write(img_cv)
     # Finalize and close the video writer
     video.release()
-    if combined:
-         print("video_combined.mp4: MP4 video created successfully.")
+    if origin:
+            print("video.mp4: MP4 video created successfully.")
     else:
-        if origin:
-             print("video.mp4: MP4 video created successfully.")
-        else:
-             print("video_pos.mp4: MP4 video created successfully.")
+            print("combined_video.mp4: MP4 video created successfully.")
 
 
 if __name__ == "__main__":
