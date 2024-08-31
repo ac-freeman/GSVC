@@ -136,7 +136,7 @@ def image_to_tensor(img: Image.Image):
 def parse_args(argv):
     parser = argparse.ArgumentParser(description="Example training script.")
     parser.add_argument(
-        "-d", "--dataset", type=str, default='../data/UVG/Beauty', help="Training dataset"
+        "-d", "--dataset", type=str, default='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv', help="Training dataset"
     )
     parser.add_argument(
         "--data_name", type=str, default='Beauty', help="Training dataset"
