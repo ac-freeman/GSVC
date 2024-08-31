@@ -137,8 +137,10 @@ class SimpleTrainer2d:
             combined_width = img_pos.width + img.width+img_pos_sca.width
             combined_height = max(img_pos.height, img.height, img_pos_sca.height)
             combined_img = Image.new("RGB", (combined_width, combined_height))
-            combined_img.paste(img_pos, (0, 0))
-            combined_img.paste(img, (img_pos.width, 0))
+            combined_img.paste(img_pos_sca, (0, 0))
+            combined_img.paste(img_pos, (img_pos_sca.width, 0))
+            combined_img.paste(img, (img_pos.width + img_pos_sca.width, 0))
+
             # 保存拼接后的图片
             combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
             combined_img.save(str(save_path_img / combined_name))
@@ -151,8 +153,8 @@ class SimpleTrainer2d:
             combined_height = max(img_pos.height, img.height, img_pos_sca.height)
             combined_img = Image.new("RGB", (combined_width, combined_height))
             combined_img.paste(img_pos_sca, (0, 0))
-            combined_img.paste(img, (img_pos_sca.width, 0))
-            combined_img.paste(img, (img_pos_sca.width+img_pos.width, 0))
+            combined_img.paste(img_pos, (img_pos_sca.width, 0))
+            combined_img.paste(img, (img_pos.width + img_pos_sca.width, 0))
         return psnr, ms_ssim_value,img,combined_img
 
 def image_to_tensor(img: Image.Image):

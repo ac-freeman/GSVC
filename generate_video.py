@@ -74,14 +74,16 @@ def generate_video_pos(image_list, data_name, model_name,fps,iterations,num_poin
     video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
     # Add images to the video writer
     for img in tqdm(image_list, desc="Processing images", unit="image"):  # Iterate directly over the image_list      
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
         img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
         video.write(img_cv)
     # Finalize and close the video writer
     video.release()
     if origin:
-            print("video.mp4: MP4 video created successfully.")
+        print("video.mp4: MP4 video created successfully.")
     else:
-            print("combined_video.mp4: MP4 video created successfully.")
+        print("combined_video.mp4: MP4 video created successfully.")
 
 
 if __name__ == "__main__":
