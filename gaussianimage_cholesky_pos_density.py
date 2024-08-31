@@ -23,7 +23,7 @@ class GaussianImage_Cholesky(nn.Module):
             1,
         ) # 
         self.device = kwargs["device"]
-
+        self.opt_type = kwargs["opt_type"]
         self._xyz = nn.Parameter(torch.atanh(2 * (torch.rand(self.init_num_points, 2) - 0.5)))
         self._cholesky = nn.Parameter(torch.rand(self.init_num_points, 3))
         self.register_buffer('_opacity', torch.ones((self.init_num_points, 1)))
@@ -35,16 +35,16 @@ class GaussianImage_Cholesky(nn.Module):
         self.rgb_activation = torch.sigmoid
         self.register_buffer('bound', torch.tensor([0.5, 0.5]).view(1, 2))
         self.register_buffer('cholesky_bound', torch.tensor([0.5, 0, 0.5]).view(1, 3))
-
+        self.lr = kwargs["lr"]
         if self.quantize:
             self.xyz_quantizer = FakeQuantizationHalf.apply 
             self.features_dc_quantizer = VectorQuantizer(codebook_dim=3, codebook_size=8, num_quantizers=2, vector_type="vector", kmeans_iters=5) 
             self.cholesky_quantizer = UniformQuantizer(signed=False, bits=6, learned=True, num_channels=3)
 
-        if kwargs["opt_type"] == "adam":
-            self.optimizer = torch.optim.Adam(self.parameters(), lr=kwargs["lr"])
+        if self.opt_type == "adam":
+            self.optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
         else:
-            self.optimizer = Adan(self.parameters(), lr=kwargs["lr"])
+            self.optimizer = Adan(self.parameters(), lr=self.lr)
         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
 
     def _init_data(self):
@@ -92,22 +92,12 @@ class GaussianImage_Cholesky(nn.Module):
         return {"render": out_img}
 
     def update_optimizer(self):
-        # 取得当前的学习率和调度器状态
-        current_lr = self.optimizer.param_groups[0]['lr']
-        step_size = self.scheduler.step_size
-        gamma = self.scheduler.gamma
-        last_epoch = self.scheduler.last_epoch
-
-        # 重新初始化优化器
-        if isinstance(self.optimizer, Adan):
-            self.optimizer = Adan(self.parameters(), lr=current_lr)
+        if self.opt_type == "adam":
+            self.optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
         else:
-            self.optimizer = torch.optim.Adam(self.parameters(), lr=current_lr)
-        # 设置 initial_lr 参数
-        for param_group in self.optimizer.param_groups:
-            param_group['initial_lr'] = current_lr
+            self.optimizer = Adan(self.parameters(), lr=self.lr)
         # 重新初始化学习率调度器
-        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=step_size, gamma=gamma, last_epoch=last_epoch)
+        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
 
 
 
