@@ -83,6 +83,10 @@ class SimpleTrainer2d:
         for iter in range(1, int(self.iterations)+1):
             loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter,self.isdensity)
             Gmodel =self.gaussian_model.state_dict()
+            filtered_Gmodel = {
+                k: v for k, v in Gmodel.items()
+                if k in ['_xyz', '_cholesky', '_features_dc']
+            }
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -120,7 +124,7 @@ class SimpleTrainer2d:
         # print(f"_cholesky shape: {cholesky_shape}")
         # print(f"_features_dc shape: {features_dc_shape}")
         # print(f"_opacity shape: {opacity_shape}")
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, Gmodel,img,combined_img,num_gaussian_points
+        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel,img,combined_img,num_gaussian_points
     def test(self,frame):
         self.gaussian_model.eval()
         with torch.no_grad():
