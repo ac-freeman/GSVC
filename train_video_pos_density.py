@@ -196,7 +196,7 @@ def parse_args(argv):
         "--iterations", type=int, default=10000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
-        "--densification_interval",type=int,default=300,help="densification_interval (default: %(default)s)"
+        "--densification_interval",type=int,default=1000,help="densification_interval (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
@@ -262,7 +262,7 @@ def main(argv):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
-                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False)
+                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=True)
         else:
             #model_path = Path("./result") / args.data_name / args.model_name / f"Guassians/gaussian_model_{i}.pth.tar"
             # for param_name, param_value in Gmodel.items():

@@ -92,22 +92,14 @@ class GaussianImage_Cholesky(nn.Module):
         return {"render": out_img}
 
     def density_control(self):
-         # 计算梯度
         grad_xyz = self._xyz.grad
-        # 确保 grad_xyz 不为空
         if grad_xyz is None:
             raise RuntimeError("grad_xyz 为空，请检查 self._xyz 是否参与了计算图的构建。")
-
-        # 计算坐标梯度的模
         grad_magnitude = torch.norm(grad_xyz, dim=1)
-
-        # 计算高斯值, 使用_cholesky矩阵的第一列和第三列(对应缩放因子)
         gaussian_values = torch.exp(-0.5 * torch.sum(self.get_xyz ** 2 / torch.clamp(self.get_cholesky_elements[:, [0, 2]], min=1e-6), dim=1))
-
-        # 定义阈值, 根据需要调整
-        high_gradient_threshold = torch.median(grad_magnitude)
-        high_gaussian_threshold = torch.median(gaussian_values)
-        low_gaussian_threshold = high_gaussian_threshold / 2
+        high_gradient_threshold = 0.0002
+        high_gaussian_threshold = 0.075
+        low_gaussian_threshold = 0.0075
         
 
         # Split large coordinate gradient & large gaussian values
@@ -153,7 +145,7 @@ class GaussianImage_Cholesky(nn.Module):
             psnr = 10 * math.log10(1.0 / mse_loss.item())
         if (iter+1) % (self.densification_interval) == 0 and iter > 0 and isdensity:
             self.density_control()
-            #print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
+            print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
         self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
 
