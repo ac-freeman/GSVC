@@ -140,20 +140,19 @@ class GaussianImage_Cholesky(nn.Module):
             clone_indices = clone_indices[:clone_fraction]
         
         if len(split_indices) > 0:
-            self._xyz.data = torch.cat([self._xyz.data, self._xyz.data[split_indices]], dim=0)
-            self._cholesky.data = torch.cat([self._cholesky.data, self._cholesky.data[split_indices] / 2], dim=0)
-            self._features_dc.data = torch.cat([self._features_dc.data, self._features_dc.data[split_indices]], dim=0)
+            self._xyz.data = nn.Parameter(torch.cat([self._xyz.data, self._xyz.data[split_indices]], dim=0))
+            self._cholesky.data = nn.Parameter(torch.cat([self._cholesky.data, self._cholesky.data[split_indices] / 2], dim=0))
+            self._features_dc.data =nn.Parameter(torch.cat([self._features_dc.data, self._features_dc.data[split_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[split_indices]], dim=0)
 
         # 执行 Clone 操作
         if len(clone_indices) > 0:
-            self._xyz.data = torch.cat([self._xyz.data, self._xyz.data[clone_indices]], dim=0)
-            self._cholesky.data = torch.cat([self._cholesky.data, self._cholesky.data[clone_indices]], dim=0)
-            self._features_dc.data = torch.cat([self._features_dc.data, self._features_dc.data[clone_indices]], dim=0)
+            self._xyz.data = nn.Parameter(torch.cat([self._xyz.data, self._xyz.data[clone_indices]], dim=0))
+            self._cholesky.data = nn.Parameter(torch.cat([self._cholesky.data, self._cholesky.data[clone_indices]], dim=0))
+            self._features_dc.data = nn.Parameter(torch.cat([self._features_dc.data, self._features_dc.data[clone_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
         
         self.update_optimizer()
-        self.optimizer.step()
         print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
 
     def train_iter(self, gt_image,iter,isdensity):
@@ -166,8 +165,8 @@ class GaussianImage_Cholesky(nn.Module):
             psnr = 10 * math.log10(1.0 / mse_loss.item())
         if (iter+1) % (self.densification_interval) == 0 and iter > 0 and isdensity:
             self.density_control()
-        else:   
-            self.optimizer.step()
+            
+        self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
         
         self.scheduler.step()
