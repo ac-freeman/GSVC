@@ -48,15 +48,15 @@ class SimpleTrainer2d:
             self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False).to(self.device)
 
-        elif model_name == "GaussianImage_RS":
-            from filed.gaussianimage_rs import GaussianImage_RS
-            self.gaussian_model = GaussianImage_RS(loss_type="L2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
-                device=self.device, lr=args.lr, quantize=False).to(self.device) 
+        # elif model_name == "GaussianImage_RS":
+        #     from filed.gaussianimage_rs import GaussianImage_RS
+        #     self.gaussian_model = GaussianImage_RS(loss_type="L2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
+        #         device=self.device, lr=args.lr, quantize=False).to(self.device) 
 
-        elif model_name == "3DGS":
-            from filed.gaussiansplatting_3d import Gaussian3D
-            self.gaussian_model = Gaussian3D(loss_type="Fusion2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
-                device=self.device, sh_degree=args.sh_degree, lr=args.lr).to(self.device)
+        # elif model_name == "3DGS":
+        #     from filed.gaussiansplatting_3d import Gaussian3D
+        #     self.gaussian_model = Gaussian3D(loss_type="Fusion2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
+        #         device=self.device, sh_degree=args.sh_degree, lr=args.lr).to(self.device)
 
         #self.logwriter = LogWriter(self.log_dir)
 
@@ -192,7 +192,7 @@ def parse_args(argv):
     parser.add_argument(
         "--num_points",
         type=int,
-        default=50000,
+        default=10000,
         help="2D GS points (default: %(default)s)",
     )
     parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
