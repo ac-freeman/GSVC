@@ -108,17 +108,17 @@ class SimpleTrainer2d:
         #np.save(self.log_dir / "training.npy", {"iterations": iter_list, "training_psnr": psnr_list, "training_time": end_time, "psnr": psnr_value, "ms-ssim": ms_ssim_value, "rendering_time": test_end_time, "rendering_fps": 1/test_end_time})
         Gmodel =self.gaussian_model.state_dict()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
-        # # 读取 Gmodel 并查看参数大小
-        # xyz_shape = Gmodel['_xyz'].size()
-        # cholesky_shape = Gmodel['_cholesky'].size()
-        # features_dc_shape = Gmodel['_features_dc'].size()
-        # opacity_shape = Gmodel['_opacity'].size()
+        # 读取 Gmodel 并查看参数大小
+        xyz_shape = Gmodel['_xyz'].size()
+        cholesky_shape = Gmodel['_cholesky'].size()
+        features_dc_shape = Gmodel['_features_dc'].size()
+        opacity_shape = Gmodel['_opacity'].size()
 
-        # # 打印参数的形状
-        # print(f"_xyz shape: {xyz_shape}")
-        # print(f"_cholesky shape: {cholesky_shape}")
-        # print(f"_features_dc shape: {features_dc_shape}")
-        # print(f"_opacity shape: {opacity_shape}")
+        # 打印参数的形状
+        print(f"_xyz shape: {xyz_shape}")
+        print(f"_cholesky shape: {cholesky_shape}")
+        print(f"_features_dc shape: {features_dc_shape}")
+        print(f"_opacity shape: {opacity_shape}")
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, Gmodel,img,combined_img,num_gaussian_points
     def test(self,frame):
         self.gaussian_model.eval()
@@ -265,8 +265,8 @@ def main(argv):
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=num_gaussian_points, 
                 iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
         psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img,combined_img,num_gaussian_points = trainer.train(i)
-        for param_name, param_value in Gmodel.items():
-                print(f"Parameter: {param_name}, Shape: {param_value.shape}")
+        # for param_name, param_value in Gmodel.items():
+        #         print(f"Parameter: {param_name}, Shape: {param_value.shape}")
         img_list.append(img)
         img_list_combined.append(combined_img)
         psnrs.append(psnr)
