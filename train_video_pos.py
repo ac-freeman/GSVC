@@ -142,7 +142,7 @@ class SimpleTrainer2d:
             combined_img.save(str(save_path_img / combined_name))
         else:
             transform = transforms.ToPILImage()
-            img_pos = transform(out["render_pos"].float().squeeze(0))
+            img_pos = transform(img_pos["render_pos"].float().squeeze(0))
             img = transform(out["render"].float().squeeze(0))
             combined_width = img_pos.width + img.width
             combined_height = max(img_pos.height, img.height)
