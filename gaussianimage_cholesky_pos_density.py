@@ -99,18 +99,18 @@ class GaussianImage_Cholesky(nn.Module):
         percentile_10_count = int(0.1 * len(grad_magnitude))
         sorted_grad_magnitude, _ = torch.sort(grad_magnitude)
         high_gradient_threshold = sorted_grad_magnitude[0:percentile_10_count].min()
-        
+
         gaussian_values = torch.exp(-0.5 * torch.sum(self.get_xyz ** 2 / torch.clamp(self.get_cholesky_elements[:, [0, 2]], min=1e-6), dim=1))
-        high_gaussian_threshold = torch.median(gaussian_values)
+        gaussian_threshold = torch.median(gaussian_values)
         # low_gaussian_threshold = 0.0005
         
 
         # Split large coordinate gradient & large gaussian values
-        split_mask = (grad_magnitude > high_gradient_threshold) & (gaussian_values > high_gaussian_threshold)
+        split_mask = (grad_magnitude > high_gradient_threshold) & (gaussian_values > gaussian_threshold)
         split_indices = torch.nonzero(split_mask).squeeze()
 
         # Clone large coordinate gradient & small gaussian values
-        clone_mask = (grad_magnitude > high_gradient_threshold) & (gaussian_values < high_gaussian_threshold)
+        clone_mask = (grad_magnitude > high_gradient_threshold) & (gaussian_values < gaussian_threshold)
         clone_indices = torch.nonzero(clone_mask).squeeze()
 
         if split_indices.dim() > 0:
@@ -125,7 +125,7 @@ class GaussianImage_Cholesky(nn.Module):
 
         current_num_points = self._xyz.shape[0]
         potential_new_points = current_num_points + num_split_indices + num_clone_indices
-
+        print(percentile_10_count,num_split_indices,num_clone_indices)
         if potential_new_points > self.max_num_points:
             remaining_slots =self.max_num_points - current_num_points
             split_fraction = min(len(split_indices), remaining_slots // 2)
@@ -147,6 +147,8 @@ class GaussianImage_Cholesky(nn.Module):
             self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
             self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
+        
+        print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
 
     def train_iter(self, gt_image,iter,isdensity):
         render_pkg = self.forward()
@@ -158,7 +160,7 @@ class GaussianImage_Cholesky(nn.Module):
             psnr = 10 * math.log10(1.0 / mse_loss.item())
         if (iter+1) % (self.densification_interval) == 0 and iter > 0 and isdensity:
             self.density_control()
-            print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
+            
         self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
 
