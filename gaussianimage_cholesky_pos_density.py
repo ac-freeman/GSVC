@@ -98,7 +98,7 @@ class GaussianImage_Cholesky(nn.Module):
         grad_magnitude = torch.norm(grad_xyz, dim=1)
         gaussian_values = torch.exp(-0.5 * torch.sum(self.get_xyz ** 2 / torch.clamp(self.get_cholesky_elements[:, [0, 2]], min=1e-6), dim=1))
         high_gradient_threshold = 0.002
-        high_gaussian_threshold = 0.75
+        high_gaussian_threshold = 0.075
         low_gaussian_threshold = 0.0005
         
 
