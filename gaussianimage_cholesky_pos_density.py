@@ -142,7 +142,9 @@ class GaussianImage_Cholesky(nn.Module):
             self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
             self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
-        
+        self._xyz.retain_grad() 
+        self._cholesky.retain_grad() 
+        self._features_dc.retain_grad() 
         new_parameters = [
             self._xyz[original_num_points:],
             self._cholesky[original_num_points:],
