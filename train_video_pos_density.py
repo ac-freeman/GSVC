@@ -88,6 +88,7 @@ class SimpleTrainer2d:
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
+                    print(f"After split/clone: _cholesky size: {self.gaussian_model._cholesky.size()}, _features_dc size: {self.gaussian_model._features_dc.size()}")
         end_time = time.time() - start_time
         progress_bar.close()
         psnr_value, ms_ssim_value,img,combined_img = self.test(frame)
@@ -97,7 +98,6 @@ class SimpleTrainer2d:
             for i in range(100):
                 _ = self.gaussian_model()
             test_end_time = (time.time() - test_start_time)/100
-        print(f"After split/clone: _cholesky size: {self.gaussian_model._cholesky.size()}, _features_dc size: {self.gaussian_model._features_dc.size()}")
         # 定义文件路径
         #save_path_gaussian = Path(f"./Models/{self.data_name}/{self.model_name}/{self.num_points}")
         #save_path_gaussian = self.log_dir / "Guassians"
