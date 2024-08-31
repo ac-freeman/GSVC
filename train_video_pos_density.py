@@ -260,10 +260,10 @@ def main(argv):
                 iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=True)
         else:
             #model_path = Path("./result") / args.data_name / args.model_name / f"Guassians/gaussian_model_{i}.pth.tar"
-            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=num_gaussian_points, 
-                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
             for param_name, param_value in Gmodel.items():
                 print(f"Parameter: {param_name}, Shape: {param_value.shape}")
+            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=num_gaussian_points, 
+                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
         psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img,combined_img,num_gaussian_points = trainer.train(i)
         img_list.append(img)
         img_list_combined.append(combined_img)
