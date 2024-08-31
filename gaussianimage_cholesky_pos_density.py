@@ -152,7 +152,7 @@ class GaussianImage_Cholesky(nn.Module):
             self._features_dc.data = nn.Parameter(torch.cat([self._features_dc.data, self._features_dc.data[clone_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
         
-        self.update_optimizer()
+        #self.update_optimizer()
         print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
 
     def train_iter(self, gt_image,iter,isdensity):
