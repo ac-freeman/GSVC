@@ -146,14 +146,24 @@ class GaussianImage_Cholesky(nn.Module):
         self._cholesky.retain_grad() 
         self._features_dc.retain_grad() 
 
-        new_size = self._xyz.shape[0] - original_num_points
+        new_parameters = [
+        self._xyz[original_num_points:],
+        self._cholesky[original_num_points:],
+        self._features_dc[original_num_points:],
+        self._opacity[original_num_points:]
+    ]
 
-        for param_group in self.optimizer.param_groups:
+        if new_parameters:
+            for param_group in self.optimizer.param_groups:
+                param_group['params'].extend(new_parameters)
+            
+            # 这里需要手动管理优化器的内部状态（例如动量），视具体优化器实现而定
             for state in self.optimizer.state.values():
                 if 'exp_avg' in state:
-                    state['exp_avg'] = torch.cat([state['exp_avg'], torch.zeros(new_size, *state['exp_avg'].shape[1:], device=state['exp_avg'].device)], dim=0)
+                    state['exp_avg'] = torch.cat([state['exp_avg'], torch.zeros_like(new_parameters)], dim=0)
                 if 'exp_avg_sq' in state:
-                    state['exp_avg_sq'] = torch.cat([state['exp_avg_sq'], torch.zeros(new_size, *state['exp_avg_sq'].shape[1:], device=state['exp_avg_sq'].device)], dim=0)
+                    state['exp_avg_sq'] = torch.cat([state['exp_avg_sq'], torch.zeros_like(new_parameters)], dim=0)
+        
         
         print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
 
