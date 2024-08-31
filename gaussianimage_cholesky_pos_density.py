@@ -128,9 +128,7 @@ class GaussianImage_Cholesky(nn.Module):
 
             split_indices = split_indices[:split_fraction]
             clone_indices = clone_indices[:clone_fraction]
-        print(f"split_indices size: {split_indices.size()}")
-        print(f"clone_indices size: {clone_indices.size()}")
-        print(f"Before split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
+
         # 执行 Split 操作
         if len(split_indices) > 0:
             self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[split_indices]], dim=0))
@@ -144,7 +142,7 @@ class GaussianImage_Cholesky(nn.Module):
             self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
             self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
-        print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
+
     def train_iter(self, gt_image,iter,isdensity):
         render_pkg = self.forward()
         image = render_pkg["render"]
@@ -155,6 +153,7 @@ class GaussianImage_Cholesky(nn.Module):
             psnr = 10 * math.log10(1.0 / mse_loss.item())
         if (iter+1) % (self.densification_interval) == 0 and iter > 0 and isdensity:
             self.density_control()
+            print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
         self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
 
