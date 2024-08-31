@@ -242,7 +242,7 @@ def main(argv):
         psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img,img_pos,combined_img,num_gaussian_points = trainer.train(i)
         img_list.append(img)
         img_list_pos.append(img_pos)
-        img_list_combined.append(img_list_combined)
+        img_list_combined.append(combined_img)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
         training_times.append(training_time) 
