@@ -229,7 +229,7 @@ def main(argv):
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    # image_length=3
+    image_length=3
     Gmodel=None
     img_list=[]
     img_list_combined=[]
@@ -256,6 +256,7 @@ def main(argv):
         image_w += trainer.W
         gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
         num_gaussian_points_dict[f"frame_{frame_num}"]=num_gaussian_points
+        torch.cuda.empty_cache()
         if i==0 or (i+1)%100==0:
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
