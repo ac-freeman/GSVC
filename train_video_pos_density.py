@@ -95,12 +95,12 @@ class SimpleTrainer2d:
         self.gaussian_model.eval()
         with torch.no_grad():
             out = self.gaussian_model()
-            out_pos =self.gaussian_model.forward_pos(num_gaussian_points)
+            #out_pos =self.gaussian_model.forward_pos(num_gaussian_points)
             out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
         mse_loss = F.mse_loss(out["render"].float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out["render"].float(), self.gt_image.float(), data_range=1, size_average=True).item()
-        if frame==0 and self.save_imgs:
+        if (epoch==0 or (epoch+1)%100==0 ) and self.save_imgs:
             # save_path_img = self.log_dir / "img"
             # save_path_img.mkdir(parents=True, exist_ok=True)
             # transform = transforms.ToPILImage()
@@ -116,15 +116,22 @@ class SimpleTrainer2d:
             # 转换为PIL图像
             transform = transforms.ToPILImage()
             img_pos_sca = transform(out_pos_sca["render_pos_sca"].float().squeeze(0))
-            img_pos = transform(out_pos["render_pos"].float().squeeze(0))
+            #img_pos = transform(out_pos["render_pos"].float().squeeze(0))
             img = transform(out["render"].float().squeeze(0))
             # 拼接图片
-            combined_width = img_pos.width + img.width+img_pos_sca.width
-            combined_height = max(img_pos.height, img.height, img_pos_sca.height)
+            # combined_width = img_pos.width + img.width+img_pos_sca.width
+            # combined_height = max(img_pos.height, img.height, img_pos_sca.height)
+            # combined_img = Image.new("RGB", (combined_width, combined_height))
+            # combined_img.paste(img_pos_sca, (0, 0))
+            # combined_img.paste(img_pos, (img_pos_sca.width, 0))
+            # combined_img.paste(img, (img_pos.width + img_pos_sca.width, 0))
+
+
+            combined_width =img.width+img_pos_sca.width
+            combined_height = max(img.height, img_pos_sca.height)
             combined_img = Image.new("RGB", (combined_width, combined_height))
             combined_img.paste(img_pos_sca, (0, 0))
-            combined_img.paste(img_pos, (img_pos_sca.width, 0))
-            combined_img.paste(img, (img_pos.width + img_pos_sca.width, 0))
+            combined_img.paste(img, (img_pos_sca.width, 0))
 
             # 保存拼接后的图片
             combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
@@ -132,14 +139,19 @@ class SimpleTrainer2d:
         else:
             transform = transforms.ToPILImage()
             img_pos_sca = transform(out_pos_sca["render_pos_sca"].float().squeeze(0))
-            img_pos = transform(out_pos["render_pos"].float().squeeze(0))
+            #img_pos = transform(out_pos["render_pos"].float().squeeze(0))
             img = transform(out["render"].float().squeeze(0))
-            combined_width = img_pos.width + img.width+img_pos_sca.width
-            combined_height = max(img_pos.height, img.height, img_pos_sca.height)
+            # combined_width = img_pos.width + img.width+img_pos_sca.width
+            # combined_height = max(img_pos.height, img.height, img_pos_sca.height)
+            # combined_img = Image.new("RGB", (combined_width, combined_height))
+            # combined_img.paste(img_pos_sca, (0, 0))
+            # combined_img.paste(img_pos, (img_pos_sca.width, 0))
+            # combined_img.paste(img, (img_pos.width + img_pos_sca.width, 0))
+            combined_width =img.width+img_pos_sca.width
+            combined_height = max(img.height, img_pos_sca.height)
             combined_img = Image.new("RGB", (combined_width, combined_height))
             combined_img.paste(img_pos_sca, (0, 0))
-            combined_img.paste(img_pos, (img_pos_sca.width, 0))
-            combined_img.paste(img, (img_pos.width + img_pos_sca.width, 0))
+            combined_img.paste(img, (img_pos_sca.width, 0))
         return psnr, ms_ssim_value,img,combined_img
 
 def image_to_tensor(img: Image.Image):
@@ -217,7 +229,7 @@ def main(argv):
     image_length,start=len(video_frames),0
     # image_length=2
     Gmodel=None
-    img_list=[]
+    #img_list=[]
     img_list_combined=[]
     gmodels_state_dict = {}
     num_gaussian_points_dict={}
@@ -232,10 +244,10 @@ def main(argv):
             #     print(f"Parameter: {param_name}, Shape: {param_value.shape}")
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=num_gaussian_points, 
                 iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
-        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img,combined_img,num_gaussian_points = trainer.train(i)
+        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,_,combined_img,num_gaussian_points = trainer.train(i)
         # for param_name, param_value in Gmodel.items():
         #         print(f"Parameter: {param_name}, Shape: {param_value.shape}")
-        img_list.append(img)
+        #img_list.append(img)
         img_list_combined.append(combined_img)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
@@ -246,6 +258,7 @@ def main(argv):
         image_w += trainer.W
         gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
         num_gaussian_points_dict[f"frame_{frame_num}"]=num_gaussian_points
+        torch.cuda.empty_cache()
         if i==0 or (i+1)%100==0:
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
@@ -262,7 +275,7 @@ def main(argv):
 
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps))
-    generate_video_pos_density(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
+    #generate_video_pos_density(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
     generate_video_pos_density(img_list_combined, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
 
 if __name__ == "__main__":
