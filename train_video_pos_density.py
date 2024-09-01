@@ -100,7 +100,7 @@ class SimpleTrainer2d:
         mse_loss = F.mse_loss(out["render"].float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out["render"].float(), self.gt_image.float(), data_range=1, size_average=True).item()
-        if (epoch==0 or (epoch+1)%100==0 ) and self.save_imgs:
+        if (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
             # save_path_img = self.log_dir / "img"
             # save_path_img.mkdir(parents=True, exist_ok=True)
             # transform = transforms.ToPILImage()
