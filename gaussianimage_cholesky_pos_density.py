@@ -170,7 +170,7 @@ class GaussianImage_Cholesky(nn.Module):
             self.density_control()
             for param_group in self.optimizer.param_groups:
                 for param in param_group['params']:
-                    print(param.size())
+                    print(param.size(), param.requires_grad)
             
         self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
