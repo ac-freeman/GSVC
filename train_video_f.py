@@ -39,7 +39,7 @@ class SimpleTrainer2d:
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
         self.iterations = iterations
         self.save_imgs = args.save_imgs
-        self.log_dir = Path(f"./result/{args.data_name}/{model_name}_{iterations}_{num_points}")
+        self.log_dir = Path(f"./result_fps/{args.data_name}/{model_name}_{iterations}_{num_points}")
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky import GaussianImage_Cholesky
             self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
@@ -134,13 +134,13 @@ def image_to_tensor(img: Image.Image):
 def parse_args(argv):
     parser = argparse.ArgumentParser(description="Example training script.")
     parser.add_argument(
-        "-d", "--dataset", type=str, default='../data/UVG/Beauty', help="Training dataset"
+        "-d", "--dataset", type=str, default='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv', help="Training dataset"
     )
     parser.add_argument(
         "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--iterations", type=int, default=50000, help="number of training epochs (default: %(default)s)"
+        "--iterations", type=int, default=5000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
@@ -154,7 +154,7 @@ def parse_args(argv):
     parser.add_argument(
         "--num_points",
         type=int,
-        default=50000,
+        default=5000,
         help="2D GS points (default: %(default)s)",
     )
     parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
@@ -178,7 +178,7 @@ def main(argv):
     args.fps=120
     width = 1920
     height = 1080
-    gmodel_save_path = Path(f"./models/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
+    gmodel_save_path = Path(f"./models_fps/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)  # 确保保存目录存在
     # Cache the args as a text string to save them in the output dir later
     args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
@@ -190,12 +190,12 @@ def main(argv):
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
 
-    logwriter = LogWriter(Path(f"./result/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
+    logwriter = LogWriter(Path(f"./result_fps/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
     psnrs, ms_ssims, training_times, eval_times, eval_fpses = [], [], [], [], []
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    # image_length=5
+    image_length=150
     Gmodel=None
     img_list=[]
     gmodels_state_dict = {}
@@ -232,7 +232,7 @@ def main(argv):
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps))
 
-    generate_video(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points)  
+    #generate_video(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points)  
 
 if __name__ == "__main__":
     
