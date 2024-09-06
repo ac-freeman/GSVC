@@ -198,7 +198,7 @@ def path_generate_video(num_frames, data_name, model_name,fps):
     print("MP4 video created successfully.")
 
 def generate_video(image_list, data_name, model_name,fps,iterations,num_points):
-    video_path = Path(f"./checkpoint/result/{data_name}/{model_name}_{iterations}_{num_points}/video")
+    video_path = Path(f"./checkpoints/result/{data_name}/{model_name}_{iterations}_{num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
     # Define the output video file name
     filename = "video.mp4"
@@ -217,7 +217,7 @@ def generate_video(image_list, data_name, model_name,fps,iterations,num_points):
     print("MP4 video created successfully.")
 
 def generate_video_pos(image_list, data_name, model_name,fps,iterations,num_points,origin):
-    video_path = Path(f"./checkpoint/result_pos/{data_name}/{model_name}_{iterations}_{num_points}/video")
+    video_path = Path(f"./checkpoints/result_pos/{data_name}/{model_name}_{iterations}_{num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
     # Define the output video file name
     if origin:
@@ -244,7 +244,7 @@ def generate_video_pos(image_list, data_name, model_name,fps,iterations,num_poin
         print("combined_video.mp4: MP4 video created successfully.")
 
 def generate_video_I(image_list, data_name, model_name,fps,iterations,num_points):
-    video_path = Path(f"./checkpoint/result_I/{data_name}/{model_name}_{iterations}_{num_points}/video")
+    video_path = Path(f"./checkpoints/result_I/{data_name}/{model_name}_{iterations}_{num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
     # Define the output video file name
     filename = "video.mp4"
@@ -263,7 +263,7 @@ def generate_video_I(image_list, data_name, model_name,fps,iterations,num_points
     print("MP4 video created successfully.")
 
 def generate_video_pos_density(image_list, data_name, model_name,fps,iterations,num_points,origin):
-    video_path = Path(f"./checkpoint/result_pos_density/{data_name}/{model_name}_{iterations}_{num_points}/video")
+    video_path = Path(f"./checkpoints/result_pos_density/{data_name}/{model_name}_{iterations}_{num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
     # Define the output video file name
     if origin:

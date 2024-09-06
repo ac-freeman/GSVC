@@ -1,16 +1,7 @@
 gsplat/
 checkpoint/
+checkpoints/
 videogs_loss_error.txt
 videogs_loss_output.txt  
-result/
-models/
 __pycache__/
-result_pos/
-result_ff/
-result_I/
-models_pos/
-models_ff/
-models_I/
 modelsize/
-vmaf/
-result_pos_density/
