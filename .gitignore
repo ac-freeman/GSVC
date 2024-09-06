@@ -4,4 +4,7 @@ Sup/checkpoint/
 videogs_loss_error.txt
 videogs_loss_output.txt  
 __pycache__/
+<<<<<<< HEAD
+=======
 modelsize/
+>>>>>>> cc58c1bdb1d6f271d264defb31e543e6c2380d26
