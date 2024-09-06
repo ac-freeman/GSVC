@@ -61,7 +61,7 @@ class SimpleTrainer2d:
             model_dict.update(pretrained_dict)
             self.gaussian_model.load_state_dict(model_dict)
     def train(self,frame,ispos):     
-        psnr_list, iter_list = [], []
+        psnr_list, iter_list, img_list=[], [], []
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
@@ -73,10 +73,13 @@ class SimpleTrainer2d:
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
+                if iter % 100 == 0:
+                    _, _,img = self.test(frame,num_gaussian_points,ispos)
+                    img_list.append(img)
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
-        psnr_value, ms_ssim_value,img = self.test(frame,num_gaussian_points,ispos)
+        psnr_value, ms_ssim_value,_ = self.test(frame,num_gaussian_points,ispos)
         with torch.no_grad():
             self.gaussian_model.eval()
             test_start_time = time.time()
@@ -88,7 +91,7 @@ class SimpleTrainer2d:
             k: v for k, v in Gmodel.items()
             if k in ['_xyz', '_cholesky', '_features_dc']
         }
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel,img,num_gaussian_points
+        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel,img_list,num_gaussian_points
     def test(self,frame,num_gaussian_points,ispos):
         self.gaussian_model.eval()
         with torch.no_grad():
@@ -180,10 +183,10 @@ def parse_args(argv):
         "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--iterations", type=int, default=5000, help="number of training epochs (default: %(default)s)"
+        "--iterations", type=int, default=50000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
-        "--densification_interval",type=int,default=5000,help="densification_interval (default: %(default)s)"
+        "--densification_interval",type=int,default=50000,help="densification_interval (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
@@ -242,7 +245,6 @@ def main(argv):
     image_length,start=len(video_frames),0
     image_length=1
     Gmodel=None
-    img_list=[]
     gmodels_state_dict = {}
     num_gaussian_points_dict={}
     for i in range(start, start+image_length):
@@ -253,8 +255,7 @@ def main(argv):
         else:
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=num_gaussian_points, 
                 iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
-        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img,num_gaussian_points = trainer.train(i,ispos)
-        img_list.append(img)
+        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img_list,num_gaussian_points = trainer.train(i,ispos)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
         training_times.append(training_time) 
