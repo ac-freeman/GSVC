@@ -265,8 +265,8 @@ def generate_video_I(image_list, data_name, model_name,fps,iterations,num_points
     video.release()
     print("MP4 video created successfully.")
 
-def generate_video_pos_density(image_list, data_name, model_name,fps,iterations,num_points,origin):
-    video_path = Path(f"./checkpoints/result_pos_density/{data_name}/{model_name}_{iterations}_{num_points}/video")
+def generate_video_density(image_list, data_name, model_name,fps,iterations,num_points,origin):
+    video_path = Path(f"./checkpoints/result_density/{data_name}/{model_name}_{iterations}_{num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
     # Define the output video file name
     if origin:

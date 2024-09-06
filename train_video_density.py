@@ -40,10 +40,10 @@ class SimpleTrainer2d:
         self.iterations = iterations
         self.densification_interval=args.densification_interval
         self.save_imgs = args.save_imgs
-        self.log_dir = Path(f"./checkpoint/result_pos_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
+        self.log_dir = Path(f"./checkpoints/result_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
         self.isdensity=isdensity
         if model_name == "GaussianImage_Cholesky":
-            from gaussianimage_cholesky_pos_density import GaussianImage_Cholesky
+            from gaussianimage_cholesky import GaussianImage_Cholesky
             self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False).to(self.device)
 
@@ -60,7 +60,7 @@ class SimpleTrainer2d:
             pretrained_dict = {k: v for k, v in checkpoint.items() if k in model_dict}
             model_dict.update(pretrained_dict)
             self.gaussian_model.load_state_dict(model_dict)
-    def train(self,frame):     
+    def train(self,frame,ispos):     
         psnr_list, iter_list = [], []
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
@@ -76,7 +76,7 @@ class SimpleTrainer2d:
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
-        psnr_value, ms_ssim_value,img,combined_img = self.test(frame,num_gaussian_points)
+        psnr_value, ms_ssim_value,img = self.test(frame,num_gaussian_points,ispos)
         with torch.no_grad():
             self.gaussian_model.eval()
             test_start_time = time.time()
@@ -88,69 +88,83 @@ class SimpleTrainer2d:
             k: v for k, v in Gmodel.items()
             if k in ['_xyz', '_cholesky', '_features_dc']
         }
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel,img,combined_img,num_gaussian_points
-    def test(self,frame,num_gaussian_points):
+        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel,img,num_gaussian_points
+    def test(self,frame,num_gaussian_points,ispos):
         self.gaussian_model.eval()
         with torch.no_grad():
             out = self.gaussian_model()
             #out_pos =self.gaussian_model.forward_pos(num_gaussian_points)
-            out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
+            if ispos:
+                out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
         mse_loss = F.mse_loss(out["render"].float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out["render"].float(), self.gt_image.float(), data_range=1, size_average=True).item()
-        if (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
-            # save_path_img = self.log_dir / "img"
-            # save_path_img.mkdir(parents=True, exist_ok=True)
-            # transform = transforms.ToPILImage()
-            # img_pos = transform(out["render_pos"].float().squeeze(0))
-            # img = transform(out["render"].float().squeeze(0))
-            # name_pos =str(self.frame_num) + "_fitting_pos.png"
-            # name =str(self.frame_num) + "_fitting.png"  
-            # img_pos.save(str(save_path_img / name_pos))
-            # img.save(str(save_path_img / name))
+        if ispos:
+            if (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
+                # save_path_img = self.log_dir / "img"
+                # save_path_img.mkdir(parents=True, exist_ok=True)
+                # transform = transforms.ToPILImage()
+                # img_pos = transform(out["render_pos"].float().squeeze(0))
+                # img = transform(out["render"].float().squeeze(0))
+                # name_pos =str(self.frame_num) + "_fitting_pos.png"
+                # name =str(self.frame_num) + "_fitting.png"  
+                # img_pos.save(str(save_path_img / name_pos))
+                # img.save(str(save_path_img / name))
 
+                save_path_img = self.log_dir / "img"
+                save_path_img.mkdir(parents=True, exist_ok=True)
+                # 转换为PIL图像
+                transform = transforms.ToPILImage()
+                img = transform(out["render"].float().squeeze(0))
+                img_pos_sca = transform(out_pos_sca["render_pos_sca"].float().squeeze(0))
+                #img_pos = transform(out_pos["render_pos"].float().squeeze(0))
+                
+                # 拼接图片
+                # combined_width = img_pos.width + img.width+img_pos_sca.width
+                # combined_height = max(img_pos.height, img.height, img_pos_sca.height)
+                # combined_img = Image.new("RGB", (combined_width, combined_height))
+                # combined_img.paste(img_pos_sca, (0, 0))
+                # combined_img.paste(img_pos, (img_pos_sca.width, 0))
+                # combined_img.paste(img, (img_pos.width + img_pos_sca.width, 0))
+
+
+                combined_width =img.width+img_pos_sca.width
+                combined_height = max(img.height, img_pos_sca.height)
+                combined_img = Image.new("RGB", (combined_width, combined_height))
+                combined_img.paste(img_pos_sca, (0, 0))
+                combined_img.paste(img, (img_pos_sca.width, 0))
+
+                # 保存拼接后的图片
+                combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
+                combined_img.save(str(save_path_img / combined_name))
+            else:
+                transform = transforms.ToPILImage()
+                img_pos_sca = transform(out_pos_sca["render_pos_sca"].float().squeeze(0))
+                #img_pos = transform(out_pos["render_pos"].float().squeeze(0))
+                img = transform(out["render"].float().squeeze(0))
+                # combined_width = img_pos.width + img.width+img_pos_sca.width
+                # combined_height = max(img_pos.height, img.height, img_pos_sca.height)
+                # combined_img = Image.new("RGB", (combined_width, combined_height))
+                # combined_img.paste(img_pos_sca, (0, 0))
+                # combined_img.paste(img_pos, (img_pos_sca.width, 0))
+                # combined_img.paste(img, (img_pos.width + img_pos_sca.width, 0))
+                combined_width =img.width+img_pos_sca.width
+                combined_height = max(img.height, img_pos_sca.height)
+                combined_img = Image.new("RGB", (combined_width, combined_height))
+                combined_img.paste(img_pos_sca, (0, 0))
+                combined_img.paste(img, (img_pos_sca.width, 0))
+            return psnr, ms_ssim_value,combined_img
+        if (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
             save_path_img = self.log_dir / "img"
             save_path_img.mkdir(parents=True, exist_ok=True)
-            # 转换为PIL图像
             transform = transforms.ToPILImage()
-            img_pos_sca = transform(out_pos_sca["render_pos_sca"].float().squeeze(0))
-            #img_pos = transform(out_pos["render_pos"].float().squeeze(0))
             img = transform(out["render"].float().squeeze(0))
-            # 拼接图片
-            # combined_width = img_pos.width + img.width+img_pos_sca.width
-            # combined_height = max(img_pos.height, img.height, img_pos_sca.height)
-            # combined_img = Image.new("RGB", (combined_width, combined_height))
-            # combined_img.paste(img_pos_sca, (0, 0))
-            # combined_img.paste(img_pos, (img_pos_sca.width, 0))
-            # combined_img.paste(img, (img_pos.width + img_pos_sca.width, 0))
-
-
-            combined_width =img.width+img_pos_sca.width
-            combined_height = max(img.height, img_pos_sca.height)
-            combined_img = Image.new("RGB", (combined_width, combined_height))
-            combined_img.paste(img_pos_sca, (0, 0))
-            combined_img.paste(img, (img_pos_sca.width, 0))
-
-            # 保存拼接后的图片
-            combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
-            combined_img.save(str(save_path_img / combined_name))
+            name =str(self.frame_num) + "_fitting.png" 
+            img.save(str(save_path_img / name))
         else:
             transform = transforms.ToPILImage()
-            img_pos_sca = transform(out_pos_sca["render_pos_sca"].float().squeeze(0))
-            #img_pos = transform(out_pos["render_pos"].float().squeeze(0))
             img = transform(out["render"].float().squeeze(0))
-            # combined_width = img_pos.width + img.width+img_pos_sca.width
-            # combined_height = max(img_pos.height, img.height, img_pos_sca.height)
-            # combined_img = Image.new("RGB", (combined_width, combined_height))
-            # combined_img.paste(img_pos_sca, (0, 0))
-            # combined_img.paste(img_pos, (img_pos_sca.width, 0))
-            # combined_img.paste(img, (img_pos.width + img_pos_sca.width, 0))
-            combined_width =img.width+img_pos_sca.width
-            combined_height = max(img.height, img_pos_sca.height)
-            combined_img = Image.new("RGB", (combined_width, combined_height))
-            combined_img.paste(img_pos_sca, (0, 0))
-            combined_img.paste(img, (img_pos_sca.width, 0))
-        return psnr, ms_ssim_value,img,combined_img
+        return psnr, ms_ssim_value,img
 
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
@@ -166,7 +180,7 @@ def parse_args(argv):
         "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--iterations", type=int, default=10000, help="number of training epochs (default: %(default)s)"
+        "--iterations", type=int, default=5000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
         "--densification_interval",type=int,default=5000,help="densification_interval (default: %(default)s)"
@@ -183,7 +197,7 @@ def parse_args(argv):
     parser.add_argument(
         "--num_points",
         type=int,
-        default=10000,
+        default=5000,
         help="2D GS points (default: %(default)s)",
     )
     parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
@@ -199,6 +213,7 @@ def parse_args(argv):
     return args
 
 def main(argv):
+    ispos = True
     args = parse_args(argv)
     #args.model_name="GaussianImage_Cholesky"
     # args.save_imgs=False
@@ -208,7 +223,7 @@ def main(argv):
     args.fps=120
     width = 1920
     height = 1080
-    gmodel_save_path = Path(f"./checkpoint/models_pos_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
+    gmodel_save_path = Path(f"./checkpoints/models_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)  # 确保保存目录存在
     # Cache the args as a text string to save them in the output dir later
     args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
@@ -220,15 +235,14 @@ def main(argv):
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
 
-    logwriter = LogWriter(Path(f"./checkpoint/result_pos_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
+    logwriter = LogWriter(Path(f"./checkpoints/result_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
     psnrs, ms_ssims, training_times, eval_times, eval_fpses = [], [], [], [], []
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    # image_length=2
+    # image_length=5
     Gmodel=None
-    #img_list=[]
-    img_list_combined=[]
+    img_list=[]
     gmodels_state_dict = {}
     num_gaussian_points_dict={}
     for i in range(start, start+image_length):
@@ -237,16 +251,10 @@ def main(argv):
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
                 iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=True)
         else:
-            #model_path = Path("./result") / args.data_name / args.model_name / f"Guassians/gaussian_model_{i}.pth.tar"
-            # for param_name, param_value in Gmodel.items():
-            #     print(f"Parameter: {param_name}, Shape: {param_value.shape}")
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=num_gaussian_points, 
                 iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
-        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,_,combined_img,num_gaussian_points = trainer.train(i)
-        # for param_name, param_value in Gmodel.items():
-        #         print(f"Parameter: {param_name}, Shape: {param_value.shape}")
-        #img_list.append(img)
-        img_list_combined.append(combined_img)
+        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img,num_gaussian_points = trainer.train(i,ispos)
+        img_list.append(img)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
         training_times.append(training_time) 
@@ -260,7 +268,8 @@ def main(argv):
         if i==0 or (i+1)%100==0:
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
-    with open(Path(f"./checkpoint/result_pos_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
+    file_size = os.path.getsize(os.path.join(gmodel_save_path, 'gmodels_state_dict.pth'))
+    with open(Path(f"./checkpoints/result_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
         for key, value in num_gaussian_points_dict.items():
             f.write(f'{key}: {value}\n')
     avg_psnr = torch.tensor(psnrs).mean().item()
@@ -271,11 +280,13 @@ def main(argv):
     avg_h = image_h//image_length
     avg_w = image_w//image_length
 
-    logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
-        avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps))
-    #generate_video_pos_density(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
-    generate_video_pos_density(img_list_combined, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
-
+    logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f}".format(
+        avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024)))
+    if ispos:
+        generate_video_density(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
+    else:
+        generate_video_density(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
+    
 if __name__ == "__main__":
     
     main(sys.argv[1:])

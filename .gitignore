@@ -1,6 +1,6 @@
 gsplat/
 checkpoint/
-checkpoints/
+Sup/checkpoint/
 videogs_loss_error.txt
 videogs_loss_output.txt  
 __pycache__/
