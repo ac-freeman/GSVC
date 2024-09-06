@@ -74,6 +74,7 @@ class SimpleTrainer2d:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
                 if iter % 100 == 0:
+                    num_gaussian_points =self.gaussian_model._xyz.size(0)
                     _, _,img = self.test(frame,num_gaussian_points,ispos)
                     img_list.append(img)
         end_time = time.time() - start_time
