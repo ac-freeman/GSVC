@@ -1,5 +1,0 @@
-frame_1: 5000
-frame_2: 5000
-frame_3: 5000
-frame_4: 5000
-frame_5: 5000
