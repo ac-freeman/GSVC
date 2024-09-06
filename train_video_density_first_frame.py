@@ -77,7 +77,7 @@ class SimpleTrainer2d:
                     progress_bar.update(10)
                 if iter % 100 == 0:
                     num_gaussian_points =self.gaussian_model._xyz.size(0)
-                    out_pos_sca =self.gaussian_model.forward_pos_sca_t(num_gaussian_points)
+                    out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
                     transform = transforms.ToPILImage()
                     img = transform(img.float().squeeze(0))
                     img_pos_sca = transform(out_pos_sca["render_pos_sca"].float().squeeze(0))
