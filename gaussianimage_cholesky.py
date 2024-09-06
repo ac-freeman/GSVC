@@ -176,5 +176,25 @@ class GaussianImage_Cholesky(nn.Module):
         
         self.scheduler.step()
         return loss, psnr
+    
+    def train_iter_img(self, gt_image,iter,isdensity):
+        render_pkg = self.forward()
+        image = render_pkg["render"]
+        loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
+        loss.backward()
+        with torch.no_grad():
+            mse_loss = F.mse_loss(image, gt_image)
+            psnr = 10 * math.log10(1.0 / mse_loss.item())
+        if (iter) % (self.densification_interval+1) == 0 and iter > 0 and isdensity:
+            self.density_control()
+            # for param_group in self.optimizer.param_groups:
+            #     for param in param_group['params']:
+            #         print(param.size(), param.requires_grad)
+            
+        self.optimizer.step()
+        self.optimizer.zero_grad(set_to_none = True)
+        
+        self.scheduler.step()
+        return loss, psnr,image
 
     

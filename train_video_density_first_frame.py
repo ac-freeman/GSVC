@@ -65,8 +65,10 @@ class SimpleTrainer2d:
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
+        save_path_img = self.log_dir / "img"
+        save_path_img.mkdir(parents=True, exist_ok=True)
         for iter in range(1, int(self.iterations)+1):
-            loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter,self.isdensity)
+            loss, psnr,img = self.gaussian_model.train_iter_img(self.gt_image,iter,self.isdensity)
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -74,9 +76,16 @@ class SimpleTrainer2d:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
                 if iter % 100 == 0:
-                    num_gaussian_points =self.gaussian_model._xyz.size(0)
-                    _, _,img = self.test(frame,num_gaussian_points,ispos)
-                    img_list.append(img)
+                    out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
+                    transform = transforms.ToPILImage()
+                    img = transform(img.float().squeeze(0))
+                    img_pos_sca = transform(out_pos_sca["render_pos_sca"].float().squeeze(0))
+                    combined_width =img.width+img_pos_sca.width
+                    combined_height = max(img.height, img_pos_sca.height)
+                    combined_img = Image.new("RGB", (combined_width, combined_height))
+                    combined_img.paste(img_pos_sca, (0, 0))
+                    combined_img.paste(img, (img_pos_sca.width, 0))
+                    img_list.append(combined_img)
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
@@ -221,7 +230,7 @@ def main(argv):
     args = parse_args(argv)
     #args.model_name="GaussianImage_Cholesky"
     # args.save_imgs=False
-    args.save_imgs=True
+    args.save_imgs=False
     #args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
     #args.data_name='Beauty'
     args.fps=120
