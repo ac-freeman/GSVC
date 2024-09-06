@@ -10,7 +10,7 @@ from PIL import Image
 import torch.nn.functional as F
 from pytorch_msssim import ms_ssim
 from utils import *
-from generate_frame import process_yuv_video
+from filed.generate_frame import process_yuv_video
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms

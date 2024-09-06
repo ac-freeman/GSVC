@@ -3,6 +3,11 @@ import torch.nn.functional as F
 from pytorch_msssim import ms_ssim, ssim
 import torch
 import numpy as np
+import cv2
+from tqdm import tqdm
+from pathlib import Path
+
+
 
 class LogWriter:
     def __init__(self, file_path, train=True):
@@ -126,3 +131,160 @@ def build_triangular(r):
     R[:, 1, 0] = r[:, 1]
     R[:, 1, 1] = r[:, 2]
     return R
+
+
+
+def process_yuv_video(file_path, width, height):
+    # 计算每帧大小 (YUV420格式)
+    frame_size = width * height * 3 // 2
+    # 计算总帧数
+    file_size = os.path.getsize(file_path)
+    total_frames = file_size // frame_size
+    # 存储所有帧的列表
+    video_frames = []
+    # 打开YUV文件
+    with open(file_path, 'rb') as f:
+        # 使用tqdm展示进度
+        for _ in tqdm(range(total_frames), desc="Processing frames"):
+            # 读取一帧YUV数据
+            yuv_frame = f.read(frame_size)
+            if not yuv_frame:
+                break  # 如果读取完毕，则退出循环
+            # 将YUV数据转换为numpy数组
+            yuv = np.frombuffer(yuv_frame, dtype=np.uint8).reshape((height * 3 // 2, width))
+            # 将YUV420转换为BGR格式
+            rgb_frame = cv2.cvtColor(yuv, cv2.COLOR_YUV2RGB_I420)
+            # 将BGR帧存入列表
+            video_frames.append(rgb_frame)
+    return video_frames
+
+
+
+
+def path_generate_video(num_frames, data_name, model_name,fps):
+    image_files = []
+    model_path = Path("./result") / data_name / model_name / "img"
+    video_path = Path("./result") / data_name / model_name / "video"
+    video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
+
+    for i in range(1, num_frames + 1):
+        image_files.append(f"{i}_fitting.png")
+
+    # Define the output video file name
+    filename = "video.mp4"
+
+    # Get the size of the first image dynamically
+    first_image_path = model_path / image_files[0]
+    first_image = cv2.imread(str(first_image_path))
+    height, width, _ = first_image.shape  # Extract the size of the first image
+
+    # Create the video writer with the actual image dimensions
+    output_size = (width, height)
+    video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
+
+    # Add images to the video writer
+    for image_file in tqdm(image_files, desc="Processing images", unit="image"):
+        image_path = model_path / image_file
+        image = cv2.imread(str(image_path))
+
+        if image is None:
+            print(f"Warning: Could not read {image_path}, skipping this image.")
+            continue
+               
+        video.write(image)
+    
+    # Finalize and close the video writer
+    video.release()
+    print("MP4 video created successfully.")
+
+def generate_video(image_list, data_name, model_name,fps,iterations,num_points):
+    video_path = Path(f"./checkpoint/result/{data_name}/{model_name}_{iterations}_{num_points}/video")
+    video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
+    # Define the output video file name
+    filename = "video.mp4"
+    # Get the size of the first image dynamically
+    first_image = image_list[0]
+    width, height = first_image.size  # Extract the size of the first image
+    # Create the video writer with the actual image dimensions
+    output_size = (width, height)
+    video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
+    # Add images to the video writer
+    for img in tqdm(image_list, desc="Processing images", unit="image"):  # Iterate directly over the image_list      
+        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        video.write(img_cv)
+    # Finalize and close the video writer
+    video.release()
+    print("MP4 video created successfully.")
+
+def generate_video_pos(image_list, data_name, model_name,fps,iterations,num_points,origin):
+    video_path = Path(f"./checkpoint/result_pos/{data_name}/{model_name}_{iterations}_{num_points}/video")
+    video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
+    # Define the output video file name
+    if origin:
+        filename = "video.mp4"
+    else:
+        filename = "combined_video.mp4"
+    # Get the size of the first image dynamically
+    first_image = image_list[0]
+    width, height = first_image.size  # Extract the size of the first image
+    # Create the video writer with the actual image dimensions
+    output_size = (width, height)
+    video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
+    # Add images to the video writer
+    for img in tqdm(image_list, desc="Processing images", unit="image"):  # Iterate directly over the image_list      
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
+        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        video.write(img_cv)
+    # Finalize and close the video writer
+    video.release()
+    if origin:
+        print("video.mp4: MP4 video created successfully.")
+    else:
+        print("combined_video.mp4: MP4 video created successfully.")
+
+def generate_video_I(image_list, data_name, model_name,fps,iterations,num_points):
+    video_path = Path(f"./checkpoint/result_I/{data_name}/{model_name}_{iterations}_{num_points}/video")
+    video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
+    # Define the output video file name
+    filename = "video.mp4"
+    # Get the size of the first image dynamically
+    first_image = image_list[0]
+    width, height = first_image.size  # Extract the size of the first image
+    # Create the video writer with the actual image dimensions
+    output_size = (width, height)
+    video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
+    # Add images to the video writer
+    for img in tqdm(image_list, desc="Processing images", unit="image"):  # Iterate directly over the image_list      
+        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        video.write(img_cv)
+    # Finalize and close the video writer
+    video.release()
+    print("MP4 video created successfully.")
+
+def generate_video_pos_density(image_list, data_name, model_name,fps,iterations,num_points,origin):
+    video_path = Path(f"./checkpoint/result_pos_density/{data_name}/{model_name}_{iterations}_{num_points}/video")
+    video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
+    # Define the output video file name
+    if origin:
+        filename = "video.mp4"
+    else:
+        filename = "combined_video.mp4"
+    # Get the size of the first image dynamically
+    first_image = image_list[0]
+    width, height = first_image.size  # Extract the size of the first image
+    # Create the video writer with the actual image dimensions
+    output_size = (width, height)
+    video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
+    # Add images to the video writer
+    for img in tqdm(image_list, desc="Processing images", unit="image"):  # Iterate directly over the image_list      
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
+        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        video.write(img_cv)
+    # Finalize and close the video writer
+    video.release()
+    if origin:
+        print("video.mp4: MP4 video created successfully.")
+    else:
+        print("combined_video.mp4: MP4 video created successfully.")

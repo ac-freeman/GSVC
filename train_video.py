@@ -10,8 +10,6 @@ from PIL import Image
 import torch.nn.functional as F
 from pytorch_msssim import ms_ssim
 from utils import *
-from generate_frame import process_yuv_video
-from generate_video import generate_video
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
@@ -39,7 +37,7 @@ class SimpleTrainer2d:
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
         self.iterations = iterations
         self.save_imgs = args.save_imgs
-        self.log_dir = Path(f"./result/{args.data_name}/{model_name}_{iterations}_{num_points}")
+        self.log_dir = Path(f"./checkpoint/result/{args.data_name}/{model_name}_{iterations}_{num_points}")
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky import GaussianImage_Cholesky
             self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
@@ -54,8 +52,6 @@ class SimpleTrainer2d:
             from filed.gaussiansplatting_3d import Gaussian3D
             self.gaussian_model = Gaussian3D(loss_type="Fusion2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, sh_degree=args.sh_degree, lr=args.lr).to(self.device)
-
-        #self.logwriter = LogWriter(self.log_dir)
 
         if model_path is not None:
             print(f"loading model path:{model_path}")
@@ -93,17 +89,12 @@ class SimpleTrainer2d:
             for i in range(100):
                 _ = self.gaussian_model()
             test_end_time = (time.time() - test_start_time)/100
-        # 定义文件路径
-        #save_path_gaussian = Path(f"./Models/{self.data_name}/{self.model_name}/{self.num_points}")
-        #save_path_gaussian = self.log_dir / "Guassians"
-        # 如果路径中的文件夹不存在，创建它们
-        #save_path_gaussian.mkdir(parents=True, exist_ok=True)
-        # 保存模型
-        #torch.save(self.gaussian_model.state_dict(), save_path_gaussian / "gaussian_model_{}.pth.tar".format(self.frame_num))
-        #self.logwriter.write("Frame{}_Training Complete in {:.4f}s, Eval time:{:.8f}s, FPS:{:.4f}".format(self.frame_num,end_time, test_end_time, 1/test_end_time))
-        #np.save(self.log_dir / "training.npy", {"iterations": iter_list, "training_psnr": psnr_list, "training_time": end_time, "psnr": psnr_value, "ms-ssim": ms_ssim_value, "rendering_time": test_end_time, "rendering_fps": 1/test_end_time})
         Gmodel =self.gaussian_model.state_dict()
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, Gmodel,img
+        filtered_Gmodel = {
+                k: v for k, v in Gmodel.items()
+                if k in ['_xyz', '_cholesky', '_features_dc']
+            }
+        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel,img
     def test(self):
         self.gaussian_model.eval()
         with torch.no_grad():
@@ -111,7 +102,7 @@ class SimpleTrainer2d:
         mse_loss = F.mse_loss(out["render"].float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out["render"].float(), self.gt_image.float(), data_range=1, size_average=True).item()
-        #self.logwriter.write("Test PSNR:{:.4f}, MS_SSIM:{:.6f}".format(psnr, ms_ssim_value))
+
         if self.save_imgs:
             save_path_img = self.log_dir / "img"
             save_path_img.mkdir(parents=True, exist_ok=True)
@@ -134,7 +125,7 @@ def image_to_tensor(img: Image.Image):
 def parse_args(argv):
     parser = argparse.ArgumentParser(description="Example training script.")
     parser.add_argument(
-        "-d", "--dataset", type=str, default='../data/UVG/Beauty', help="Training dataset"
+        "-d", "--dataset", type=str, default='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv', help="Training dataset"
     )
     parser.add_argument(
         "--data_name", type=str, default='Beauty', help="Training dataset"
@@ -178,7 +169,7 @@ def main(argv):
     args.fps=120
     width = 1920
     height = 1080
-    gmodel_save_path = Path(f"./models/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
+    gmodel_save_path = Path(f"./checkpoint/models/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)  # 确保保存目录存在
     # Cache the args as a text string to save them in the output dir later
     args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
@@ -190,7 +181,7 @@ def main(argv):
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
 
-    logwriter = LogWriter(Path(f"./result/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
+    logwriter = LogWriter(Path(f"./checkpoint/result/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
     psnrs, ms_ssims, training_times, eval_times, eval_fpses = [], [], [], [], []
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
@@ -205,7 +196,7 @@ def main(argv):
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
                 iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None)
         else:
-            #model_path = Path("./result") / args.data_name / args.model_name / f"Guassians/gaussian_model_{i}.pth.tar"
+            #model_path = Path("./checkpoint/result") / args.data_name / args.model_name / f"Guassians/gaussian_model_{i}.pth.tar"
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
                 iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel)
         psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img = trainer.train()

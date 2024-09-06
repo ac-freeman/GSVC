@@ -10,8 +10,6 @@ from PIL import Image
 import torch.nn.functional as F
 from pytorch_msssim import ms_ssim
 from utils import *
-from generate_frame import process_yuv_video
-from generate_video import generate_video_pos_density
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
@@ -42,7 +40,7 @@ class SimpleTrainer2d:
         self.iterations = iterations
         self.densification_interval=args.densification_interval
         self.save_imgs = args.save_imgs
-        self.log_dir = Path(f"./result_pos_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
+        self.log_dir = Path(f"./checkpoint/result_pos_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
         self.isdensity=isdensity
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky_pos_density import GaussianImage_Cholesky
@@ -69,11 +67,6 @@ class SimpleTrainer2d:
         start_time = time.time()
         for iter in range(1, int(self.iterations)+1):
             loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter,self.isdensity)
-            Gmodel =self.gaussian_model.state_dict()
-            filtered_Gmodel = {
-                k: v for k, v in Gmodel.items()
-                if k in ['_xyz', '_cholesky', '_features_dc']
-            }
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -90,6 +83,11 @@ class SimpleTrainer2d:
             for i in range(100):
                 _ = self.gaussian_model()
             test_end_time = (time.time() - test_start_time)/100       
+        Gmodel =self.gaussian_model.state_dict()
+        filtered_Gmodel = {
+            k: v for k, v in Gmodel.items()
+            if k in ['_xyz', '_cholesky', '_features_dc']
+        }
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel,img,combined_img,num_gaussian_points
     def test(self,frame,num_gaussian_points):
         self.gaussian_model.eval()
@@ -210,7 +208,7 @@ def main(argv):
     args.fps=120
     width = 1920
     height = 1080
-    gmodel_save_path = Path(f"./models_pos_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
+    gmodel_save_path = Path(f"./checkpoint/models_pos_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)  # 确保保存目录存在
     # Cache the args as a text string to save them in the output dir later
     args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
@@ -222,7 +220,7 @@ def main(argv):
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
 
-    logwriter = LogWriter(Path(f"./result_pos_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
+    logwriter = LogWriter(Path(f"./checkpoint/result_pos_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
     psnrs, ms_ssims, training_times, eval_times, eval_fpses = [], [], [], [], []
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
@@ -262,7 +260,7 @@ def main(argv):
         if i==0 or (i+1)%100==0:
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
-    with open(Path(f"./result_pos_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
+    with open(Path(f"./checkpoint/result_pos_density/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
         for key, value in num_gaussian_points_dict.items():
             f.write(f'{key}: {value}\n')
     avg_psnr = torch.tensor(psnrs).mean().item()

@@ -10,8 +10,8 @@ from PIL import Image
 import torch.nn.functional as F
 from pytorch_msssim import ms_ssim
 from utils import *
-from generate_frame import process_yuv_video
-from generate_video import generate_video_pos
+from filed.generate_frame import process_yuv_video
+from filed.generate_video import generate_video_pos
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
@@ -42,7 +42,7 @@ class SimpleTrainer2d:
         self.save_imgs = args.save_imgs
         self.log_dir = Path(f"./result_pos/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
         if model_name == "GaussianImage_Cholesky":
-            from gaussianimage_cholesky_pos import GaussianImage_Cholesky
+            from filed.gaussianimage_cholesky_pos import GaussianImage_Cholesky
             self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False).to(self.device)
 
