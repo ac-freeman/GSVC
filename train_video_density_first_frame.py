@@ -76,17 +76,17 @@ class SimpleTrainer2d:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
                 if iter % 100 == 0:
-                    num_gaussian_points =self.gaussian_model._xyz.size(0)
+                    # num_gaussian_points =self.gaussian_model._xyz.size(0)
                     out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
-                    transform = transforms.ToPILImage()
-                    img = transform(img.float().squeeze(0))
-                    img_pos_sca = transform(out_pos_sca["render_pos_sca"].float().squeeze(0))
-                    combined_width =img.width+img_pos_sca.width
-                    combined_height = max(img.height, img_pos_sca.height)
-                    combined_img = Image.new("RGB", (combined_width, combined_height))
-                    combined_img.paste(img_pos_sca, (0, 0))
-                    combined_img.paste(img, (img_pos_sca.width, 0))
-                    img_list.append(combined_img)
+                    # transform = transforms.ToPILImage()
+                    # img = transform(img.float().squeeze(0))
+                    # img_pos_sca = transform(out_pos_sca["render_pos_sca"].float().squeeze(0))
+                    # combined_width =img.width+img_pos_sca.width
+                    # combined_height = max(img.height, img_pos_sca.height)
+                    # combined_img = Image.new("RGB", (combined_width, combined_height))
+                    # combined_img.paste(img_pos_sca, (0, 0))
+                    # combined_img.paste(img, (img_pos_sca.width, 0))
+                    # img_list.append(combined_img)
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
