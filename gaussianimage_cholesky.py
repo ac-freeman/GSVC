@@ -244,7 +244,7 @@ class GaussianImage_Cholesky(nn.Module):
 
         # Update the optimizer with new parameters
         self.update_optimizer()
-        print(f"current_number:{self._xyz.shape[0]}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
+        #print(f"current_number:{self._xyz.shape[0]}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
 
 
 
