@@ -7,7 +7,7 @@
 #SBATCH --gres=gpu:a100-40:1
 #SBATCH --mail-type=ALL                 # Get email for all status updates
 #SBATCH --mail-user=wanglongan@comp.nus.edu.sg # Email for notifications
-
+#SBATCH --mem=16G                       # Request 16GB of memory
 # Activate the environment if needed
 source activate torch  # Replace 'torch' with the name of your conda environment
 
@@ -19,7 +19,7 @@ datasets=(
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 30000 35000 40000 45000 50000; do
+  for num_points in 5000 10000 15000 20000 25000 30000 35000 40000 45000 50000; do
   # Run the training script for each dataset
     for iterations in 30000; do
       srun python train_video_density.py --dataset $dataset_path --data_name $data_name --num_points $num_points --iterations $iterations
