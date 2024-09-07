@@ -236,7 +236,7 @@ def main(argv):
         np.random.seed(args.seed)
 
     logwriter = LogWriter(Path(f"./checkpoints/result/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
-    psnrs, ms_ssims, training_times, eval_times, eval_fpses = [], [], [], [], []
+    psnrs, ms_ssims, training_times, eval_times, eval_fpses, gaussian_number = [], [], [], [], [],[]
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
@@ -258,6 +258,7 @@ def main(argv):
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
         training_times.append(training_time) 
+        gaussian_number.append(num_gaussian_points)
         eval_times.append(eval_time)
         eval_fpses.append(eval_fps)
         image_h += trainer.H
@@ -279,9 +280,9 @@ def main(argv):
     avg_eval_fps = torch.tensor(eval_fpses).mean().item()
     avg_h = image_h//image_length
     avg_w = image_w//image_length
-
-    logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f}".format(
-        avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024)))
+    gaussians = sum(gaussian_number) / len(gaussian_number)
+    logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f},gaussian_number:{:.4f}".format(
+        avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024)),gaussians)
     if ispos:
         generate_video(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
     else:

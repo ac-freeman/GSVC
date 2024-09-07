@@ -13,7 +13,7 @@ from utils import *
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-
+save_dir="result_first_frame_density"
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
@@ -40,7 +40,7 @@ class SimpleTrainer2d:
         self.iterations = iterations
         self.densification_interval=args.densification_interval
         self.save_imgs = args.save_imgs
-        self.log_dir = Path(f"./checkpoints/result_frist_frame/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
+        self.log_dir = Path(f"./checkpoints/{save_dir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
         self.isdensity=isdensity
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky import GaussianImage_Cholesky
@@ -75,7 +75,7 @@ class SimpleTrainer2d:
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
-                if iter % 100 == 0:
+                if iter==1 or iter % 50 == 0:
                     num_gaussian_points =self.gaussian_model._xyz.size(0)
                     out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
                     transform = transforms.ToPILImage()
@@ -194,7 +194,7 @@ def parse_args(argv):
         "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--iterations", type=int, default=50000, help="number of training epochs (default: %(default)s)"
+        "--iterations", type=int, default=30000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
         "--densification_interval",type=int,default=50000,help="densification_interval (default: %(default)s)"
@@ -249,7 +249,7 @@ def main(argv):
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
 
-    logwriter = LogWriter(Path(f"./checkpoints/result_frist_frame/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
+    logwriter = LogWriter(Path(f"./checkpoints/{save_dir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
     psnrs, ms_ssims, training_times, eval_times, eval_fpses = [], [], [], [], []
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
@@ -281,7 +281,7 @@ def main(argv):
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
     file_size = os.path.getsize(os.path.join(gmodel_save_path, 'gmodels_state_dict.pth'))
-    with open(Path(f"./checkpoints/result_frist_frame/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
+    with open(Path(f"./checkpoints/{save_dir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
         for key, value in num_gaussian_points_dict.items():
             f.write(f'{key}: {value}\n')
     avg_psnr = torch.tensor(psnrs).mean().item()
@@ -294,11 +294,10 @@ def main(argv):
 
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024)))
-    videodir="result_frist_frame"
     if ispos:
-        generate_video_test(videodir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
+        generate_video_test(save_dir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
     else:
-        generate_video_test(videodir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
+        generate_video_test(save_dir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
     
 if __name__ == "__main__":
     

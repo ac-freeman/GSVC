@@ -76,8 +76,8 @@ class GaussianImage_Cholesky(nn.Module):
     #     out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
     #     return {"render_pos_sca": out_img}
     def forward_pos_sca(self,num_points):
-        features_dc = nn.Parameter(torch.ones(num_points, 3).to(self.device))
-        cholesky = nn.Parameter(torch.full((num_points, 3), 1.0).to(self.device))
+        features_dc = torch.ones(num_points, 3).to(self.device)
+        cholesky = torch.full((num_points, 3), 1.0).to(self.device)
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, cholesky+self.cholesky_bound, self.H, self.W, self.tile_bounds)
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
                 features_dc, self._opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
@@ -85,10 +85,10 @@ class GaussianImage_Cholesky(nn.Module):
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render_pos_sca": out_img}
     def forward_pos(self,num_points):
-        self._features_dc = nn.Parameter(torch.ones(num_points, 3).to(self.device))
+        features_dc = torch.ones(num_points, 3).to(self.device)
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
-                self.get_features, self._opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
+                features_dc, self._opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
         out_img = torch.clamp(out_img, 0, 1) #[H, W, 3]
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render_pos": out_img}
@@ -116,28 +116,28 @@ class GaussianImage_Cholesky(nn.Module):
         
         grad_magnitude = torch.norm(grad_xyz, dim=1)
 
-        # 计算前10%的数量
-        percentile_10_count = int(0.1 * len(grad_magnitude))
+        
+        percentile_count = int(0.05 * len(grad_magnitude))
 
-        # 对grad_magnitude排序并获取前10%的索引
+        
         sorted_grad_magnitude, sorted_indices = torch.sort(grad_magnitude)
-        top_10_percent_indices = sorted_indices[:percentile_10_count]
+        top_percent_indices = sorted_indices[:percentile_count]
 
-        # 获取这些点的gaussian_values
+        
         gaussian_values = torch.exp(-0.5 * torch.sum(self.get_xyz ** 2 / torch.clamp(self.get_cholesky_elements[:, [0, 2]], min=1e-6), dim=1))
-        top_gaussian_values = gaussian_values[top_10_percent_indices]
+        top_gaussian_values = gaussian_values[top_percent_indices]
 
-        # 计算gaussian_values的中位数
+        
         gaussian_threshold = torch.median(gaussian_values)
 
-        # 在前10%的点中进行分类
-        split_indices = top_10_percent_indices[top_gaussian_values > gaussian_threshold]
-        clone_indices = top_10_percent_indices[top_gaussian_values <= gaussian_threshold]
+        
+        split_indices = top_percent_indices[top_gaussian_values > gaussian_threshold]
+        clone_indices = top_percent_indices[top_gaussian_values <= gaussian_threshold]
 
-        # 执行 Split 和 Clone 操作
+        
         current_num_points = self._xyz.shape[0]
         potential_new_points = current_num_points + len(split_indices) + len(clone_indices)
-        print(f"percentile_10_count: {percentile_10_count}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
+        print(f"percentile_count: {percentile_count}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
 
         if potential_new_points > self.max_num_points:
             remaining_slots =self.max_num_points - current_num_points
@@ -150,7 +150,7 @@ class GaussianImage_Cholesky(nn.Module):
         # 执行 Split 操作
         if len(split_indices) > 0:
             self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[split_indices]], dim=0))
-            self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[split_indices] / 2], dim=0))
+            self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky / 2, self._cholesky[split_indices] / 2], dim=0))
             self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[split_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[split_indices]], dim=0)
 
