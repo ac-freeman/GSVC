@@ -201,7 +201,6 @@ class GaussianImage_Cholesky(nn.Module):
 
         current_num_points = self._xyz.shape[0]
         potential_new_points = current_num_points + len(split_indices) + len(clone_indices)
-        print(f"increase_point: {potential_new_points}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
 
         # Ensure that the total number of points does not exceed the maximum allowed points
         if potential_new_points > self.max_num_points:
@@ -213,7 +212,7 @@ class GaussianImage_Cholesky(nn.Module):
             clone_indices = clone_indices[:clone_fraction]
 
         # Remove the points with the smallest gradients to keep the total number of points constant
-        points_to_remove = current_num_points + len(split_indices) + len(clone_indices) - self.max_num_points
+        points_to_remove =  len(split_indices) + len(clone_indices)
         if points_to_remove > 0:
             # Remove the points with the smallest gradients, i.e., from the tail of the sorted list
             remove_indices = sorted_indices[-points_to_remove:]  # Get the indices of the smallest gradients
@@ -238,6 +237,7 @@ class GaussianImage_Cholesky(nn.Module):
 
         # Update the optimizer with new parameters
         self.update_optimizer()
+        print(f"current_number:{self._xyz.shape[0]}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
 
 
 
