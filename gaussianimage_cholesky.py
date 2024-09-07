@@ -213,13 +213,6 @@ class GaussianImage_Cholesky(nn.Module):
 
         # Remove the points with the smallest gradients to keep the total number of points constant
         points_to_remove =  len(split_indices) + len(clone_indices)
-        if points_to_remove > 0:
-            # Remove the points with the smallest gradients, i.e., from the tail of the sorted list
-            remove_indices = sorted_indices[-points_to_remove:]  # Get the indices of the smallest gradients
-            self._xyz = torch.nn.Parameter(torch.cat([self._xyz[~remove_indices]], dim=0))
-            self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky[~remove_indices]], dim=0))
-            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc[~remove_indices]], dim=0))
-            self._opacity = torch.cat([self._opacity[~remove_indices]], dim=0)
 
         # Perform the Split operation
         if len(split_indices) > 0:
@@ -234,6 +227,14 @@ class GaussianImage_Cholesky(nn.Module):
             self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
             self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
+        
+        if points_to_remove > 0:
+            # Remove the points with the smallest gradients, i.e., from the tail of the sorted list
+            remove_indices = sorted_indices[-points_to_remove:]  # Get the indices of the smallest gradients
+            self._xyz = torch.nn.Parameter(torch.cat([self._xyz[~remove_indices]], dim=0))
+            self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky[~remove_indices]], dim=0))
+            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc[~remove_indices]], dim=0))
+            self._opacity = torch.cat([self._opacity[~remove_indices]], dim=0)
 
         # Update the optimizer with new parameters
         self.update_optimizer()
