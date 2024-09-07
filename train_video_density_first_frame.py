@@ -13,7 +13,7 @@ from utils import *
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-save_dir="result_first_frame_density"
+save_dir="result_first_frame_ndensity"
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
