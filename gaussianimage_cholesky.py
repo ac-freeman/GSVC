@@ -182,8 +182,8 @@ class GaussianImage_Cholesky(nn.Module):
         grad_magnitude = torch.norm(grad_xyz, dim=1)
 
         # Calculate the number of top 0.1% points
-        # percentile_count = int(0.001 * len(grad_magnitude))
-        percentile_count=1
+        percentile_count = int(0.001 * len(grad_magnitude))
+
         # Sort the gradient magnitudes in descending order to get the indices of largest values
         sorted_grad_magnitude, sorted_indices = torch.sort(grad_magnitude, descending=True)  # Sorting in descending order
         top_percent_indices = sorted_indices[:percentile_count]  # Select top 5% of points based on gradient
@@ -218,14 +218,14 @@ class GaussianImage_Cholesky(nn.Module):
         if len(split_indices) > 0:
             self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[split_indices]], dim=0))
             self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky / 2, self._cholesky[split_indices] / 2], dim=0))
-            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[split_indices]], dim=0))
+            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc/2, self._features_dc[split_indices]/2], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[split_indices]], dim=0)
 
         # Perform the Clone operation
         if len(clone_indices) > 0:
             self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[clone_indices]], dim=0))
             self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
-            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
+            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc/2, self._features_dc[clone_indices]/2], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
         
         if points_to_remove > 0:
