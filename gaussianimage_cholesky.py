@@ -217,7 +217,7 @@ class GaussianImage_Cholesky(nn.Module):
         # Perform the Split operation
         if len(split_indices) > 0:
             self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[split_indices]], dim=0))
-            self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky / 1.6, self._cholesky[split_indices] / 1.6], dim=0))
+            self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[split_indices] / 1.6], dim=0))
             self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[split_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[split_indices]], dim=0)
 
