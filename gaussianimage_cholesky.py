@@ -102,7 +102,7 @@ class GaussianImage_Cholesky(nn.Module):
         else:
             self.optimizer = Adan(self.parameters(), lr=self.lr)
         # 重新初始化学习率调度器
-        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=self.densification_interval, gamma=0.5)
+        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=30000, gamma=0.5)
 
     # def density_control(self):
     #     grad_xyz = self._xyz.grad
