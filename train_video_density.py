@@ -13,7 +13,7 @@ from utils import *
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-
+savdir="result_density_pos"
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
@@ -40,7 +40,7 @@ class SimpleTrainer2d:
         self.iterations = iterations
         self.densification_interval=args.densification_interval
         self.save_imgs = args.save_imgs
-        self.log_dir = Path(f"./checkpoints/result/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
+        self.log_dir = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
         self.isdensity=isdensity
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky import GaussianImage_Cholesky
@@ -223,7 +223,7 @@ def main(argv):
     args.fps=120
     width = 1920
     height = 1080
-    gmodel_save_path = Path(f"./checkpoints/models/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
+    gmodel_save_path = Path(f"./checkpoints/models_density_pos/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)  # 确保保存目录存在
     # Cache the args as a text string to save them in the output dir later
     args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
@@ -235,7 +235,7 @@ def main(argv):
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
 
-    logwriter = LogWriter(Path(f"./checkpoints/result/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
+    logwriter = LogWriter(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
     psnrs, ms_ssims, training_times, eval_times, eval_fpses, gaussian_number = [], [], [], [], [],[]
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
@@ -270,7 +270,7 @@ def main(argv):
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
     file_size = os.path.getsize(os.path.join(gmodel_save_path, 'gmodels_state_dict.pth'))
-    with open(Path(f"./checkpoints/result/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
+    with open(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
         for key, value in num_gaussian_points_dict.items():
             f.write(f'{key}: {value}\n')
     avg_psnr = torch.tensor(psnrs).mean().item()
@@ -284,9 +284,9 @@ def main(argv):
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f},gaussian_number:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024)),gaussians)
     if ispos:
-        generate_video(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
+        generate_video_density(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
     else:
-        generate_video(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
+        generate_video_density(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
     
 if __name__ == "__main__":
     
