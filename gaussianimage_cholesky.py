@@ -228,13 +228,19 @@ class GaussianImage_Cholesky(nn.Module):
             self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
         
-        # if points_to_remove > 0:
-        #     # Remove the points with the smallest gradients, i.e., from the tail of the sorted list
-        #     remove_indices = sorted_indices[-points_to_remove:]  # Get the indices of the smallest gradients
-        #     self._xyz = torch.nn.Parameter(torch.cat([self._xyz[~remove_indices]], dim=0))
-        #     self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky[~remove_indices]], dim=0))
-        #     self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc[~remove_indices]], dim=0))
-        #     self._opacity = torch.cat([self._opacity[~remove_indices]], dim=0)
+        if points_to_remove > 0:
+            # Remove the points with the smallest gradients, i.e., from the tail of the sorted list
+            remove_indices = sorted_indices[-points_to_remove:]  # Get the indices of the smallest gradients
+
+            # Create a mask for the indices to keep
+            keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
+            keep_indices[remove_indices] = False  # Set the remove indices to False to exclude them
+
+            # Remove points based on the mask
+            self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
+            self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
+            self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
+            self._opacity = self._opacity[keep_indices]
 
         # Update the optimizer with new parameters
         self.update_optimizer()
