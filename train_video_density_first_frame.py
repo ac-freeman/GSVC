@@ -13,7 +13,8 @@ from utils import *
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-save_dir="result_first_frame_ndensity"
+
+save_dir="result_first_frame_density"
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
@@ -197,7 +198,7 @@ def parse_args(argv):
         "--iterations", type=int, default=30000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
-        "--densification_interval",type=int,default=50000,help="densification_interval (default: %(default)s)"
+        "--densification_interval",type=int,default=5000,help="densification_interval (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
