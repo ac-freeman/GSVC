@@ -200,11 +200,11 @@ class GaussianImage_Cholesky(nn.Module):
             self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
             self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
             self._opacity = self._opacity[keep_indices]
+        print(self._xyz.shape[0])
+        grad_magnitude_ar = torch.norm(grad_xyz, dim=1)
+        sorted_grad_magnitude_ar, sorted_indices_ar = torch.sort(grad_magnitude_ar, descending=True)
 
-        grad_magnitude = torch.norm(grad_xyz, dim=1)
-        sorted_grad_magnitude, sorted_indices = torch.sort(grad_magnitude, descending=True)
-
-        top_percent_indices = sorted_indices[:percentile_count]  # Select top 5% of points based on gradient
+        top_percent_indices = sorted_indices_ar[:percentile_count]  # Select top 5% of points based on gradient
 
         # Compute Gaussian values for all points
         gaussian_values = torch.exp(-0.5 * torch.sum(self.get_xyz ** 2 / torch.clamp(self.get_cholesky_elements[:, [0, 2]], min=1e-6), dim=1))
