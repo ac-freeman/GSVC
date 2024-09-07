@@ -36,11 +36,6 @@ class GaussianImage_Cholesky(nn.Module):
         self.register_buffer('cholesky_bound', torch.tensor([0.5, 0, 0.5]).view(1, 3))
         self.lr = kwargs["lr"]
         self.opt_type =kwargs["opt_type"]
-        if self.quantize:
-            self.xyz_quantizer = FakeQuantizationHalf.apply 
-            self.features_dc_quantizer = VectorQuantizer(codebook_dim=3, codebook_size=8, num_quantizers=2, vector_type="vector", kmeans_iters=5) 
-            self.cholesky_quantizer = UniformQuantizer(signed=False, bits=6, learned=True, num_channels=3)
-
         if kwargs["opt_type"] == "adam":
             self.optimizer = torch.optim.Adam(self.parameters(), lr=kwargs["lr"])
         else:
@@ -109,62 +104,143 @@ class GaussianImage_Cholesky(nn.Module):
         # 重新初始化学习率调度器
         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
 
+    # def density_control(self):
+    #     grad_xyz = self._xyz.grad
+    #     if grad_xyz is None:
+    #         raise RuntimeError("grad_xyz 为空，请检查 self._xyz 是否参与了计算图的构建。")
+        
+    #     grad_magnitude = torch.norm(grad_xyz, dim=1)
+
+        
+    #     percentile_count = int(0.05 * len(grad_magnitude))
+
+        
+    #     sorted_grad_magnitude, sorted_indices = torch.sort(grad_magnitude, descending=True)
+    #     top_percent_indices = sorted_indices[:percentile_count]
+        
+
+        
+    #     gaussian_values = torch.exp(-0.5 * torch.sum(self.get_xyz ** 2 / torch.clamp(self.get_cholesky_elements[:, [0, 2]], min=1e-6), dim=1))
+    #     top_gaussian_values = gaussian_values[top_percent_indices]
+
+        
+    #     gaussian_threshold = torch.median(top_gaussian_values)
+
+        
+    #     split_indices = top_percent_indices[top_gaussian_values > gaussian_threshold]
+    #     clone_indices = top_percent_indices[top_gaussian_values <= gaussian_threshold]
+
+        
+    #     current_num_points = self._xyz.shape[0]
+    #     potential_new_points = current_num_points + len(split_indices) + len(clone_indices)
+
+    #     if potential_new_points > self.max_num_points:
+    #         remaining_slots =self.max_num_points - current_num_points
+    #         split_fraction = min(len(split_indices), remaining_slots // 2)
+    #         clone_fraction = min(len(clone_indices), remaining_slots // 2)
+
+    #         split_indices = split_indices[:split_fraction]
+    #         clone_indices = clone_indices[:clone_fraction]
+        
+    #     potential_new_points = current_num_points + len(split_indices) + len(clone_indices)
+    #     print(f"increase_point: {potential_new_points}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
+
+    #     print(f"decrease_point: {potential_new_points}")
+
+    #     if potential_new_points>0:
+    #         remove_indices = sorted_indices[-potential_new_points:]
+    #         self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[~remove_indices]], dim=0))
+    #         self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[~remove_indices]], dim=0))
+    #         self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[~remove_indices]], dim=0))
+    #         self._opacity = torch.cat([self._opacity, self._opacity[~remove_indices]], dim=0)
+
+    #     # 执行 Split 操作
+    #     if len(split_indices) > 0:
+    #         self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[split_indices]], dim=0))
+    #         self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky / 2, self._cholesky[split_indices] / 2], dim=0))
+    #         self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[split_indices]], dim=0))
+    #         self._opacity = torch.cat([self._opacity, self._opacity[split_indices]], dim=0)
+
+    #     # 执行 Clone 操作
+    #     if len(clone_indices) > 0:
+    #         self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[clone_indices]], dim=0))
+    #         self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
+    #         self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
+    #         self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
+
+    #     self.update_optimizer()
+        
+        
+    #     #print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")    
+
     def density_control(self):
         grad_xyz = self._xyz.grad
         if grad_xyz is None:
-            raise RuntimeError("grad_xyz 为空，请检查 self._xyz 是否参与了计算图的构建。")
+            raise RuntimeError("grad_xyz is None, please check if self._xyz is involved in the computational graph.")
         
+        # Compute the gradient magnitude for each point
         grad_magnitude = torch.norm(grad_xyz, dim=1)
 
-        
+        # Calculate the number of top 5% points
         percentile_count = int(0.05 * len(grad_magnitude))
 
-        
-        sorted_grad_magnitude, sorted_indices = torch.sort(grad_magnitude)
-        top_percent_indices = sorted_indices[:percentile_count]
+        # Sort the gradient magnitudes in descending order to get the indices of largest values
+        sorted_grad_magnitude, sorted_indices = torch.sort(grad_magnitude, descending=True)  # Sorting in descending order
+        top_percent_indices = sorted_indices[:percentile_count]  # Select top 5% of points based on gradient
 
-        
+        # Compute Gaussian values for all points
         gaussian_values = torch.exp(-0.5 * torch.sum(self.get_xyz ** 2 / torch.clamp(self.get_cholesky_elements[:, [0, 2]], min=1e-6), dim=1))
         top_gaussian_values = gaussian_values[top_percent_indices]
 
-        
-        gaussian_threshold = torch.median(gaussian_values)
+        # Use the median of the top 5% Gaussian values as a threshold
+        gaussian_threshold = torch.median(top_gaussian_values)
 
-        
+        # Select points for split and clone based on the Gaussian threshold
         split_indices = top_percent_indices[top_gaussian_values > gaussian_threshold]
         clone_indices = top_percent_indices[top_gaussian_values <= gaussian_threshold]
 
-        
         current_num_points = self._xyz.shape[0]
         potential_new_points = current_num_points + len(split_indices) + len(clone_indices)
-        print(f"percentile_count: {percentile_count}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
+        print(f"increase_point: {potential_new_points}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
 
+        # Ensure that the total number of points does not exceed the maximum allowed points
         if potential_new_points > self.max_num_points:
-            remaining_slots =self.max_num_points - current_num_points
+            remaining_slots = self.max_num_points - current_num_points
             split_fraction = min(len(split_indices), remaining_slots // 2)
             clone_fraction = min(len(clone_indices), remaining_slots // 2)
 
             split_indices = split_indices[:split_fraction]
             clone_indices = clone_indices[:clone_fraction]
 
-        # 执行 Split 操作
+        # Remove the points with the smallest gradients to keep the total number of points constant
+        points_to_remove = current_num_points + len(split_indices) + len(clone_indices) - self.max_num_points
+        if points_to_remove > 0:
+            # Remove the points with the smallest gradients, i.e., from the tail of the sorted list
+            remove_indices = sorted_indices[-points_to_remove:]  # Get the indices of the smallest gradients
+            self._xyz = torch.nn.Parameter(torch.cat([self._xyz[~remove_indices]], dim=0))
+            self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky[~remove_indices]], dim=0))
+            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc[~remove_indices]], dim=0))
+            self._opacity = torch.cat([self._opacity[~remove_indices]], dim=0)
+
+        # Perform the Split operation
         if len(split_indices) > 0:
             self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[split_indices]], dim=0))
             self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky / 2, self._cholesky[split_indices] / 2], dim=0))
             self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[split_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[split_indices]], dim=0)
 
-        # 执行 Clone 操作
+        # Perform the Clone operation
         if len(clone_indices) > 0:
             self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[clone_indices]], dim=0))
             self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
             self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
 
+        # Update the optimizer with new parameters
         self.update_optimizer()
-        
-        
-        #print(f"After split/clone: _cholesky size: {self._cholesky.size()}, _features_dc size: {self._features_dc.size()}")
+
+
+
 
     def train_iter(self, gt_image,iter,isdensity):
         render_pkg = self.forward()
