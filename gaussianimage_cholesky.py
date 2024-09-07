@@ -218,14 +218,14 @@ class GaussianImage_Cholesky(nn.Module):
         if len(split_indices) > 0:
             self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[split_indices]], dim=0))
             self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky / 2, self._cholesky[split_indices] / 2], dim=0))
-            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc/2, self._features_dc[split_indices]/2], dim=0))
+            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[split_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[split_indices]], dim=0)
 
         # Perform the Clone operation
         if len(clone_indices) > 0:
             self._xyz = torch.nn.Parameter(torch.cat([self._xyz, self._xyz[clone_indices]], dim=0))
             self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
-            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc/2, self._features_dc[clone_indices]/2], dim=0))
+            self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
         
         if points_to_remove > 0:
