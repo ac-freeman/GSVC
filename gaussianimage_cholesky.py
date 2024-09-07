@@ -187,7 +187,7 @@ class GaussianImage_Cholesky(nn.Module):
         # Sort the gradient magnitudes in descending order to get the indices of largest values
         sorted_grad_magnitude, sorted_indices = torch.sort(grad_magnitude, descending=True)  # Sorting in descending order
 
-        if sorted_indices > 0:
+        if percentile_count > 0:
             # Remove the points with the smallest gradients, i.e., from the tail of the sorted list
             remove_indices = sorted_indices[-percentile_count:]  # Get the indices of the smallest gradients
 
