@@ -243,7 +243,7 @@ class GaussianImage_Cholesky(nn.Module):
             self._opacity = self._opacity[keep_indices]
 
         # Update the optimizer with new parameters
-        self.update_optimizer()
+        #self.update_optimizer()
         print(f"current_number:{self._xyz.shape[0]}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
 
 
