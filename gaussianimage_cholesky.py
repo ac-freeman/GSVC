@@ -102,7 +102,7 @@ class GaussianImage_Cholesky(nn.Module):
         else:
             self.optimizer = Adan(self.parameters(), lr=self.lr)
         # 重新初始化学习率调度器
-        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=30000, gamma=0.5)
+        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
 
     # def density_control(self):
     #     grad_xyz = self._xyz.grad
@@ -186,25 +186,7 @@ class GaussianImage_Cholesky(nn.Module):
 
         # Sort the gradient magnitudes in descending order to get the indices of largest values
         sorted_grad_magnitude, sorted_indices = torch.sort(grad_magnitude, descending=True)  # Sorting in descending order
-
-        if percentile_count > 0:
-            # Remove the points with the smallest gradients, i.e., from the tail of the sorted list
-            remove_indices = sorted_indices[-percentile_count:]  # Get the indices of the smallest gradients
-
-            # Create a mask for the indices to keep
-            keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
-            keep_indices[remove_indices] = False  # Set the remove indices to False to exclude them
-
-            # Remove points based on the mask
-            self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
-            self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
-            self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-            self._opacity = self._opacity[keep_indices]
-        print(self._xyz.shape[0])
-        grad_magnitude_ar = torch.norm(grad_xyz, dim=1)
-        sorted_grad_magnitude_ar, sorted_indices_ar = torch.sort(grad_magnitude_ar, descending=True)
-
-        top_percent_indices = sorted_indices_ar[:percentile_count]  # Select top 5% of points based on gradient
+        top_percent_indices = sorted_indices[:percentile_count]  # Select top 5% of points based on gradient
 
         # Compute Gaussian values for all points
         gaussian_values = torch.exp(-0.5 * torch.sum(self.get_xyz ** 2 / torch.clamp(self.get_cholesky_elements[:, [0, 2]], min=1e-6), dim=1))
@@ -216,6 +198,21 @@ class GaussianImage_Cholesky(nn.Module):
         # Select points for split and clone based on the Gaussian threshold
         split_indices = top_percent_indices[top_gaussian_values > gaussian_threshold]
         clone_indices = top_percent_indices[top_gaussian_values <= gaussian_threshold]
+
+        current_num_points = self._xyz.shape[0]
+        potential_new_points = current_num_points + len(split_indices) + len(clone_indices)
+
+        # Ensure that the total number of points does not exceed the maximum allowed points
+        if potential_new_points > self.max_num_points:
+            remaining_slots = self.max_num_points - current_num_points
+            split_fraction = min(len(split_indices), remaining_slots // 2)
+            clone_fraction = min(len(clone_indices), remaining_slots // 2)
+
+            split_indices = split_indices[:split_fraction]
+            clone_indices = clone_indices[:clone_fraction]
+
+        # Remove the points with the smallest gradients to keep the total number of points constant
+        points_to_remove =  len(split_indices) + len(clone_indices)
 
         # Perform the Split operation
         if len(split_indices) > 0:
@@ -230,6 +227,20 @@ class GaussianImage_Cholesky(nn.Module):
             self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
             self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
+        
+        if points_to_remove > 0:
+            # Remove the points with the smallest gradients, i.e., from the tail of the sorted list
+            remove_indices = sorted_indices[-points_to_remove:]  # Get the indices of the smallest gradients
+
+            # Create a mask for the indices to keep
+            keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
+            keep_indices[remove_indices] = False  # Set the remove indices to False to exclude them
+
+            # Remove points based on the mask
+            self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
+            self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
+            self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
+            self._opacity = self._opacity[keep_indices]
 
         # Update the optimizer with new parameters
         self.update_optimizer()
