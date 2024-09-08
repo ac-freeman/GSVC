@@ -6,7 +6,7 @@ import torch.nn as nn
 import numpy as np
 import math
 from optimizer import Adan
-
+import time
 class GaussianImage_Cholesky(nn.Module):
     def __init__(self, loss_type="L2", **kwargs):
         super().__init__()
@@ -88,31 +88,29 @@ class GaussianImage_Cholesky(nn.Module):
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render_pos": out_img}
     def forward(self):
-        # 原始代码
+        # 原始代码：高斯分布投影到2D
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(
             self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
         
-        # 计算高斯分布的局部密度 (假设图像分为4x4的区域)
-        grid_size = 4
-        region_counts = torch.zeros((grid_size, grid_size))
-        region_width = self.W // grid_size
-        region_height = self.H // grid_size
+        # 统计每帧的瓦片命中数
+        total_tiles_hit = num_tiles_hit.sum().item()
+        print(f" Number of tiles hit = {total_tiles_hit}")
         
-        # 统计每个区域内的高斯分布数量
-        for xy in self.xys:
-            x, y = xy
-            region_x = int(x // region_width)
-            region_y = int(y // region_height)
-            region_counts[region_y, region_x] += 1
+        # 开始计时，测量栅格化操作的时间
+        start_time = time.time()
+
+        # 栅格化高斯分布
+        out_img = rasterize_gaussians_sum(
+            self.xys, depths, self.radii, conics, num_tiles_hit,
+            self.get_features, self._opacity, self.H, self.W, 
+            self.BLOCK_H, self.BLOCK_W, background=self.background, 
+            return_alpha=False)
+
+        # 结束计时并计算栅格化操作的耗时
+        elapsed_time = time.time() - start_time
+        print(f" Rasterization time = {elapsed_time:.6f}s")
         
-        # 输出每个区域的高斯分布密度
-        print(f"Gaussian distribution density (per region):")
-        print(region_counts)
-        
-        # 继续原来的栅格化操作
-        out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
-                                        self.get_features, self._opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, 
-                                        background=self.background, return_alpha=False)
+        # 将输出图像限制在[0,1]之间
         out_img = torch.clamp(out_img, 0, 1)
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         
