@@ -198,7 +198,7 @@ def parse_args(argv):
         "--iterations", type=int, default=30000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
-        "--densification_interval",type=int,default=1000,help="densification_interval (default: %(default)s)"
+        "--densification_interval",type=int,default=2500,help="densification_interval (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
