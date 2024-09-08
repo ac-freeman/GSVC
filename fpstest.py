@@ -278,7 +278,7 @@ def main(argv):
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
     
-    fps_list = []
+    fps_params_list = []  # 用于同时存储FPS和参数数量
     
     # 创建保存路径
     save_path = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
@@ -311,21 +311,23 @@ def main(argv):
                 _ = model.gaussian_model()
             
             fps = 1 / ((time.time() - test_start_time) / 100)
-            fps_list.append((frame_num, fps))
+            
+            # 计算模型参数总数
+            total_params = sum(p.numel() for p in model.gaussian_model.parameters())
+            
+            # 同时保存 frame_num, fps, total_params
+            fps_params_list.append((frame_num, fps, total_params))
     
-    fps_list.sort(key=lambda x: x[0])
-    # 将FPS结果保存到txt文件中
-    fps_file_path = save_path / "fps_results_shuffled.txt"
-    with open(fps_file_path, 'w') as f:
-        for frame_num, fps in fps_list:
-            f.write(f"Frame_{frame_num}: FPS: {fps:.4f}\n")
+    # 对 fps_params_list 按照 frame_num 进行排序
+    fps_params_list.sort(key=lambda x: x[0])
     
-    print(f"FPS results saved to {fps_file_path}")
-
-
-
-
-
+    # 将FPS和参数数量结果保存到同一个txt文件中
+    combined_file_path = save_path / "fps_and_params_results_shuffled.txt"
+    with open(combined_file_path, 'w') as f:
+        for frame_num, fps, total_params in fps_params_list:
+            f.write(f"Frame_{frame_num}: FPS: {fps:.4f}, Total Parameters: {total_params}\n")
+    
+    print(f"FPS and parameter count results saved to {combined_file_path}")
 
 if __name__ == "__main__":
     
