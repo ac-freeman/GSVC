@@ -214,6 +214,58 @@ def parse_args(argv):
     args = parser.parse_args(argv)
     return args
 
+# def main(argv):
+#     args = parse_args(argv)
+#     width = 1920
+#     height = 1080
+#     if args.seed is not None:
+#         torch.manual_seed(args.seed)
+#         random.seed(args.seed)
+#         torch.cuda.manual_seed(args.seed)
+#         torch.backends.cudnn.deterministic = True
+#         torch.backends.cudnn.benchmark = False
+#         np.random.seed(args.seed)
+    
+#     fps_list = []
+    
+#     # 创建保存路径
+#     save_path = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
+#     save_path.mkdir(parents=True, exist_ok=True)
+    
+#     # 读取视频帧
+#     video_frames = process_yuv_video(args.dataset, width, height)
+    
+#     # 加载模型
+#     gmodels_state_dict = torch.load(mpath)    
+    
+#     # 逐帧处理
+#     for frame_num_str, Gmodel in tqdm(gmodels_state_dict.items(), desc="Processing frames"):
+#         frame_num = int(re.search(r'\d+', frame_num_str).group())
+        
+#         model = SimpleTrainer2d(image=video_frames[frame_num-1], frame_num=frame_num, num_points=args.num_points, 
+#                                 iterations=args.iterations, model_name=args.model_name, args=args, 
+#                                 model_path=None, Trained_Model=Gmodel, isdensity=False)
+        
+#         with torch.no_grad():
+#             model.gaussian_model.eval()
+#             test_start_time = time.time()
+            
+#             # 模拟执行100次，计算FPS
+#             for i in range(100):
+#                 _ = model.gaussian_model()
+            
+#             fps = 1 / ((time.time() - test_start_time) / 100)
+#             fps_list.append((frame_num, fps))
+    
+#     # 将FPS结果保存到txt文件中
+#     fps_file_path = save_path / "fps_results.txt"
+#     with open(fps_file_path, 'w') as f:
+#         for frame_num, fps in fps_list:
+#             f.write(f"Frame_{frame_num}: FPS: {fps:.4f}\n")
+    
+#     print(f"FPS results saved to {fps_file_path}")
+
+
 def main(argv):
     args = parse_args(argv)
     width = 1920
@@ -236,15 +288,19 @@ def main(argv):
     video_frames = process_yuv_video(args.dataset, width, height)
     
     # 加载模型
-    gmodels_state_dict = torch.load(mpath)    
+    gmodels_state_dict = torch.load(mpath)
     
-    # 逐帧处理
-    for frame_num_str, Gmodel in tqdm(gmodels_state_dict.items(), desc="Processing frames"):
+    # 提取字典中的键，并进行乱序
+    frame_nums = list(gmodels_state_dict.keys())
+    random.shuffle(frame_nums)
+    
+    # 逐帧处理（按乱序后的 frame_nums）
+    for frame_num_str in tqdm(frame_nums, desc="Processing frames (Shuffled)"):
         frame_num = int(re.search(r'\d+', frame_num_str).group())
         
         model = SimpleTrainer2d(image=video_frames[frame_num-1], frame_num=frame_num, num_points=args.num_points, 
                                 iterations=args.iterations, model_name=args.model_name, args=args, 
-                                model_path=None, Trained_Model=Gmodel, isdensity=False)
+                                model_path=None, Trained_Model=gmodels_state_dict[frame_num_str], isdensity=False)
         
         with torch.no_grad():
             model.gaussian_model.eval()
@@ -258,13 +314,18 @@ def main(argv):
             fps_list.append((frame_num, fps))
     
     # 将FPS结果保存到txt文件中
-    fps_file_path = save_path / "fps_results.txt"
+    fps_file_path = save_path / "fps_results_shuffled.txt"
     with open(fps_file_path, 'w') as f:
         for frame_num, fps in fps_list:
             f.write(f"Frame_{frame_num}: FPS: {fps:.4f}\n")
     
     print(f"FPS results saved to {fps_file_path}")
-    
+
+
+
+
+
+
 if __name__ == "__main__":
     
     main(sys.argv[1:])
