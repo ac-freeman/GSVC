@@ -278,7 +278,7 @@ def main(argv):
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
     
-    fps_params_list = []  # 用于同时存储FPS和参数数量
+    fps_params_list = []  # 用于同时存储FPS、参数数量和瓦片命中数
     
     # 创建保存路径
     save_path = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
@@ -302,32 +302,36 @@ def main(argv):
                                 iterations=args.iterations, model_name=args.model_name, args=args, 
                                 model_path=None, Trained_Model=gmodels_state_dict[frame_num_str], isdensity=False)
         
+        total_tiles_hit_accumulated = 0  # 累积命中瓦片数
         with torch.no_grad():
             model.gaussian_model.eval()
             test_start_time = time.time()
             
-            # 模拟执行100次，计算FPS
+            # 模拟执行100次，计算FPS和平均瓦片命中数
             for i in range(100):
-                _ = model.gaussian_model()
+                result = model.gaussian_model()
+                total_tiles_hit_accumulated += result["tiles_hit"]  # 累加瓦片命中数
             
             fps = 1 / ((time.time() - test_start_time) / 100)
+            avg_tiles_hit = total_tiles_hit_accumulated / 100  # 计算平均瓦片命中数
             
             # 计算模型参数总数
             total_params = sum(p.numel() for p in model.gaussian_model.parameters())
             
-            # 同时保存 frame_num, fps, total_params
-            fps_params_list.append((frame_num, fps, total_params))
+            # 同时保存 frame_num, fps, total_params, avg_tiles_hit
+            fps_params_list.append((frame_num, fps, total_params, avg_tiles_hit))
     
     # 对 fps_params_list 按照 frame_num 进行排序
     fps_params_list.sort(key=lambda x: x[0])
     
-    # 将FPS和参数数量结果保存到同一个txt文件中
-    combined_file_path = save_path / "fps_and_params_results_shuffled.txt"
+    # 将FPS、参数数量和瓦片命中数结果保存到同一个txt文件中
+    combined_file_path = save_path / "fps_params_tiles_results_shuffled.txt"
     with open(combined_file_path, 'w') as f:
-        for frame_num, fps, total_params in fps_params_list:
-            f.write(f"Frame_{frame_num}: FPS: {fps:.4f}, Total Parameters: {total_params}\n")
+        for frame_num, fps, total_params, avg_tiles_hit in fps_params_list:
+            f.write(f"Frame_{frame_num}: FPS: {fps:.4f}, Total Parameters: {total_params}, Avg Tiles Hit: {avg_tiles_hit:.2f}\n")
     
-    print(f"FPS and parameter count results saved to {combined_file_path}")
+    print(f"FPS, parameter count, and average tiles hit results saved to {combined_file_path}")
+
 
 if __name__ == "__main__":
     

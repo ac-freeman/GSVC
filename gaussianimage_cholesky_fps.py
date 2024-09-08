@@ -94,7 +94,7 @@ class GaussianImage_Cholesky(nn.Module):
         
         # 统计每帧的瓦片命中数
         total_tiles_hit = num_tiles_hit.sum().item()
-        print(f" Number of tiles hit = {total_tiles_hit}")
+        #print(f" Number of tiles hit = {total_tiles_hit}")
         
         # 开始计时，测量栅格化操作的时间
         start_time = time.time()
@@ -108,13 +108,14 @@ class GaussianImage_Cholesky(nn.Module):
 
         # 结束计时并计算栅格化操作的耗时
         elapsed_time = time.time() - start_time
-        print(f" Rasterization time = {elapsed_time:.6f}s")
+        #print(f" Rasterization time = {elapsed_time:.6f}s")
         
         # 将输出图像限制在[0,1]之间
         out_img = torch.clamp(out_img, 0, 1)
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         
-        return {"render": out_img}
+        # 返回渲染结果和瓦片命中数
+        return {"render": out_img, "tiles_hit": total_tiles_hit}
 
     def update_optimizer(self):
         if self.opt_type == "adam":
