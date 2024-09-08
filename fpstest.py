@@ -13,8 +13,9 @@ from utils import *
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-savdir="result"
-savdir_m="models"
+savdir="fps"
+savdir_m="fps"
+mpath="/home/e/e1344641/GaussianVideo/checkpoints/models/Beauty/GaussianImage_Cholesky_30000_50000/gmodels_state_dict.pth"
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
@@ -214,20 +215,9 @@ def parse_args(argv):
     return args
 
 def main(argv):
-    ispos = False
     args = parse_args(argv)
-    #args.model_name="GaussianImage_Cholesky"
-    # args.save_imgs=False
-    args.save_imgs=True
-    #args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
-    #args.data_name='Beauty'
-    args.fps=120
     width = 1920
     height = 1080
-    gmodel_save_path = Path(f"./checkpoints/{savdir_m}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
-    gmodel_save_path.mkdir(parents=True, exist_ok=True)  # 确保保存目录存在
-    # Cache the args as a text string to save them in the output dir later
-    args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
     if args.seed is not None:
         torch.manual_seed(args.seed)
         random.seed(args.seed)
@@ -235,59 +225,19 @@ def main(argv):
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
-
     logwriter = LogWriter(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
-    psnrs, ms_ssims, training_times, eval_times, eval_fpses, gaussian_number = [], [], [], [], [],[]
-    image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
-    image_length,start=len(video_frames),0
-    # image_length=5
-    Gmodel=None
-    img_list=[]
-    gmodels_state_dict = {}
-    num_gaussian_points_dict={}
-    for i in range(start, start+image_length):
-        frame_num=i+1
-        if frame_num ==1 or frame_num%50==0:
-            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
-                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False)
-        else:
-            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=num_gaussian_points, 
-                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
-        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img,num_gaussian_points = trainer.train(i,ispos)
-        img_list.append(img)
-        psnrs.append(psnr)
-        ms_ssims.append(ms_ssim)
-        training_times.append(training_time) 
-        gaussian_number.append(num_gaussian_points)
-        eval_times.append(eval_time)
-        eval_fpses.append(eval_fps)
-        image_h += trainer.H
-        image_w += trainer.W
-        gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
-        num_gaussian_points_dict[f"frame_{frame_num}"]=num_gaussian_points
-        torch.cuda.empty_cache()
-        if i==0 or (i+1)%100==0:
-            logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
-    torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
-    file_size = os.path.getsize(os.path.join(gmodel_save_path, 'gmodels_state_dict.pth'))
-    with open(Path(f"./checkpoints/result/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
-        for key, value in num_gaussian_points_dict.items():
-            f.write(f'{key}: {value}\n')
-    avg_psnr = torch.tensor(psnrs).mean().item()
-    avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
-    avg_training_time = torch.tensor(training_times).mean().item()
-    avg_eval_time = torch.tensor(eval_times).mean().item()
-    avg_eval_fps = torch.tensor(eval_fpses).mean().item()
-    avg_h = image_h//image_length
-    avg_w = image_w//image_length
-    gaussians = sum(gaussian_number) / len(gaussian_number)
-    logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f},gaussian_number:{:.4f}".format(
-        avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024),gaussians))
-    if ispos:
-        generate_video(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
-    else:
-        generate_video(savdir, img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
+    gmodels_state_dict = torch.load(mpath)    
+    for frame_num, Gmodel in tqdm(gmodels_state_dict.items(), desc="Processing frames"):
+        model = SimpleTrainer2d(image=video_frames[frame_num-1],frame_num=frame_num, num_points=args.num_points, 
+                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
+        with torch.no_grad():
+            model.gaussian_model.eval()
+            test_start_time = time.time()
+            for i in range(100):
+                _ = model.gaussian_model()
+            fps = (time.time() - test_start_time)/100
+            logwriter.write("Frame_{}: FPS:{:.4f}".format(frame_num, fps))
     
 if __name__ == "__main__":
     
