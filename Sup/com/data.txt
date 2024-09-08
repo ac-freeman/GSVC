@@ -5,3 +5,5 @@
 /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv
 /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv
 /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv
+
+/home/e/e1344641/GaussianVideo/checkpoints/models/Beauty/GaussianImage_Cholesky_30000_50000/gmodels_state_dict.pth
