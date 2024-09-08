@@ -106,7 +106,7 @@ class GaussianImage_Cholesky(nn.Module):
             region_counts[region_y, region_x] += 1
         
         # 输出每个区域的高斯分布密度
-        print(f"Frame {self.frame_num} Gaussian distribution density (per region):")
+        print(f"Gaussian distribution density (per region):")
         print(region_counts)
         
         # 继续原来的栅格化操作
