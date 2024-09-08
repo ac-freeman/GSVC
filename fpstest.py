@@ -313,6 +313,7 @@ def main(argv):
             fps = 1 / ((time.time() - test_start_time) / 100)
             fps_list.append((frame_num, fps))
     
+    fps_list.sort(key=lambda x: x[0])
     # 将FPS结果保存到txt文件中
     fps_file_path = save_path / "fps_results_shuffled.txt"
     with open(fps_file_path, 'w') as f:
