@@ -159,8 +159,8 @@ def process_yuv_video(file_path, width, height):
     return video_frames
 
 
-def generate_video(image_list, data_name, model_name,fps,iterations,num_points,origin):
-    video_path = Path(f"./checkpoints/result/{data_name}/{model_name}_{iterations}_{num_points}/video")
+def generate_video(savdir,image_list, data_name, model_name,fps,iterations,num_points,origin):
+    video_path = Path(f"./checkpoints/{savdir}/{data_name}/{model_name}_{iterations}_{num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
     # Define the output video file name
     if origin:

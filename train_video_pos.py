@@ -13,8 +13,8 @@ from utils import *
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-savdir="result"
-savdir_m="models"
+savdir="result_pos"
+savdir_m="models_pos"
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
@@ -214,7 +214,7 @@ def parse_args(argv):
     return args
 
 def main(argv):
-    ispos = False
+    ispos = True
     args = parse_args(argv)
     #args.model_name="GaussianImage_Cholesky"
     # args.save_imgs=False
@@ -271,7 +271,7 @@ def main(argv):
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
     file_size = os.path.getsize(os.path.join(gmodel_save_path, 'gmodels_state_dict.pth'))
-    with open(Path(f"./checkpoints/result/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
+    with open(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
         for key, value in num_gaussian_points_dict.items():
             f.write(f'{key}: {value}\n')
     avg_psnr = torch.tensor(psnrs).mean().item()
@@ -287,7 +287,7 @@ def main(argv):
     if ispos:
         generate_video(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
     else:
-        generate_video(savdir, img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
+        generate_video(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
     
 if __name__ == "__main__":
     
