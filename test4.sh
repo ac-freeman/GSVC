@@ -21,7 +21,7 @@ datasets=(
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 30000 35000 40000 45000 50000; do
+  for num_points in 10000 20000 30000 40000 50000; do
   # Run the training script for each dataset
     for iterations in 30000; do
       srun python train_video_density_first_frame.py --dataset $dataset_path --data_name $data_name --num_points $num_points --iterations $iterations
