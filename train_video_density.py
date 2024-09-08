@@ -13,8 +13,8 @@ from utils import *
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-savdir="result_density_pos_test"
-savdir_m="models_density_pos_test"
+savdir="result_density_pos"
+savdir_m="models_density_pos"
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
@@ -241,7 +241,7 @@ def main(argv):
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    image_length=5
+    # image_length=5
     Gmodel=None
     img_list=[]
     gmodels_state_dict = {}
