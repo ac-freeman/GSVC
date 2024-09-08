@@ -22,7 +22,7 @@ for dataset in "${datasets[@]}"; do
   for num_points in 50000; do
   # Run the training script for each dataset
     for iterations in 50000; do
-      srun python train_video.py --dataset $dataset_path --data_name $data_name --num_points $num_points --iterations $iterations
+      srun python train_video_density.py --dataset $dataset_path --data_name $data_name --num_points $num_points --iterations $iterations
       done
     done
 done
