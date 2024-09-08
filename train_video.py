@@ -282,7 +282,7 @@ def main(argv):
     avg_w = image_w//image_length
     gaussians = sum(gaussian_number) / len(gaussian_number)
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f},gaussian_number:{:.4f}".format(
-        avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024)),gaussians)
+        avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024),gaussians))
     if ispos:
         generate_video(img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
     else:
