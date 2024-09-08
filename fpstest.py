@@ -225,20 +225,45 @@ def main(argv):
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
-    logwriter = LogWriter(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
+    
+    fps_list = []
+    
+    # 创建保存路径
+    save_path = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
+    save_path.mkdir(parents=True, exist_ok=True)
+    
+    # 读取视频帧
     video_frames = process_yuv_video(args.dataset, width, height)
+    
+    # 加载模型
     gmodels_state_dict = torch.load(mpath)    
-    for frame_num, Gmodel in tqdm(gmodels_state_dict.items(), desc="Processing frames"):
-        frame_num = int(re.search(r'\d+', frame_num).group())
-        model = SimpleTrainer2d(image=video_frames[frame_num-1],frame_num=frame_num, num_points=args.num_points, 
-                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
+    
+    # 逐帧处理
+    for frame_num_str, Gmodel in tqdm(gmodels_state_dict.items(), desc="Processing frames"):
+        frame_num = int(re.search(r'\d+', frame_num_str).group())
+        
+        model = SimpleTrainer2d(image=video_frames[frame_num-1], frame_num=frame_num, num_points=args.num_points, 
+                                iterations=args.iterations, model_name=args.model_name, args=args, 
+                                model_path=None, Trained_Model=Gmodel, isdensity=False)
+        
         with torch.no_grad():
             model.gaussian_model.eval()
             test_start_time = time.time()
+            
+            # 模拟执行100次，计算FPS
             for i in range(100):
                 _ = model.gaussian_model()
-            fps = (time.time() - test_start_time)/100
-            logwriter.write("Frame_{}: FPS:{:.4f}".format(frame_num, fps))
+            
+            fps = 1 / ((time.time() - test_start_time) / 100)
+            fps_list.append((frame_num, fps))
+    
+    # 将FPS结果保存到txt文件中
+    fps_file_path = save_path / "fps_results.txt"
+    with open(fps_file_path, 'w') as f:
+        for frame_num, fps in fps_list:
+            f.write(f"Frame_{frame_num}: FPS: {fps:.4f}\n")
+    
+    print(f"FPS results saved to {fps_file_path}")
     
 if __name__ == "__main__":
     
