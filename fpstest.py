@@ -199,7 +199,7 @@ def parse_args(argv):
     parser.add_argument(
         "--num_points",
         type=int,
-        default=5000,
+        default=50000,
         help="2D GS points (default: %(default)s)",
     )
     parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
