@@ -229,7 +229,7 @@ def main(argv):
     video_frames = process_yuv_video(args.dataset, width, height)
     gmodels_state_dict = torch.load(mpath)    
     for frame_num, Gmodel in tqdm(gmodels_state_dict.items(), desc="Processing frames"):
-        frame_num = int(re.search(r'\d+', frame_num_str).group())
+        frame_num = int(re.search(r'\d+', frame_num).group())
         model = SimpleTrainer2d(image=video_frames[frame_num-1],frame_num=frame_num, num_points=args.num_points, 
                 iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
         with torch.no_grad():
