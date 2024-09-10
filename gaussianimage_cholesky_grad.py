@@ -100,7 +100,7 @@ class GaussianImage_Cholesky(nn.Module):
         # 计算每个点的梯度幅度
         grad_magnitude = torch.norm(grad_xyz, dim=1).detach().cpu().numpy()
         # 将梯度幅度映射为颜色 (colormap)
-        colormap = cm.get_cmap('viridis')  # 使用 viridis 颜色映射
+        colormap = cm.get_cmap('hot')  # 使用 hot 颜色映射
         grad_colors = colormap(grad_magnitude / grad_magnitude.max())[:, :3]  # 获取RGB颜色值
         # 将颜色转换为 Tensor，并将其设置为 features_dc
         features_dc = torch.tensor(grad_colors, dtype=torch.float32).to(self.device)
