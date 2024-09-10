@@ -307,17 +307,16 @@ class GaussianImage_Cholesky(nn.Module):
         return loss, psnr
     
     def train_iter_img(self, gt_image,iter,isdensity):
-        self.get_xyz.retain_grad()
         render_pkg = self.forward()
         image = render_pkg["render"]
         loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
         loss.backward()
-        grad_xyz = self.get_xyz.grad
-        if grad_xyz is None:
-            raise RuntimeError("grad_xyz is None. Ensure self.get_xyz is a leaf tensor with requires_grad=True.")
         with torch.no_grad():
             mse_loss = F.mse_loss(image, gt_image)
             psnr = 10 * math.log10(1.0 / mse_loss.item())
+        grad_xyz = self.get_xyz.grad
+        if grad_xyz is None:
+            raise RuntimeError("grad_xyz is None. Ensure self.get_xyz is a leaf tensor with requires_grad=True.")
         if (iter) % (self.densification_interval+1) == 0 and iter > 0 and isdensity:
             self.density_control()
             # for param_group in self.optimizer.param_groups:
