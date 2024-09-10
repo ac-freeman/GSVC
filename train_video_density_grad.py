@@ -70,7 +70,7 @@ class SimpleTrainer2d:
         save_path_img = self.log_dir / "img"
         save_path_img.mkdir(parents=True, exist_ok=True)
         for iter in range(1, int(self.iterations)+1):
-            loss, psnr,img = self.gaussian_model.train_iter_img(self.gt_image,iter,self.isdensity)
+            loss, psnr,img, grad_xyz = self.gaussian_model.train_iter_img(self.gt_image,iter,self.isdensity)
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -79,7 +79,7 @@ class SimpleTrainer2d:
                     progress_bar.update(10)
                 if iter==1 or iter % 50 == 0:
                     num_gaussian_points =self.gaussian_model._xyz.size(0)
-                    out_pos_grad =self.gaussian_model.forward_pos_grad(num_gaussian_points)
+                    out_pos_grad =self.gaussian_model.forward_pos_grad(num_gaussian_points, grad_xyz)
                     transform = transforms.ToPILImage()
                     img = transform(img.float().squeeze(0))
                     img_pos_sca = transform(out_pos_grad["render_pos_grad"].float().squeeze(0))

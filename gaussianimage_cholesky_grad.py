@@ -93,13 +93,10 @@ class GaussianImage_Cholesky(nn.Module):
     
 
 
-    def forward_pos_grad(self, num_points):
+    def forward_pos_grad(self, num_points, grad_xyz):
         cholesky = torch.full((num_points, 3), 1.0).to(self.device)
-        self.get_xyz.requires_grad_(True)
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(
             self.get_xyz, cholesky + self.cholesky_bound, self.H, self.W, self.tile_bounds)
-        # 获取 xyz 的梯度
-        grad_xyz = self.get_xyz.grad
         # 计算每个点的梯度幅度
         grad_magnitude = torch.norm(grad_xyz, dim=1).detach().cpu().numpy()
         # 将梯度幅度映射为颜色 (colormap)
@@ -314,6 +311,7 @@ class GaussianImage_Cholesky(nn.Module):
         image = render_pkg["render"]
         loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
         loss.backward()
+        grad_xyz = self.get_xyz.grad
         with torch.no_grad():
             mse_loss = F.mse_loss(image, gt_image)
             psnr = 10 * math.log10(1.0 / mse_loss.item())
@@ -327,7 +325,7 @@ class GaussianImage_Cholesky(nn.Module):
         self.optimizer.zero_grad(set_to_none = True)
         
         self.scheduler.step()
-        return loss, psnr,image
+        return loss, psnr,image,grad_xyz
     
     # def train_iter_img(self, gt_image, iter, isdensity):
     #     render_pkg = self.forward()
