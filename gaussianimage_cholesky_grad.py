@@ -314,7 +314,7 @@ class GaussianImage_Cholesky(nn.Module):
         with torch.no_grad():
             mse_loss = F.mse_loss(image, gt_image)
             psnr = 10 * math.log10(1.0 / mse_loss.item())
-        grad_xyz = self.get_xyz.grad
+        grad_xyz = self._xyz.grad
         if grad_xyz is None:
             raise RuntimeError("grad_xyz is None. Ensure self.get_xyz is a leaf tensor with requires_grad=True.")
         if (iter) % (self.densification_interval+1) == 0 and iter > 0 and isdensity:
