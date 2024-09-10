@@ -198,7 +198,7 @@ def parse_args(argv):
         "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--iterations", type=int, default=30000, help="number of training epochs (default: %(default)s)"
+        "--iterations", type=int, default=1000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
         "--densification_interval",type=int,default=2500,help="densification_interval (default: %(default)s)"
