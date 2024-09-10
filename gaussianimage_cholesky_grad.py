@@ -307,6 +307,7 @@ class GaussianImage_Cholesky(nn.Module):
         return loss, psnr
     
     def train_iter_img(self, gt_image,iter,isdensity):
+        self.get_xyz.requires_grad_(True)
         render_pkg = self.forward()
         image = render_pkg["render"]
         loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
