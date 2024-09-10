@@ -70,7 +70,7 @@ class SimpleTrainer2d:
         save_path_img = self.log_dir / "img"
         save_path_img.mkdir(parents=True, exist_ok=True)
         for iter in range(1, int(self.iterations)+1):
-            loss, psnr,img,grad_img = self.gaussian_model.train_iter_img(self.gt_image,iter,self.isdensity)
+            loss, psnr,img = self.gaussian_model.train_iter_img(self.gt_image,iter,self.isdensity)
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -79,17 +79,15 @@ class SimpleTrainer2d:
                     progress_bar.update(10)
                 if iter==1 or iter % 50 == 0:
                     num_gaussian_points =self.gaussian_model._xyz.size(0)
+                    out_pos_grad =self.gaussian_model.forward_pos_grad(num_gaussian_points)
                     transform = transforms.ToPILImage()
-                    img_pil = transform(img.float().squeeze(0))
-                    buf = io.BytesIO()
-                    grad_img.savefig(buf, format='PNG')
-                    buf.seek(0)
-                    grad_img_pil = Image.open(buf)
-                    combined_width = img_pil.width + grad_img_pil.width
-                    combined_height = max(img_pil.height, grad_img_pil.height)
+                    img = transform(img.float().squeeze(0))
+                    img_pos_sca = transform(out_pos_grad["render_pos_grad"].float().squeeze(0))
+                    combined_width =img.width+img_pos_sca.width
+                    combined_height = max(img.height, img_pos_sca.height)
                     combined_img = Image.new("RGB", (combined_width, combined_height))
-                    combined_img.paste(grad_img_pil, (0, 0))
-                    combined_img.paste(img_pil, (grad_img_pil.width, 0))
+                    combined_img.paste(img_pos_sca, (0, 0))
+                    combined_img.paste(img, (img_pos_sca.width, 0))
                     img_list.append(combined_img)
         end_time = time.time() - start_time
         progress_bar.close()
