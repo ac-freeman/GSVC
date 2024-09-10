@@ -192,7 +192,7 @@ class GaussianImage_Cholesky(nn.Module):
         gaussian_values = torch.exp(-0.5 * torch.sum(self.get_xyz ** 2 / torch.clamp(self.get_cholesky_elements[:, [0, 2]], min=1e-6), dim=1))
         top_gaussian_values = gaussian_values[top_percent_indices]
 
-        # Use the median of the top 5% Gaussian values as a threshold
+        # Use the median of the top 1% Gaussian values as a threshold
         gaussian_threshold = torch.median(top_gaussian_values)
 
         # Select points for split and clone based on the Gaussian threshold
