@@ -16,7 +16,7 @@ output_file = "/home/e/e1344641/data/UVG/Beauty/Beauty_transformed_1920x1080_120
 # 计算总帧数 (文件大小 / 每帧大小)
 file_size = os.path.getsize(input_file)
 total_frames = file_size // frame_size
-
+print(total_frames)
 # 打开输入和输出文件
 with open(input_file, 'rb') as f_in, open(output_file, 'wb') as f_out:
     # 使用 tqdm 显示进度条
