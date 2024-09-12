@@ -182,7 +182,7 @@ class GaussianImage_Cholesky(nn.Module):
         grad_magnitude = torch.norm(grad_xyz, dim=1)
 
         # Calculate the number of top 1% points
-        percentile_count = int(0.01 * len(grad_magnitude))
+        percentile_count = int(0.005 * len(grad_magnitude))
 
         # Sort the gradient magnitudes in descending order to get the indices of largest values
         sorted_grad_magnitude, sorted_indices = torch.sort(grad_magnitude, descending=True)  # Sorting in descending order

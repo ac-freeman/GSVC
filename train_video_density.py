@@ -13,8 +13,8 @@ from utils import *
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-savdir="result_density_pos"
-savdir_m="models_density_pos"
+savdir="result_density"
+savdir_m="models_density"
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
@@ -89,7 +89,7 @@ class SimpleTrainer2d:
             k: v for k, v in Gmodel.items()
             if k in ['_xyz', '_cholesky', '_features_dc']
         }
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel,img,num_gaussian_points
+        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss
     def test(self,frame,num_gaussian_points,ispos):
         self.gaussian_model.eval()
         with torch.no_grad():
@@ -184,7 +184,7 @@ def parse_args(argv):
         "--iterations", type=int, default=30000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
-        "--densification_interval",type=int,default=2500,help="densification_interval (default: %(default)s)"
+        "--densification_interval",type=int,default=500,help="densification_interval (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
@@ -214,7 +214,7 @@ def parse_args(argv):
     return args
 
 def main(argv):
-    ispos = True
+    ispos = False
     args = parse_args(argv)
     #args.model_name="GaussianImage_Cholesky"
     # args.save_imgs=False
@@ -254,7 +254,7 @@ def main(argv):
         else:
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=num_gaussian_points, 
                 iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
-        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img,num_gaussian_points = trainer.train(i,ispos)
+        psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, img, num_gaussian_points, loss = trainer.train(i,ispos)
         img_list.append(img)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
@@ -267,8 +267,9 @@ def main(argv):
         gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
         num_gaussian_points_dict[f"frame_{frame_num}"]=num_gaussian_points
         torch.cuda.empty_cache()
-        if i==0 or (i+1)%100==0:
-            logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
+        # if i==0 or (i+1)%100==0:
+        if i==0 or (i+1)%1==0:
+            logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Loss:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps, loss))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
     file_size = os.path.getsize(os.path.join(gmodel_save_path, 'gmodels_state_dict.pth'))
     with open(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
@@ -282,7 +283,7 @@ def main(argv):
     avg_h = image_h//image_length
     avg_w = image_w//image_length
     gaussians = sum(gaussian_number) / len(gaussian_number)
-    logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f},gaussian_number:{:.4f}".format(
+    logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f}, Gaussian_number:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024),gaussians))
     if ispos:
         generate_video_density(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
