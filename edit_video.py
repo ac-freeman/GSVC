@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
-
+from tqdm import tqdm
+import os
 # 视频的宽度和高度
 width = 1920
 height = 1080
@@ -12,9 +13,14 @@ frame_size = width * height * 3 // 2
 input_file = "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv"
 output_file = "/home/e/e1344641/data/UVG/Beauty/Beauty_transformed_1920x1080_120fps_420_8bit_YUV.yuv"
 
-# 打开输入文件
+# 计算总帧数 (文件大小 / 每帧大小)
+file_size = os.path.getsize(input_file)
+total_frames = file_size // frame_size
+
+# 打开输入和输出文件
 with open(input_file, 'rb') as f_in, open(output_file, 'wb') as f_out:
-    while True:
+    # 使用 tqdm 显示进度条
+    for frame_index in tqdm(range(total_frames), desc="Processing frames"):
         # 读取一帧
         yuv_frame = f_in.read(frame_size)
         if not yuv_frame:
