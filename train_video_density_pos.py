@@ -13,8 +13,8 @@ from utils import *
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-savdir="result_density"
-savdir_m="models_density"
+savdir="result_density_pos"
+savdir_m="models_density_pos"
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
