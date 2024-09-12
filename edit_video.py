@@ -10,8 +10,8 @@ height = 1080
 frame_size = width * height * 3 // 2
 
 # 输入 YUV 视频路径
-input_file = "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv"
-output_file = "/home/e/e1344641/data/UVG/Beauty/Beauty_transformed_1920x1080_120fps_420_8bit_YUV.yuv"
+input_file = "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv"
+output_file = "/home/e/e1344641/data/UVG/Jockey/Jockey_transformed_1920x1080_120fps_420_8bit_YUV.yuv"
 
 # 计算总帧数 (文件大小 / 每帧大小)
 file_size = os.path.getsize(input_file)
