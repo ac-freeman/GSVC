@@ -250,7 +250,7 @@ class GaussianImage_Cholesky(nn.Module):
     def density_control(self, iter):
         iter_threshold_remove = self.iterations/3  # 根据您的训练计划调整这个阈值
         iter_threshold_add = self.iterations*2/3
-        if iter >= iter_threshold_remove and iter <= iter_threshold_add:
+        if iter > iter_threshold_remove and iter <= iter_threshold_add:
             return
         grad_xyz = self._xyz.grad
         if grad_xyz is None:
