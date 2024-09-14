@@ -264,7 +264,7 @@ class GaussianImage_Cholesky(nn.Module):
 
         if iter <= iter_threshold_remove:
             # 训练早期：只执行删除操作，减少总的高斯点数量
-            remove_count = int(0.005 * self.max_num_points)  # 删除0.5%的点
+            remove_count = int(0.0025 * self.max_num_points)  # 删除0.5%的点
             remove_indices = sorted_indices[:remove_count]
 
             # 删除选定的点
@@ -277,7 +277,7 @@ class GaussianImage_Cholesky(nn.Module):
             self._opacity = self._opacity[keep_indices]
         elif iter > iter_threshold_add:
             # 训练后期：只执行增加操作，通过拆分和克隆增加高斯点数量
-            percentile_count = int(0.005 * self.max_num_points)  # 选择梯度最大的0.5%的点
+            percentile_count = int(0.0025 * self.max_num_points)  # 选择梯度最大的0.5%的点
             top_indices = sorted_indices[-percentile_count:]  # 梯度最大的点的索引
 
             # 计算选定点的高斯值
