@@ -250,7 +250,7 @@ class GaussianImage_Cholesky(nn.Module):
     def density_control(self, iter):
         iter_threshold_remove = self.iterations/3  # 根据您的训练计划调整这个阈值
         iter_threshold_add = self.iterations*2/3
-        if iter > iter_threshold_remove and iter <= iter_threshold_add:
+        if iter > iter_threshold_remove and iter <= iter_threshold_add+1:
             return
         grad_xyz = self._xyz.grad
         if grad_xyz is None:
@@ -275,7 +275,7 @@ class GaussianImage_Cholesky(nn.Module):
             self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
             self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
             self._opacity = self._opacity[keep_indices]
-        elif iter > iter_threshold_add:
+        elif iter > iter_threshold_add+1:
             # 训练后期：只执行增加操作，通过拆分和克隆增加高斯点数量
             percentile_count = int(0.0025 * self.max_num_points)  # 选择梯度最大的0.5%的点
             top_indices = sorted_indices[-percentile_count:]  # 梯度最大的点的索引
