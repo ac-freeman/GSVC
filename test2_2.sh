@@ -19,7 +19,7 @@ datasets=(
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 2000 4000 6000 8000 10000; do
+  for num_points in 4000 6000 8000 10000; do
   # Run the training script for each dataset
     for iterations in 30000; do
       srun python train_video.py --dataset $dataset_path --data_name $data_name --num_points $num_points --iterations $iterations
