@@ -10,8 +10,8 @@ height = 1080
 frame_size = width * height * 3 // 2
 
 # 输入 YUV 视频路径
-input_file = "/home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv"
-output_file = "/home/e/e1344641/data/UVG/HoneyBee/HoneyBee_transformed_1920x1080_120fps_420_8bit_YUV.yuv"
+input_file = "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv"
+output_file = "/home/e/e1344641/data/UVG/Jockey/Jockey_transformed_1920x1080_120fps_420_8bit_YUV.yuv"
 
 # 计算总帧数 (文件大小 / 每帧大小)
 file_size = os.path.getsize(input_file)
@@ -82,24 +82,24 @@ with open(input_file, 'rb') as f_in, open(output_file, 'wb') as f_out:
         f_out.write(u_plane_transformed.tobytes())
         f_out.write(v_plane_transformed.tobytes())
 
-with open(output_file, 'rb') as f_in:
-    # 读取第一帧
-    yuv_frame = f_in.read(frame_size)
-    if yuv_frame:
-        # 将 YUV 数据分解成 Y, U, V 三个平面
-        y_plane = np.frombuffer(yuv_frame[:width * height], dtype=np.uint8).reshape((height, width))
-        u_plane = np.frombuffer(yuv_frame[width * height:width * height + (width // 2) * (height // 2)], dtype=np.uint8).reshape((height // 2, width // 2))
-        v_plane = np.frombuffer(yuv_frame[width * height + (width // 2) * (height // 2):], dtype=np.uint8).reshape((height // 2, width // 2))
+# with open(output_file, 'rb') as f_in:
+#     # 读取第一帧
+#     yuv_frame = f_in.read(frame_size)
+#     if yuv_frame:
+#         # 将 YUV 数据分解成 Y, U, V 三个平面
+#         y_plane = np.frombuffer(yuv_frame[:width * height], dtype=np.uint8).reshape((height, width))
+#         u_plane = np.frombuffer(yuv_frame[width * height:width * height + (width // 2) * (height // 2)], dtype=np.uint8).reshape((height // 2, width // 2))
+#         v_plane = np.frombuffer(yuv_frame[width * height + (width // 2) * (height // 2):], dtype=np.uint8).reshape((height // 2, width // 2))
 
-        # 扩展 U 和 V 平面的大小，使其与 Y 平面匹配
-        u_plane_upscaled = cv2.resize(u_plane, (width, height), interpolation=cv2.INTER_LINEAR)
-        v_plane_upscaled = cv2.resize(v_plane, (width, height), interpolation=cv2.INTER_LINEAR)
+#         # 扩展 U 和 V 平面的大小，使其与 Y 平面匹配
+#         u_plane_upscaled = cv2.resize(u_plane, (width, height), interpolation=cv2.INTER_LINEAR)
+#         v_plane_upscaled = cv2.resize(v_plane, (width, height), interpolation=cv2.INTER_LINEAR)
 
-        # 合并 YUV 平面到 YUV 格式图像
-        yuv_img = cv2.merge((y_plane, u_plane_upscaled, v_plane_upscaled))
+#         # 合并 YUV 平面到 YUV 格式图像
+#         yuv_img = cv2.merge((y_plane, u_plane_upscaled, v_plane_upscaled))
 
-        # 将 YUV 图像转换为 BGR 格式 (适合 OpenCV 显示或保存)
-        bgr_img = cv2.cvtColor(yuv_img, cv2.COLOR_YUV2BGR)
+#         # 将 YUV 图像转换为 BGR 格式 (适合 OpenCV 显示或保存)
+#         bgr_img = cv2.cvtColor(yuv_img, cv2.COLOR_YUV2BGR)
 
-        # 保存处理后的第一帧为 JPG 图片
-        cv2.imwrite('/home/e/e1344641/data/UVG/Beauty/first_frame_transformed_beauty.jpg', bgr_img)
+#         # 保存处理后的第一帧为 JPG 图片
+#         cv2.imwrite('/home/e/e1344641/data/UVG/Beauty/first_frame_transformed_beauty.jpg', bgr_img)
