@@ -248,8 +248,10 @@ class GaussianImage_Cholesky(nn.Module):
     #     #print(f"current_number:{self._xyz.shape[0]}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
 
     def density_control(self, iter):
-        iter_threshold = self.iterations/2  # 根据您的训练计划调整这个阈值
-
+        iter_threshold_remove = self.iterations/3  # 根据您的训练计划调整这个阈值
+        iter_threshold_add = self.iterations*2/3
+        if iter >= iter_threshold_remove and iter <= iter_threshold_add:
+            return
         grad_xyz = self._xyz.grad
         if grad_xyz is None:
             raise RuntimeError("grad_xyz is None,请检查 self._xyz 是否参与了计算图。")
@@ -260,7 +262,7 @@ class GaussianImage_Cholesky(nn.Module):
         # 对梯度幅值进行升序排序（最小的梯度在前）
         sorted_grad_magnitude, sorted_indices = torch.sort(grad_magnitude)
 
-        if iter < iter_threshold:
+        if iter < iter_threshold_remove:
             # 训练早期：只执行删除操作，减少总的高斯点数量
             remove_count = int(0.005 * self.max_num_points)  # 删除0.5%的点
             remove_indices = sorted_indices[:remove_count]
@@ -273,7 +275,7 @@ class GaussianImage_Cholesky(nn.Module):
             self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
             self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
             self._opacity = self._opacity[keep_indices]
-        else:
+        elif iter > iter_threshold_add:
             # 训练后期：只执行增加操作，通过拆分和克隆增加高斯点数量
             percentile_count = int(0.005 * self.max_num_points)  # 选择梯度最大的0.5%的点
             top_indices = sorted_indices[-percentile_count:]  # 梯度最大的点的索引
