@@ -248,10 +248,10 @@ class GaussianImage_Cholesky(nn.Module):
     #     #print(f"current_number:{self._xyz.shape[0]}, split_indices: {len(split_indices)}, clone_indices: {len(clone_indices)}")
 
     def density_control(self, iter):
-        iter_threshold_remove = self.iterations/3  # 根据您的训练计划调整这个阈值
-        iter_threshold_add = self.iterations*2/3
-        if iter > iter_threshold_add:
-            return
+        iter_threshold_remove = self.iterations/2  # 根据您的训练计划调整这个阈值
+        # iter_threshold_add = self.iterations*1/2
+        # if iter > iter_threshold_add:
+        #     return
         grad_xyz = self._xyz.grad
         if grad_xyz is None:
             raise RuntimeError("grad_xyz is None,请检查 self._xyz 是否参与了计算图。")
