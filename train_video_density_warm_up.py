@@ -184,7 +184,7 @@ def parse_args(argv):
         "--iterations", type=int, default=30000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
-        "--densification_interval",type=int,default=500,help="densification_interval (default: %(default)s)"
+        "--densification_interval",type=int,default=100,help="densification_interval (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
@@ -252,10 +252,10 @@ def main(argv):
         if frame_num ==1 or frame_num%50==0:
             if iswarmup:
                 trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],4),frame_num=frame_num, num_points=args.num_points, 
-                    iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False)
+                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False)
                 _, _, _, _, _, Gmodel, _, num_gaussian_points, _ = trainer.train(i,ispos)
                 trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],2),frame_num=frame_num, num_points=num_gaussian_points, 
-                    iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
+                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
                 _, _, _, _, _, Gmodel, _, num_gaussian_points, _ = trainer.train(i,ispos)
                 trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=num_gaussian_points, 
                     iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=True)
