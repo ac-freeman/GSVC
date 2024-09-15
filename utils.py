@@ -235,3 +235,8 @@ def generate_video_density(videodir,image_list, data_name, model_name,fps,iterat
         print("video.mp4: MP4 video created successfully.")
     else:
         print("combined_video.mp4: MP4 video created successfully.")
+
+def downsample_image(image, scale_factor):
+    # 使用模糊降低图像分辨率，保留尺寸不变
+    downsampled_image = cv2.GaussianBlur(image, (scale_factor * 2 + 1, scale_factor * 2 + 1), 0)
+    return downsampled_image
