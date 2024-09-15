@@ -267,10 +267,10 @@ def main(argv):
             if iswarmup:
                 trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],4),frame_num=frame_num, num_points=args.num_points, 
                     iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False)
-                _, _, _, _, _, Gmodel, _, num_gaussian_points, _ = trainer.train(i,ispos)
+                _, _, _, _, _, Gmodel,_,num_gaussian_points = trainer.train(i,ispos)
                 trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],2),frame_num=frame_num, num_points=num_gaussian_points, 
                     iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
-                _, _, _, _, _, Gmodel, _, num_gaussian_points, _ = trainer.train(i,ispos)
+                _, _, _, _, _, Gmodel, _, num_gaussian_points= trainer.train(i,ispos)
                 trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=num_gaussian_points, 
                     iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=True)
             else:
