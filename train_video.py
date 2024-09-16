@@ -205,9 +205,9 @@ def parse_args(argv):
     parser.add_argument("--savdir_m", type=str, default="models", help="Path to models")
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
     parser.add_argument("--save_imgs", action="store_true", help="Save image")
-    parser.add_argument("--is_pos", type=bool, default=False,action="store_false", help="Show the position of gaussians")
-    parser.add_argument("--is_warmup", type=bool, default=True,action="store_true", help="Warmup setup")
-    parser.add_argument("--is_ad", type=bool, default=True,action="store_true", help="Adaptive control of gaussians setup")
+    parser.add_argument("--is_pos", action="store_false", help="Show the position of gaussians")
+    parser.add_argument("--is_warmup",action="store_true", help="Warmup setup")
+    parser.add_argument("--is_ad",action="store_true", help="Adaptive control of gaussians setup")
     parser.add_argument(
         "--lr",
         type=float,
@@ -219,11 +219,13 @@ def parse_args(argv):
 
 def main(argv):
     args = parse_args(argv)
+    args.save_imgs=True
+    args.is_pos=False
+    args.is_warmup=True
     savdir=args.savdir
     savdir_m=args.savdir_m
     ispos = args.is_pos
     iswarmup=args.is_warmup
-    args.save_imgs=True
     args.fps=120
     width = 1920
     height = 1080

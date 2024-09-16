@@ -234,12 +234,13 @@ def parse_args(argv):
 
 def main(argv):
     args = parse_args(argv)
+    args.save_imgs=True
+    args.is_pos=False
+    args.is_warmup=True
     savdir=args.savdir
     savdir_m=args.savdir_m
     ispos = args.is_pos
     iswarmup=args.is_warmup
-    is_ad=args.is_ad
-    args.save_imgs=True
     args.fps=120
     width = 1920
     height = 1080
