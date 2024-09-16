@@ -14,15 +14,25 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 # Define datasets and their corresponding names
 datasets=(
   "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv Beauty"
+  "/home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv HoneyBee"
+  "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
 )
 
+# Define additional parameters
+savdir="result_density_warmup_pos"
+savdir_m="models_density_warmup_pos"
+is_pos=True
+is_warmup=True
+is_ad=True
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 4000 6000 8000 10000; do
-  # Run the training script for each dataset
-    for iterations in 30000; do
-      srun python train_video.py --dataset $dataset_path --data_name $data_name --num_points $num_points --iterations $iterations
-      done
+  for num_points in 10000; do
+    for iterations in 50000; do
+      # Run the training script for each dataset with additional parameters
+      srun python train_video.py --dataset $dataset_path \
+        --data_name $data_name --num_points $num_points --iterations $iterations \
+        --savdir $savdir --savdir_m $savdir_m --is_pos $is_pos --is_warmup $is_warmup --is_ad $is_ad
     done
+  done
 done

@@ -16,13 +16,21 @@ datasets=(
   "/home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv HoneyBee"
 )
 
+# Define additional parameters
+savdir="result"
+savdir_m="models"
+is_pos=False
+is_warmup=False
+is_ad=False
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
   for num_points in 4000 6000 8000 10000; do
-  # Run the training script for each dataset
-    for iterations in 30000; do
-      srun python train_video.py --dataset $dataset_path --data_name $data_name --num_points $num_points --iterations $iterations
-      done
+    for iterations in 50000; do
+      # Run the training script for each dataset with additional parameters
+      srun python train_video.py --dataset $dataset_path \
+        --data_name $data_name --num_points $num_points --iterations $iterations \
+        --savdir $savdir --savdir_m $savdir_m --is_pos $is_pos --is_warmup $is_warmup --is_ad $is_ad
     done
+  done
 done
