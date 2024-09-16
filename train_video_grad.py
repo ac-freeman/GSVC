@@ -241,6 +241,7 @@ def main(argv):
     savdir_m=args.savdir_m
     ispos = args.is_pos
     iswarmup=args.is_warmup
+    is_ad=args.is_ad
     args.fps=120
     width = 1920
     height = 1080
