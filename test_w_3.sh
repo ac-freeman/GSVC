@@ -28,9 +28,27 @@ for dataset in "${datasets[@]}"; do
   for num_points in 4000 6000 8000 10000; do
     for iterations in 50000; do
       # Run the training script for each dataset with additional parameters
+      pos_flag=""
+      warmup_flag=""
+      ad_flag=""
+
+      # 检查布尔值并构建相应的命令行参数
+      if [ "$is_pos" = True ]; then
+        pos_flag="--is_pos"
+      fi
+
+      if [ "$is_warmup" = True ]; then
+        warmup_flag="--is_warmup"
+      fi
+
+      if [ "$is_ad" = True ]; then
+        ad_flag="--is_ad"
+      fi
+      # Run the training script for each dataset with additional parameters
       srun python train_video.py --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
-        --savdir $savdir --savdir_m $savdir_m --is_pos $is_pos --is_warmup $is_warmup --is_ad $is_ad
+        --savdir $savdir --savdir_m $savdir_m \
+        $pos_flag $warmup_flag $ad_flag
     done
   done
 done
