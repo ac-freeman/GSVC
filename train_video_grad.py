@@ -235,8 +235,6 @@ def parse_args(argv):
 def main(argv):
     args = parse_args(argv)
     args.save_imgs=True
-    # args.is_pos=False
-    # args.is_warmup=True
     savdir=args.savdir
     savdir_m=args.savdir_m
     ispos = args.is_pos
