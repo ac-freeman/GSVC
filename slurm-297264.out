@@ -1,0 +1,6 @@
+[master c736ccf] new
+ 4 files changed, 0 insertions(+), 0 deletions(-)
+ rewrite __pycache__/gaussianimage_cholesky.cpython-38.pyc (93%)
+ create mode 100644 slurm-297264.out
+To github.com:LonganWANG-cs/GaussianVideo.git
+   973c121..c736ccf  master -> master
