@@ -21,7 +21,7 @@ savdir="result_density"
 savdir_m="models_density"
 is_pos=False
 is_warmup=False
-is_ad=Ture
+is_ad=True
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
