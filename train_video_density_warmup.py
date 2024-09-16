@@ -13,8 +13,8 @@ from utils import *
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-savdir="result_density_warmup"
-savdir_m="models_density_warmup"
+savdir="result_density_new"
+savdir_m="models_density_new"
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
@@ -215,7 +215,8 @@ def parse_args(argv):
 
 def main(argv):
     ispos = False
-    iswarmup=True
+    # iswarmup=True
+    iswarmup=False
     args = parse_args(argv)
     #args.model_name="GaussianImage_Cholesky"
     # args.save_imgs=False
