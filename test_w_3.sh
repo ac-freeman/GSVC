@@ -25,7 +25,7 @@ is_ad=True
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 4000 6000 8000 10000; do
+  for num_points in 6000 8000 10000; do
     for iterations in 50000; do
       # Run the training script for each dataset with additional parameters
       pos_flag=""
