@@ -1,11 +1,11 @@
 python train_video_frame.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
   --data_name Beauty --num_points 50000 --iterations 50000 \
-  --savdir result_density_pos --savdir_m models_density_pos --is_pos --is_ad --is_warmup
+  --savdir result_density_warmup_pos --savdir_m models_density_warmup_pos --is_pos --is_ad --is_warmup
 
 python train_video_grad.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
   --data_name Beauty --num_points 50000 --iterations 50000 \
-  --savdir result_density_pos --savdir_m models_density_pos --is_pos --is_ad --is_warmup
+  --savdir result_density_warmup_pos --savdir_m models_density_warmup_pos --is_pos --is_ad --is_warmup
 
 python train_video.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
   --data_name Beauty --num_points 50000 --iterations 50000 \
-  --savdir result_density_pos --savdir_m models_density_pos --is_pos --is_ad --is_warmup
+  --savdir result_density_warmup_pos --savdir_m models_density_warmup_pos --is_pos --is_ad --is_warmup
