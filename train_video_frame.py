@@ -195,10 +195,10 @@ def parse_args(argv):
         "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--iterations", type=int, default=30000, help="number of training epochs (default: %(default)s)"
+        "--iterations", type=int, default=1000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
-        "--densification_interval",type=int,default=2500,help="densification_interval (default: %(default)s)"
+        "--densification_interval",type=int,default=500,help="densification_interval (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
@@ -216,8 +216,13 @@ def parse_args(argv):
         help="2D GS points (default: %(default)s)",
     )
     parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
+    parser.add_argument("--savdir", type=str, default="result", help="Path to results")
+    parser.add_argument("--savdir_m", type=str, default="models", help="Path to models")
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
     parser.add_argument("--save_imgs", action="store_true", help="Save image")
+    parser.add_argument("--is_pos", action="store_true", help="Show the position of gaussians")
+    parser.add_argument("--is_warmup",action="store_true", help="Warmup setup")
+    parser.add_argument("--is_ad", action="store_true", help="Adaptive control of gaussians setup")
     parser.add_argument(
         "--lr",
         type=float,
