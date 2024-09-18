@@ -13,14 +13,14 @@ from utils import *
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-
-save_dir="result_first_frame_density"
+import io
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
         self,
         image,
         frame_num,
+        save_dir,
         num_points: int = 2000,
         model_name:str = "GaussianImage_Cholesky",
         iterations:int = 30000,
@@ -228,17 +228,17 @@ def parse_args(argv):
     return args
 
 def main(argv):
-    ispos = True
     args = parse_args(argv)
-    #args.model_name="GaussianImage_Cholesky"
-    # args.save_imgs=False
-    args.save_imgs=False
-    #args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
-    #args.data_name='Beauty'
+    args.save_imgs=True
+    savdir=args.savdir
+    savdir_m=args.savdir_m
+    ispos = args.is_pos
+    iswarmup=args.is_warmup
+    is_ad=args.is_ad
     args.fps=120
     width = 1920
     height = 1080
-    gmodel_save_path = Path(f"./checkpoints/models_first_frame/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
+    gmodel_save_path = Path(f"./checkpoints/{savdir_m}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)  # 确保保存目录存在
     # Cache the args as a text string to save them in the output dir later
     args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
@@ -250,7 +250,7 @@ def main(argv):
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
 
-    logwriter = LogWriter(Path(f"./checkpoints/{save_dir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
+    logwriter = LogWriter(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
     psnrs, ms_ssims, training_times, eval_times, eval_fpses = [], [], [], [], []
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
@@ -262,11 +262,18 @@ def main(argv):
     for i in range(start, start+image_length):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
-            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
-                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=True)
-        else:
-            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=num_gaussian_points, 
-                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
+            if iswarmup:
+                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],4),frame_num=frame_num,save_dir=savdir, num_points=args.num_points, 
+                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False)
+                _, _, _, _, _, Gmodel,_,num_gaussian_points = trainer.train(i,ispos)
+                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],2),frame_num=frame_num,save_dir=savdir, num_points=num_gaussian_points, 
+                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
+                _, _, _, _, _, Gmodel, _, num_gaussian_points= trainer.train(i,ispos)
+                trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,save_dir=savdir, num_points=num_gaussian_points, 
+                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad)
+            else:
+                trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,save_dir=savdir, num_points=args.num_points,
+                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad)
         psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img_list,num_gaussian_points = trainer.train(i,ispos)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
@@ -282,7 +289,7 @@ def main(argv):
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
     file_size = os.path.getsize(os.path.join(gmodel_save_path, 'gmodels_state_dict.pth'))
-    with open(Path(f"./checkpoints/{save_dir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
+    with open(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
         for key, value in num_gaussian_points_dict.items():
             f.write(f'{key}: {value}\n')
     avg_psnr = torch.tensor(psnrs).mean().item()
@@ -296,9 +303,9 @@ def main(argv):
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024)))
     if ispos:
-        generate_video_test(save_dir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
+        generate_video_test(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
     else:
-        generate_video_test(save_dir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
+        generate_video_test(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
     
 if __name__ == "__main__":
     
