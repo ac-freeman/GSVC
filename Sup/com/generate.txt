@@ -1,0 +1,2 @@
+ffmpeg -i frame_%02d.jpg -pix_fmt yuv420p -f rawvideo A2_1920x1080_120fps_420_8bit_YUV.yuv
+ffmpeg -i frame_%02d.jpg -pix_fmt yuv420p -f rawvideo A2_1920x1080_120fps_420_8bit_YUV.yuv
