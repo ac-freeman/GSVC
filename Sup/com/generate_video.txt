@@ -1,2 +1,0 @@
-ffmpeg -framerate 120 -i /home/e/e1344641/data/UVG/output_frames_1/frame_%03d.png -c:v rawvideo -pix_fmt yuv420p /home/e/e1344641/data/UVG/Artificial1/Artificial1_1920x1080_120fps_420_8bit_YUV.yuv
-ffmpeg -framerate 120 -i /home/e/e1344641/data/UVG/output_frames_2/frame_%03d.png -c:v rawvideo -pix_fmt yuv420p /home/e/e1344641/data/UVG/Artificial2/Artificial2_1920x1080_120fps_420_8bit_YUV.yuv
