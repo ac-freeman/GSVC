@@ -356,13 +356,15 @@ class GaussianImage_Cholesky(nn.Module):
             top_indices = sorted_indices[-percentile_count:]  # 梯度最大的点的索引
 
             # 计算选定点的高斯值
-            gaussian_values = torch.exp(
-                -0.5 * torch.sum(
-                    self.get_xyz[top_indices] ** 2 /
-                    torch.clamp(self.get_cholesky_elements[top_indices][:, [0, 2]], min=1e-6),
-                    dim=1
-                )
-            )
+            # gaussian_values = torch.exp(
+            #     -0.5 * torch.sum(
+            #         self.get_xyz[top_indices] ** 2 /
+            #         torch.clamp(self.get_cholesky_elements[top_indices][:, [0, 2]], min=1e-6),
+            #         dim=1
+            #     )
+            # )
+            gaussian_values = torch.norm(torch.sigmoid(self.get_cholesky_elements[top_indices][:, 0:2]), dim=1, p=2)
+
             gaussian_threshold = torch.median(gaussian_values)
 
             # 根据高斯阈值选择拆分和克隆的点
