@@ -1,7 +1,6 @@
 import numpy as np
 import cv2
 import os
-import subprocess
 
 # 参数设置
 width, height = 1920, 1080  # 视频分辨率
@@ -29,12 +28,14 @@ def create_frame(even_frame, odd_frame, video_type='A1'):
             frame = even_frame
         else:  # 奇数帧
             frame = odd_frame
-        frame_yuv = cv2.cvtColor(frame, cv2.COLOR_BGR2YUV_I420)
+
         if video_type == 'A1':
-            file_path = os.path.join(output_dir_a1, f'frame_{i:02d}.yuv')
+            file_path = os.path.join(output_dir_a1, f'frame_{i:02d}.jpg')
         else:
-            file_path = os.path.join(output_dir_a2, f'frame_{i:02d}.yuv')
-        frame_yuv.tofile(file_path)
+            file_path = os.path.join(output_dir_a2, f'frame_{i:02d}.jpg')
+
+        # 保存为jpg文件
+        cv2.imwrite(file_path, frame)
 
 # 生成 A1 视频的帧
 def generate_a1_frames():
@@ -62,9 +63,6 @@ def generate_a2_frames():
 
     create_frame(even_frame, odd_frame, video_type='A2')
 
-
-
-# 生成并保存视频
+# 生成并保存为jpg文件
 generate_a1_frames()
 generate_a2_frames()
-
