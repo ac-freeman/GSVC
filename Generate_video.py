@@ -1,6 +1,7 @@
 import os
 import cv2
 import numpy as np
+from tqdm import tqdm  # 导入进度条
 
 # 创建保存目录
 save_dir = '/home/e/e1344641/data/UVG/output_frames'
@@ -8,7 +9,7 @@ os.makedirs(save_dir, exist_ok=True)
 
 # 视频参数
 width, height = 1920, 1080
-total_frames = 20
+total_frames = 2
 
 # 彩色格子的生成
 def generate_color_grid(rows, cols):
@@ -31,8 +32,8 @@ def generate_odd_frame():
     frame[height//4:3*height//4, width//4:3*width//4] = 0  # 黑色矩形
     return frame
 
-# 保存每一帧
-for i in range(total_frames):
+# 保存每一帧并显示进度条
+for i in tqdm(range(total_frames), desc="Saving frames", unit="frame"):
     if i % 2 == 0:  # 偶数帧
         frame = generate_even_frame()
     else:  # 奇数帧
@@ -42,3 +43,4 @@ for i in range(total_frames):
     cv2.imwrite(frame_filename, frame)
 
 print(f"所有帧已保存到: {save_dir}")
+
