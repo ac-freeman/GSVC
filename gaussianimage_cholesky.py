@@ -6,6 +6,7 @@ import torch.nn as nn
 import numpy as np
 import math
 from optimizer import Adan
+from torch.distributions import MultivariateNormal
 
 class GaussianImage_Cholesky(nn.Module):
     def __init__(self, loss_type="L2", **kwargs):
@@ -372,7 +373,7 @@ class GaussianImage_Cholesky(nn.Module):
             # 执行克隆操作clone
             if len(clone_indices) > 0:
                 # 克隆点沿梯度方向移动
-                new_positions = self._xyz[clone_indices] + grad_xyz[clone_indices] * 0.01  # 移动距离基于梯度
+                new_positions = self._xyz[clone_indices] + grad_xyz[clone_indices] * 0.001  # 移动距离基于梯度
                 self._xyz = torch.nn.Parameter(torch.cat([self._xyz, new_positions], dim=0))
                 self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
                 self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
@@ -385,11 +386,26 @@ class GaussianImage_Cholesky(nn.Module):
                 
                 # 生成新的位置，根据高斯分布的PDF进行采样
                 orig_positions = self._xyz[split_indices]
-                cov_matrix = self._cholesky[split_indices]
+                cholesky_vec  = self._cholesky[split_indices]
 
-                # 生成两个新位置，基于高斯分布随机采样偏移
-                new_positions_1 = orig_positions + torch.randn_like(orig_positions) * cov_matrix[:, 0:1]  # 沿着主轴方向偏移
-                new_positions_2 = orig_positions - torch.randn_like(orig_positions) * cov_matrix[:, 0:1]  # 沿反向偏移
+                # # 生成两个新位置，基于高斯分布随机采样偏移
+                # new_positions_1 = orig_positions + torch.randn_like(orig_positions) * cov_matrix[:, 0:1]  # 沿着主轴方向偏移
+                # new_positions_2 = orig_positions - torch.randn_like(orig_positions) * cov_matrix[:, 0:1]  # 沿反向偏移
+
+                
+                new_positions_1_list = []
+                new_positions_2_list = []
+                for i in range(orig_positions.shape[0]):
+                    l1, l2, l3 = cholesky_vec[i]
+                    L = torch.tensor([[l1, 0.0], [l2, l3]])
+                    cov_matrix = L @ L.T
+                    distribution = MultivariateNormal(orig_positions[i], cov_matrix)
+                    new_position_1 = distribution.sample()
+                    new_position_2 = distribution.sample()
+                    new_positions_1_list.append(new_position_1)
+                    new_positions_2_list.append(new_position_2)
+                new_positions_1 = torch.stack(new_positions_1_list)
+                new_positions_2 = torch.stack(new_positions_2_list)
 
                 # 更新xyz和其他相关的参数，先删除
                 self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
@@ -402,9 +418,6 @@ class GaussianImage_Cholesky(nn.Module):
                 self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[split_indices] / 1.6, self._cholesky[split_indices] / 1.6], dim=0))
                 self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[split_indices], self._features_dc[split_indices]], dim=0))
                 self._opacity = torch.cat([self._opacity, self._opacity[split_indices], self._opacity[split_indices]], dim=0)
-
-
-
 
         # 更新优化器中的参数
         self.update_optimizer()
