@@ -38,7 +38,7 @@ def generate_center_black_frame():
     frame[height//4:3*height//4, width//4:3*width//4] = 0  # 黑色矩形
     return frame
 
-# 保存每一帧并显示进度条
+# 保存帧到输出目录 1
 for i in tqdm(range(total_frames), desc="Saving frames", unit="frame"):
     if i % 2 == 0:  # 偶数帧
         frame = generate_center_colorful_frame()
@@ -50,7 +50,7 @@ for i in tqdm(range(total_frames), desc="Saving frames", unit="frame"):
 
 print(f"所有帧已保存到: {save_dir_1}")
 
-# 保存每一帧并显示进度条
+# 保存帧到输出目录 2
 for i in tqdm(range(total_frames), desc="Saving frames", unit="frame"):
     if i % 2 == 0:  # 偶数帧
         frame = generate_center_black_frame()
