@@ -69,6 +69,7 @@ def combine_frames_to_video(output_path, frame_dir):
         '-s', f'{width}x{height}', '-r', '120', '-pix_fmt', 'yuv420p',
         '-i', f'{frame_dir}/frame_%02d.yuv', '-c:v', 'rawvideo', output_path
     ]
+    print("Running command:", ' '.join(command))
     subprocess.run(command)
 
 # 生成并保存视频
