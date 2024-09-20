@@ -63,14 +63,31 @@ def generate_a2_frames():
     create_frame(even_frame, odd_frame, video_type='A2')
 
 # 合成视频
+def generate_file_list(frame_dir, file_list_path):
+    # 获取文件夹中的所有帧文件并按自然顺序排序
+    frames = sorted([f for f in os.listdir(frame_dir) if f.endswith('.yuv')])
+    
+    # 将帧文件写入临时文件，供 ffmpeg 使用
+    with open(file_list_path, 'w') as f:
+        for frame in frames:
+            f.write(f"file '{os.path.join(frame_dir, frame)}'\n")
+
 def combine_frames_to_video(output_path, frame_dir):
+    # 创建临时文件用于存储帧列表
+    file_list_path = os.path.join(frame_dir, 'frames_list.txt')
+    generate_file_list(frame_dir, file_list_path)
+    
+    # 使用 ffmpeg 读取帧列表并合成视频
     command = [
-        'ffmpeg', '-y', '-f', 'rawvideo', '-vcodec', 'rawvideo',
-        '-s', f'{width}x{height}', '-r', '120', '-pix_fmt', 'yuv420p',
-        '-i', f'{frame_dir}/frame_%02d.yuv', '-c:v', 'rawvideo', output_path
+        'ffmpeg', '-y', '-f', 'concat', '-safe', '0', '-i', file_list_path,
+        '-vsync', 'vfr', '-pix_fmt', 'yuv420p', output_path
     ]
+    
     print("Running command:", ' '.join(command))
     subprocess.run(command)
+
+    # 删除临时文件
+    os.remove(file_list_path)
 
 # 生成并保存视频
 generate_a1_frames()
