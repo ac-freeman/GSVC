@@ -15,6 +15,7 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 datasets=(
   "/home/e/e1344641/data/UVG/A1/A1_1920x1080_120fps_420_8bit_YUV.yuv A1"
   "/home/e/e1344641/data/UVG/A2/A2_1920x1080_120fps_420_8bit_YUV.yuv A2"
+  "/home/e/e1344641/data/UVG/A2/A3_1920x1080_120fps_420_8bit_YUV.yuv A3"
 )
 
 # Define additional parameters
@@ -46,6 +47,10 @@ for dataset in "${datasets[@]}"; do
       fi
       # Run the training script for each dataset with additional parameters
       srun python train_video_grad.py --dataset $dataset_path \
+        --data_name $data_name --num_points $num_points --iterations $iterations \
+        --savdir $savdir --savdir_m $savdir_m \
+        $pos_flag $warmup_flag $ad_flag
+      srun python train_video_frame.py --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
         $pos_flag $warmup_flag $ad_flag
