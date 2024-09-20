@@ -18,11 +18,11 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_C"
-savdir_m="models_C"
+savdir="result_density_C"
+savdir_m="models_density_C"
 is_pos=True
 is_warmup=False
-is_ad=False
+is_ad=True
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
