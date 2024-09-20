@@ -19,8 +19,10 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_C"
-savdir_m="models_C"
+savdir="result_C/grad"
+savdir_m="models_C/grad"
+savdir_f="result_C/f"
+savdir_m_f="models_C/f"
 is_pos=True
 is_warmup=False
 is_ad=False
@@ -52,7 +54,7 @@ for dataset in "${datasets[@]}"; do
         $pos_flag $warmup_flag $ad_flag
       srun python train_video_frame.py --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
-        --savdir $savdir --savdir_m $savdir_m \
+        --savdir $savdir_f --savdir_m $savdir_m_f \
         $pos_flag $warmup_flag $ad_flag
     done
   done
