@@ -68,4 +68,3 @@ def generate_a2_frames():
 generate_a1_frames()
 generate_a2_frames()
 
-print("视频生成完毕！")
