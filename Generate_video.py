@@ -1,12 +1,12 @@
 import os
 import cv2
 import numpy as np
-from tqdm import tqdm  # 导入进度条
+from tqdm import tqdm
 
 # 创建保存目录
-save_dir_1 = '/home/e/e1344641/data/UVG/output_frames_1'
+save_dir_1 = '/home/e/e1344641/data/UVG/Artificial1'
 os.makedirs(save_dir_1, exist_ok=True)
-save_dir_2 = '/home/e/e1344641/data/UVG/output_frames_2'
+save_dir_2 = '/home/e/e1344641/data/UVG/Artificial2'
 os.makedirs(save_dir_2, exist_ok=True)
 
 # 视频参数
@@ -38,26 +38,36 @@ def generate_center_black_frame():
     frame[height//4:3*height//4, width//4:3*width//4] = 0  # 黑色矩形
     return frame
 
-# 保存帧到输出目录 1
-for i in tqdm(range(total_frames), desc="Saving frames", unit="frame"):
+# 将帧转换为 YUV 格式并写入 .yuv 文件
+def save_frame_to_yuv(file_path, frame):
+    # 转换为 YUV420 格式
+    yuv_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2YUV_I420)
+    # 以二进制模式打开文件并写入数据
+    with open(file_path, 'ab') as f:
+        f.write(yuv_frame.tobytes())
+
+# 保存 YUV 帧到输出目录 1
+output_yuv_1 = os.path.join(save_dir_1, 'Artificial1_1920x1080_120fps_420_8bit_YUV.yuv')
+for i in tqdm(range(total_frames), desc="Saving frames for video 1", unit="frame"):
     if i % 2 == 0:  # 偶数帧
         frame = generate_center_colorful_frame()
     else:  # 奇数帧
         frame = generate_center_black_frame()
     
-    frame_filename = os.path.join(save_dir_1, f'frame_{i:03d}.png')
-    cv2.imwrite(frame_filename, frame)
+    # 保存帧为 YUV 格式到 .yuv 文件
+    save_frame_to_yuv(output_yuv_1, frame)
 
-print(f"所有帧已保存到: {save_dir_1}")
+print(f"所有帧已保存到: {output_yuv_1}")
 
-# 保存帧到输出目录 2
-for i in tqdm(range(total_frames), desc="Saving frames", unit="frame"):
+# 保存 YUV 帧到输出目录 2
+output_yuv_2 = os.path.join(save_dir_2, 'Artificial2_1920x1080_120fps_420_8bit_YUV.yuv')
+for i in tqdm(range(total_frames), desc="Saving frames for video 2", unit="frame"):
     if i % 2 == 0:  # 偶数帧
         frame = generate_center_black_frame()
     else:  # 奇数帧
         frame = generate_center_colorful_frame()
     
-    frame_filename = os.path.join(save_dir_2, f'frame_{i:03d}.png')
-    cv2.imwrite(frame_filename, frame)
+    # 保存帧为 YUV 格式到 .yuv 文件
+    save_frame_to_yuv(output_yuv_2, frame)
 
-print(f"所有帧已保存到: {save_dir_2}")
+print(f"所有帧已保存到: {output_yuv_2}")
