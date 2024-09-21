@@ -438,7 +438,7 @@ class GaussianImage_Cholesky(nn.Module):
                 for i in range(orig_positions.shape[0]):
                     l1, l2, l3 = cholesky_vec[i]
                     L = torch.tensor([[l1, 0.0], [l2, l3]], device=self.device)
-                    cov_matrix = L @ L.T
+                    cov_matrix = L @ L.T*0.001
                     distribution = MultivariateNormal(orig_positions[i], cov_matrix)
                     new_position_1 = distribution.sample().to(self.device)
                     new_position_2 = distribution.sample().to(self.device)
