@@ -17,13 +17,21 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 #   "/home/e/e1344641/data/UVG/A2/A2_1920x1080_120fps_420_8bit_YUV.yuv A2"
 #   "/home/e/e1344641/data/UVG/A3/A3_1920x1080_120fps_420_8bit_YUV.yuv A3"
 # )
+# datasets=(
+#   "/home/e/e1344641/data/UVG/A1/A1_1920x1080_120fps_420_8bit_YUV.yuv A1"
+#   "/home/e/e1344641/data/UVG/A2/A2_1920x1080_120fps_420_8bit_YUV.yuv A2"
+#   "/home/e/e1344641/data/UVG/A3/A3_1920x1080_120fps_420_8bit_YUV.yuv A3"
+#   "/home/e/e1344641/data/UVG/B1/B1_1920x1080_120fps_420_8bit_YUV.yuv B1"
+#   "/home/e/e1344641/data/UVG/B2/B2_1920x1080_120fps_420_8bit_YUV.yuv B2"
+#   "/home/e/e1344641/data/UVG/B3/B3_1920x1080_120fps_420_8bit_YUV.yuv B3"
+#   "/home/e/e1344641/data/UVG/B1/B1_1920x1080_120fps_420_8bit_YUV.yuv C1"
+#   "/home/e/e1344641/data/UVG/B2/B2_1920x1080_120fps_420_8bit_YUV.yuv C2"
+#   "/home/e/e1344641/data/UVG/B3/B3_1920x1080_120fps_420_8bit_YUV.yuv C3"
+# )
 datasets=(
-  "/home/e/e1344641/data/UVG/A1/A1_1920x1080_120fps_420_8bit_YUV.yuv A1"
-  "/home/e/e1344641/data/UVG/A2/A2_1920x1080_120fps_420_8bit_YUV.yuv A2"
-  "/home/e/e1344641/data/UVG/A3/A3_1920x1080_120fps_420_8bit_YUV.yuv A3"
-  "/home/e/e1344641/data/UVG/B1/B1_1920x1080_120fps_420_8bit_YUV.yuv B1"
-  "/home/e/e1344641/data/UVG/B2/B2_1920x1080_120fps_420_8bit_YUV.yuv B2"
-  "/home/e/e1344641/data/UVG/B3/B3_1920x1080_120fps_420_8bit_YUV.yuv B3"
+  "/home/e/e1344641/data/UVG/B1/B1_1920x1080_120fps_420_8bit_YUV.yuv C1"
+  "/home/e/e1344641/data/UVG/B2/B2_1920x1080_120fps_420_8bit_YUV.yuv C2"
+  "/home/e/e1344641/data/UVG/B3/B3_1920x1080_120fps_420_8bit_YUV.yuv C3"
 )
 
 # Define additional parameters
