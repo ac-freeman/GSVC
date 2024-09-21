@@ -25,7 +25,7 @@ is_ad=False
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 4000 6000 8000 10000; do
+  for num_points in 5000 7000 9000 11000 12000; do
     for iterations in 30000; do
       pos_flag=""
       warmup_flag=""

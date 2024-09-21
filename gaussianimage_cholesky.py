@@ -318,10 +318,117 @@ class GaussianImage_Cholesky(nn.Module):
     #     # 更新优化器中的参数
     #     self.update_optimizer()
 
+    # def density_control(self, iter):
+    #     iter_threshold_remove = self.iterations / 4  # 根据训练计划调整这个阈值
+    #     iter_threshold_add = self.iterations * 1 / 2
+    #     if iter > iter_threshold_add:
+    #         return
+    #     grad_xyz = self._xyz.grad
+    #     if grad_xyz is None:
+    #         raise RuntimeError("grad_xyz is None,请检查 self._xyz 是否参与了计算图。")
+
+    #     # 计算每个点的梯度幅值
+    #     grad_magnitude = torch.norm(grad_xyz, dim=1)
+
+    #     # 对梯度幅值进行升序排序（最小的梯度在前）
+    #     sorted_grad_magnitude, sorted_indices = torch.sort(grad_magnitude)
+
+    #     if iter <= iter_threshold_remove:
+    #         # 训练早期：只执行删除操作，减少总的高斯点数量
+    #         remove_count = int(0.001 * self.max_num_points)  # 删除0.1%的点
+    #         remove_indices = sorted_indices[:remove_count]
+
+    #         # 删除选定的点
+    #         keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
+    #         keep_indices[remove_indices] = False
+
+    #         self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
+    #         self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
+    #         self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
+    #         self._opacity = self._opacity[keep_indices]
+    #     elif iter > iter_threshold_remove:
+    #         # 训练后期：通过拆分和克隆增加高斯点数量
+    #         percentile_count = int(0.001 * self.max_num_points)  # 选择梯度最大的点
+    #         if percentile_count >= self.max_num_points - len(grad_magnitude):
+    #             percentile_count = self.max_num_points - len(grad_magnitude)
+    #         if percentile_count <= 0:
+    #             return
+    #         top_indices = sorted_indices[-percentile_count:]  # 梯度最大的点的索引
+
+    #         # 计算选定点的高斯值
+    #         # gaussian_values = torch.exp(
+    #         #     -0.5 * torch.sum(
+    #         #         self.get_xyz[top_indices] ** 2 /
+    #         #         torch.clamp(self.get_cholesky_elements[top_indices][:, [0, 2]], min=1e-6),
+    #         #         dim=1
+    #         #     )
+    #         # )
+    #         gaussian_values = torch.norm(torch.sigmoid(self.get_cholesky_elements[top_indices][:, 0:2]), dim=1, p=2)
+
+    #         gaussian_threshold = torch.median(gaussian_values)
+
+    #         # 根据高斯阈值选择拆分和克隆的点
+    #         split_indices = top_indices[gaussian_values > gaussian_threshold]
+    #         clone_indices = top_indices[gaussian_values <= gaussian_threshold]
+
+            
+    #         # 执行克隆操作clone
+    #         if len(clone_indices) > 0:
+    #             # 克隆点沿梯度方向移动
+    #             new_positions = self._xyz[clone_indices] + grad_xyz[clone_indices] * 0.001  # 移动距离基于梯度
+    #             self._xyz = torch.nn.Parameter(torch.cat([self._xyz, new_positions], dim=0))
+    #             self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
+    #             self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
+    #             self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
+
+    #         # 执行拆分操作split
+    #         if len(split_indices) > 0:
+                
+                
+    #             # 生成新的位置，根据高斯分布的PDF进行采样
+    #             orig_positions = self._xyz[split_indices]
+    #             cholesky_vec  = self._cholesky[split_indices]
+
+    #             # # 生成两个新位置，基于高斯分布随机采样偏移
+    #             # new_positions_1 = orig_positions + torch.randn_like(orig_positions) * cov_matrix[:, 0:1]  # 沿着主轴方向偏移
+    #             # new_positions_2 = orig_positions - torch.randn_like(orig_positions) * cov_matrix[:, 0:1]  # 沿反向偏移
+
+                
+    #             new_positions_1_list = []
+    #             new_positions_2_list = []
+    #             for i in range(orig_positions.shape[0]):
+    #                 l1, l2, l3 = cholesky_vec[i]
+    #                 L = torch.tensor([[l1, 0.0], [l2, l3]], device=self.device)
+    #                 cov_matrix = L @ L.T*0.001
+    #                 distribution = MultivariateNormal(orig_positions[i], cov_matrix)
+    #                 new_position_1 = distribution.sample().to(self.device)
+    #                 new_position_2 = distribution.sample().to(self.device)
+    #                 new_positions_1_list.append(new_position_1)
+    #                 new_positions_2_list.append(new_position_2)
+    #             new_positions_1 = torch.stack(new_positions_1_list)
+    #             new_positions_2 = torch.stack(new_positions_2_list)
+    #             # 更新 xyz 和 cholesky（将尺度缩小 1.6 倍），添加新点
+    #             self._xyz = torch.nn.Parameter(torch.cat([self._xyz, new_positions_1, new_positions_2], dim=0))
+    #             self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[split_indices] / 1.6, self._cholesky[split_indices] / 1.6], dim=0))
+    #             self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[split_indices], self._features_dc[split_indices]], dim=0))
+    #             self._opacity = torch.cat([self._opacity, self._opacity[split_indices], self._opacity[split_indices]], dim=0)
+                
+    #             keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
+    #             keep_indices[split_indices] = False
+                
+    #             # 更新xyz和其他相关的参数，删除
+    #             self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
+    #             self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
+    #             self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
+    #             self._opacity = self._opacity[keep_indices]
+
+                
+    #     # 更新优化器中的参数
+    #     self.update_optimizer()
+
     def density_control(self, iter):
-        iter_threshold_remove = self.iterations / 4  # 根据训练计划调整这个阈值
-        iter_threshold_add = self.iterations * 1 / 2
-        if iter > iter_threshold_add:
+        iter_threshold_remove = self.iterations / 2  # 根据训练计划调整这个阈值
+        if iter > iter_threshold_remove:
             return
         grad_xyz = self._xyz.grad
         if grad_xyz is None:
@@ -331,7 +438,7 @@ class GaussianImage_Cholesky(nn.Module):
         grad_magnitude = torch.norm(grad_xyz, dim=1)
 
         # 对梯度幅值进行升序排序（最小的梯度在前）
-        sorted_grad_magnitude, sorted_indices = torch.sort(grad_magnitude)
+        _, sorted_indices = torch.sort(grad_magnitude)
 
         if iter <= iter_threshold_remove:
             # 训练早期：只执行删除操作，减少总的高斯点数量
@@ -345,87 +452,9 @@ class GaussianImage_Cholesky(nn.Module):
             self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
             self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
             self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-            self._opacity = self._opacity[keep_indices]
-        elif iter > iter_threshold_remove:
-            # 训练后期：通过拆分和克隆增加高斯点数量
-            percentile_count = int(0.001 * self.max_num_points)  # 选择梯度最大的点
-            if percentile_count >= self.max_num_points - len(grad_magnitude):
-                percentile_count = self.max_num_points - len(grad_magnitude)
-            if percentile_count <= 0:
-                return
-            top_indices = sorted_indices[-percentile_count:]  # 梯度最大的点的索引
-
-            # 计算选定点的高斯值
-            # gaussian_values = torch.exp(
-            #     -0.5 * torch.sum(
-            #         self.get_xyz[top_indices] ** 2 /
-            #         torch.clamp(self.get_cholesky_elements[top_indices][:, [0, 2]], min=1e-6),
-            #         dim=1
-            #     )
-            # )
-            gaussian_values = torch.norm(torch.sigmoid(self.get_cholesky_elements[top_indices][:, 0:2]), dim=1, p=2)
-
-            gaussian_threshold = torch.median(gaussian_values)
-
-            # 根据高斯阈值选择拆分和克隆的点
-            split_indices = top_indices[gaussian_values > gaussian_threshold]
-            clone_indices = top_indices[gaussian_values <= gaussian_threshold]
-
-            
-            # 执行克隆操作clone
-            if len(clone_indices) > 0:
-                # 克隆点沿梯度方向移动
-                new_positions = self._xyz[clone_indices] + grad_xyz[clone_indices] * 0.001  # 移动距离基于梯度
-                self._xyz = torch.nn.Parameter(torch.cat([self._xyz, new_positions], dim=0))
-                self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[clone_indices]], dim=0))
-                self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[clone_indices]], dim=0))
-                self._opacity = torch.cat([self._opacity, self._opacity[clone_indices]], dim=0)
-
-            # 执行拆分操作split
-            if len(split_indices) > 0:
-                
-                
-                # 生成新的位置，根据高斯分布的PDF进行采样
-                orig_positions = self._xyz[split_indices]
-                cholesky_vec  = self._cholesky[split_indices]
-
-                # # 生成两个新位置，基于高斯分布随机采样偏移
-                # new_positions_1 = orig_positions + torch.randn_like(orig_positions) * cov_matrix[:, 0:1]  # 沿着主轴方向偏移
-                # new_positions_2 = orig_positions - torch.randn_like(orig_positions) * cov_matrix[:, 0:1]  # 沿反向偏移
-
-                
-                new_positions_1_list = []
-                new_positions_2_list = []
-                for i in range(orig_positions.shape[0]):
-                    l1, l2, l3 = cholesky_vec[i]
-                    L = torch.tensor([[l1, 0.0], [l2, l3]], device=self.device)
-                    cov_matrix = L @ L.T*0.001
-                    distribution = MultivariateNormal(orig_positions[i], cov_matrix)
-                    new_position_1 = distribution.sample().to(self.device)
-                    new_position_2 = distribution.sample().to(self.device)
-                    new_positions_1_list.append(new_position_1)
-                    new_positions_2_list.append(new_position_2)
-                new_positions_1 = torch.stack(new_positions_1_list)
-                new_positions_2 = torch.stack(new_positions_2_list)
-                # 更新 xyz 和 cholesky（将尺度缩小 1.6 倍），添加新点
-                self._xyz = torch.nn.Parameter(torch.cat([self._xyz, new_positions_1, new_positions_2], dim=0))
-                self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[split_indices] / 1.6, self._cholesky[split_indices] / 1.6], dim=0))
-                self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[split_indices], self._features_dc[split_indices]], dim=0))
-                self._opacity = torch.cat([self._opacity, self._opacity[split_indices], self._opacity[split_indices]], dim=0)
-                
-                keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
-                keep_indices[split_indices] = False
-                
-                # 更新xyz和其他相关的参数，删除
-                self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
-                self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
-                self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-                self._opacity = self._opacity[keep_indices]
-
-                
+            self._opacity = self._opacity[keep_indices]   
         # 更新优化器中的参数
         self.update_optimizer()
-
 
 
 
