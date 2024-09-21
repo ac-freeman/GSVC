@@ -7,15 +7,15 @@ width, height = 1920, 1080  # 视频分辨率
 frames = 2  # 每个视频的帧数
 
 # 保存路径
-output_dir_a1 = '/home/e/e1344641/data/UVG/A1'
-output_dir_a2 = '/home/e/e1344641/data/UVG/A2'
-output_dir_a3 = '/home/e/e1344641/data/UVG/A3'
+output_dir_a1 = '/home/e/e1344641/data/UVG/D1'
+output_dir_a2 = '/home/e/e1344641/data/UVG/D2'
+output_dir_a3 = '/home/e/e1344641/data/UVG/D3'
 os.makedirs(output_dir_a1, exist_ok=True)
 os.makedirs(output_dir_a2, exist_ok=True)
 os.makedirs(output_dir_a3, exist_ok=True)
 
 # 定义彩色格子图案
-def generate_color_grid(w, h, block_size=40):
+def generate_color_grid(w, h, block_size=10):
     image = np.zeros((h, w, 3), dtype=np.uint8)
     for y in range(0, h, block_size):
         for x in range(0, w, block_size):
@@ -24,16 +24,16 @@ def generate_color_grid(w, h, block_size=40):
     return image
 
 # 生成视频帧
-def create_frame(even_frame, odd_frame, video_type='A1'):
+def create_frame(even_frame, odd_frame, video_type='D1'):
     for i in range(1, frames+1):
         if i % 2 == 0:  # 偶数帧
             frame = even_frame
         else:  # 奇数帧
             frame = odd_frame
 
-        if video_type == 'A1':
+        if video_type == 'D1':
             file_path = os.path.join(output_dir_a1, f'frame_{i:02d}.jpg')
-        elif video_type == 'A2':
+        elif video_type == 'D2':
             file_path = os.path.join(output_dir_a2, f'frame_{i:02d}.jpg')
         else:
             file_path = os.path.join(output_dir_a3, f'frame_{i:02d}.jpg')
@@ -52,7 +52,7 @@ def generate_a1_frames():
     odd_frame = generate_color_grid(width, height)
     cv2.rectangle(odd_frame, (width//4, height//4), (3*width//4, 3*height//4), (0, 0, 0), -1)
 
-    create_frame(even_frame, odd_frame, video_type='A1')
+    create_frame(even_frame, odd_frame, video_type='D1')
 
 # 生成 A2 视频的帧
 def generate_a2_frames():
@@ -65,7 +65,7 @@ def generate_a2_frames():
     even_frame = generate_color_grid(width, height)
     cv2.rectangle(even_frame, (width//4, height//4), (3*width//4, 3*height//4), (0, 0, 0), -1)
 
-    create_frame(even_frame, odd_frame, video_type='A2')
+    create_frame(even_frame, odd_frame, video_type='D2')
 
 # 生成 A3 视频的帧 (全屏彩色格子)
 def generate_a3_frames():
@@ -73,7 +73,7 @@ def generate_a3_frames():
     even_frame = generate_color_grid(width, height)
     odd_frame = generate_color_grid(width, height)
 
-    create_frame(even_frame, odd_frame, video_type='A3')
+    create_frame(even_frame, odd_frame, video_type='D3')
 
 # 生成并保存为jpg文件
 generate_a1_frames()
