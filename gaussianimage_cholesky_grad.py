@@ -403,6 +403,7 @@ class GaussianImage_Cholesky(nn.Module):
             #     )
             # )
             gaussian_values = torch.norm(torch.sigmoid(self.get_cholesky_elements[top_indices][:, 0:2]), dim=1, p=2)
+
             gaussian_threshold = torch.median(gaussian_values)
 
             # 根据高斯阈值选择拆分和克隆的点
@@ -421,8 +422,7 @@ class GaussianImage_Cholesky(nn.Module):
 
             # 执行拆分操作split
             if len(split_indices) > 0:
-                keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
-                keep_indices[split_indices] = False
+                
                 
                 # 生成新的位置，根据高斯分布的PDF进行采样
                 orig_positions = self._xyz[split_indices]
@@ -446,22 +446,22 @@ class GaussianImage_Cholesky(nn.Module):
                     new_positions_2_list.append(new_position_2)
                 new_positions_1 = torch.stack(new_positions_1_list)
                 new_positions_2 = torch.stack(new_positions_2_list)
-
-                # 更新xyz和其他相关的参数，先删除
-                self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
-                self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
-                self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-                self._opacity = self._opacity[keep_indices]
-
                 # 更新 xyz 和 cholesky（将尺度缩小 1.6 倍），添加新点
                 self._xyz = torch.nn.Parameter(torch.cat([self._xyz, new_positions_1, new_positions_2], dim=0))
                 self._cholesky = torch.nn.Parameter(torch.cat([self._cholesky, self._cholesky[split_indices] / 1.6, self._cholesky[split_indices] / 1.6], dim=0))
                 self._features_dc = torch.nn.Parameter(torch.cat([self._features_dc, self._features_dc[split_indices], self._features_dc[split_indices]], dim=0))
                 self._opacity = torch.cat([self._opacity, self._opacity[split_indices], self._opacity[split_indices]], dim=0)
+                
+                keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
+                keep_indices[split_indices] = False
+                
+                # 更新xyz和其他相关的参数，删除
+                self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
+                self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
+                self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
+                self._opacity = self._opacity[keep_indices]
 
-
-
-
+                
         # 更新优化器中的参数
         self.update_optimizer()
 
