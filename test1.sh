@@ -33,7 +33,7 @@ for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
   for num_points in 50000; do
-    for iterations in 50000; do
+    for iterations in 30000; do
       pos_flag=""
       warmup_flag=""
       ad_flag=""
