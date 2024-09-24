@@ -40,7 +40,7 @@ savdir_m_f="models_C_F1/f"
 is_pos=True
 is_warmup=False
 is_ad=False
-loss_type="Fusion1"
+loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
