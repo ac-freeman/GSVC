@@ -29,18 +29,18 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 #   "/home/e/e1344641/data/UVG/B3/B3_1920x1080_120fps_420_8bit_YUV.yuv C3"
 # )
 datasets=(
-  "/home/e/e1344641/data/UVG/E1/E1_1920x1080_120fps_420_8bit_YUV.yuv E1"
+  "/home/e/e1344641/data/UVG/C3/C3_1920x1080_120fps_420_8bit_YUV.yuv C3"
 )
 
 # Define additional parameters
-savdir="result_C_Clip/grad"
-savdir_m="models_C_Clip/grad"
-savdir_f="result_C_Clip/f"
-savdir_m_f="models_C_Clip/f"
+savdir="result_C_F1/grad"
+savdir_m="models_C_F1/grad"
+savdir_f="result_C_F1/f"
+savdir_m_f="models_C_F1/f"
 is_pos=True
 is_warmup=False
 is_ad=False
-loss_type="Function1"
+loss_type="Fusion1"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
