@@ -3,7 +3,7 @@ import cv2
 import os
 
 # 参数设置
-width, height = 1920/2, 1080/2  # 视频分辨率
+width, height = 960, 540  # 视频分辨率
 frames = 2  # 每个视频的帧数
 
 # 保存路径
