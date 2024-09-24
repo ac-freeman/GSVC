@@ -212,6 +212,12 @@ def parse_args(argv):
         "--sh_degree", type=int, default=3, help="SH degree (default: %(default)s)"
     )
     parser.add_argument(
+        "--width", type=int, default=1920, help="width (default: %(default)s)"
+    )
+    parser.add_argument(
+        "--height", type=int, default=1080, help="height (default: %(default)s)"
+    )
+    parser.add_argument(
         "--num_points",
         type=int,
         default=50000,
@@ -245,8 +251,8 @@ def main(argv):
     iswarmup=args.is_warmup
     is_ad=args.is_ad
     args.fps=120
-    width = 1920
-    height = 1080
+    width = args.width
+    height = args.height
     gmodel_save_path = Path(f"./checkpoints/{savdir_m}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)  # 确保保存目录存在
     # Cache the args as a text string to save them in the output dir later

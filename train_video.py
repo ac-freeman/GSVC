@@ -202,6 +202,12 @@ def parse_args(argv):
         default=4000,
         help="2D GS points (default: %(default)s)",
     )
+    parser.add_argument(
+        "--width", type=int, default=1920, help="width (default: %(default)s)"
+    )
+    parser.add_argument(
+        "--height", type=int, default=1080, help="height (default: %(default)s)"
+    )
     parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
     parser.add_argument("--loss_type", type=str, default=None, help="Type of Loss")
     parser.add_argument("--savdir", type=str, default="result", help="Path to results")
@@ -231,8 +237,8 @@ def main(argv):
     ispos = args.is_pos
     iswarmup=args.is_warmup
     args.fps=120
-    width = 1920
-    height = 1080
+    width = args.width
+    height = args.height
     gmodel_save_path = Path(f"./checkpoints/{savdir_m}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)  # 确保保存目录存在
     # Cache the args as a text string to save them in the output dir later

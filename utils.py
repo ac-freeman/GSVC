@@ -137,7 +137,6 @@ def build_triangular(r):
 def process_yuv_video(file_path, width, height):
     # 计算每帧大小 (YUV420格式)
     frame_size = width * height * 3 // 2
-    print(width,height)
     # 计算总帧数
     file_size = os.path.getsize(file_path)
     total_frames = file_size // frame_size
