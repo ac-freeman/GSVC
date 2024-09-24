@@ -24,6 +24,7 @@ savdir_m="models_density_grad"
 is_pos=True
 is_warmup=False
 is_ad=True
+loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
@@ -46,7 +47,7 @@ for dataset in "${datasets[@]}"; do
         ad_flag="--is_ad"
       fi
       # Run the training script for each dataset with additional parameters
-      srun python train_video_grad.py --dataset $dataset_path \
+      srun python train_video_grad.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
         $pos_flag $warmup_flag $ad_flag

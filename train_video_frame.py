@@ -21,6 +21,7 @@ class SimpleTrainer2d:
         image,
         frame_num,
         save_dir,
+        loss_type,
         num_points: int = 2000,
         model_name:str = "GaussianImage_Cholesky",
         iterations:int = 30000,
@@ -43,9 +44,10 @@ class SimpleTrainer2d:
         self.save_imgs = args.save_imgs
         self.log_dir = Path(f"./checkpoints/{save_dir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
         self.isdensity=isdensity
+        self.loss_type = loss_type
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky import GaussianImage_Cholesky
-            self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
+            self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False).to(self.device)
 
         if model_path is not None:
@@ -216,6 +218,7 @@ def parse_args(argv):
         help="2D GS points (default: %(default)s)",
     )
     parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
+    parser.add_argument("--loss_type", type=str, default=None, help="Type of Loss")
     parser.add_argument("--savdir", type=str, default="result", help="Path to results")
     parser.add_argument("--savdir_m", type=str, default="models", help="Path to models")
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
@@ -235,6 +238,7 @@ def parse_args(argv):
 def main(argv):
     args = parse_args(argv)
     args.save_imgs=True
+    loss_type=args.loss_type
     savdir=args.savdir
     savdir_m=args.savdir_m
     ispos = args.is_pos
@@ -268,16 +272,16 @@ def main(argv):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
             if iswarmup:
-                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],4),frame_num=frame_num,save_dir=savdir, num_points=args.num_points, 
+                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],4),frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=args.num_points, 
                     iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False)
                 _, _, _, _, _, Gmodel,_,num_gaussian_points = trainer.train(i,ispos)
-                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],2),frame_num=frame_num,save_dir=savdir, num_points=num_gaussian_points, 
+                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],2),frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
                     iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
                 _, _, _, _, _, Gmodel, _, num_gaussian_points= trainer.train(i,ispos)
-                trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,save_dir=savdir, num_points=num_gaussian_points, 
+                trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
                     iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad)
             else:
-                trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,save_dir=savdir, num_points=args.num_points,
+                trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=args.num_points,
                     iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad)
         psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img_list,num_gaussian_points = trainer.train(i,ispos)
         psnrs.append(psnr)

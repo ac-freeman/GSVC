@@ -12,19 +12,35 @@
 source activate torch  # Replace 'torch' with the name of your conda environment
 
 # Define datasets and their corresponding names
+# datasets=(
+#   "/home/e/e1344641/data/UVG/A1/A1_1920x1080_120fps_420_8bit_YUV.yuv A1"
+#   "/home/e/e1344641/data/UVG/A2/A2_1920x1080_120fps_420_8bit_YUV.yuv A2"
+#   "/home/e/e1344641/data/UVG/A3/A3_1920x1080_120fps_420_8bit_YUV.yuv A3"
+# )
+# datasets=(
+#   "/home/e/e1344641/data/UVG/A1/A1_1920x1080_120fps_420_8bit_YUV.yuv A1"
+#   "/home/e/e1344641/data/UVG/A2/A2_1920x1080_120fps_420_8bit_YUV.yuv A2"
+#   "/home/e/e1344641/data/UVG/A3/A3_1920x1080_120fps_420_8bit_YUV.yuv A3"
+#   "/home/e/e1344641/data/UVG/B1/B1_1920x1080_120fps_420_8bit_YUV.yuv B1"
+#   "/home/e/e1344641/data/UVG/B2/B2_1920x1080_120fps_420_8bit_YUV.yuv B2"
+#   "/home/e/e1344641/data/UVG/B3/B3_1920x1080_120fps_420_8bit_YUV.yuv B3"
+#   "/home/e/e1344641/data/UVG/B1/B1_1920x1080_120fps_420_8bit_YUV.yuv C1"
+#   "/home/e/e1344641/data/UVG/B2/B2_1920x1080_120fps_420_8bit_YUV.yuv C2"
+#   "/home/e/e1344641/data/UVG/B3/B3_1920x1080_120fps_420_8bit_YUV.yuv C3"
+# )
 datasets=(
-  "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv Beauty"
-  "/home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv HoneyBee"
-  "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
+  "/home/e/e1344641/data/UVG/C3/C3_1920x1080_120fps_420_8bit_YUV.yuv C3"
 )
 
 # Define additional parameters
-savdir="result_pos"
-savdir_m="models_pos"
+savdir="result_density_C/grad"
+savdir_m="models_density_C/grad"
+savdir_f="result_density_C/f"
+savdir_m_f="models_density_C/f"
 is_pos=True
 is_warmup=False
-is_ad=False
-loss_type="L2"
+is_ad=True
+loss_type="Fusion1"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
@@ -47,9 +63,13 @@ for dataset in "${datasets[@]}"; do
         ad_flag="--is_ad"
       fi
       # Run the training script for each dataset with additional parameters
-      srun python train_video.py --loss_type $loss_type --dataset $dataset_path \
+      srun python train_video_grad.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
+        $pos_flag $warmup_flag $ad_flag
+      srun python train_video_frame.py --loss_type $loss_type --dataset $dataset_path \
+        --data_name $data_name --num_points $num_points --iterations $iterations \
+        --savdir $savdir_f --savdir_m $savdir_m_f \
         $pos_flag $warmup_flag $ad_flag
     done
   done
