@@ -2,12 +2,3 @@ scp -r e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/videogs_lo
 scp -r e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/videogs_loss_output.txt C:/Myself/work/2DGS/GaussianVideo/
 scp -r e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/checkpoints/result C:/Myself/work/2DGS/GaussianVideo/checkpoints
 
-scp -r e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/checkpoints/result \
-       e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/checkpoints/result_density \
-       e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/checkpoints/result_C \
-       e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/checkpoints/result_density_C \
-       e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/checkpoints/result_density_grad \
-       e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/checkpoints/result_density_pos \
-       e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/checkpoints/result_pos \
-       e1344641@xlogin.comp.nus.edu.sg:/home/e/e1344641/GaussianVideo/checkpoints/result_grad \
-       C:/Myself/work/2DGS/GaussianVideo/checkpoints
