@@ -33,10 +33,10 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_C_F1/grad"
-savdir_m="models_C_F1/grad"
-savdir_f="result_C_F1/f"
-savdir_m_f="models_C_F1/f"
+savdir="result_C_Clip/grad"
+savdir_m="models_C_Clip/grad"
+savdir_f="result_C_Clip/f"
+savdir_m_f="models_C_Clip/f"
 is_pos=True
 is_warmup=False
 is_ad=False
