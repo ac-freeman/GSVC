@@ -264,6 +264,7 @@ def main(argv):
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
+    print("Video length:{image_length}")
     image_length=1
     Gmodel=None
     gmodels_state_dict = {}

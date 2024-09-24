@@ -10,7 +10,7 @@ python train_video.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x108
   --data_name Beauty --num_points 50000 --iterations 50000 \
   --savdir result_density_warmup_pos --savdir_m models_density_warmup_pos --is_pos --is_ad --is_warmup
 
-python train_video_grad.py --dataset /home/e/e1344641/data/UVG/E1/E1_1920x1080_120fps_420_8bit_YUV.yuv \
+python train_video_grad.py --dataset /home/e/e1344641/data/UVG/E1/E1.yuv \
   --data_name E1 --num_points 50000 --iterations 30000 \
   --savdir result_C_Clip/grad --savdir_m models_C_Clip/grad --is_pos
 
