@@ -33,10 +33,10 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_density_C/grad"
-savdir_m="models_density_C/grad"
-savdir_f="result_density_C/f"
-savdir_m_f="models_density_C/f"
+savdir="result_density_C_F1/grad"
+savdir_m="models_density_C_F1/grad"
+savdir_f="result_density_C_F1/f"
+savdir_m_f="models_density_C_F1/f"
 is_pos=True
 is_warmup=False
 is_ad=True
