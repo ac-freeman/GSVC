@@ -252,6 +252,13 @@ def extend_image(image):
     return new_image
 
 def restor_image(new_image, H, W):
-    # 裁剪掉之前添加的10像素边框
-    original_image = new_image[10:H+10, 10:W+10]
+    # 假设 new_image 是 torch tensor 格式，形状为 [1, C, H_new, W_new]，需要裁剪恢复到 H 和 W
+    # new_image 的形状为 [1, 3, H_new, W_new]
+    
+    # 确定我们需要裁剪的起始和结束位置
+    top = (new_image.shape[2] - H) // 2
+    left = (new_image.shape[3] - W) // 2
+    
+    # 裁剪出原始图像
+    original_image = new_image[:, :, top:top+H, left:left+W]  # 保持 batch 和通道数不变，裁剪高度和宽度
     return original_image
