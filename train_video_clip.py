@@ -27,7 +27,8 @@ class SimpleTrainer2d:
         model_path = None,
         args = None,
         Trained_Model=None,
-        isdensity=True
+        isdensity=True,
+        removal_rate=0.25
     ):
         self.device = torch.device("cuda:0")
 
@@ -54,7 +55,7 @@ class SimpleTrainer2d:
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky import GaussianImage_Cholesky
             self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.eH, W=self.eW, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
-                device=self.device, lr=args.lr, quantize=False).to(self.device)
+                device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate).to(self.device)
 
         if model_path is not None:
             print(f"loading model path:{model_path}")
@@ -225,6 +226,7 @@ def parse_args(argv):
     parser.add_argument("--savdir", type=str, default="result", help="Path to results")
     parser.add_argument("--savdir_m", type=str, default="models", help="Path to models")
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
+    parser.add_argument("--removal_rate", type=float, default=0.25, help="Removal rate")
     parser.add_argument("--save_imgs", action="store_true", help="Save image")
     parser.add_argument("--is_pos", action="store_true", help="Show the position of gaussians")
     parser.add_argument("--is_warmup",action="store_true", help="Warmup setup")
@@ -251,6 +253,7 @@ def main(argv):
     args.fps=120
     width = args.width
     height = args.height
+    removal_rate=args.removal_rate
     gmodel_save_path = Path(f"./checkpoints/{savdir_m}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)  # 确保保存目录存在
     # Cache the args as a text string to save them in the output dir later
@@ -279,19 +282,19 @@ def main(argv):
         if frame_num ==1 or frame_num%50==0:
             if iswarmup:
                 trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],4),frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
-                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False)
+                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
                 _, _, _, _, _, Gmodel, _, num_gaussian_points, _ = trainer.train(i,ispos)
                 trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],2),frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
-                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
+                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate)
                 _, _, _, _, _, Gmodel, _, num_gaussian_points, _ = trainer.train(i,ispos)
                 trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
-                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad)
+                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate)
             else:
                 trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
-                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad)
+                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad,removal_rate=removal_rate)
         else:
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
-                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
+                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate)
         psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, img, num_gaussian_points, loss = trainer.train(i,ispos)
         img_list.append(img)
         psnrs.append(psnr)
