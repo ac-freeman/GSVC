@@ -20,4 +20,4 @@ python train_video_frame.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/E
 
 python train_video_clip.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
 --data_name Beauty --num_points 50000 --iterations 30000 \
---savdir result_density_Clip/f --savdir_m models_density_Clip/f --is_pos --is_ad
+--savdir result_density_Clip --savdir_m models_density_Clip --is_pos --is_ad
