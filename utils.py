@@ -240,3 +240,18 @@ def downsample_image(image, scale_factor):
     # 使用模糊降低图像分辨率，保留尺寸不变
     downsampled_image = cv2.GaussianBlur(image, (scale_factor * 2 + 1, scale_factor * 2 + 1), 0)
     return downsampled_image
+
+def extend_image(image):
+    # 使用cv2.copyMakeBorder扩展图像，添加10像素的黑色边框
+    new_image = cv2.copyMakeBorder(
+        image, 
+        10, 10, 10, 10,  # 分别为上、下、左、右扩展的像素
+        cv2.BORDER_CONSTANT, 
+        value=[0, 0, 0]  # 黑色边框
+    )
+    return new_image
+
+def restor_image(new_image, H, W):
+    # 裁剪掉之前添加的10像素边框
+    original_image = new_image[10:H+10, 10:W+10]
+    return original_image
