@@ -110,7 +110,7 @@ class SimpleTrainer2d:
                 out_pos_sca_img = restor_image(out_pos_sca["render_pos_sca"],self.H,self.W)
         
         out_image = restor_image(out["render"],self.H,self.W)
-        print(np.shape(out_image),np.shape(self.gt_image))
+        print(np.shape(out_image),np.shape(out["render"]),np.shape(self.gt_image))
         mse_loss = F.mse_loss(out_image.float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out_image.float(), self.gt_image.float(), data_range=1, size_average=True).item()
