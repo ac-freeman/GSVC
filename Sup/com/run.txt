@@ -17,3 +17,7 @@ python train_video_grad.py --dataset /home/e/e1344641/data/UVG/E1/E1.yuv \
 python train_video_frame.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/E1/E1_1920x1080_120fps_420_8bit_YUV.yuv \
   --data_name E1 --num_points 125000 --iterations 30000 \
   --savdir result_C_Clip/f --savdir_m models_C_Clip/f --is_pos --height 540 --width 960
+
+python train_video_clip.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
+--data_name Beauty --num_points 50000 --iterations 30000 \
+--savdir result_density_Clip/f --savdir_m models_density_Clip/f --is_pos --is_ad
