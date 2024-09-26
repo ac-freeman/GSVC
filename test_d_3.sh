@@ -26,7 +26,7 @@ loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 4000 5000 6000 7000 8000 9000 10000 11000 12000; do
+  for num_points in 10000 20000 30000 40000 50000 60000; do
     for iterations in 30000; do
       pos_flag=""
       warmup_flag=""
