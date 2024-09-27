@@ -21,7 +21,7 @@ class SimpleTrainer2d:
         frame_num,
         savdir,
         loss_type,
-        isclip,
+        isclip=True,
         num_points: int = 2000,
         model_name:str = "GaussianImage_Cholesky",
         iterations:int = 30000,
