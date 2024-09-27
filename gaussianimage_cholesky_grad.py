@@ -478,7 +478,7 @@ class GaussianImage_Cholesky(nn.Module):
 
         # 对梯度幅值进行升序排序（最小的梯度在前）
         _, sorted_indices = torch.sort(grad_magnitude)
-        removal_rate_per_step = self.removal_rate/iter_threshold_remove
+        removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval+1))
         if iter <= iter_threshold_remove:
             # 训练早期：只执行删除操作，减少总的高斯点数量
             remove_count = int(removal_rate_per_step * self.max_num_points)  # 删除0.1%的点
