@@ -254,7 +254,7 @@ def downsample_image(image, scale_factor):
 def extend_image(image):
     # Get image dimensions
     H, W, C = image.shape
-    add = 10
+    add = 25
     n = 1
     neighbor_size = int(min(H / 4, W / 4))  # Reference more neighboring pixels
     
