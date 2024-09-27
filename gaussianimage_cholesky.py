@@ -443,7 +443,7 @@ class GaussianImage_Cholesky(nn.Module):
         if iter <= iter_threshold_remove:
             # 训练早期：只执行删除操作，减少总的高斯点数量
             remove_count = int(removal_rate_per_step * self.max_num_points)
-            print(removal_rate_per_step,remove_count)  
+            print( self.max_num_points*removal_rate_per_step*int(iter_threshold_remove/(self.densification_interval+1)))  
             remove_indices = sorted_indices[:remove_count]
 
             # 删除选定的点
