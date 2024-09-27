@@ -107,93 +107,14 @@ class SimpleTrainer2d:
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
-        psnr_value, ms_ssim_value,_ = self.test(frame,num_gaussian_points,ispos)
-        with torch.no_grad():
-            self.gaussian_model.eval()
-            test_start_time = time.time()
-            for i in range(100):
-                _ = self.gaussian_model()
-            test_end_time = (time.time() - test_start_time)/100       
+     
         Gmodel =self.gaussian_model.state_dict()
         filtered_Gmodel = {
             k: v for k, v in Gmodel.items()
             if k in ['_xyz', '_cholesky', '_features_dc']
         }
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel,img_list,num_gaussian_points
-    def test(self,frame,num_gaussian_points,ispos):
-        self.gaussian_model.eval()
-        with torch.no_grad():
-            out = self.gaussian_model()
-            #out_pos =self.gaussian_model.forward_pos(num_gaussian_points)
-            if ispos:
-                out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
-                if self.isclip:
-                    out_pos_sca_img = restor_image(out_pos_sca["render_pos_sca"],self.H,self.W)
-                else:
-                    out_pos_sca_img = out_pos_sca["render_pos_sca"]
-        
-        if self.isclip:
-            out_image = restor_image(out["render"],self.H,self.W)
-        else:
-            out_image = out["render"]
-        mse_loss = F.mse_loss(out_image.float(), self.gt_image.float())
-        psnr = 10 * math.log10(1.0 / mse_loss.item())
-        ms_ssim_value = ms_ssim(out_image.float(), self.gt_image.float(), data_range=1, size_average=True).item()
-        if ispos:
-            if (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
-                # save_path_img = self.log_dir / "img"
-                # save_path_img.mkdir(parents=True, exist_ok=True)
-                # transform = transforms.ToPILImage()
-                # img_pos = transform(out["render_pos"].float().squeeze(0))
-                # img = transform(out["render"].float().squeeze(0))
-                # name_pos =str(self.frame_num) + "_fitting_pos.png"
-                # name =str(self.frame_num) + "_fitting.png"  
-                # img_pos.save(str(save_path_img / name_pos))
-                # img.save(str(save_path_img / name))
-
-                save_path_img = self.log_dir / "img"
-                save_path_img.mkdir(parents=True, exist_ok=True)
-                # 转换为PIL图像
-                transform = transforms.ToPILImage()
-                img = transform(out_image.float().squeeze(0))
-                img_pos_sca = transform(out_pos_sca_img.float().squeeze(0))
-                #img_pos = transform(out_pos["render_pos"].float().squeeze(0))
-                
-                # 拼接图片
-                # combined_width = img_pos.width + img.width+img_pos_sca.width
-                # combined_height = max(img_pos.height, img.height, img_pos_sca.height)
-                # combined_img = Image.new("RGB", (combined_width, combined_height))
-                # combined_img.paste(img_pos_sca, (0, 0))
-                # combined_img.paste(img_pos, (img_pos_sca.width, 0))
-                # combined_img.paste(img, (img_pos.width + img_pos_sca.width, 0))
-
-
-                combined_width =img.width+img_pos_sca.width
-                combined_height = max(img.height, img_pos_sca.height)
-                combined_img = Image.new("RGB", (combined_width, combined_height))
-                combined_img.paste(img_pos_sca, (0, 0))
-                combined_img.paste(img, (img_pos_sca.width, 0))
-
-                # 保存拼接后的图片
-                combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
-                combined_img.save(str(save_path_img / combined_name))
-            else:
-                transform = transforms.ToPILImage()
-                img_pos_sca = transform(out_pos_sca_img.float().squeeze(0))
-                #img_pos = transform(out_pos["render_pos"].float().squeeze(0))
-                img = transform(out_image.float().squeeze(0))
-                # combined_width = img_pos.width + img.width+img_pos_sca.width
-                # combined_height = max(img_pos.height, img.height, img_pos_sca.height)
-                # combined_img = Image.new("RGB", (combined_width, combined_height))
-                # combined_img.paste(img_pos_sca, (0, 0))
-                # combined_img.paste(img_pos, (img_pos_sca.width, 0))
-                # combined_img.paste(img, (img_pos.width + img_pos_sca.width, 0))
-                combined_width =img.width+img_pos_sca.width
-                combined_height = max(img.height, img_pos_sca.height)
-                combined_img = Image.new("RGB", (combined_width, combined_height))
-                combined_img.paste(img_pos_sca, (0, 0))
-                combined_img.paste(img, (img_pos_sca.width, 0))
-            return psnr, ms_ssim_value,combined_img
+        return filtered_Gmodel,img_list,num_gaussian_points
+    
         
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
@@ -282,7 +203,7 @@ def main(argv):
         np.random.seed(args.seed)
 
     logwriter = LogWriter(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
-    psnrs, ms_ssims, training_times, eval_times, eval_fpses = [], [], [], [], []
+
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
@@ -305,12 +226,8 @@ def main(argv):
             else:
                 trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=args.num_points,
                     iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad,removal_rate=removal_rate,isclip=isclip)
-        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img_list,num_gaussian_points = trainer.train(i,ispos)
-        psnrs.append(psnr)
-        ms_ssims.append(ms_ssim)
-        training_times.append(training_time) 
-        eval_times.append(eval_time)
-        eval_fpses.append(eval_fps)
+        Gmodel,img_list,num_gaussian_points = trainer.train(i,ispos)
+
         image_h += trainer.H
         image_w += trainer.W
         gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
@@ -319,20 +236,11 @@ def main(argv):
         if i==0 or (i+1)%100==0:
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
-    file_size = os.path.getsize(os.path.join(gmodel_save_path, 'gmodels_state_dict.pth'))
+
     with open(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
         for key, value in num_gaussian_points_dict.items():
             f.write(f'{key}: {value}\n')
-    avg_psnr = torch.tensor(psnrs).mean().item()
-    avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
-    avg_training_time = torch.tensor(training_times).mean().item()
-    avg_eval_time = torch.tensor(eval_times).mean().item()
-    avg_eval_fps = torch.tensor(eval_fpses).mean().item()
-    avg_h = image_h//image_length
-    avg_w = image_w//image_length
 
-    logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f}".format(
-        avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024)))
     if ispos:
         generate_video_test(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
     else:
