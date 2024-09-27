@@ -32,10 +32,9 @@ class SimpleTrainer2d:
         removal_rate=0.25
     ):
         self.device = torch.device("cuda:0")
-
         self.eimage = extend_image(image)
         self.gt_eimage = image_to_tensor(self.eimage).to(self.device)
-        self.isclip = isclip,
+        self.isclip = isclip
         self.gt_image = image_to_tensor(image).to(self.device)
         self.frame_num=frame_num
         self.num_points = num_points
@@ -55,7 +54,11 @@ class SimpleTrainer2d:
         self.loss_type = loss_type
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky import GaussianImage_Cholesky
-            self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.eH, W=self.eW, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
+            if self.isClip:
+                self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.eH, W=self.eW, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
+                device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate).to(self.device)
+            else:
+                self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate).to(self.device)
 
         if model_path is not None:

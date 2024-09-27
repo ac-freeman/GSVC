@@ -13,7 +13,6 @@ from utils import *
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-import io
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
@@ -22,6 +21,7 @@ class SimpleTrainer2d:
         frame_num,
         save_dir,
         loss_type,
+        isclip,
         num_points: int = 2000,
         model_name:str = "GaussianImage_Cholesky",
         iterations:int = 30000,
@@ -32,7 +32,10 @@ class SimpleTrainer2d:
         removal_rate=0.25
     ):
         self.device = torch.device("cuda:0")
+        self.eimage = extend_image(image)
         self.gt_image = image_to_tensor(image).to(self.device)
+        self.isclip = isclip
+        self.gt_eimage = image_to_tensor(self.eimage).to(self.device)
         self.frame_num=frame_num
         self.num_points = num_points
         self.max_num_points=num_points
@@ -40,6 +43,9 @@ class SimpleTrainer2d:
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
+        
+        self.eH, self.eW = self.gt_eimage.shape[2], self.gt_eimage.shape[3]
+
         self.iterations = iterations
         self.densification_interval=args.densification_interval
         self.save_imgs = args.save_imgs
@@ -48,7 +54,11 @@ class SimpleTrainer2d:
         self.loss_type = loss_type
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky import GaussianImage_Cholesky
-            self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
+            if self.isClip:
+                self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.eH, W=self.eW, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
+                device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate).to(self.device)
+            else:
+                self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate).to(self.device)
 
         if model_path is not None:
@@ -72,7 +82,10 @@ class SimpleTrainer2d:
         save_path_img = self.log_dir / "img"
         save_path_img.mkdir(parents=True, exist_ok=True)
         for iter in range(1, int(self.iterations)+1):
-            loss, psnr,img = self.gaussian_model.train_iter_img(self.gt_image,iter,self.isdensity)
+            if self.isclip:
+                loss, psnr,img = self.gaussian_model.train_iter_img(self.gt_eimage,iter,self.isdensity)
+            else:
+                loss, psnr,img = self.gaussian_model.train_iter_img(self.gt_image,iter,self.isdensity)
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -114,9 +127,18 @@ class SimpleTrainer2d:
             #out_pos =self.gaussian_model.forward_pos(num_gaussian_points)
             if ispos:
                 out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
-        mse_loss = F.mse_loss(out["render"].float(), self.gt_image.float())
+                if self.isclip:
+                    out_pos_sca_img = restor_image(out_pos_sca["render_pos_sca"],self.H,self.W)
+                else:
+                    out_pos_sca_img = out_pos_sca["render_pos_sca"]
+        
+        if self.isclip:
+            out_image = restor_image(out["render"],self.H,self.W)
+        else:
+            out_image = out["render"]
+        mse_loss = F.mse_loss(out_image.float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
-        ms_ssim_value = ms_ssim(out["render"].float(), self.gt_image.float(), data_range=1, size_average=True).item()
+        ms_ssim_value = ms_ssim(out_image.float(), self.gt_image.float(), data_range=1, size_average=True).item()
         if ispos:
             if (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
                 # save_path_img = self.log_dir / "img"
@@ -133,8 +155,8 @@ class SimpleTrainer2d:
                 save_path_img.mkdir(parents=True, exist_ok=True)
                 # 转换为PIL图像
                 transform = transforms.ToPILImage()
-                img = transform(out["render"].float().squeeze(0))
-                img_pos_sca = transform(out_pos_sca["render_pos_sca"].float().squeeze(0))
+                img = transform(out_image.float().squeeze(0))
+                img_pos_sca = transform(out_pos_sca_img.float().squeeze(0))
                 #img_pos = transform(out_pos["render_pos"].float().squeeze(0))
                 
                 # 拼接图片
@@ -157,9 +179,9 @@ class SimpleTrainer2d:
                 combined_img.save(str(save_path_img / combined_name))
             else:
                 transform = transforms.ToPILImage()
-                img_pos_sca = transform(out_pos_sca["render_pos_sca"].float().squeeze(0))
+                img_pos_sca = transform(out_pos_sca_img.float().squeeze(0))
                 #img_pos = transform(out_pos["render_pos"].float().squeeze(0))
-                img = transform(out["render"].float().squeeze(0))
+                img = transform(out_image.float().squeeze(0))
                 # combined_width = img_pos.width + img.width+img_pos_sca.width
                 # combined_height = max(img_pos.height, img.height, img_pos_sca.height)
                 # combined_img = Image.new("RGB", (combined_width, combined_height))
@@ -172,18 +194,7 @@ class SimpleTrainer2d:
                 combined_img.paste(img_pos_sca, (0, 0))
                 combined_img.paste(img, (img_pos_sca.width, 0))
             return psnr, ms_ssim_value,combined_img
-        if (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
-            save_path_img = self.log_dir / "img"
-            save_path_img.mkdir(parents=True, exist_ok=True)
-            transform = transforms.ToPILImage()
-            img = transform(out["render"].float().squeeze(0))
-            name =str(self.frame_num) + "_fitting.png" 
-            img.save(str(save_path_img / name))
-        else:
-            transform = transforms.ToPILImage()
-            img = transform(out["render"].float().squeeze(0))
-        return psnr, ms_ssim_value,img
-
+        
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
     img_tensor = transform(img).unsqueeze(0)  # [1, C, H, W]
@@ -198,10 +209,10 @@ def parse_args(argv):
         "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--iterations", type=int, default=1000, help="number of training epochs (default: %(default)s)"
+        "--iterations", type=int, default=30000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
-        "--densification_interval",type=int,default=500,help="densification_interval (default: %(default)s)"
+        "--densification_interval",type=int,default=100,help="densification_interval (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
@@ -215,7 +226,7 @@ def parse_args(argv):
     parser.add_argument(
         "--num_points",
         type=int,
-        default=50000,
+        default=4000,
         help="2D GS points (default: %(default)s)",
     )
     parser.add_argument(
@@ -229,11 +240,12 @@ def parse_args(argv):
     parser.add_argument("--savdir", type=str, default="result", help="Path to results")
     parser.add_argument("--savdir_m", type=str, default="models", help="Path to models")
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
+    parser.add_argument("--removal_rate", type=float, default=0.25, help="Removal rate")
     parser.add_argument("--save_imgs", action="store_true", help="Save image")
     parser.add_argument("--is_pos", action="store_true", help="Show the position of gaussians")
     parser.add_argument("--is_warmup",action="store_true", help="Warmup setup")
     parser.add_argument("--is_ad", action="store_true", help="Adaptive control of gaussians setup")
-    parser.add_argument("--removal_rate", type=float, default=0.25, help="Removal rate")
+    parser.add_argument("--is_clip", action="store_true", help="Adaptive control of Clip")
     parser.add_argument(
         "--lr",
         type=float,
@@ -252,6 +264,7 @@ def main(argv):
     ispos = args.is_pos
     iswarmup=args.is_warmup
     is_ad=args.is_ad
+    isclip = args.is_clip
     args.fps=120
     width = args.width
     height = args.height
@@ -282,16 +295,16 @@ def main(argv):
         if frame_num ==1 or frame_num%50==0:
             if iswarmup:
                 trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],4),frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=args.num_points, 
-                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
+                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate,isclip=isclip)
                 _, _, _, _, _, Gmodel,_,num_gaussian_points = trainer.train(i,ispos)
                 trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],2),frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
-                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate)
+                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate,isclip=isclip)
                 _, _, _, _, _, Gmodel, _, num_gaussian_points= trainer.train(i,ispos)
                 trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
-                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate)
+                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate,isclip=isclip)
             else:
                 trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=args.num_points,
-                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad,removal_rate=removal_rate)
+                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad,removal_rate=removal_rate,isclip=isclip)
         psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img_list,num_gaussian_points = trainer.train(i,ispos)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)

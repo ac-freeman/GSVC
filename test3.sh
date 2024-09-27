@@ -29,18 +29,24 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 #   "/home/e/e1344641/data/UVG/B3/B3_1920x1080_120fps_420_8bit_YUV.yuv C3"
 # )
 datasets=(
-  "/home/e/e1344641/data/UVG/E1/E1_1920x1080_120fps_420_8bit_YUV.yuv E1"
+  "/home/e/e1344641/data/UVG/C1/C1_1920x1080_120fps_420_8bit_YUV.yuv C1"
+  "/home/e/e1344641/data/UVG/C2/C2_1920x1080_120fps_420_8bit_YUV.yuv C2"
+  "/home/e/e1344641/data/UVG/C3/C3_1920x1080_120fps_420_8bit_YUV.yuv C3"
+  "/home/e/e1344641/data/UVG/D1/D1_1920x1080_120fps_420_8bit_YUV.yuv D1"
+  "/home/e/e1344641/data/UVG/D2/D2_1920x1080_120fps_420_8bit_YUV.yuv D2"
+  "/home/e/e1344641/data/UVG/D3/D3_1920x1080_120fps_420_8bit_YUV.yuv D3"
 )
 
 # Define additional parameters
-savdir="result_C_Clip/grad"
-savdir_m="models_C_Clip/grad"
-savdir_f="result_C_Clip/f"
-savdir_m_f="models_C_Clip/f"
+savdir="result_Clip_C/grad"
+savdir_m="models_Clip_C/grad"
+savdir_f="result_Clip_C/f"
+savdir_m_f="models_Clip_C/f"
 is_pos=True
 is_warmup=False
 is_ad=False
 loss_type="L2"
+is_clip=True
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
@@ -49,6 +55,7 @@ for dataset in "${datasets[@]}"; do
       pos_flag=""
       warmup_flag=""
       ad_flag=""
+      clip_flag=""
 
       # 检查布尔值并构建相应的命令行参数
       if [ "$is_pos" = True ]; then
@@ -62,15 +69,19 @@ for dataset in "${datasets[@]}"; do
       if [ "$is_ad" = True ]; then
         ad_flag="--is_ad"
       fi
+
+      if [ "$is_clip" = True ]; then
+        clip_flag="--is_clip"
+      fi
       # Run the training script for each dataset with additional parameters
       srun python train_video_grad.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m --height 540 --width 960\
-        $pos_flag $warmup_flag $ad_flag
+        $pos_flag $warmup_flag $ad_flag $clip_flag
       srun python train_video_frame.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir_f --savdir_m $savdir_m_f --height 540 --width 960\
-        $pos_flag $warmup_flag $ad_flag
+        $pos_flag $warmup_flag $ad_flag $clip_flag
     done
   done
 done

@@ -41,6 +41,7 @@ is_pos=True
 is_warmup=False
 is_ad=False
 loss_type="L2"
+is_clip=False
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
@@ -49,7 +50,7 @@ for dataset in "${datasets[@]}"; do
       pos_flag=""
       warmup_flag=""
       ad_flag=""
-
+      clip_flag=""
       # 检查布尔值并构建相应的命令行参数
       if [ "$is_pos" = True ]; then
         pos_flag="--is_pos"
@@ -62,15 +63,19 @@ for dataset in "${datasets[@]}"; do
       if [ "$is_ad" = True ]; then
         ad_flag="--is_ad"
       fi
+      
+      if [ "$is_clip" = True ]; then
+        clip_flag="--is_clip"
+      fi
       # Run the training script for each dataset with additional parameters
       srun python train_video_grad.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
-        $pos_flag $warmup_flag $ad_flag
+        $pos_flag $warmup_flag $ad_flag $clip_flag
       srun python train_video_frame.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir_f --savdir_m $savdir_m_f \
-        $pos_flag $warmup_flag $ad_flag
+        $pos_flag $warmup_flag $ad_flag $clip_flag
     done
   done
 done

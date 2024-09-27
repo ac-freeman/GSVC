@@ -17,8 +17,8 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_density"
-savdir_m="models_density"
+savdir="result"
+savdir_m="models"
 is_pos=False
 is_warmup=False
 is_ad=False
@@ -27,7 +27,7 @@ loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 10000 20000 30000 40000 50000 60000; do
+  for num_points in 7500 15000 225000 30000 37500 45000; do
     for iterations in 30000; do
       pos_flag=""
       warmup_flag=""

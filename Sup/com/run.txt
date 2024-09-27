@@ -1,23 +1,23 @@
-python train_video_frame.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
-  --data_name Beauty --num_points 50000 --iterations 50000 \
-  --savdir result_density_warmup_pos --savdir_m models_density_warmup_pos --is_pos --is_ad --is_warmup
+python train_video.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
+--data_name Beauty --num_points 50000 --iterations 3000 \
+--savdir test1 --savdir_m test1  --is_ad --isClip
 
-python train_video_grad.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
-  --data_name Beauty --num_points 50000 --iterations 50000 \
-  --savdir result_density_warmup_pos --savdir_m models_density_warmup_pos --is_pos --is_ad --is_warmup
+python train_video.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
+--data_name Beauty --num_points 50000 --iterations 3000 \
+--savdir test1 --savdir_m test1  --is_ad 
 
-python train_video.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
-  --data_name Beauty --num_points 50000 --iterations 50000 \
-  --savdir result_density_warmup_pos --savdir_m models_density_warmup_pos --is_pos --is_ad --is_warmup
+python train_video_grad.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
+--data_name Beauty --num_points 50000 --iterations 3000 \
+--savdir test1 --savdir_m test1  --is_ad --isClip
 
-python train_video_grad.py --dataset /home/e/e1344641/data/UVG/E1/E1.yuv \
-  --data_name E1 --num_points 50000 --iterations 30000 \
-  --savdir result_C_Clip/grad --savdir_m models_C_Clip/grad --is_pos
+python train_video_grad.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
+--data_name Beauty --num_points 50000 --iterations 3000 \
+--savdir test1 --savdir_m test1  --is_ad 
 
-python train_video_frame.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/E1/E1_1920x1080_120fps_420_8bit_YUV.yuv \
-  --data_name E1 --num_points 125000 --iterations 30000 \
-  --savdir result_C_Clip/f --savdir_m models_C_Clip/f --is_pos --height 540 --width 960
+python train_video_frame.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
+--data_name Beauty --num_points 50000 --iterations 3000 \
+--savdir test1 --savdir_m test1  --is_ad --isClip
 
-python train_video_clip.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
---data_name Beauty --num_points 50000 --iterations 30000 \
---savdir result_density_Clip --savdir_m models_density_Clip --is_pos --is_ad
+python train_video_frame.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
+--data_name Beauty --num_points 50000 --iterations 3000 \
+--savdir test1 --savdir_m test1  --is_ad 
