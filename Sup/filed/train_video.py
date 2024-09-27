@@ -13,27 +13,28 @@ from utils import *
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
-savdir="result"
-savdir_m="models"
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
         self,
         image,
         frame_num,
+        savdir,
+        loss_type,
         num_points: int = 2000,
         model_name:str = "GaussianImage_Cholesky",
         iterations:int = 30000,
         model_path = None,
         args = None,
         Trained_Model=None,
-        isdensity=True
+        isdensity=True,
+        removal_rate=0.25
     ):
         self.device = torch.device("cuda:0")
         self.gt_image = image_to_tensor(image).to(self.device)
         self.frame_num=frame_num
         self.num_points = num_points
-        self.max_num_points=num_points*2
+        self.max_num_points=num_points
         self.model_name=model_name
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
@@ -43,10 +44,11 @@ class SimpleTrainer2d:
         self.save_imgs = args.save_imgs
         self.log_dir = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
         self.isdensity=isdensity
+        self.loss_type = loss_type
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky import GaussianImage_Cholesky
-            self.gaussian_model = GaussianImage_Cholesky(loss_type="L2", opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
-                device=self.device, lr=args.lr, quantize=False).to(self.device)
+            self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
+                device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate).to(self.device)
 
         if model_path is not None:
             print(f"loading model path:{model_path}")
@@ -89,7 +91,7 @@ class SimpleTrainer2d:
             k: v for k, v in Gmodel.items()
             if k in ['_xyz', '_cholesky', '_features_dc']
         }
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel,img,num_gaussian_points,loss
+        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss
     def test(self,frame,num_gaussian_points,ispos):
         self.gaussian_model.eval()
         with torch.no_grad():
@@ -181,10 +183,10 @@ def parse_args(argv):
         "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--iterations", type=int, default=5000, help="number of training epochs (default: %(default)s)"
+        "--iterations", type=int, default=30000, help="number of training epochs (default: %(default)s)"
     )
     parser.add_argument(
-        "--densification_interval",type=int,default=500,help="densification_interval (default: %(default)s)"
+        "--densification_interval",type=int,default=100,help="densification_interval (default: %(default)s)"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
@@ -198,12 +200,26 @@ def parse_args(argv):
     parser.add_argument(
         "--num_points",
         type=int,
-        default=5000,
+        default=4000,
         help="2D GS points (default: %(default)s)",
     )
+    parser.add_argument(
+        "--width", type=int, default=1920, help="width (default: %(default)s)"
+    )
+    parser.add_argument(
+        "--height", type=int, default=1080, help="height (default: %(default)s)"
+    )
     parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
+    parser.add_argument("--loss_type", type=str, default=None, help="Type of Loss")
+    parser.add_argument("--savdir", type=str, default="result", help="Path to results")
+    parser.add_argument("--savdir_m", type=str, default="models", help="Path to models")
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
+    parser.add_argument("--removal_rate", type=float, default=0.25, help="Removal rate")
     parser.add_argument("--save_imgs", action="store_true", help="Save image")
+    parser.add_argument("--is_pos", action="store_true", help="Show the position of gaussians")
+    parser.add_argument("--is_warmup",action="store_true", help="Warmup setup")
+    parser.add_argument("--is_ad", action="store_true", help="Adaptive control of gaussians setup")
+    parser.add_argument("--is_clip", action="store_true", help="Adaptive control of Clip")
     parser.add_argument(
         "--lr",
         type=float,
@@ -214,20 +230,25 @@ def parse_args(argv):
     return args
 
 def main(argv):
-    ispos = False
     args = parse_args(argv)
-    #args.model_name="GaussianImage_Cholesky"
-    # args.save_imgs=False
     args.save_imgs=True
-    #args.dataset='/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv'
-    #args.data_name='Beauty'
+    # args.is_pos=False
+    # args.is_warmup=True
+    loss_type=args.loss_type
+    savdir=args.savdir
+    savdir_m=args.savdir_m
+    ispos = args.is_pos
+    iswarmup=args.is_warmup
+    isclip = args.is_clip
     args.fps=120
-    width = 1920
-    height = 1080
+    width = args.width
+    height = args.height
+    removal_rate=args.removal_rate
     gmodel_save_path = Path(f"./checkpoints/{savdir_m}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)  # 确保保存目录存在
     # Cache the args as a text string to save them in the output dir later
     args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
+    is_ad=args.is_ad
     if args.seed is not None:
         torch.manual_seed(args.seed)
         random.seed(args.seed)
@@ -249,19 +270,29 @@ def main(argv):
     for i in range(start, start+image_length):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
-            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=args.num_points, 
-                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False)
+            if iswarmup:
+                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],4),frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
+                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
+                _, _, _, _, _, Gmodel, _, num_gaussian_points, _ = trainer.train(i,ispos)
+                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],2),frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
+                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate)
+                _, _, _, _, _, Gmodel, _, num_gaussian_points, _ = trainer.train(i,ispos)
+                trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
+                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate)
+            else:
+                trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
+                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad,removal_rate=removal_rate)
         else:
-            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num, num_points=num_gaussian_points, 
-                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False)
-        psnr, ms_ssim, training_time, eval_time, eval_fps,Gmodel,img,num_gaussian_points,loss = trainer.train(i,ispos)
+            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
+                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate)
+        psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, img, num_gaussian_points, loss = trainer.train(i,ispos)
         img_list.append(img)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
         training_times.append(training_time) 
-        gaussian_number.append(num_gaussian_points)
         eval_times.append(eval_time)
         eval_fpses.append(eval_fps)
+        gaussian_number.append(num_gaussian_points)
         image_h += trainer.H
         image_w += trainer.W
         gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
@@ -269,10 +300,10 @@ def main(argv):
         torch.cuda.empty_cache()
         # if i==0 or (i+1)%100==0:
         if i==0 or (i+1)%1==0:
-            logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Loss:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps,loss))
+            logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Loss:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps, loss))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
     file_size = os.path.getsize(os.path.join(gmodel_save_path, 'gmodels_state_dict.pth'))
-    with open(Path(f"./checkpoints/result/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
+    with open(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
         for key, value in num_gaussian_points_dict.items():
             f.write(f'{key}: {value}\n')
     avg_psnr = torch.tensor(psnrs).mean().item()
@@ -286,9 +317,9 @@ def main(argv):
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f}, Gaussian_number:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024),gaussians))
     if ispos:
-        generate_video(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
+        generate_video_density(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
     else:
-        generate_video(savdir, img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
+        generate_video_density(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
     
 if __name__ == "__main__":
     
