@@ -194,17 +194,6 @@ class SimpleTrainer2d:
                 combined_img.paste(img_pos_sca, (0, 0))
                 combined_img.paste(img, (img_pos_sca.width, 0))
             return psnr, ms_ssim_value,combined_img
-        if (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
-            save_path_img = self.log_dir / "img"
-            save_path_img.mkdir(parents=True, exist_ok=True)
-            transform = transforms.ToPILImage()
-            img = transform(out["render"].float().squeeze(0))
-            name =str(self.frame_num) + "_fitting.png" 
-            img.save(str(save_path_img / name))
-        else:
-            transform = transforms.ToPILImage()
-            img = transform(out["render"].float().squeeze(0))
-        return psnr, ms_ssim_value,img
 
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
