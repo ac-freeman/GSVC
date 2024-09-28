@@ -58,3 +58,41 @@ for dataset in "${datasets[@]}"; do
     done
   done
 done
+
+is_pos=True
+savdir="result_Pos"
+savdir_m="models_Pos"
+for dataset in "${datasets[@]}"; do
+  dataset_path=$(echo $dataset | cut -d' ' -f1)
+  data_name=$(echo $dataset | cut -d' ' -f2)
+  for num_points in 37500; do
+    for iterations in 30000; do
+      pos_flag=""
+      warmup_flag=""
+      ad_flag=""
+      clip_flag=""
+
+      # 检查布尔值并构建相应的命令行参数
+      if [ "$is_pos" = True ]; then
+        pos_flag="--is_pos"
+      fi
+
+      if [ "$is_warmup" = True ]; then
+        warmup_flag="--is_warmup"
+      fi
+
+      if [ "$is_ad" = True ]; then
+        ad_flag="--is_ad"
+      fi
+
+      if [ "$is_clip" = True ]; then
+        clip_flag="--is_clip"
+      fi
+      # Run the training script for each dataset with additional parameters
+      srun python train_video.py --loss_type $loss_type --dataset $dataset_path \
+        --data_name $data_name --num_points $num_points --iterations $iterations \
+        --savdir $savdir --savdir_m $savdir_m \
+        $pos_flag $warmup_flag $ad_flag $clip_flag
+    done
+  done
+done
