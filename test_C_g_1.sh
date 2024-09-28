@@ -3,11 +3,11 @@
 #SBATCH --job-name=videogs_loss_job    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
-#SBATCH --time=8:00:00                 # Time limit hrs:min:sec
-#SBATCH --gres=gpu:a100-40:1
+#SBATCH --time=24:00:00                 # Time limit hrs:min:sec
+#SBATCH --gres=gpu:h100-47:1
 #SBATCH --mail-type=ALL                 # Get email for all status updates
 #SBATCH --mail-user=wanglongan@comp.nus.edu.sg # Email for notifications
-#SBATCH --mem=24G                       # Request 16GB of memory
+#SBATCH --mem=16G                       # Request 16GB of memory
 # Activate the environment if needed
 source activate torch  # Replace 'torch' with the name of your conda environment
 
@@ -29,6 +29,7 @@ loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
+  # for num_points in 4000 6000 8000 10000 20000 30000 40000 50000 60000 70000; do
   for num_points in 50000; do
     for iterations in 30000; do
       pos_flag=""
