@@ -25,6 +25,7 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 # )
 datasets=(
   "/home/e/e1344641/data/UVG/C3/C3_1920x1080_120fps_420_8bit_YUV.yuv C3"
+  "/home/e/e1344641/data/UVG/D3/D3_1920x1080_120fps_420_8bit_YUV.yuv D3"
 )
 
 # Define additional parameters
