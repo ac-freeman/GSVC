@@ -4,7 +4,7 @@
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=8:00:00                 # Time limit hrs:min:sec
-#SBATCH --gres=gpu:a100-40:1
+#SBATCH --gres=gpu:h100-47:1
 #SBATCH --mail-type=ALL                 # Get email for all status updates
 #SBATCH --mail-user=wanglongan@comp.nus.edu.sg # Email for notifications
 #SBATCH --mem=24G                       # Request 16GB of memory
@@ -12,6 +12,11 @@
 source activate torch  # Replace 'torch' with the name of your conda environment
 
 # Define datasets and their corresponding names
+# datasets=(
+#   "/home/e/e1344641/data/UVG/A1/A1_1920x1080_120fps_420_8bit_YUV.yuv A1"
+#   "/home/e/e1344641/data/UVG/A2/A2_1920x1080_120fps_420_8bit_YUV.yuv A2"
+#   "/home/e/e1344641/data/UVG/A3/A3_1920x1080_120fps_420_8bit_YUV.yuv A3"
+# )
 # datasets=(
 #   "/home/e/e1344641/data/UVG/A1/A1_1920x1080_120fps_420_8bit_YUV.yuv A1"
 #   "/home/e/e1344641/data/UVG/A2/A2_1920x1080_120fps_420_8bit_YUV.yuv A2"
@@ -29,10 +34,10 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_C/grad"
-savdir_m="models_C/grad"
-savdir_f="result_C/f"
-savdir_m_f="models_C/f"
+savdir="result_density_C/grad"
+savdir_m="models_density_C/grad"
+savdir_f="result_density_C/f"
+savdir_m_f="models_density_C/f"
 is_pos=True
 is_warmup=False
 is_ad=False
@@ -41,7 +46,7 @@ is_clip=False
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 45000; do
+  for num_points in 50000; do
     for iterations in 30000; do
       pos_flag=""
       warmup_flag=""
@@ -59,7 +64,7 @@ for dataset in "${datasets[@]}"; do
       if [ "$is_ad" = True ]; then
         ad_flag="--is_ad"
       fi
-      
+
       if [ "$is_clip" = True ]; then
         clip_flag="--is_clip"
       fi
