@@ -106,22 +106,21 @@ class SimpleTrainer2d:
             if k in ['_xyz', '_cholesky', '_features_dc']
         }
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss
+    
     def test(self,frame,num_gaussian_points,ispos):
         self.gaussian_model.eval()
         with torch.no_grad():
             out = self.gaussian_model()
-            #out_pos =self.gaussian_model.forward_pos(num_gaussian_points)
             if ispos:
                 out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
                 if self.isclip:
                     out_pos_sca_img = restor_image(out_pos_sca["render_pos_sca"],self.H,self.W)
                 else:
                     out_pos_sca_img = out_pos_sca["render_pos_sca"]
-        
-        if self.isclip:
-            out_image = restor_image(out["render"],self.H,self.W)
-        else:
-            out_image = out["render"]
+            if self.isclip:
+                out_image = restor_image(out["render"],self.H,self.W)
+            else:
+                out_image = out["render"]
         mse_loss = F.mse_loss(out_image.float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out_image.float(), self.gt_image.float(), data_range=1, size_average=True).item()

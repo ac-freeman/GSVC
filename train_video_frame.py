@@ -107,7 +107,7 @@ class SimpleTrainer2d:
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
-     
+        self.test(frame,num_gaussian_points,ispos)
         Gmodel =self.gaussian_model.state_dict()
         filtered_Gmodel = {
             k: v for k, v in Gmodel.items()
@@ -115,6 +115,32 @@ class SimpleTrainer2d:
         }
         return filtered_Gmodel,img_list,num_gaussian_points
     
+    def test(self,num_gaussian_points):
+        self.gaussian_model.eval()
+        with torch.no_grad():
+            out = self.gaussian_model()
+            out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
+            if self.isclip:
+                out_image = restor_image(out["render"],self.H,self.W)
+                out_pos_sca_img = restor_image(out_pos_sca["render_pos_sca"],self.H,self.W)
+            else:
+                out_image = out["render"]
+                out_pos_sca_img = out_pos_sca["render_pos_sca"]            
+        save_path_img = self.log_dir / "img"
+        save_path_img.mkdir(parents=True, exist_ok=True)
+        # 转换为PIL图像
+        transform = transforms.ToPILImage()
+        img = transform(out_image.float().squeeze(0))
+        img_pos_sca = transform(out_pos_sca_img.float().squeeze(0))
+        combined_width =img.width+img_pos_sca.width
+        combined_height = max(img.height, img_pos_sca.height)
+        combined_img = Image.new("RGB", (combined_width, combined_height))
+        combined_img.paste(img_pos_sca, (0, 0))
+        combined_img.paste(img, (img_pos_sca.width, 0))
+        # 保存拼接后的图片
+        combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
+        combined_img.save(str(save_path_img / combined_name))
+
         
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()

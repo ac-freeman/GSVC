@@ -24,12 +24,7 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 #   "/home/e/e1344641/data/UVG/B3/B3_1920x1080_120fps_420_8bit_YUV.yuv C3"
 # )
 datasets=(
-  "/home/e/e1344641/data/UVG/C1/C1_1920x1080_120fps_420_8bit_YUV.yuv C1"
-  "/home/e/e1344641/data/UVG/C2/C2_1920x1080_120fps_420_8bit_YUV.yuv C2"
   "/home/e/e1344641/data/UVG/C3/C3_1920x1080_120fps_420_8bit_YUV.yuv C3"
-  "/home/e/e1344641/data/UVG/D1/D1_1920x1080_120fps_420_8bit_YUV.yuv D1"
-  "/home/e/e1344641/data/UVG/D2/D2_1920x1080_120fps_420_8bit_YUV.yuv D2"
-  "/home/e/e1344641/data/UVG/D3/D3_1920x1080_120fps_420_8bit_YUV.yuv D3"
 )
 
 # Define additional parameters
@@ -45,7 +40,7 @@ is_clip=False
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 50000; do
+  for num_points in 37500; do
     for iterations in 30000; do
       pos_flag=""
       warmup_flag=""

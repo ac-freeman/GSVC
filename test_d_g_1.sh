@@ -24,7 +24,7 @@ savdir_m="models_density_grad"
 is_pos=False
 is_warmup=False
 is_ad=True
-is_clip=True
+is_clip=False
 loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
