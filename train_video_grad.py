@@ -108,7 +108,7 @@ class SimpleTrainer2d:
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
         
-        self.test(num_gaussian_points)
+        self.test(num_gaussian_points, grad_xyz)
         Gmodel =self.gaussian_model.state_dict()
         filtered_Gmodel = {
             k: v for k, v in Gmodel.items()
@@ -116,11 +116,11 @@ class SimpleTrainer2d:
         }
         return filtered_Gmodel,img_list,num_gaussian_points
     
-    def test(self,num_gaussian_points):
+    def test(self,num_gaussian_points, grad_xyz):
         self.gaussian_model.eval()
         with torch.no_grad():
             out = self.gaussian_model()
-            out_pos_grad =self.gaussian_model.forward_pos_grad(num_gaussian_points)
+            out_pos_grad =self.gaussian_model.forward_pos_grad(num_gaussian_points, grad_xyz)
             if self.isclip:
                 out_image = restor_image(out["render"],self.H,self.W)
                 out_pos_grad_img = restor_image(out_pos_grad["render_pos_grad"],self.H,self.W)
