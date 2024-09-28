@@ -252,97 +252,34 @@ def downsample_image(image, scale_factor):
 #     return new_image
 
 def extend_image(image):
-    # Get image dimensions
+    border_size=15
+    mean_color = np.mean(image, axis=(0, 1)).astype(np.uint8)
     H, W, C = image.shape
-    add = 25
-    n = 1
-    neighbor_size = int(min(H / 4, W / 4))  # Reference more neighboring pixels
-    
-    kernel_size_value = 65  # Must be a positive odd integer
-    ksize = (kernel_size_value, kernel_size_value)
-    sigma = 0  # Sigma value; 0 means it's calculated by OpenCV
-
-    # Create a blurred version of the image
-    blurred_image = cv2.GaussianBlur(image, ksize, sigma)
-
-    # Create a new image with added borders
-    new_image = np.zeros((H + add * 2, W + add * 2, C), dtype=np.uint8)
-
-    # Place the original image in the center
-    new_image[add:H + add, add:W + add, :] = image
-
-    # Top border
-    mean_row_top = np.mean(blurred_image[0:neighbor_size, :, :], axis=0)
-    for i in range(add):
-        w = ((add - i) / add) ** n
-        edge_row_top = np.mean(image[0:i + 1, :, :], axis=0)
-        new_image[add - i - 1, add:W + add, :] = (w * edge_row_top + (1 - w) * mean_row_top).astype(np.uint8)
-
-    # Bottom border
-    mean_row_bottom = np.mean(blurred_image[max(0, H - neighbor_size):H, :, :], axis=0)
-    for i in range(add):
-        w = ((add - i) / add) ** n
-        edge_row_bottom = np.mean(image[H - i - 1:H, :, :], axis=0)
-        new_image[H + add + i, add:W + add, :] = (w * edge_row_bottom + (1 - w) * mean_row_bottom).astype(np.uint8)
-
-    # Left border
-    mean_col_left = np.mean(blurred_image[:, 0:neighbor_size, :], axis=1)
-    for i in range(add):
-        w = ((add - i) / add) ** n
-        edge_col_left = np.mean(image[:, 0:i + 1, :], axis=1)
-        new_image[add:H + add, add - i - 1, :] = (w * edge_col_left + (1 - w) * mean_col_left).astype(np.uint8)
-
-    # Right border
-    mean_col_right = np.mean(blurred_image[:, max(0, W - neighbor_size):W, :], axis=1)
-    for i in range(add):
-        w = ((add - i) / add) ** n
-        edge_col_right = np.mean(image[:, W - i - 1:W, :], axis=1)
-        new_image[add:H + add, W + add + i, :] = (w * edge_col_right + (1 - w) * mean_col_right).astype(np.uint8)
-
-    # Corners
-    # Mean values for corners
-    mean_pixel_top_left = np.mean(blurred_image[0:neighbor_size, 0:neighbor_size, :], axis=(0, 1))
-    mean_pixel_top_right = np.mean(blurred_image[0:neighbor_size, W - neighbor_size:W, :], axis=(0, 1))
-    mean_pixel_bottom_left = np.mean(blurred_image[H - neighbor_size:H, 0:neighbor_size, :], axis=(0, 1))
-    mean_pixel_bottom_right = np.mean(blurred_image[H - neighbor_size:H, W - neighbor_size:W, :], axis=(0, 1))
-
-    # Top-left corner
-    for i in range(add):
-        for j in range(add):
-            w_row = ((add - i) / add) ** n
-            w_col = ((add - j) / add) ** n
-            w = w_row * w_col
-            edge_pixel = np.mean(image[0:i + 1, 0:j + 1, :], axis=(0, 1))
-            new_image[add - i - 1, add - j - 1, :] = (w * edge_pixel + (1 - w) * mean_pixel_top_left).astype(np.uint8)
-
-    # Top-right corner
-    for i in range(add):
-        for j in range(add):
-            w_row = ((add - i) / add) ** n
-            w_col = (j / add) ** n
-            w = w_row * (1 - w_col)
-            edge_pixel = np.mean(image[0:i + 1, W - j - 1:W, :], axis=(0, 1))
-            new_image[add - i - 1, W + add + j, :] = (w * edge_pixel + (1 - w) * mean_pixel_top_right).astype(np.uint8)
-
-    # Bottom-left corner
-    for i in range(add):
-        for j in range(add):
-            w_row = (i / add) ** n
-            w_col = ((add - j) / add) ** n
-            w = (1 - w_row) * w_col
-            edge_pixel = np.mean(image[H - i - 1:H, 0:j + 1, :], axis=(0, 1))
-            new_image[H + add + i, add - j - 1, :] = (w * edge_pixel + (1 - w) * mean_pixel_bottom_left).astype(np.uint8)
-
-    # Bottom-right corner
-    for i in range(add):
-        for j in range(add):
-            w_row = (i / add) ** n
-            w_col = (j / add) ** n
-            w = (1 - w_row) * (1 - w_col)
-            edge_pixel = np.mean(image[H - i - 1:H, W - j - 1:W, :], axis=(0, 1))
-            new_image[H + add + i, W + add + j, :] = (w * edge_pixel + (1 - w) * mean_pixel_bottom_right).astype(np.uint8)
-
-    return new_image
+    extended_image = np.zeros((H + 2 * border_size, W + 2 * border_size, C), dtype=np.uint8)
+    extended_image[border_size:H + border_size, border_size:W + border_size] = image
+    for i in range(border_size):
+        alpha = i / (border_size-1)
+        # 插值上、下边框的颜色
+        extended_image[border_size-i-1, border_size:W + border_size] = (1-alpha) * image[0, :] + alpha * mean_color
+        extended_image[H + border_size + i, border_size:W + border_size] = (1 - alpha) * image[-1, :] + alpha * mean_color
+        # 插值左、右边框的颜色
+        extended_image[border_size:H + border_size, border_size-i-1] = (1 - alpha) * image[:, 0] + alpha * mean_color
+        extended_image[border_size:H + border_size, W + border_size + i] = (1 - alpha) * image[:, -1] + alpha * mean_color
+    for i in range(border_size):
+        for j in range(border_size):
+            x = border_size-j-1
+            y = border_size-i-1
+            if x==0 and y==0:
+                alpha_x=0.5
+                alpha_y=0.5
+            else:
+                alpha_x=x/(x+y)
+                alpha_y=y/(x+y)
+            extended_image[i, j] = (1-alpha_x) * extended_image[i, border_size] + (1-alpha_y) * extended_image[border_size, j]
+            extended_image[i,  W + 2*border_size -1-j] = (1-alpha_x) * extended_image[i,  W +border_size-1] + (1-alpha_y) * extended_image[border_size, W + 2*border_size -1-j]
+            extended_image[H + 2*border_size-1-i,  j] = (1-alpha_x) * extended_image[H + 2*border_size -1-i,  border_size] + (1-alpha_y) * extended_image[H+border_size-1, j]
+            extended_image[H + 2*border_size-1-i,  W + 2*border_size -1-j] = (1-alpha_x) * extended_image[H + 2*border_size -1-i,  W+border_size-1] + (1-alpha_y) * extended_image[H+border_size-1, W + 2*border_size -1-j]
+    return extended_image
 
 
 def restor_image(new_image, H, W):
