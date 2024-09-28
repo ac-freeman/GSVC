@@ -13,7 +13,7 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 
 # Define datasets and their corresponding names
 datasets=(
-  "/home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv HoneyBee"
+  "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
 )
 
 # Define additional parameters
@@ -27,7 +27,7 @@ loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 3000 4500 6000 7500 15000 22500 30000 37500 45000 52500; do
+  for num_points in 37500 52500; do
     for iterations in 30000; do
       pos_flag=""
       warmup_flag=""
