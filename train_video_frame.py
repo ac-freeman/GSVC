@@ -107,7 +107,7 @@ class SimpleTrainer2d:
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
-        self.test(frame,num_gaussian_points,ispos)
+        self.test(num_gaussian_points)
         Gmodel =self.gaussian_model.state_dict()
         filtered_Gmodel = {
             k: v for k, v in Gmodel.items()
