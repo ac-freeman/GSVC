@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=videogs_loss_job    # Job name
+#SBATCH --job-name=test_nd_3    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=12:00:00                 # Time limit hrs:min:sec
@@ -27,7 +27,7 @@ loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 54000 63000; do
+  for num_points in 27000 36000 45000 54000 63000; do
     for iterations in 30000; do
       pos_flag=""
       warmup_flag=""

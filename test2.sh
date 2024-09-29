@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=videogs_loss_job    # Job name
+#SBATCH --job-name=test2    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=8:00:00                 # Time limit hrs:min:sec
@@ -34,10 +34,10 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_density_C/grad"
-savdir_m="models_density_C/grad"
-savdir_f="result_density_C/f"
-savdir_m_f="models_density_C/f"
+savdir="result_C_density/grad"
+savdir_m="models_C_density/grad"
+savdir_f="result_C_density/f"
+savdir_m_f="models_C_density/f"
 is_pos=True
 is_warmup=False
 is_ad=True

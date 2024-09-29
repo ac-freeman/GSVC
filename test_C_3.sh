@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=videogs_loss_job    # Job name
+#SBATCH --job-name=test_C_3    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=12:00:00                 # Time limit hrs:min:sec
@@ -17,8 +17,8 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_density_Clip"
-savdir_m="models_density_Clip"
+savdir="result_Clip"
+savdir_m="models_Clip"
 is_pos=False
 is_warmup=False
 is_ad=True
@@ -27,7 +27,6 @@ loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  # for num_points in 4000 6000 8000 10000 20000 30000 40000 50000 60000 70000; do
   for num_points in 30000 40000 50000 60000 70000; do
     for iterations in 30000; do
       pos_flag=""
@@ -61,8 +60,8 @@ for dataset in "${datasets[@]}"; do
 done
 
 is_pos=True
-savdir="result_density_Clip_Pos"
-savdir_m="models_density_Clip_Pos"
+savdir="result_Clip_Pos"
+savdir_m="models_Clip_Pos"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
