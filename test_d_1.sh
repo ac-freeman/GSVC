@@ -19,7 +19,7 @@ datasets=(
 # Define additional parameters
 savdir="result_density"
 savdir_m="models_density"
-is_pos=True
+is_pos=False
 is_warmup=False
 is_ad=True
 is_clip=False
