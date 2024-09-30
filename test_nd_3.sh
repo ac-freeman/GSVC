@@ -17,9 +17,9 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="False"
+savdir="True"
 savdir_m="models"
-is_pos=True
+is_pos=False
 is_warmup=False
 is_ad=False
 is_clip=False
