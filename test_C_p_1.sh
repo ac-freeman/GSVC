@@ -19,8 +19,8 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_density_Clip_f"
-savdir_m="models_density_Clip_f"
+savdir="result_Clips_f"
+savdir_m="models_Clips_f"
 is_pos=False
 is_warmup=False
 is_ad=True
