@@ -252,7 +252,7 @@ def downsample_image(image, scale_factor):
 #     return new_image
 
 def extend_image(image):
-    border_size=5
+    border_size=25
     mean_color = np.mean(image, axis=(0, 1)).astype(np.uint8)
     H, W, C = image.shape
     extended_image = np.zeros((H + 2 * border_size, W + 2 * border_size, C), dtype=np.uint8)
