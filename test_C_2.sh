@@ -3,7 +3,7 @@
 #SBATCH --job-name=test_C_2    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
-#SBATCH --time=12:00:00                 # Time limit hrs:min:sec
+#SBATCH --time=24:00:00                 # Time limit hrs:min:sec
 #SBATCH --gres=gpu:h100-47:1
 #SBATCH --mail-type=ALL                 # Get email for all status updates
 #SBATCH --mail-user=wanglongan@comp.nus.edu.sg # Email for notifications
@@ -17,8 +17,8 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_Clip_5"
-savdir_m="models_Clip_5"
+savdir="result_Clip_25"
+savdir_m="models_Clip_25"
 is_pos=False
 is_warmup=False
 is_ad=True
@@ -28,7 +28,7 @@ for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
   for num_points in 30000 40000 50000 60000 70000; do
-    for iterations in 30000; do
+    for iterations in 100000; do
       pos_flag=""
       warmup_flag=""
       ad_flag=""
