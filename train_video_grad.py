@@ -81,7 +81,7 @@ class SimpleTrainer2d:
         start_time = time.time()
         save_path_img = self.log_dir / "img"
         save_path_img.mkdir(parents=True, exist_ok=True)
-        early_stopping = EarlyStopping(patience=200, min_delta=1e-8)
+        early_stopping = EarlyStopping(patience=100, min_delta=1e-8)
         for iter in range(1, int(self.iterations)+1):
             if self.isclip:
                 loss, psnr,img, grad_xyz = self.gaussian_model.train_iter_img(self.gt_eimage,iter,self.isdensity)
