@@ -75,7 +75,7 @@ class SimpleTrainer2d:
             model_dict.update(pretrained_dict)
             self.gaussian_model.load_state_dict(model_dict)
     def train(self,frame,ispos):     
-        psnr_list, iter_list, img_list=[], [], []
+        psnr_list, iter_list, img_list,loss_list=[], [], [],[]
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
@@ -86,6 +86,7 @@ class SimpleTrainer2d:
                 loss, psnr,img = self.gaussian_model.train_iter_img(self.gt_eimage,iter,self.isdensity)
             else:
                 loss, psnr,img = self.gaussian_model.train_iter_img(self.gt_image,iter,self.isdensity)
+            loss_list.append(loss)
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -113,7 +114,7 @@ class SimpleTrainer2d:
             k: v for k, v in Gmodel.items()
             if k in ['_xyz', '_cholesky', '_features_dc']
         }
-        return filtered_Gmodel,img_list,num_gaussian_points
+        return filtered_Gmodel,img_list,num_gaussian_points,loss_list
     
     def test(self,num_gaussian_points):
         self.gaussian_model.eval()
@@ -252,13 +253,16 @@ def main(argv):
             else:
                 trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=args.num_points,
                     iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad,removal_rate=removal_rate,isclip=isclip)
-        Gmodel,img_list,num_gaussian_points = trainer.train(i,ispos)
+        Gmodel,img_list,num_gaussian_points,loss_list = trainer.train(i,ispos)
 
         image_h += trainer.H
         image_w += trainer.W
         gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
         num_gaussian_points_dict[f"frame_{frame_num}"]=num_gaussian_points
         torch.cuda.empty_cache()
+        with open(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "loss_list.txt", 'w') as f:
+            for loss in loss_list:
+                f.write(f"{loss}\n")
         
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
 
