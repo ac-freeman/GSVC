@@ -79,7 +79,7 @@ class SimpleTrainer2d:
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
-        early_stopping = EarlyStopping(patience=100, min_delta=1e-8)
+        early_stopping = EarlyStopping(patience=1000, min_delta=1e-8)
         for iter in range(1, int(self.iterations)+1):
             if self.isclip:
                 loss, psnr = self.gaussian_model.train_iter(self.gt_eimage,iter,self.isdensity)
@@ -310,7 +310,7 @@ def main(argv):
                     iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad,removal_rate=removal_rate,isclip=isclip)
         else:
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
-                iterations=args.iterations/10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate,isclip=isclip)
+                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate,isclip=isclip)
         psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, img, num_gaussian_points, loss = trainer.train(i,ispos)
         img_list.append(img)
         psnrs.append(psnr)
