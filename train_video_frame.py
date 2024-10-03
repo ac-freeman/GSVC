@@ -75,26 +75,25 @@ class SimpleTrainer2d:
             model_dict.update(pretrained_dict)
             self.gaussian_model.load_state_dict(model_dict)
     def train(self,frame,ispos):     
-        psnr_list, iter_list, img_list,loss_list=[], [], [],[]
+        psnr_list, iter_list, img_list=[], [], []
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
         save_path_img = self.log_dir / "img"
         save_path_img.mkdir(parents=True, exist_ok=True)
+        early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         for iter in range(1, int(self.iterations)+1):
             if self.isclip:
                 loss, psnr,img = self.gaussian_model.train_iter_img(self.gt_eimage,iter,self.isdensity)
             else:
                 loss, psnr,img = self.gaussian_model.train_iter_img(self.gt_image,iter,self.isdensity)
-            
+
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
-                if iter %100==0:
-                    loss_list.append(loss)
                 if iter==1 or iter % 50 == 0:
                     num_gaussian_points =self.gaussian_model._xyz.size(0)
                     out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
@@ -107,6 +106,9 @@ class SimpleTrainer2d:
                     combined_img.paste(img_pos_sca, (0, 0))
                     combined_img.paste(img, (img_pos_sca.width, 0))
                     img_list.append(combined_img)
+            if early_stopping(loss.item()):
+                print(f"Early stopping at iteration {iter}")
+                break
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
@@ -116,7 +118,7 @@ class SimpleTrainer2d:
             k: v for k, v in Gmodel.items()
             if k in ['_xyz', '_cholesky', '_features_dc']
         }
-        return filtered_Gmodel,img_list,num_gaussian_points,loss_list
+        return filtered_Gmodel,img_list,num_gaussian_points
     
     def test(self,num_gaussian_points):
         self.gaussian_model.eval()
@@ -255,16 +257,16 @@ def main(argv):
             else:
                 trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=args.num_points,
                     iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad,removal_rate=removal_rate,isclip=isclip)
-        Gmodel,img_list,num_gaussian_points,loss_list = trainer.train(i,ispos)
+        Gmodel,img_list,num_gaussian_points = trainer.train(i,ispos)
 
         image_h += trainer.H
         image_w += trainer.W
         gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
         num_gaussian_points_dict[f"frame_{frame_num}"]=num_gaussian_points
         torch.cuda.empty_cache()
-        with open(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "loss_list.txt", 'w') as f:
-            for loss in loss_list:
-                f.write(f"{loss}\n")
+        # with open(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "loss_list.txt", 'w') as f:
+        #     for loss in loss_list:
+        #         f.write(f"{loss}\n")
         
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
 

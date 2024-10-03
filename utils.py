@@ -293,3 +293,29 @@ def restor_image(new_image, H, W):
     # 裁剪出原始图像
     original_image = new_image[:, :, top:top+H, left:left+W]  # 保持 batch 和通道数不变，裁剪高度和宽度
     return original_image
+
+
+class EarlyStopping:
+    def __init__(self, patience=100, min_delta=0):
+        self.patience = patience  # 容忍的迭代次数
+        self.min_delta = min_delta  # 最小的改善幅度
+        self.best_loss = None  # 用于存储最好的损失
+        self.counter = 0  # 记录没有改善的次数
+
+    def __call__(self, current_loss):
+        if self.best_loss is None:
+            self.best_loss = current_loss
+            return False  # 不停止训练
+
+        # 如果当前loss和之前最好的loss相比改善小于 min_delta，认为没有改善
+        if self.best_loss - current_loss > self.min_delta:
+            self.best_loss = current_loss
+            self.counter = 0  # 重置计数器
+        else:
+            self.counter += 1
+
+        # 如果计数器超过 patience，就停止训练
+        if self.counter >= self.patience:
+            return True  # 停止训练
+
+        return False  # 继续训练
