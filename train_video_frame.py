@@ -86,13 +86,15 @@ class SimpleTrainer2d:
                 loss, psnr,img = self.gaussian_model.train_iter_img(self.gt_eimage,iter,self.isdensity)
             else:
                 loss, psnr,img = self.gaussian_model.train_iter_img(self.gt_image,iter,self.isdensity)
-            loss_list.append(loss)
+            
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
+                if iter %100==0:
+                    loss_list.append(loss)
                 if iter==1 or iter % 50 == 0:
                     num_gaussian_points =self.gaussian_model._xyz.size(0)
                     out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
