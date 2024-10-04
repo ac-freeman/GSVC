@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=test_C_1_test    # Job name
+#SBATCH --job-name=test_C_2_test    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=24:00:00                 # Time limit hrs:min:sec
