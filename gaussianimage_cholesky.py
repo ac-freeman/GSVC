@@ -440,8 +440,8 @@ class GaussianImage_Cholesky(nn.Module):
 
         # 对梯度幅值进行升序排序（最小的梯度在前）
         _, sorted_indices = torch.sort(grad_magnitude)
-        removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval+1))
-        if iter <= iter_threshold_remove:
+        removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval))
+        if iter < iter_threshold_remove:
             # 训练早期：只执行删除操作，减少总的高斯点数量
             remove_count = int(removal_rate_per_step * self.max_num_points)
             
@@ -454,7 +454,21 @@ class GaussianImage_Cholesky(nn.Module):
             self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
             self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
             self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-            self._opacity = self._opacity[keep_indices]   
+            self._opacity = self._opacity[keep_indices]
+        elif iter == iter_threshold_remove:
+            # 训练早期：只执行删除操作，减少总的高斯点数量
+            remove_count = int(self.max_num_points * self.removal_rate)-self._xyz.shape[0]
+            if remove_count>0:
+                remove_indices = sorted_indices[:remove_count]
+
+                # 删除选定的点
+                keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
+                keep_indices[remove_indices] = False
+
+                self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
+                self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
+                self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
+                self._opacity = self._opacity[keep_indices]    
         # 更新优化器中的参数
         self.update_optimizer()
 
@@ -469,7 +483,7 @@ class GaussianImage_Cholesky(nn.Module):
         with torch.no_grad():
             mse_loss = F.mse_loss(image, gt_image)
             psnr = 10 * math.log10(1.0 / mse_loss.item())
-        if (iter) % (self.densification_interval+1) == 0 and iter > 0 and isdensity:
+        if (iter) % (self.densification_interval) == 0 and iter > 0 and isdensity:
             self.density_control(iter)
             # for param_group in self.optimizer.param_groups:
             #     for param in param_group['params']:
