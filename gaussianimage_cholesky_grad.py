@@ -496,7 +496,7 @@ class GaussianImage_Cholesky(nn.Module):
             self._opacity = self._opacity[keep_indices]
         elif iter == iter_threshold_remove:
             # 训练早期：只执行删除操作，减少总的高斯点数量
-            remove_count = int(self.max_num_points * self.removal_rate)-self._xyz.shape[0]
+            remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
             if remove_count>0:
                 remove_indices = sorted_indices[:remove_count]
 
