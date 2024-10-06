@@ -79,7 +79,7 @@ class SimpleTrainer2d:
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
-        early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
+        early_stopping = EarlyStopping(patience=10, min_delta=1e-7)
         for iter in range(1, int(self.iterations)+1):
             if self.isclip:
                 loss, psnr = self.gaussian_model.train_iter(self.gt_eimage,iter,self.isdensity)
