@@ -108,7 +108,7 @@ class GaussianImage_Cholesky(nn.Module):
         grad_magnitude = torch.norm(Opacity, dim=1).detach().cpu().numpy()
         # 将梯度幅度映射为颜色 (colormap)
         colormap = cm.get_cmap('hot')  # 使用 hot 颜色映射
-        Opacity_colors = colormap(grad_magnitude / grad_magnitude.max())[:, :]  # 获取RGB颜色值
+        Opacity_colors = colormap(grad_magnitude / grad_magnitude.max())[:, :3]  # 获取RGB颜色值
         # 将颜色转换为 Tensor，并将其设置为 features_dc
         features_dc = torch.tensor(Opacity_colors, dtype=torch.float32).to(self.device)
         # 重新进行渲染，使用带颜色的 features_dc
