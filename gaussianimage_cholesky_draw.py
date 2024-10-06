@@ -627,7 +627,7 @@ class GaussianImage_Cholesky(nn.Module):
         grad_xyz = self._xyz.grad
         if grad_xyz is None:
             raise RuntimeError("grad_xyz is None. Ensure self.get_xyz is a leaf tensor with requires_grad=True.")
-        if (iter) % (self.densification_interval+1) == 0 and iter > 0 and isdensity:
+        if (iter) % (self.densification_interval) == 0 and iter > 0 and isdensity:
             self.density_control_grad(iter)
             # for param_group in self.optimizer.param_groups:
             #     for param in param_group['params']:
@@ -652,7 +652,7 @@ class GaussianImage_Cholesky(nn.Module):
         Opacity = self._opacity
         if Opacity is None:
             raise RuntimeError("Opacity is None. Ensure self._opacity is a leaf tensor with requires_grad=True.")
-        if (iter) % (self.densification_interval+1) == 0 and iter > 0 and isdensity:
+        if (iter) % (self.densification_interval) == 0 and iter > 0 and isdensity:
             self.density_control(iter)
             # for param_group in self.optimizer.param_groups:
             #     for param in param_group['params']:
