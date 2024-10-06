@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=test_nd_g_2    # Job name
+#SBATCH --job-name=test_nd_p_1    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=8:00:00                 # Time limit hrs:min:sec
@@ -53,7 +53,7 @@ for dataset in "${datasets[@]}"; do
         clip_flag="--is_clip"
       fi
       # Run the training script for each dataset with additional parameters
-      srun python train_video_frame_Opacity.py --loss_type $loss_type --dataset $dataset_path \
+      srun python train_video_Opacity_ff.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
         $pos_flag $warmup_flag $ad_flag $clip_flag
