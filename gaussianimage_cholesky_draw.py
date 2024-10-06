@@ -86,16 +86,16 @@ class GaussianImage_Cholesky(nn.Module):
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render_pos_sca": out_img}
     
-    def forward_pos_grad(self,num_points):
-        features_dc = torch.ones(num_points, 3).to(self.device)
-        cholesky = torch.full((num_points, 3), 1.0).to(self.device)
-        _opacity = torch.ones(num_points, 1).to(self.device)
-        self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, cholesky+self.cholesky_bound, self.H, self.W, self.tile_bounds)
-        out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
-                features_dc, _opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
-        out_img = torch.clamp(out_img, 0, 1) #[H, W, 3]
-        out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
-        return {"render_pos_grad": out_img}
+    # def forward_pos_grad(self,num_points):
+    #     features_dc = torch.ones(num_points, 3).to(self.device)
+    #     cholesky = torch.full((num_points, 3), 1.0).to(self.device)
+    #     _opacity = torch.ones(num_points, 1).to(self.device)
+    #     self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, cholesky+self.cholesky_bound, self.H, self.W, self.tile_bounds)
+    #     out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
+    #             features_dc, _opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
+    #     out_img = torch.clamp(out_img, 0, 1) #[H, W, 3]
+    #     out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
+    #     return {"render_pos_grad": out_img}
     
 
 
@@ -491,7 +491,51 @@ class GaussianImage_Cholesky(nn.Module):
                 
     #     # 更新优化器中的参数
     #     self.update_optimizer()
+    def density_control_grad(self, iter):
+        iter_threshold_remove = 4000  # 根据训练计划调整这个阈值
+        if iter > iter_threshold_remove:
+            return
+        grad_xyz = self._xyz.grad
+        if grad_xyz is None:
+            raise RuntimeError("grad_xyz is None,请检查 self._xyz 是否参与了计算图。")
+        # 计算每个点的梯度幅值
+        # grad_magnitude = torch.norm(grad_xyz, dim=1)
+        grad_magnitude =torch.norm(grad_xyz, dim=1)
 
+        # 对梯度幅值进行升序排序（最小的梯度在前）
+        _, sorted_indices = torch.sort(grad_magnitude)
+        removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval))
+        if iter < iter_threshold_remove:
+            # 训练早期：只执行删除操作，减少总的高斯点数量
+            remove_count = int(removal_rate_per_step * self.max_num_points)
+            
+            remove_indices = sorted_indices[:remove_count]
+
+            # 删除选定的点
+            keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
+            keep_indices[remove_indices] = False
+
+            self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
+            self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
+            self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
+            self._opacity = torch.nn.Parameter(self._opacity[keep_indices])
+        elif iter == iter_threshold_remove:
+            # 训练早期：只执行删除操作，减少总的高斯点数量
+            remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
+            if remove_count>0:
+                remove_indices = sorted_indices[:remove_count]
+
+                # 删除选定的点
+                keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
+                keep_indices[remove_indices] = False
+
+                self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
+                self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
+                self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
+                self._opacity = torch.nn.Parameter(self._opacity[keep_indices])  
+        # 更新优化器中的参数
+        self.update_optimizer()
+    
     def density_control(self, iter):
         iter_threshold_remove = 4000  # 根据训练计划调整这个阈值
         if iter > iter_threshold_remove:
@@ -550,28 +594,51 @@ class GaussianImage_Cholesky(nn.Module):
         self.scheduler.step()
         return loss, psnr
     
-    # def train_iter_img(self, gt_image,iter,isdensity):
-    #     render_pkg = self.forward()
-    #     image = render_pkg["render"]
-    #     loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
-    #     loss.backward()
-    #     with torch.no_grad():
-    #         mse_loss = F.mse_loss(image, gt_image)
-    #         psnr = 10 * math.log10(1.0 / mse_loss.item())
-    #     grad_xyz = self._xyz.grad
-    #     if grad_xyz is None:
-    #         raise RuntimeError("grad_xyz is None. Ensure self.get_xyz is a leaf tensor with requires_grad=True.")
-    #     if (iter) % (self.densification_interval+1) == 0 and iter > 0 and isdensity:
-    #         self.density_control(iter)
-    #         # for param_group in self.optimizer.param_groups:
-    #         #     for param in param_group['params']:
-    #         #         print(param.size(), param.requires_grad)
+    def train_iter_grad(self, gt_image,iter,isdensity):
+        render_pkg = self.forward()
+        image = render_pkg["render"]
+        loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
+        loss.backward()
+        with torch.no_grad():
+            mse_loss = F.mse_loss(image, gt_image)
+            psnr = 10 * math.log10(1.0 / mse_loss.item())
+        if (iter) % (self.densification_interval) == 0 and iter > 0 and isdensity:
+            self.density_control_grad(iter)
+            # for param_group in self.optimizer.param_groups:
+            #     for param in param_group['params']:
+            #         print(param.size(), param.requires_grad)
             
-    #     self.optimizer.step()
-    #     self.optimizer.zero_grad(set_to_none = True)
+        self.optimizer.step()
+        self.optimizer.zero_grad(set_to_none = True)
         
-    #     self.scheduler.step()
-    #     return loss, psnr,image,grad_xyz
+        self.scheduler.step()
+        return loss, psnr
+    
+    def train_iter_img_grad(self, gt_image,iter,isdensity):
+        render_pkg = self.forward()
+        image = render_pkg["render"]
+        loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
+        loss.backward()
+        with torch.no_grad():
+            mse_loss = F.mse_loss(image, gt_image)
+            psnr = 10 * math.log10(1.0 / mse_loss.item())
+        grad_xyz = self._xyz.grad
+        if grad_xyz is None:
+            raise RuntimeError("grad_xyz is None. Ensure self.get_xyz is a leaf tensor with requires_grad=True.")
+        if (iter) % (self.densification_interval+1) == 0 and iter > 0 and isdensity:
+            self.density_control_grad(iter)
+            # for param_group in self.optimizer.param_groups:
+            #     for param in param_group['params']:
+            #         print(param.size(), param.requires_grad)
+            
+        self.optimizer.step()
+        self.optimizer.zero_grad(set_to_none = True)
+        
+        self.scheduler.step()
+        return loss, psnr,image,grad_xyz
+
+
+
     def train_iter_img(self, gt_image,iter,isdensity):
         render_pkg = self.forward()
         image = render_pkg["render"]

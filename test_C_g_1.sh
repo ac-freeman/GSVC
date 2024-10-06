@@ -19,8 +19,8 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_Clips_grad"
-savdir_m="models_Clips_grad"
+savdir="result_Clip_draw"
+savdir_m="models_Clip_draw"
 is_pos=False
 is_warmup=False
 is_ad=True
@@ -54,7 +54,7 @@ for dataset in "${datasets[@]}"; do
         clip_flag="--is_clip"
       fi
       # Run the training script for each dataset with additional parameters
-      srun python train_video_grad.py --loss_type $loss_type --dataset $dataset_path \
+      srun python train_video_Grad_Draw.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
         $pos_flag $warmup_flag $ad_flag $clip_flag

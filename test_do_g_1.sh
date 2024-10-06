@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=test_C_p_1    # Job name
+#SBATCH --job-name=test_do_g_1    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=8:00:00                 # Time limit hrs:min:sec
@@ -19,12 +19,12 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_Clip_f"
-savdir_m="models_Clip_f"
+savdir="result_density_Opacity_draw"
+savdir_m="models_density_Opacity_draw"
 is_pos=False
 is_warmup=False
 is_ad=True
-is_clip=True
+is_clip=False
 loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
@@ -53,7 +53,7 @@ for dataset in "${datasets[@]}"; do
         clip_flag="--is_clip"
       fi
       # Run the training script for each dataset with additional parameters
-      srun python train_video_Grad_ff.py --loss_type $loss_type --dataset $dataset_path \
+      srun python train_video_Opacity_Draw.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
         $pos_flag $warmup_flag $ad_flag $clip_flag

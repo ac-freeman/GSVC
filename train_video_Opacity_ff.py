@@ -53,7 +53,7 @@ class SimpleTrainer2d:
         self.isdensity=isdensity
         self.loss_type = loss_type
         if model_name == "GaussianImage_Cholesky":
-            from gaussianimage_cholesky_Opacity import GaussianImage_Cholesky
+            from gaussianimage_cholesky import GaussianImage_Cholesky
             if self.isclip:
                 self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.eH, W=self.eW, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate).to(self.device)

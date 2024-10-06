@@ -82,9 +82,9 @@ class SimpleTrainer2d:
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         for iter in range(1, int(self.iterations)+1):
             if self.isclip:
-                loss, psnr = self.gaussian_model.train_iter(self.gt_eimage,iter,self.isdensity)
+                loss, psnr = self.gaussian_model.train_iter_grad(self.gt_eimage,iter,self.isdensity)
             else:
-                loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter,self.isdensity)
+                loss, psnr = self.gaussian_model.train_iter_grad(self.gt_image,iter,self.isdensity)
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
