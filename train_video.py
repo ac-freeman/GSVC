@@ -79,7 +79,8 @@ class SimpleTrainer2d:
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
-        early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
+        early_stopping_1 = EarlyStopping(patience=100, min_delta=1e-9)
+        early_stopping_2 = EarlyStopping(patience=100, min_delta=1e-7)
         for iter in range(1, int(self.iterations)+1):
             if self.isclip:
                 loss, psnr = self.gaussian_model.train_iter(self.gt_eimage,iter,self.isdensity)
@@ -92,10 +93,10 @@ class SimpleTrainer2d:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
             if self.isdensity:
-                if early_stopping(loss.item()) and iter>=10000:
+                if early_stopping_1(loss.item()) and iter>=10000:
                     print(f"Early stopping at iteration {iter}")
                     break
-            elif early_stopping(loss.item()):
+            elif early_stopping_2(loss.item()):
                 print(f"Early stopping at iteration {iter}")
                 break
         end_time = time.time() - start_time
