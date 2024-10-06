@@ -430,16 +430,15 @@ class GaussianImage_Cholesky(nn.Module):
         iter_threshold_remove = 4000  # 根据训练计划调整这个阈值
         if iter > iter_threshold_remove:
             return
-        # grad_xyz = self._xyz.grad
+        grad_xyz = self._xyz.grad
         grad_eatures_dc = self._features_dc.grad
-        # if grad_xyz is None:
-        #     raise RuntimeError("grad_xyz is None,请检查 self._xyz 是否参与了计算图。")
+        if grad_xyz is None:
+            raise RuntimeError("grad_xyz is None,请检查 self._xyz 是否参与了计算图。")
         if grad_eatures_dc is None:
             raise RuntimeError("grad_xyz is None,请检查 self._xyz 是否参与了计算图。")
-
         # 计算每个点的梯度幅值
         # grad_magnitude = torch.norm(grad_xyz, dim=1)
-        grad_magnitude = torch.norm(grad_eatures_dc, dim=1)
+        grad_magnitude = torch.norm(grad_eatures_dc, dim=1)+torch.norm(grad_xyz, dim=1)
 
         # 对梯度幅值进行升序排序（最小的梯度在前）
         _, sorted_indices = torch.sort(grad_magnitude)
