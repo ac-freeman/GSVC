@@ -53,7 +53,7 @@ class SimpleTrainer2d:
         self.isdensity=isdensity
         self.loss_type = loss_type
         if model_name == "GaussianImage_Cholesky":
-            from gaussianimage_cholesky import GaussianImage_Cholesky
+            from gaussianimage_cholesky_Opacity_draw import GaussianImage_Cholesky
             if self.isclip:
                 self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.eH, W=self.eW, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate).to(self.device)
@@ -84,10 +84,9 @@ class SimpleTrainer2d:
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         for iter in range(1, int(self.iterations)+1):
             if self.isclip:
-                loss, psnr,img = self.gaussian_model.train_iter_img(self.gt_eimage,iter,self.isdensity)
+                loss, psnr,img, Opacity = self.gaussian_model.train_iter_img(self.gt_eimage,iter,self.isdensity)
             else:
-                loss, psnr,img = self.gaussian_model.train_iter_img(self.gt_image,iter,self.isdensity)
-
+                loss, psnr,img, Opacity = self.gaussian_model.train_iter_img(self.gt_image,iter,self.isdensity)
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -96,10 +95,12 @@ class SimpleTrainer2d:
                     progress_bar.update(10)
                 if iter==1 or iter % 50 == 0:
                     num_gaussian_points =self.gaussian_model._xyz.size(0)
-                    out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
+                    # out_pos_grad =self.gaussian_model.forward_pos_grad(num_gaussian_points, Opacity)
+                    out_pos_grad =self.gaussian_model.forward_pos_opacity(num_gaussian_points, Opacity)
                     transform = transforms.ToPILImage()
                     img = transform(img.float().squeeze(0))
-                    img_pos_sca = transform(out_pos_sca["render_pos_sca"].float().squeeze(0))
+                    # img_pos_sca = transform(out_pos_grad["render_pos_grad"].float().squeeze(0))
+                    img_pos_sca = transform(out_pos_grad["render_pos_opacity"].float().squeeze(0))
                     combined_width =img.width+img_pos_sca.width
                     combined_height = max(img.height, img_pos_sca.height)
                     combined_img = Image.new("RGB", (combined_width, combined_height))
@@ -113,10 +114,11 @@ class SimpleTrainer2d:
             elif early_stopping(loss.item()):
                 print(f"Early stopping at iteration {iter}")
                 break
-        end_time = time.time() - start_time
+
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
-        self.test(num_gaussian_points)
+        
+        self.test(num_gaussian_points, Opacity)
         Gmodel =self.gaussian_model.state_dict()
         filtered_Gmodel = {
             k: v for k, v in Gmodel.items()
@@ -125,33 +127,38 @@ class SimpleTrainer2d:
         }
         return filtered_Gmodel,img_list,num_gaussian_points
     
-    def test(self,num_gaussian_points):
+    def test(self,num_gaussian_points, Opacity):
         self.gaussian_model.eval()
         with torch.no_grad():
             out = self.gaussian_model()
-            out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
+            # out_pos_grad =self.gaussian_model.forward_pos_grad(num_gaussian_points, grad_xyz)
+            out_pos_opacity =self.gaussian_model.forward_pos_opacity(num_gaussian_points, Opacity)
             if self.isclip:
                 out_image = restor_image(out["render"],self.H,self.W)
-                out_pos_sca_img = restor_image(out_pos_sca["render_pos_sca"],self.H,self.W)
+                # out_pos_grad_img = restor_image(out_pos_grad["render_pos_grad"],self.H,self.W)
+                out_pos_opacity_img = restor_image(out_pos_opacity["render_pos_opacity"],self.H,self.W)
             else:
                 out_image = out["render"]
-                out_pos_sca_img = out_pos_sca["render_pos_sca"]            
+                # out_pos_grad_img = out_pos_grad["render_pos_grad"]    
+                out_pos_opacity_img = out_pos_opacity["render_pos_opacity"]         
         save_path_img = self.log_dir / "img"
         save_path_img.mkdir(parents=True, exist_ok=True)
         # 转换为PIL图像
         transform = transforms.ToPILImage()
         img = transform(out_image.float().squeeze(0))
-        img_pos_sca = transform(out_pos_sca_img.float().squeeze(0))
-        combined_width =img.width+img_pos_sca.width
-        combined_height = max(img.height, img_pos_sca.height)
+        # img_pos_grad = transform(out_pos_grad_img.float().squeeze(0))
+        img_pos_opacity = transform(out_pos_opacity_img.float().squeeze(0))
+        combined_width =img.width+img_pos_opacity.width
+        combined_height = max(img.height, img_pos_opacity.height)
         combined_img = Image.new("RGB", (combined_width, combined_height))
-        combined_img.paste(img_pos_sca, (0, 0))
-        combined_img.paste(img, (img_pos_sca.width, 0))
+        combined_img.paste(img_pos_opacity, (0, 0))
+        combined_img.paste(img, (img_pos_opacity.width, 0))
         # 保存拼接后的图片
         combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
         combined_img.save(str(save_path_img / combined_name))
 
-        
+
+
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
     img_tensor = transform(img).unsqueeze(0)  # [1, C, H, W]
@@ -220,8 +227,8 @@ def main(argv):
     savdir_m=args.savdir_m
     ispos = args.is_pos
     iswarmup=args.is_warmup
-    is_ad=args.is_ad
     isclip = args.is_clip
+    is_ad=args.is_ad
     args.fps=120
     width = args.width
     height = args.height
@@ -243,6 +250,7 @@ def main(argv):
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
+    print(f"Video length:{image_length}")
     image_length=1
     Gmodel=None
     gmodels_state_dict = {}
@@ -251,10 +259,10 @@ def main(argv):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
             if iswarmup:
-                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],4),frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=args.num_points, 
+                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],4),loss_type=loss_type,frame_num=frame_num,save_dir=savdir, num_points=args.num_points, 
                     iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate,isclip=isclip)
                 _, _, _, _, _, Gmodel,_,num_gaussian_points = trainer.train(i,ispos)
-                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],2),frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
+                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],2),loss_type=loss_type,frame_num=frame_num,save_dir=savdir, num_points=num_gaussian_points, 
                     iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate,isclip=isclip)
                 _, _, _, _, _, Gmodel, _, num_gaussian_points= trainer.train(i,ispos)
                 trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
@@ -263,22 +271,23 @@ def main(argv):
                 trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,save_dir=savdir,loss_type=loss_type, num_points=args.num_points,
                     iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad,removal_rate=removal_rate,isclip=isclip)
         Gmodel,img_list,num_gaussian_points = trainer.train(i,ispos)
-
+ 
         image_h += trainer.H
         image_w += trainer.W
         gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
         num_gaussian_points_dict[f"frame_{frame_num}"]=num_gaussian_points
         torch.cuda.empty_cache()
-        # with open(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "loss_list.txt", 'w') as f:
-        #     for loss in loss_list:
-        #         f.write(f"{loss}\n")
         
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
-
+    
     with open(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
         for key, value in num_gaussian_points_dict.items():
             f.write(f'{key}: {value}\n')
 
+    avg_h = image_h//image_length
+    avg_w = image_w//image_length
+
+    
     if ispos:
         generate_video_test(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
     else:
