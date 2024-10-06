@@ -105,10 +105,10 @@ class GaussianImage_Cholesky(nn.Module):
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(
             self.get_xyz, cholesky + self.cholesky_bound, self.H, self.W, self.tile_bounds)
         # 计算每个点的梯度幅度
-        
+        grad_magnitude = torch.norm(Opacity, dim=1).detach().cpu().numpy()
         # 将梯度幅度映射为颜色 (colormap)
         colormap = cm.get_cmap('hot')  # 使用 hot 颜色映射
-        Opacity_colors = colormap(Opacity / Opacity.max())[:, :3]  # 获取RGB颜色值
+        Opacity_colors = colormap(grad_magnitude / grad_magnitude.max())[:, :]  # 获取RGB颜色值
         # 将颜色转换为 Tensor，并将其设置为 features_dc
         features_dc = torch.tensor(Opacity_colors, dtype=torch.float32).to(self.device)
         # 重新进行渲染，使用带颜色的 features_dc
@@ -120,6 +120,28 @@ class GaussianImage_Cholesky(nn.Module):
         out_img = torch.clamp(out_img, 0, 1)  # [H, W, 3]
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render_pos_opacity": out_img}
+    
+    def forward_pos_grad(self, num_points, grad_xyz):
+        cholesky = torch.full((num_points, 3), 1.0).to(self.device)
+        _opacity = torch.ones(num_points, 1).to(self.device)
+        self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(
+            self.get_xyz, cholesky + self.cholesky_bound, self.H, self.W, self.tile_bounds)
+        # 计算每个点的梯度幅度
+        grad_magnitude = torch.norm(grad_xyz, dim=1).detach().cpu().numpy()
+        # 将梯度幅度映射为颜色 (colormap)
+        colormap = cm.get_cmap('hot')  # 使用 hot 颜色映射
+        grad_colors = colormap(grad_magnitude / grad_magnitude.max())[:, :3]  # 获取RGB颜色值
+        # 将颜色转换为 Tensor，并将其设置为 features_dc
+        features_dc = torch.tensor(grad_colors, dtype=torch.float32).to(self.device)
+        # 重新进行渲染，使用带颜色的 features_dc
+        out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
+                                        features_dc, _opacity, self.H, self.W, 
+                                        self.BLOCK_H, self.BLOCK_W, 
+                                        background=self.background, return_alpha=False)
+        # 限制输出图像的值在 [0,1] 之间
+        out_img = torch.clamp(out_img, 0, 1)  # [H, W, 3]
+        out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
+        return {"render_pos_grad": out_img}
     
 
     def forward_pos(self,num_points):
