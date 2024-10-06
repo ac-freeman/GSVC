@@ -23,4 +23,4 @@ python train_video_frame.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/B
 --savdir test1 --savdir_m test1  --is_ad --is_clip
 
 
-python train_video_frame.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/C3/C3_1920x1080_120fps_420_8bit_YUV.yuv --data_name C3 --num_points 50000 --iterations 30000 --savdir test1 --savdir_m test1  --is_ad --is_clip
+python train_video.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --data_name HoneyBee --num_points 30000 --iterations 100000 --savdir test1 --savdir_m test1  --is_ad
