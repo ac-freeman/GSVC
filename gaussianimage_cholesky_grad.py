@@ -112,7 +112,7 @@ class GaussianImage_Cholesky(nn.Module):
         # 将颜色转换为 Tensor，并将其设置为 features_dc
         features_dc = torch.tensor(Opacity_colors, dtype=torch.float32).to(self.device)
         # 重新进行渲染，使用带颜色的 features_dc
-        print(np.shape(features_dc))
+        # print(np.shape(features_dc))
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
                                         features_dc, _opacity, self.H, self.W, 
                                         self.BLOCK_H, self.BLOCK_W, 
