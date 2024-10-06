@@ -84,9 +84,9 @@ class SimpleTrainer2d:
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         for iter in range(1, int(self.iterations)+1):
             if self.isclip:
-                loss, psnr,img, grad_xyz = self.gaussian_model.train_iter_img(self.gt_eimage,iter,self.isdensity)
+                loss, psnr,img, Opacity = self.gaussian_model.train_iter_img(self.gt_eimage,iter,self.isdensity)
             else:
-                loss, psnr,img, grad_xyz = self.gaussian_model.train_iter_img(self.gt_image,iter,self.isdensity)
+                loss, psnr,img, Opacity = self.gaussian_model.train_iter_img(self.gt_image,iter,self.isdensity)
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -95,10 +95,12 @@ class SimpleTrainer2d:
                     progress_bar.update(10)
                 if iter==1 or iter % 50 == 0:
                     num_gaussian_points =self.gaussian_model._xyz.size(0)
-                    out_pos_grad =self.gaussian_model.forward_pos_grad(num_gaussian_points, grad_xyz)
+                    # out_pos_grad =self.gaussian_model.forward_pos_grad(num_gaussian_points, Opacity)
+                    out_pos_grad =self.gaussian_model.forward_pos_opacity(num_gaussian_points, Opacity)
                     transform = transforms.ToPILImage()
                     img = transform(img.float().squeeze(0))
-                    img_pos_sca = transform(out_pos_grad["render_pos_grad"].float().squeeze(0))
+                    # img_pos_sca = transform(out_pos_grad["render_pos_grad"].float().squeeze(0))
+                    img_pos_sca = transform(out_pos_grad["render_pos_opacity"].float().squeeze(0))
                     combined_width =img.width+img_pos_sca.width
                     combined_height = max(img.height, img_pos_sca.height)
                     combined_img = Image.new("RGB", (combined_width, combined_height))
@@ -116,36 +118,41 @@ class SimpleTrainer2d:
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
         
-        self.test(num_gaussian_points, grad_xyz)
+        self.test(num_gaussian_points, Opacity)
         Gmodel =self.gaussian_model.state_dict()
         filtered_Gmodel = {
             k: v for k, v in Gmodel.items()
-            if k in ['_xyz', '_cholesky', '_features_dc']
+            if k in ['_xyz', '_cholesky', '_features_dc','_opacity']
+            # if k in ['_xyz', '_cholesky', '_features_dc']
         }
         return filtered_Gmodel,img_list,num_gaussian_points
     
-    def test(self,num_gaussian_points, grad_xyz):
+    def test(self,num_gaussian_points, Opacity):
         self.gaussian_model.eval()
         with torch.no_grad():
             out = self.gaussian_model()
-            out_pos_grad =self.gaussian_model.forward_pos_grad(num_gaussian_points, grad_xyz)
+            # out_pos_grad =self.gaussian_model.forward_pos_grad(num_gaussian_points, grad_xyz)
+            out_pos_opacity =self.gaussian_model.forward_pos_opacity(num_gaussian_points, Opacity)
             if self.isclip:
                 out_image = restor_image(out["render"],self.H,self.W)
-                out_pos_grad_img = restor_image(out_pos_grad["render_pos_grad"],self.H,self.W)
+                # out_pos_grad_img = restor_image(out_pos_grad["render_pos_grad"],self.H,self.W)
+                out_pos_opacity_img = restor_image(out_pos_opacity["render_pos_opacity"],self.H,self.W)
             else:
                 out_image = out["render"]
-                out_pos_grad_img = out_pos_grad["render_pos_grad"]            
+                # out_pos_grad_img = out_pos_grad["render_pos_grad"]    
+                out_pos_opacity_img = out_pos_opacity["render_pos_opacity"]         
         save_path_img = self.log_dir / "img"
         save_path_img.mkdir(parents=True, exist_ok=True)
         # 转换为PIL图像
         transform = transforms.ToPILImage()
         img = transform(out_image.float().squeeze(0))
-        img_pos_grad = transform(out_pos_grad_img.float().squeeze(0))
-        combined_width =img.width+img_pos_grad.width
-        combined_height = max(img.height, img_pos_grad.height)
+        # img_pos_grad = transform(out_pos_grad_img.float().squeeze(0))
+        img_pos_opacity = transform(out_pos_opacity_img.float().squeeze(0))
+        combined_width =img.width+img_pos_opacity.width
+        combined_height = max(img.height, img_pos_opacity.height)
         combined_img = Image.new("RGB", (combined_width, combined_height))
-        combined_img.paste(img_pos_grad, (0, 0))
-        combined_img.paste(img, (img_pos_grad.width, 0))
+        combined_img.paste(img_pos_opacity, (0, 0))
+        combined_img.paste(img, (img_pos_opacity.width, 0))
         # 保存拼接后的图片
         combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
         combined_img.save(str(save_path_img / combined_name))

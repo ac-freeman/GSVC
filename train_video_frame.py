@@ -120,7 +120,8 @@ class SimpleTrainer2d:
         Gmodel =self.gaussian_model.state_dict()
         filtered_Gmodel = {
             k: v for k, v in Gmodel.items()
-            if k in ['_xyz', '_cholesky', '_features_dc']
+            if k in ['_xyz', '_cholesky', '_features_dc','_opacity']
+            # if k in ['_xyz', '_cholesky', '_features_dc']
         }
         return filtered_Gmodel,img_list,num_gaussian_points
     
