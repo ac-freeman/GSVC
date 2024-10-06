@@ -541,7 +541,8 @@ class GaussianImage_Cholesky(nn.Module):
         if iter > iter_threshold_remove:
             return
         opacity = self._opacity
-        _, sorted_indices = torch.sort(opacity)
+        grad_magnitude =torch.norm(opacity, dim=1)
+        _, sorted_indices = torch.sort(grad_magnitude)
         removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval))
         if iter < iter_threshold_remove:
            
