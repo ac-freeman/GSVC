@@ -160,7 +160,7 @@ class GaussianImage_Cholesky(nn.Module):
             self._opacity = torch.nn.Parameter(self._opacity[keep_indices])
             # 更新优化器中的参数
             if iter%3000==0:
-                self._opacity = torch.nn.Parameter(0.01 * torch.ones(self._xyz.shape[0], 1))
+                self._opacity = torch.nn.Parameter(0.01 * torch.ones_like(self._opacity[keep_indices]))
         elif iter == iter_threshold_remove:
             # 训练早期：只执行删除操作，减少总的高斯点数量
             remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
