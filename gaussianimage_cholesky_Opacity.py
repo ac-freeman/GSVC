@@ -28,7 +28,7 @@ class GaussianImage_Cholesky(nn.Module):
         self._xyz = nn.Parameter(torch.atanh(2 * (torch.rand(self.init_num_points, 2) - 0.5)))
         self._cholesky = nn.Parameter(torch.rand(self.init_num_points, 3))
         # self._opacity = nn.Parameter(torch.ones(self.init_num_points, 1))
-        self._opacity = nn.Parameter(0.1 * torch.ones(self.init_num_points, 1))
+        self._opacity = nn.Parameter(0.01 * torch.ones(self.init_num_points, 1))
         #self.register_buffer('_opacity', torch.ones((self.init_num_points, 1)))
         self._features_dc = nn.Parameter(torch.rand(self.init_num_points, 3))
         self.last_size = (self.H, self.W)
@@ -175,6 +175,8 @@ class GaussianImage_Cholesky(nn.Module):
                 self._opacity = torch.nn.Parameter(self._opacity[keep_indices])  
                 #print(self._xyz.shape[0]) 
         # 更新优化器中的参数
+        if iter%3000==0:
+            self._opacity = nn.Parameter(0.01 * torch.ones(self._xyz.shape[0], 1))
         self.update_optimizer()
 
 
