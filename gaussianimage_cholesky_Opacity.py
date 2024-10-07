@@ -132,8 +132,8 @@ class GaussianImage_Cholesky(nn.Module):
                 self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
                 self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
                 self._opacity = torch.nn.Parameter(self._opacity[keep_indices])
-        if iter % 3000==1:
-            self._opacity = nn.Parameter(torch.logit(0.1 * torch.ones(self._xyz.shape[0], 1)))
+        # if iter % 3000==1:
+        #     self._opacity = nn.Parameter(torch.logit(0.1 * torch.ones(self._xyz.shape[0], 1)))
         # 更新优化器中的参数
         self.update_optimizer()
 
