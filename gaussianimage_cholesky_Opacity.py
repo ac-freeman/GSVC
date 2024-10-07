@@ -27,7 +27,7 @@ class GaussianImage_Cholesky(nn.Module):
         self.removal_rate=kwargs["removal_rate"]
         self._xyz = nn.Parameter(torch.atanh(2 * (torch.rand(self.init_num_points, 2) - 0.5)))
         self._cholesky = nn.Parameter(torch.rand(self.init_num_points, 3))
-        self._opacity = nn.Parameter(torch.logit(0.1 * torch.ones(self.init_num_points, 1)))
+        self._opacity = nn.Parameter(torch.logit(0.1 * torch.ones_like(self.init_num_points, 1)))
         #self.register_buffer('_opacity', torch.ones((self.init_num_points, 1)))
         self._features_dc = nn.Parameter(torch.rand(self.init_num_points, 3))
         self.last_size = (self.H, self.W)
@@ -91,7 +91,7 @@ class GaussianImage_Cholesky(nn.Module):
         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
 
     def density_control(self, iter):
-        iter_threshold_remove = 8000  # 根据训练计划调整这个阈值
+        iter_threshold_remove = 80000  # 根据训练计划调整这个阈值
         if iter > iter_threshold_remove:
             return
         grad_xyz = self._xyz.grad
@@ -132,6 +132,8 @@ class GaussianImage_Cholesky(nn.Module):
                 self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
                 self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
                 self._opacity = torch.nn.Parameter(self._opacity[keep_indices])
+        if iter % 3000==1:
+            self._opacity = nn.Parameter(torch.logit(0.1 * torch.ones(self._xyz.shape[0], 1)))
         # 更新优化器中的参数
         self.update_optimizer()
 
@@ -171,9 +173,7 @@ class GaussianImage_Cholesky(nn.Module):
                 self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
                 self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
                 self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-                self._opacity = torch.nn.Parameter(self._opacity[keep_indices])
-        if iter %3000 ==0:
-            self._opacity = nn.Parameter(torch.logit(0.1 * torch.ones_like(self._opacity)))
+                self._opacity = torch.nn.Parameter(self._opacity[keep_indices])  
                 #print(self._xyz.shape[0]) 
         # 更新优化器中的参数
         self.update_optimizer()
