@@ -137,7 +137,7 @@ class GaussianImage_Cholesky(nn.Module):
         self.update_optimizer()
 
     def density_control_Opacity(self, iter):
-        iter_threshold_remove = 4000  # 根据训练计划调整这个阈值
+        iter_threshold_remove = 8000  # 根据训练计划调整这个阈值
         if iter > iter_threshold_remove:
             return
         opacity = self._opacity
@@ -158,6 +158,9 @@ class GaussianImage_Cholesky(nn.Module):
             self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
             self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
             self._opacity = torch.nn.Parameter(self._opacity[keep_indices])
+            # 更新优化器中的参数
+            if iter%3000==0:
+                self._opacity = nn.Parameter(0.01 * torch.ones(self._xyz.shape[0], 1))
         elif iter == iter_threshold_remove:
             # 训练早期：只执行删除操作，减少总的高斯点数量
             remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
@@ -174,9 +177,7 @@ class GaussianImage_Cholesky(nn.Module):
                 self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
                 self._opacity = torch.nn.Parameter(self._opacity[keep_indices])  
                 #print(self._xyz.shape[0]) 
-        # 更新优化器中的参数
-        if iter%3000==0:
-            self._opacity = nn.Parameter(0.01 * torch.ones(self._xyz.shape[0], 1))
+        
         self.update_optimizer()
 
 
