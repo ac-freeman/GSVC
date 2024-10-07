@@ -53,7 +53,7 @@ for dataset in "${datasets[@]}"; do
         clip_flag="--is_clip"
       fi
       # Run the training script for each dataset with additional parameters
-      srun python train_video_Grad_ff.py --loss_type $loss_type --dataset $dataset_path \
+      srun python train_video_ff.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
         $pos_flag $warmup_flag $ad_flag $clip_flag
