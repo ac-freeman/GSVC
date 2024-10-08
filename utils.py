@@ -379,25 +379,25 @@ def restor_image(new_image, H, W):
 
 class EarlyStopping:
     def __init__(self, patience=100, min_delta=0):
-        self.patience = patience  # 容忍的迭代次数
-        self.min_delta = min_delta  # 最小的改善幅度
-        self.best_loss = None  # 用于存储最好的损失
-        self.counter = 0  # 记录没有改善的次数
+        self.patience = patience  # Number of tolerated iterations with no improvement
+        self.min_delta = min_delta  # Minimum improvement threshold
+        self.best_loss = None  # Stores the best loss value
+        self.counter = 0  # Tracks the number of iterations without improvement
 
     def __call__(self, current_loss):
         if self.best_loss is None:
             self.best_loss = current_loss
-            return False  # 不停止训练
+            return False  # Do not stop training
 
-        # 如果当前loss和之前最好的loss相比改善小于 min_delta，认为没有改善
+        # If the improvement over the previous best loss is less than min_delta, consider it no improvement
         if self.best_loss - current_loss > self.min_delta:
             self.best_loss = current_loss
-            self.counter = 0  # 重置计数器
+            self.counter = 0  # Reset counter
         else:
             self.counter += 1
 
-        # 如果计数器超过 patience，就停止训练
+        # If the counter exceeds patience, stop training
         if self.counter >= self.patience:
-            return True  # 停止训练
+            return True  # Stop training
 
-        return False  # 继续训练
+        return False  # Continue training
