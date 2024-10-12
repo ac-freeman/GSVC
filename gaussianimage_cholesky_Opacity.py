@@ -136,15 +136,15 @@ class GaussianImage_Cholesky(nn.Module):
         # 更新优化器中的参数
         self.update_optimizer()
 
-    def density_control_Opacity(self, iter):
+    def density_control_Opacity(self, iter,strat_iter_adaptive_control):
         iter_threshold_remove = 4000  # 根据训练计划调整这个阈值
-        if iter > iter_threshold_remove:
+        if iter > strat_iter_adaptive_control+iter_threshold_remove:
             return
         opacity = self._opacity
         grad_magnitude =torch.norm(opacity, dim=1)
         _, sorted_indices = torch.sort(grad_magnitude)
         removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval))
-        if iter < iter_threshold_remove:
+        if iter < strat_iter_adaptive_control+iter_threshold_remove:
            
             remove_count = int(removal_rate_per_step * self.max_num_points)
             
@@ -161,7 +161,7 @@ class GaussianImage_Cholesky(nn.Module):
             # # 更新优化器中的参数
             # if iter%3000==0:
             #     self._opacity = torch.nn.Parameter(0.01 * torch.ones_like(self._opacity))
-        elif iter == iter_threshold_remove:
+        elif iter == strat_iter_adaptive_control+iter_threshold_remove:
             # 训练早期：只执行删除操作，减少总的高斯点数量
             remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
             #print(remove_count,self._xyz.shape[0])
@@ -257,7 +257,7 @@ class GaussianImage_Cholesky(nn.Module):
         self.scheduler.step()
         return loss, psnr
     
-    def train_iter_img_Opacity(self, gt_image,iter,isdensity):
+    def train_iter_img_Opacity(self, gt_image,iter,isdensity,strat_iter_adaptive_control):
         render_pkg = self.forward()
         image = render_pkg["render"]
         loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
@@ -266,7 +266,7 @@ class GaussianImage_Cholesky(nn.Module):
             mse_loss = F.mse_loss(image, gt_image)
             psnr = 10 * math.log10(1.0 / mse_loss.item())
         if (iter) % (self.densification_interval) == 0 and iter > 0 and isdensity:
-            self.density_control_Opacity(iter)
+            self.density_control_Opacity(iter,strat_iter_adaptive_control)
         self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
         
