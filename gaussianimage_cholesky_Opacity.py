@@ -137,7 +137,7 @@ class GaussianImage_Cholesky(nn.Module):
         self.update_optimizer()
 
     def density_control_Opacity(self, iter):
-        iter_threshold_remove = 8000  # 根据训练计划调整这个阈值
+        iter_threshold_remove = 4000  # 根据训练计划调整这个阈值
         if iter > iter_threshold_remove:
             return
         opacity = self._opacity
@@ -180,64 +180,64 @@ class GaussianImage_Cholesky(nn.Module):
         
         self.update_optimizer()
 
-    def density_control_Opacity_info(self, iter):
-        begin_iter = 10000
-        iter_threshold_remove = 20000  # 根据训练计划调整这个阈值
-        if iter > iter_threshold_remove or iter< begin_iter:
-            return
-        opacity = self._opacity
-        grad_magnitude = torch.norm(opacity, dim=1)
-        _, sorted_indices = torch.sort(grad_magnitude)
-        removal_rate_per_step = self.removal_rate / int((iter_threshold_remove-begin_iter) / (self.densification_interval))
+    # def density_control_Opacity_info(self, iter):
+    #     begin_iter = 10000
+    #     iter_threshold_remove = 20000  # 根据训练计划调整这个阈值
+    #     if iter > iter_threshold_remove or iter< begin_iter:
+    #         return
+    #     opacity = self._opacity
+    #     grad_magnitude = torch.norm(opacity, dim=1)
+    #     _, sorted_indices = torch.sort(grad_magnitude)
+    #     removal_rate_per_step = self.removal_rate / int((iter_threshold_remove-begin_iter) / (self.densification_interval))
         
-        if iter>= begin_iter and iter < iter_threshold_remove:
-            remove_count = int(removal_rate_per_step * self.max_num_points)
-            remove_indices = sorted_indices[:remove_count]
+    #     if iter>= begin_iter and iter < iter_threshold_remove:
+    #         remove_count = int(removal_rate_per_step * self.max_num_points)
+    #         remove_indices = sorted_indices[:remove_count]
             
-            # 计算被移除点的 opacity 的统计信息
-            removed_opacity = self._opacity[remove_indices]
-            max_opacity = torch.max(removed_opacity).item()
-            min_opacity = torch.min(removed_opacity).item()
-            mean_opacity = torch.mean(removed_opacity).item()
-            median_opacity = torch.median(removed_opacity).item()
+    #         # 计算被移除点的 opacity 的统计信息
+    #         removed_opacity = self._opacity[remove_indices]
+    #         max_opacity = torch.max(removed_opacity).item()
+    #         min_opacity = torch.min(removed_opacity).item()
+    #         mean_opacity = torch.mean(removed_opacity).item()
+    #         median_opacity = torch.median(removed_opacity).item()
             
             
-            keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
-            keep_indices[remove_indices] = False
+    #         keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
+    #         keep_indices[remove_indices] = False
 
-            self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
-            self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
-            self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-            self._opacity = torch.nn.Parameter(self._opacity[keep_indices])
+    #         self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
+    #         self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
+    #         self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
+    #         self._opacity = torch.nn.Parameter(self._opacity[keep_indices])
             
-            # # 更新优化器中的参数
-            # if iter % 3000 == 0:
-            #     self._opacity = torch.nn.Parameter(0.01 * torch.ones_like(self._opacity))
+    #         # # 更新优化器中的参数
+    #         # if iter % 3000 == 0:
+    #         #     self._opacity = torch.nn.Parameter(0.01 * torch.ones_like(self._opacity))
     
-        elif iter == iter_threshold_remove:
-            # 训练早期：只执行删除操作，减少总的高斯点数量
-            remove_count = self._xyz.shape[0] - int(self.max_num_points * (1 - self.removal_rate))
-            if remove_count > 0:
-                remove_indices = sorted_indices[:remove_count]
+    #     elif iter == iter_threshold_remove:
+    #         # 训练早期：只执行删除操作，减少总的高斯点数量
+    #         remove_count = self._xyz.shape[0] - int(self.max_num_points * (1 - self.removal_rate))
+    #         if remove_count > 0:
+    #             remove_indices = sorted_indices[:remove_count]
                 
-                # 计算被移除点的 opacity 的统计信息
-                removed_opacity = self._opacity[remove_indices]
-                max_opacity = torch.max(removed_opacity).item()
-                min_opacity = torch.min(removed_opacity).item()
-                mean_opacity = torch.mean(removed_opacity).item()
-                median_opacity = torch.median(removed_opacity).item()
+    #             # 计算被移除点的 opacity 的统计信息
+    #             removed_opacity = self._opacity[remove_indices]
+    #             max_opacity = torch.max(removed_opacity).item()
+    #             min_opacity = torch.min(removed_opacity).item()
+    #             mean_opacity = torch.mean(removed_opacity).item()
+    #             median_opacity = torch.median(removed_opacity).item()
 
-                # 删除选定的点
-                keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
-                keep_indices[remove_indices] = False
+    #             # 删除选定的点
+    #             keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
+    #             keep_indices[remove_indices] = False
 
-                self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
-                self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
-                self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-                self._opacity = torch.nn.Parameter(self._opacity[keep_indices])
+    #             self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
+    #             self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
+    #             self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
+    #             self._opacity = torch.nn.Parameter(self._opacity[keep_indices])
             
-        self.update_optimizer()
-        return max_opacity,min_opacity,mean_opacity,median_opacity
+    #     self.update_optimizer()
+    #     return max_opacity,min_opacity,mean_opacity,median_opacity
 
 
 
@@ -266,7 +266,7 @@ class GaussianImage_Cholesky(nn.Module):
             mse_loss = F.mse_loss(image, gt_image)
             psnr = 10 * math.log10(1.0 / mse_loss.item())
         if (iter) % (self.densification_interval) == 0 and iter > 0 and isdensity:
-            opacity_stats = self.density_control_Opacity_info(iter)
+            opacity_stats = self.density_control_Opacity(iter)
             if opacity_stats is not None:
                 max_opacity, min_opacity, mean_opacity, median_opacity = opacity_stats
                 if (iter) % (1000) == 0 and iter > 0 and isdensity:

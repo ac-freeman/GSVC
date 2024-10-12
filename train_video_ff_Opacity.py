@@ -82,12 +82,13 @@ class SimpleTrainer2d:
         save_path_img = self.log_dir / "img"
         save_path_img.mkdir(parents=True, exist_ok=True)
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
+        density_control=6000
         for iter in range(1, int(self.iterations)+1):
+            start_adaptivecontrol=False
             if self.isclip:
-                loss, psnr,img = self.gaussian_model.train_iter_img_Opacity(self.gt_eimage,iter,self.isdensity)
+                loss, psnr,img = self.gaussian_model.train_iter_img_Opacity(self.gt_eimage,iter,start_adaptivecontrol)
             else:
-                loss, psnr,img = self.gaussian_model.train_iter_img_Opacity(self.gt_image,iter,self.isdensity)
-
+                loss, psnr,img = self.gaussian_model.train_iter_img_Opacity(self.gt_image,iter,start_adaptivecontrol)
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -107,12 +108,17 @@ class SimpleTrainer2d:
                     combined_img.paste(img, (img_pos_sca.width, 0))
                     img_list.append(combined_img)
             if self.isdensity:
-                if early_stopping(loss.item()) and iter>=20000:
-                    print(f"Early stopping at iteration {iter}")
-                    break
+                if early_stopping(loss.item()):
+                    start_adaptivecontrol=True
             elif early_stopping(loss.item()):
                 print(f"Early stopping at iteration {iter}")
                 break
+            if start_adaptivecontrol:
+                density_control=density_control-1
+                if density_control<0 and early_stopping(loss.item()):
+                    print(f"After adaptive control: Early stopping at iteration {iter}")
+                    break
+
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
