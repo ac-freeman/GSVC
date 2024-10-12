@@ -81,6 +81,7 @@ class SimpleTrainer2d:
         start_time = time.time()
         save_path_img = self.log_dir / "img"
         save_path_img.mkdir(parents=True, exist_ok=True)
+        early_stopping_relax = EarlyStopping(patience=100, min_delta=1e-6)
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         density_control=15000
         strat_iter_adaptive_control=0
@@ -109,7 +110,7 @@ class SimpleTrainer2d:
                     combined_img.paste(img, (img_pos_sca.width, 0))
                     img_list.append(combined_img)
             if self.isdensity:
-                if early_stopping(loss.item()):
+                if early_stopping_relax(loss.item()):
                     start_adaptivecontrol=True
                 if start_adaptivecontrol:
                     density_control=density_control-1
