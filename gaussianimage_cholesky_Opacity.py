@@ -137,7 +137,7 @@ class GaussianImage_Cholesky(nn.Module):
         self.update_optimizer()
 
     def density_control_Opacity(self, iter,strat_iter_adaptive_control):
-        iter_threshold_remove = 4000  # 根据训练计划调整这个阈值
+        iter_threshold_remove = 10000  # 根据训练计划调整这个阈值
         opacity = self._opacity
         grad_magnitude =torch.norm(opacity, dim=1)
         _, sorted_indices = torch.sort(grad_magnitude)
