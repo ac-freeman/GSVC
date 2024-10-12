@@ -267,7 +267,6 @@ class GaussianImage_Cholesky(nn.Module):
             psnr = 10 * math.log10(1.0 / mse_loss.item())
         if (iter) % (self.densification_interval) == 0 and iter > 0 and isdensity:
             self.density_control_Opacity(iter)
-            print("start densification")
         self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
         

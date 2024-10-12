@@ -110,16 +110,17 @@ class SimpleTrainer2d:
             if self.isdensity:
                 if early_stopping(loss.item()):
                     start_adaptivecontrol=True
+                if start_adaptivecontrol:
+                    density_control=density_control-1
+                    if density_control==0:
+                        print(f"End ad at iteration {iter}")
+                    if density_control<0 and early_stopping(loss.item()):
+                        print(f"After adaptive control: Early stopping at iteration {iter}")
+                        break
             elif early_stopping(loss.item()):
                 print(f"Early stopping at iteration {iter}")
                 break
-            if start_adaptivecontrol:
-                density_control=density_control-1
-                if density_control==0:
-                    print(f"End ad at iteration {iter}")
-                if density_control<0 and early_stopping(loss.item()):
-                    print(f"After adaptive control: Early stopping at iteration {iter}")
-                    break
+                
 
         end_time = time.time() - start_time
         progress_bar.close()
