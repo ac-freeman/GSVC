@@ -90,7 +90,7 @@ class SimpleTrainer2d:
                 loss, psnr,img = self.gaussian_model.train_iter_img_Opacity(self.gt_eimage,iter,start_adaptivecontrol,strat_iter_adaptive_control)
             else:
                 if start_adaptivecontrol:
-                    print(start_adaptivecontrol)
+                    print(start_adaptivecontrol,strat_iter_adaptive_control)
                 loss, psnr,img = self.gaussian_model.train_iter_img_Opacity(self.gt_image,iter,start_adaptivecontrol,strat_iter_adaptive_control)
             psnr_list.append(psnr)
             iter_list.append(iter)
