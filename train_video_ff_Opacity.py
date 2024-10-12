@@ -81,7 +81,7 @@ class SimpleTrainer2d:
         start_time = time.time()
         save_path_img = self.log_dir / "img"
         save_path_img.mkdir(parents=True, exist_ok=True)
-        early_stopping_relax = EarlyStopping(patience=100, min_delta=1e-6)
+        early_stopping_relax = EarlyStopping(patience=100, min_delta=1e-7)
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         density_control=15000
         strat_iter_adaptive_control=0
