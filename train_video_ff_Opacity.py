@@ -84,13 +84,11 @@ class SimpleTrainer2d:
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         density_control=6000
         strat_iter_adaptive_control=0
+        start_adaptivecontrol=False
         for iter in range(1, int(self.iterations)+1):
-            start_adaptivecontrol=False
             if self.isclip:
                 loss, psnr,img = self.gaussian_model.train_iter_img_Opacity(self.gt_eimage,iter,start_adaptivecontrol,strat_iter_adaptive_control)
             else:
-                if start_adaptivecontrol:
-                    print(start_adaptivecontrol,strat_iter_adaptive_control)
                 loss, psnr,img = self.gaussian_model.train_iter_img_Opacity(self.gt_image,iter,start_adaptivecontrol,strat_iter_adaptive_control)
             psnr_list.append(psnr)
             iter_list.append(iter)
