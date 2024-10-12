@@ -79,8 +79,8 @@ class SimpleTrainer2d:
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
-        early_stopping_relax = EarlyStopping(patience=100, min_delta=1e-7)
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
+        early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-3)
         density_control=5000
         strat_iter_adaptive_control=0
         start_adaptivecontrol=False
@@ -96,18 +96,18 @@ class SimpleTrainer2d:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
             if self.isdensity:
-                if early_stopping_relax(loss.item()):
+                if early_stopping(loss.item()):
                     start_adaptivecontrol=True
                 if start_adaptivecontrol:
                     density_control=density_control-1
                     if density_control==0:
                         print(f"End ad at iteration {iter}")
-                    if density_control<0 and early_stopping(loss.item()):
+                    if density_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr.item()):
                         print(f"After adaptive control: Early stopping at iteration {iter}")
                         break
                 else:
                     strat_iter_adaptive_control=strat_iter_adaptive_control+1
-            elif early_stopping(loss.item()):
+            elif early_stopping(loss.item()) and early_stopping_PSNR(psnr.item()):
                 print(f"Early stopping at iteration {iter}")
                 break
         end_time = time.time() - start_time
