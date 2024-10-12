@@ -113,7 +113,6 @@ class SimpleTrainer2d:
             if self.isdensity:
                 if early_stopping(loss.item()):
                     start_adaptivecontrol=True
-                    print(start_adaptivecontrol)
                 if start_adaptivecontrol:
                     density_control=density_control-1
                     if density_control==0:
