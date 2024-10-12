@@ -138,7 +138,7 @@ class GaussianImage_Cholesky(nn.Module):
         self.update_optimizer()
 
     def density_control_Opacity(self, iter,strat_iter_adaptive_control):
-        iter_threshold_remove =1000  # 根据训练计划调整这个阈值
+        iter_threshold_remove =4000  # 根据训练计划调整这个阈值
         opacity = self._opacity
         grad_magnitude =torch.norm(opacity, dim=1)
         _, sorted_indices = torch.sort(grad_magnitude)
@@ -239,7 +239,7 @@ class GaussianImage_Cholesky(nn.Module):
 
 
 
-    def train_iter_Opacity(self, gt_image,iter,isdensity):
+    def train_iter_Opacity(self, gt_image,iter,isdensity,strat_iter_adaptive_control):
         render_pkg = self.forward()
         image = render_pkg["render"]
         loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
@@ -248,7 +248,7 @@ class GaussianImage_Cholesky(nn.Module):
             mse_loss = F.mse_loss(image, gt_image)
             psnr = 10 * math.log10(1.0 / mse_loss.item())
         if (iter) % (self.densification_interval) == 0 and iter > 0 and isdensity:
-            self.density_control_Opacity(iter)
+            self.density_control_Opacity(iter,strat_iter_adaptive_control)
         self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
         
