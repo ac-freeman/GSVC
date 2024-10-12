@@ -79,12 +79,16 @@ class SimpleTrainer2d:
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
+        early_stopping_relax = EarlyStopping(patience=100, min_delta=1e-7)
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
+        density_control=15000
+        strat_iter_adaptive_control=0
+        start_adaptivecontrol=False
         for iter in range(1, int(self.iterations)+1):
             if self.isclip:
-                loss, psnr = self.gaussian_model.train_iter_Opacity(self.gt_eimage,iter,self.isdensity)
+                loss, psnr,img = self.gaussian_model.train_iter_img_Opacity(self.gt_eimage,iter,start_adaptivecontrol,strat_iter_adaptive_control)
             else:
-                loss, psnr = self.gaussian_model.train_iter_Opacity(self.gt_image,iter,self.isdensity)
+                loss, psnr,img = self.gaussian_model.train_iter_img_Opacity(self.gt_image,iter,start_adaptivecontrol,strat_iter_adaptive_control)
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -92,9 +96,17 @@ class SimpleTrainer2d:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
             if self.isdensity:
-                if early_stopping(loss.item()) and iter>=20000:
-                    print(f"Early stopping at iteration {iter}")
-                    break
+                if early_stopping_relax(loss.item()):
+                    start_adaptivecontrol=True
+                if start_adaptivecontrol:
+                    density_control=density_control-1
+                    if density_control==0:
+                        print(f"End ad at iteration {iter}")
+                    if density_control<0 and early_stopping(loss.item()):
+                        print(f"After adaptive control: Early stopping at iteration {iter}")
+                        break
+                else:
+                    strat_iter_adaptive_control=strat_iter_adaptive_control+1
             elif early_stopping(loss.item()):
                 print(f"Early stopping at iteration {iter}")
                 break
