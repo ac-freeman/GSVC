@@ -250,7 +250,7 @@ class GaussianImage_Cholesky(nn.Module):
             mse_loss = F.mse_loss(image, gt_image)
             psnr = 10 * math.log10(1.0 / mse_loss.item())
         if (iter) % (self.densification_interval) == 0 and iter > 0 and isdensity:
-            self.density_control_Opacity_info(iter)
+            self.density_control_Opacity(iter)
         self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
         
@@ -266,13 +266,15 @@ class GaussianImage_Cholesky(nn.Module):
             mse_loss = F.mse_loss(image, gt_image)
             psnr = 10 * math.log10(1.0 / mse_loss.item())
         if (iter) % (self.densification_interval) == 0 and iter > 0 and isdensity:
-            max_opacity,min_opacity,mean_opacity,median_opacity = self.density_control_Opacity_info(iter)
+            opacity_stats = self.density_control_Opacity_info(iter)
+            if opacity_stats is not None:
+                max_opacity, min_opacity, mean_opacity, median_opacity = opacity_stats
+                if (iter) % (1000) == 0 and iter > 0 and isdensity:
+                    print(f"Iteration {iter}: Removed points' opacity stats -> Max: {max_opacity}, Min: {min_opacity}, Mean: {mean_opacity}, Median: {median_opacity}")
         self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
         
         self.scheduler.step()
-        if (iter) % (1000) == 0 and iter > 0 and isdensity:
-            print(f"Iteration {iter}: Removed points' opacity stats -> Max: {max_opacity}, Min: {min_opacity}, Mean: {mean_opacity}, Median: {median_opacity}")
         return loss, psnr,image
     
     def train_iter(self, gt_image,iter,isdensity):
