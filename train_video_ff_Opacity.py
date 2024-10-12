@@ -82,7 +82,7 @@ class SimpleTrainer2d:
         save_path_img = self.log_dir / "img"
         save_path_img.mkdir(parents=True, exist_ok=True)
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
-        density_control=10000
+        density_control=15000
         strat_iter_adaptive_control=0
         start_adaptivecontrol=False
         for iter in range(1, int(self.iterations)+1):
