@@ -81,7 +81,7 @@ class SimpleTrainer2d:
         start_time = time.time()
         save_path_img = self.log_dir / "img"
         save_path_img.mkdir(parents=True, exist_ok=True)
-        early_stopping_relax = EarlyStopping(patience=100, min_delta=1e-7)
+        early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-3)
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         density_control=15000
         strat_iter_adaptive_control=0
@@ -110,18 +110,18 @@ class SimpleTrainer2d:
                     combined_img.paste(img, (img_pos_sca.width, 0))
                     img_list.append(combined_img)
             if self.isdensity:
-                if early_stopping_relax(loss.item()):
+                if early_stopping(loss.item()):
                     start_adaptivecontrol=True
                 if start_adaptivecontrol:
                     density_control=density_control-1
                     if density_control==0:
                         print(f"End ad at iteration {iter}")
-                    if density_control<0 and early_stopping(loss.item()):
+                    if density_control<0 and early_stopping(loss.item())and early_stopping_PSNR(psnr):
                         print(f"After adaptive control: Early stopping at iteration {iter}")
                         break
                 else:
                     strat_iter_adaptive_control=strat_iter_adaptive_control+1
-            elif early_stopping(loss.item()):
+            elif early_stopping(loss.item())and early_stopping_PSNR(psnr):
                 print(f"Early stopping at iteration {iter}")
                 break
                 
