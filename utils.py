@@ -250,74 +250,134 @@ def downsample_image(image, scale_factor):
 #         value=[0, 0, 0]  # 黑色边框
 #     )
 #     return new_image
-def extend_image(image, border_size=10):
-    mean_color = np.mean(image, axis=(0, 1)).astype(np.uint8)
+
+# def extend_image(image, border_size=10):
+#     mean_color = np.mean(image, axis=(0, 1)).astype(np.uint8)
+#     H, W, C = image.shape
+#     block_size=2
+#     extended_image = np.zeros((H + 2 * border_size, W + 2 * border_size, C), dtype=np.uint8)
+#     extended_image[border_size:H + border_size, border_size:W + border_size] = image
+#     #上边界
+#     extended_image[border_size-1,:,:]=extended_image[border_size,:,:]
+#     for j in range(1,border_size):
+#         block_size=j*j+1
+#         for i in range(W):
+#             if(i-block_size//2>=0 and i+block_size//2<=W-1):
+#                 block_image=np.zeros((block_size, block_size, C), dtype=np.uint8)
+#                 block_image=extended_image[border_size-j:border_size+block_size-1-j,border_size+i-block_size//2:border_size+i+block_size//2,:]
+#             elif(i-block_size//2<0):
+#                 block_image=np.zeros((block_size, i+block_size//2+1, C), dtype=np.uint8)
+#                 block_image=extended_image[border_size-j:border_size+block_size-1-j,border_size:border_size+i+block_size//2,:]
+#             elif(i+block_size//2>W-1):
+#                 block_image=np.zeros((block_size, W-1-i+block_size//2+1, C), dtype=np.uint8)
+#                 block_image=extended_image[border_size-j:border_size+block_size-1-j,border_size+i-block_size//2:border_size+W-1,:]
+#             extended_image[border_size-1-j,border_size+i,:]=np.mean(block_image, axis=(0, 1)).astype(np.uint8)
+#     #下边界
+#     extended_image[border_size+H,:,:]=extended_image[border_size+H-1,:,:]
+#     for j in range(1,border_size):
+#         block_size=j*j+1
+#         for i in range(W):
+#             if(i-block_size//2>=0 and i+block_size//2<=W-1):
+#                 block_image=np.zeros((block_size, block_size, C), dtype=np.uint8)
+#                 block_image=extended_image[border_size+H-block_size+j:border_size+H-1+j,border_size+i-block_size//2:border_size+i+block_size//2,:]
+#             elif(i-block_size//2<0):
+#                 block_image=np.zeros((block_size, i+block_size//2+1, C), dtype=np.uint8)
+#                 block_image=extended_image[border_size+H-block_size+j:border_size+H-1+j,border_size:border_size+i+block_size//2,:]
+#             elif(i+block_size//2>W-1):
+#                 block_image=np.zeros((block_size, W-1-i+block_size//2+1, C), dtype=np.uint8)
+#                 block_image=extended_image[border_size+H-block_size+j:border_size+H-1+j,border_size+i-block_size//2:border_size+W-1,:]
+#             extended_image[H+border_size+j,border_size+i,:]=np.mean(block_image, axis=(0, 1)).astype(np.uint8)
+#     #左边界
+#     extended_image[:,border_size-1,:]=extended_image[:,border_size,:]
+#     for j in range(1,border_size):
+#         block_size=j*j+1
+#         for i in range(H):
+#             if(i-block_size//2>=0 and i+block_size//2<=H-1):
+#                 block_image=np.zeros((block_size, block_size, C), dtype=np.uint8)
+#                 block_image=extended_image[border_size+i-block_size//2:border_size+i+block_size//2,border_size-j:border_size+block_size-1-j,:]
+#             elif(i-block_size//2<0):
+#                 block_image=np.zeros(( i+block_size//2+1,block_size, C), dtype=np.uint8)
+#                 block_image=extended_image[border_size:border_size+i+block_size//2,border_size-j:border_size+block_size-1-j,:]
+#             elif(i+block_size//2>H-1):
+#                 block_image=np.zeros(( H-1-i+block_size//2+1,block_size, C), dtype=np.uint8)
+#                 block_image=extended_image[border_size+i-block_size//2:border_size+H-1,border_size-j:border_size+block_size-1-j,:]
+#             extended_image[border_size+i,border_size-1-j,:]=np.mean(block_image, axis=(0, 1)).astype(np.uint8)
+#     #右边界
+#     extended_image[:,border_size+W,:]=extended_image[:,border_size+W-1,:]
+#     for j in range(1,border_size):
+#         block_size=j*j+1
+#         for i in range(H):
+#             if(i-block_size//2>=0 and i+block_size//2<=H-1):
+#                 block_image=np.zeros((block_size, block_size, C), dtype=np.uint8)
+#                 block_image=extended_image[border_size+i-block_size//2:border_size+i+block_size//2,border_size+W-block_size+j:border_size+W-1+j,:]
+#             elif(i-block_size//2<0):
+#                 block_image=np.zeros((block_size, i+block_size//2+1, C), dtype=np.uint8)
+#                 block_image=extended_image[border_size:border_size+i+block_size//2,border_size+W-block_size+j:border_size+W-1+j,:]
+#             elif(i+block_size//2>W-1):
+#                 block_image=np.zeros((block_size, W-1-i+block_size//2+1, C), dtype=np.uint8)
+#                 block_image=extended_image[border_size+i-block_size//2:border_size+H-1,border_size+H-block_size+j:border_size+W-1+j,:]
+#             extended_image[border_size+i,W+border_size+j,:]=np.mean(block_image, axis=(0, 1)).astype(np.uint8)
+
+
+#     for i in range(border_size):
+#         for j in range(border_size):
+#             x = border_size-j-1
+#             y = border_size-i-1
+#             if x==0 and y==0:
+#                 alpha_x=0.5
+#                 alpha_y=0.5
+#             else:
+#                 alpha_x=x/(x+y)
+#                 alpha_y=y/(x+y)
+#             extended_image[i, j] = (1-alpha_x) * extended_image[i, border_size] + (1-alpha_y) * extended_image[border_size, j]
+#             extended_image[i,  W + 2*border_size -1-j] = (1-alpha_x) * extended_image[i,  W +border_size-1] + (1-alpha_y) * extended_image[border_size, W + 2*border_size -1-j]
+#             extended_image[H + 2*border_size-1-i,  j] = (1-alpha_x) * extended_image[H + 2*border_size -1-i,  border_size] + (1-alpha_y) * extended_image[H+border_size-1, j]
+#             extended_image[H + 2*border_size-1-i,  W + 2*border_size -1-j] = (1-alpha_x) * extended_image[H + 2*border_size -1-i,  W+border_size-1] + (1-alpha_y) * extended_image[H+border_size-1, W + 2*border_size -1-j]
+#     return extended_image
+
+def extend_image(image, border_size=5):
     H, W, C = image.shape
-    block_size=2
     extended_image = np.zeros((H + 2 * border_size, W + 2 * border_size, C), dtype=np.uint8)
+    Mask = np.zeros((H + 2 * border_size, W + 2 * border_size), dtype=np.uint8)
+    Mask[border_size:H + border_size, border_size:W + border_size]=1
     extended_image[border_size:H + border_size, border_size:W + border_size] = image
-    #上边界
     extended_image[border_size-1,:,:]=extended_image[border_size,:,:]
-    for j in range(1,border_size):
-        block_size=j*j+1
-        for i in range(W):
-            if(i-block_size//2>=0 and i+block_size//2<=W-1):
-                block_image=np.zeros((block_size, block_size, C), dtype=np.uint8)
-                block_image=extended_image[border_size-j:border_size+block_size-1-j,border_size+i-block_size//2:border_size+i+block_size//2,:]
-            elif(i-block_size//2<0):
-                block_image=np.zeros((block_size, i+block_size//2+1, C), dtype=np.uint8)
-                block_image=extended_image[border_size-j:border_size+block_size-1-j,border_size:border_size+i+block_size//2,:]
-            elif(i+block_size//2>W-1):
-                block_image=np.zeros((block_size, W-1-i+block_size//2+1, C), dtype=np.uint8)
-                block_image=extended_image[border_size-j:border_size+block_size-1-j,border_size+i-block_size//2:border_size+W-1,:]
-            extended_image[border_size-1-j,border_size+i,:]=np.mean(block_image, axis=(0, 1)).astype(np.uint8)
-    #下边界
-    extended_image[border_size+H,:,:]=extended_image[border_size+H-1,:,:]
-    for j in range(1,border_size):
-        block_size=j*j+1
-        for i in range(W):
-            if(i-block_size//2>=0 and i+block_size//2<=W-1):
-                block_image=np.zeros((block_size, block_size, C), dtype=np.uint8)
-                block_image=extended_image[border_size+H-block_size+j:border_size+H-1+j,border_size+i-block_size//2:border_size+i+block_size//2,:]
-            elif(i-block_size//2<0):
-                block_image=np.zeros((block_size, i+block_size//2+1, C), dtype=np.uint8)
-                block_image=extended_image[border_size+H-block_size+j:border_size+H-1+j,border_size:border_size+i+block_size//2,:]
-            elif(i+block_size//2>W-1):
-                block_image=np.zeros((block_size, W-1-i+block_size//2+1, C), dtype=np.uint8)
-                block_image=extended_image[border_size+H-block_size+j:border_size+H-1+j,border_size+i-block_size//2:border_size+W-1,:]
-            extended_image[H+border_size+j,border_size+i,:]=np.mean(block_image, axis=(0, 1)).astype(np.uint8)
-    #左边界
-    extended_image[:,border_size-1,:]=extended_image[:,border_size,:]
-    for j in range(1,border_size):
-        block_size=j*j+1
-        for i in range(H):
-            if(i-block_size//2>=0 and i+block_size//2<=H-1):
-                block_image=np.zeros((block_size, block_size, C), dtype=np.uint8)
-                block_image=extended_image[border_size+i-block_size//2:border_size+i+block_size//2,border_size-j:border_size+block_size-1-j,:]
-            elif(i-block_size//2<0):
-                block_image=np.zeros(( i+block_size//2+1,block_size, C), dtype=np.uint8)
-                block_image=extended_image[border_size:border_size+i+block_size//2,border_size-j:border_size+block_size-1-j,:]
-            elif(i+block_size//2>H-1):
-                block_image=np.zeros(( H-1-i+block_size//2+1,block_size, C), dtype=np.uint8)
-                block_image=extended_image[border_size+i-block_size//2:border_size+H-1,border_size-j:border_size+block_size-1-j,:]
-            extended_image[border_size+i,border_size-1-j,:]=np.mean(block_image, axis=(0, 1)).astype(np.uint8)
-    #右边界
-    extended_image[:,border_size+W,:]=extended_image[:,border_size+W-1,:]
-    for j in range(1,border_size):
-        block_size=j*j+1
-        for i in range(H):
-            if(i-block_size//2>=0 and i+block_size//2<=H-1):
-                block_image=np.zeros((block_size, block_size, C), dtype=np.uint8)
-                block_image=extended_image[border_size+i-block_size//2:border_size+i+block_size//2,border_size+W-block_size+j:border_size+W-1+j,:]
-            elif(i-block_size//2<0):
-                block_image=np.zeros((block_size, i+block_size//2+1, C), dtype=np.uint8)
-                block_image=extended_image[border_size:border_size+i+block_size//2,border_size+W-block_size+j:border_size+W-1+j,:]
-            elif(i+block_size//2>W-1):
-                block_image=np.zeros((block_size, W-1-i+block_size//2+1, C), dtype=np.uint8)
-                block_image=extended_image[border_size+i-block_size//2:border_size+H-1,border_size+H-block_size+j:border_size+W-1+j,:]
-            extended_image[border_size+i,W+border_size+j,:]=np.mean(block_image, axis=(0, 1)).astype(np.uint8)
-
-
+    for _ in tqdm(range(border_size)):
+        for j in range(0,border_size):
+            filled_image=extended_image
+            for i in range(W):
+                if(border_size-j-1>0):
+                    block_image=filled_image[border_size-j-2:border_size-j+1,border_size+i-1:border_size+i+2,:]
+                else:
+                    block_image=filled_image[border_size-j-1:border_size-j+1,border_size+i-1:border_size+i+2,:]
+                extended_image[border_size - 1 - j, border_size + i, :] = np.mean(block_image,  axis=(0,1)).astype(np.uint8)
+        #bottom
+        for j in range(0,border_size):
+            filled_image=extended_image
+            for i in range(W):
+                if(border_size+H+j>=border_size+H+border_size-1):
+                    block_image=filled_image[border_size+H+j-1:border_size+H+border_size,border_size+i-1:border_size+i+2,:]
+                else:
+                    block_image=filled_image[border_size+H+j-1:border_size+H+j+2,border_size+i-1:border_size+i+2,:]
+                extended_image[border_size+H+j, border_size + i, :] = np.mean(block_image,  axis=(0,1)).astype(np.uint8)
+        #left
+        for i in range(border_size):
+            filled_image=extended_image
+            for j in range(0,H):
+                if(border_size-i-1>0):
+                    block_image=filled_image[border_size+j-1:border_size+j+2,border_size-i-2:border_size-i+1,:]
+                else:
+                    block_image=filled_image[border_size+j-1:border_size+j+2,border_size-i-1:border_size-i+1,:]
+                extended_image[border_size+j, border_size-i-1, :] = np.mean(block_image,  axis=(0,1)).astype(np.uint8)
+        #right
+        for i in range(border_size):
+            filled_image=extended_image
+            for j in range(0,H):
+                if(border_size+W+i>=border_size+W+border_size-1):
+                    block_image=filled_image[border_size+j-1:border_size+j+2,border_size+W+i-1:border_size+W+border_size,:]
+                else:
+                    block_image=filled_image[border_size+j-1:border_size+j+2,border_size+W+i-1:border_size+W+i+2,:]
+                extended_image[border_size+j, border_size+W+i, :] = np.mean(block_image,  axis=(0,1)).astype(np.uint8)
     for i in range(border_size):
         for j in range(border_size):
             x = border_size-j-1
@@ -333,6 +393,8 @@ def extend_image(image, border_size=10):
             extended_image[H + 2*border_size-1-i,  j] = (1-alpha_x) * extended_image[H + 2*border_size -1-i,  border_size] + (1-alpha_y) * extended_image[H+border_size-1, j]
             extended_image[H + 2*border_size-1-i,  W + 2*border_size -1-j] = (1-alpha_x) * extended_image[H + 2*border_size -1-i,  W+border_size-1] + (1-alpha_y) * extended_image[H+border_size-1, W + 2*border_size -1-j]
     return extended_image
+
+
 # def extend_image(image):
 #     border_size=3
 #     mean_color = np.mean(image, axis=(0, 1)).astype(np.uint8)
