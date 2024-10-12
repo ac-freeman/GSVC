@@ -181,15 +181,16 @@ class GaussianImage_Cholesky(nn.Module):
         self.update_optimizer()
 
     def density_control_Opacity_info(self, iter):
-        iter_threshold_remove = 8000  # 根据训练计划调整这个阈值
-        if iter > iter_threshold_remove:
+        begin_iter = 10000
+        iter_threshold_remove = 20000  # 根据训练计划调整这个阈值
+        if iter > iter_threshold_remove or iter< begin_iter:
             return
         opacity = self._opacity
         grad_magnitude = torch.norm(opacity, dim=1)
         _, sorted_indices = torch.sort(grad_magnitude)
-        removal_rate_per_step = self.removal_rate / int(iter_threshold_remove / (self.densification_interval))
+        removal_rate_per_step = self.removal_rate / int((iter_threshold_remove-begin_iter) / (self.densification_interval))
         
-        if iter < iter_threshold_remove:
+        if iter>= begin_iter and iter < iter_threshold_remove:
             remove_count = int(removal_rate_per_step * self.max_num_points)
             remove_indices = sorted_indices[:remove_count]
             
@@ -200,8 +201,7 @@ class GaussianImage_Cholesky(nn.Module):
             mean_opacity = torch.mean(removed_opacity).item()
             median_opacity = torch.median(removed_opacity).item()
             
-            print(f"Iteration {iter}: Removed points' opacity stats -> Max: {max_opacity}, Min: {min_opacity}, Mean: {mean_opacity}, Median: {median_opacity}")
-
+            
             keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
             keep_indices[remove_indices] = False
 
@@ -227,8 +227,6 @@ class GaussianImage_Cholesky(nn.Module):
                 mean_opacity = torch.mean(removed_opacity).item()
                 median_opacity = torch.median(removed_opacity).item()
 
-                print(f"Iteration {iter}: Removed points' opacity stats -> Max: {max_opacity}, Min: {min_opacity}, Mean: {mean_opacity}, Median: {median_opacity}")
-
                 # 删除选定的点
                 keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
                 keep_indices[remove_indices] = False
@@ -239,6 +237,7 @@ class GaussianImage_Cholesky(nn.Module):
                 self._opacity = torch.nn.Parameter(self._opacity[keep_indices])
             
         self.update_optimizer()
+        return max_opacity,min_opacity,mean_opacity,median_opacity
 
 
 
@@ -267,11 +266,13 @@ class GaussianImage_Cholesky(nn.Module):
             mse_loss = F.mse_loss(image, gt_image)
             psnr = 10 * math.log10(1.0 / mse_loss.item())
         if (iter) % (self.densification_interval) == 0 and iter > 0 and isdensity:
-            self.density_control_Opacity_info(iter)
+            max_opacity,min_opacity,mean_opacity,median_opacity = self.density_control_Opacity_info(iter)
         self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
         
         self.scheduler.step()
+        if (iter) % (1000) == 0 and iter > 0 and isdensity:
+            print(f"Iteration {iter}: Removed points' opacity stats -> Max: {max_opacity}, Min: {min_opacity}, Mean: {mean_opacity}, Median: {median_opacity}")
         return loss, psnr,image
     
     def train_iter(self, gt_image,iter,isdensity):

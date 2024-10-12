@@ -92,7 +92,7 @@ class SimpleTrainer2d:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
             if self.isdensity:
-                if early_stopping(loss.item()) and iter>=10000:
+                if early_stopping(loss.item()) and iter>=20000:
                     print(f"Early stopping at iteration {iter}")
                     break
             elif early_stopping(loss.item()):

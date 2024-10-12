@@ -107,7 +107,7 @@ class SimpleTrainer2d:
                     combined_img.paste(img, (img_pos_sca.width, 0))
                     img_list.append(combined_img)
             if self.isdensity:
-                if early_stopping(loss.item()) and iter>=10000:
+                if early_stopping(loss.item()) and iter>=20000:
                     print(f"Early stopping at iteration {iter}")
                     break
             elif early_stopping(loss.item()):
