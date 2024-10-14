@@ -1,141 +1,81 @@
-from pathlib import Path
-from tqdm import tqdm
-import cv2
 import numpy as np
+import cv2
+import os
 
-def path_generate_video(num_frames, data_name, model_name,fps):
-    image_files = []
-    model_path = Path("./result") / data_name / model_name / "img"
-    video_path = Path("./result") / data_name / model_name / "video"
-    video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
+# 参数设置
+width, height = 1920, 1080  # 视频分辨率
+frames = 2  # 每个视频的帧数
 
-    for i in range(1, num_frames + 1):
-        image_files.append(f"{i}_fitting.png")
+# 保存路径
+output_dir_a1 = '/home/e/e1344641/data/UVG/D1'
+output_dir_a2 = '/home/e/e1344641/data/UVG/D2'
+output_dir_a3 = '/home/e/e1344641/data/UVG/D3'
+os.makedirs(output_dir_a1, exist_ok=True)
+os.makedirs(output_dir_a2, exist_ok=True)
+os.makedirs(output_dir_a3, exist_ok=True)
 
-    # Define the output video file name
-    filename = "video.mp4"
+# 定义彩色格子图案
+def generate_color_grid(w, h, block_size=10):
+    image = np.zeros((h, w, 3), dtype=np.uint8)
+    for y in range(0, h, block_size):
+        for x in range(0, w, block_size):
+            color = (np.random.randint(0, 255), np.random.randint(0, 255), np.random.randint(0, 255))
+            image[y:y+block_size, x:x+block_size] = color
+    return image
 
-    # Get the size of the first image dynamically
-    first_image_path = model_path / image_files[0]
-    first_image = cv2.imread(str(first_image_path))
-    height, width, _ = first_image.shape  # Extract the size of the first image
+# 生成视频帧
+def create_frame(even_frame, odd_frame, video_type='D1'):
+    for i in range(1, frames+1):
+        if i % 2 == 0:  # 偶数帧
+            frame = even_frame
+        else:  # 奇数帧
+            frame = odd_frame
 
-    # Create the video writer with the actual image dimensions
-    output_size = (width, height)
-    video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
+        if video_type == 'D1':
+            file_path = os.path.join(output_dir_a1, f'frame_{i:02d}.jpg')
+        elif video_type == 'D2':
+            file_path = os.path.join(output_dir_a2, f'frame_{i:02d}.jpg')
+        else:
+            file_path = os.path.join(output_dir_a3, f'frame_{i:02d}.jpg')
 
-    # Add images to the video writer
-    for image_file in tqdm(image_files, desc="Processing images", unit="image"):
-        image_path = model_path / image_file
-        image = cv2.imread(str(image_path))
+        # 保存为jpg文件
+        cv2.imwrite(file_path, frame)
 
-        if image is None:
-            print(f"Warning: Could not read {image_path}, skipping this image.")
-            continue
-               
-        video.write(image)
-    
-    # Finalize and close the video writer
-    video.release()
-    print("MP4 video created successfully.")
+# 生成 A1 视频的帧
+def generate_a1_frames():
+    # 偶数帧：黑色背景，彩色格子矩形
+    even_frame = np.zeros((height, width, 3), dtype=np.uint8)
+    grid = generate_color_grid(width // 2, height // 2)
+    even_frame[height//4:3*height//4, width//4:3*width//4] = grid
 
-def generate_video(image_list, data_name, model_name,fps,iterations,num_points):
-    video_path = Path(f"./result/{data_name}/{model_name}_{iterations}_{num_points}/video")
-    video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
-    # Define the output video file name
-    filename = "video.mp4"
-    # Get the size of the first image dynamically
-    first_image = image_list[0]
-    width, height = first_image.size  # Extract the size of the first image
-    # Create the video writer with the actual image dimensions
-    output_size = (width, height)
-    video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
-    # Add images to the video writer
-    for img in tqdm(image_list, desc="Processing images", unit="image"):  # Iterate directly over the image_list      
-        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-        video.write(img_cv)
-    # Finalize and close the video writer
-    video.release()
-    print("MP4 video created successfully.")
+    # 奇数帧：彩色背景，黑色矩形
+    odd_frame = generate_color_grid(width, height)
+    cv2.rectangle(odd_frame, (width//4, height//4), (3*width//4, 3*height//4), (0, 0, 0), -1)
 
-def generate_video_pos(image_list, data_name, model_name,fps,iterations,num_points,origin):
-    video_path = Path(f"./result_pos/{data_name}/{model_name}_{iterations}_{num_points}/video")
-    video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
-    # Define the output video file name
-    if origin:
-        filename = "video.mp4"
-    else:
-        filename = "combined_video.mp4"
-    # Get the size of the first image dynamically
-    first_image = image_list[0]
-    width, height = first_image.size  # Extract the size of the first image
-    # Create the video writer with the actual image dimensions
-    output_size = (width, height)
-    video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
-    # Add images to the video writer
-    for img in tqdm(image_list, desc="Processing images", unit="image"):  # Iterate directly over the image_list      
-        if img.mode != 'RGB':
-            img = img.convert('RGB')
-        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-        video.write(img_cv)
-    # Finalize and close the video writer
-    video.release()
-    if origin:
-        print("video.mp4: MP4 video created successfully.")
-    else:
-        print("combined_video.mp4: MP4 video created successfully.")
+    create_frame(even_frame, odd_frame, video_type='D1')
 
-def generate_video_I(image_list, data_name, model_name,fps,iterations,num_points):
-    video_path = Path(f"./result_I/{data_name}/{model_name}_{iterations}_{num_points}/video")
-    video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
-    # Define the output video file name
-    filename = "video.mp4"
-    # Get the size of the first image dynamically
-    first_image = image_list[0]
-    width, height = first_image.size  # Extract the size of the first image
-    # Create the video writer with the actual image dimensions
-    output_size = (width, height)
-    video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
-    # Add images to the video writer
-    for img in tqdm(image_list, desc="Processing images", unit="image"):  # Iterate directly over the image_list      
-        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-        video.write(img_cv)
-    # Finalize and close the video writer
-    video.release()
-    print("MP4 video created successfully.")
+# 生成 A2 视频的帧
+def generate_a2_frames():
+    # 奇数帧：黑色背景，彩色格子矩形
+    odd_frame = np.zeros((height, width, 3), dtype=np.uint8)
+    grid = generate_color_grid(width // 2, height // 2)
+    odd_frame[height//4:3*height//4, width//4:3*width//4] = grid
 
-def generate_video_pos_density(image_list, data_name, model_name,fps,iterations,num_points,origin):
-    video_path = Path(f"./result_pos_density/{data_name}/{model_name}_{iterations}_{num_points}/video")
-    video_path.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
-    # Define the output video file name
-    if origin:
-        filename = "video.mp4"
-    else:
-        filename = "combined_video.mp4"
-    # Get the size of the first image dynamically
-    first_image = image_list[0]
-    width, height = first_image.size  # Extract the size of the first image
-    # Create the video writer with the actual image dimensions
-    output_size = (width, height)
-    video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
-    # Add images to the video writer
-    for img in tqdm(image_list, desc="Processing images", unit="image"):  # Iterate directly over the image_list      
-        if img.mode != 'RGB':
-            img = img.convert('RGB')
-        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-        video.write(img_cv)
-    # Finalize and close the video writer
-    video.release()
-    if origin:
-        print("video.mp4: MP4 video created successfully.")
-    else:
-        print("combined_video.mp4: MP4 video created successfully.")
+    # 偶数帧：彩色背景，黑色矩形
+    even_frame = generate_color_grid(width, height)
+    cv2.rectangle(even_frame, (width//4, height//4), (3*width//4, 3*height//4), (0, 0, 0), -1)
 
-if __name__ == "__main__":
-    num_frames = 120
-    data_name = "Beauty"
-    model_name = "GaussianImage_Cholesky"
-    fps=24
-    path_generate_video(num_frames, data_name, model_name,fps)
+    create_frame(even_frame, odd_frame, video_type='D2')
 
+# 生成 A3 视频的帧 (全屏彩色格子)
+def generate_a3_frames():
+    # 偶数帧和奇数帧都为全屏的彩色格子
+    even_frame = generate_color_grid(width, height)
+    odd_frame = generate_color_grid(width, height)
 
+    create_frame(even_frame, odd_frame, video_type='D3')
+
+# 生成并保存为jpg文件
+generate_a1_frames()
+generate_a2_frames()
+generate_a3_frames()
