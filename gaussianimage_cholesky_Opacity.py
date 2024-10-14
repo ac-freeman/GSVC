@@ -28,7 +28,8 @@ class GaussianImage_Cholesky(nn.Module):
         self._xyz = nn.Parameter(torch.atanh(2 * (torch.rand(self.init_num_points, 2) - 0.5)))
         self._cholesky = nn.Parameter(torch.rand(self.init_num_points, 3))
         # self._opacity = nn.Parameter(torch.ones(self.init_num_points, 1))
-        self._opacity = nn.Parameter(0.01 * torch.ones(self.init_num_points, 1))
+        # self._opacity = nn.Parameter(0.01 * torch.ones(self.init_num_points, 1))
+        self.rgb_W = nn.Parameter(0.01 * torch.ones(self.init_num_points, 1))
         #self.register_buffer('_opacity', torch.ones((self.init_num_points, 1)))
         self._features_dc = nn.Parameter(torch.rand(self.init_num_points, 3))
         self.last_size = (self.H, self.W)
@@ -45,8 +46,6 @@ class GaussianImage_Cholesky(nn.Module):
         else:
             self.optimizer = Adan(self.parameters(), lr=kwargs["lr"])
         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
-        self.opacity_activation = torch.sigmoid
-        self.features_dc_activation = torch.sigmoid
     def _init_data(self):
         self.cholesky_quantizer._init_data(self._cholesky)
 
@@ -56,14 +55,14 @@ class GaussianImage_Cholesky(nn.Module):
     
     @property
     def get_features(self):
-        return self.features_dc_activation(self._features_dc)*self.get_opacity
+        return self.rgb_activation(self._features_dc)*self.rgb_W
     
     # @property
     # def get_opacity(self):
     #     return self._opacity
     @property
-    def get_opacity(self):
-        return self.opacity_activation(self._opacity)
+    def rgb_W(self):
+        return self.rgb_W
 
     @property
     def get_cholesky_elements(self):
@@ -123,7 +122,7 @@ class GaussianImage_Cholesky(nn.Module):
             self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
             self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
             self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-            self._opacity = torch.nn.Parameter(self._opacity[keep_indices])
+            self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])
         elif iter == iter_threshold_remove:
             # 训练早期：只执行删除操作，减少总的高斯点数量
             remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
@@ -137,7 +136,7 @@ class GaussianImage_Cholesky(nn.Module):
                 self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
                 self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
                 self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-                self._opacity = torch.nn.Parameter(self._opacity[keep_indices])
+                self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])
         # 更新优化器中的参数
         self.update_optimizer()
 
@@ -145,8 +144,8 @@ class GaussianImage_Cholesky(nn.Module):
         iter_threshold_remove =4000  # 根据训练计划调整这个阈值
         if iter>strat_iter_adaptive_control+iter_threshold_remove:
             return
-        opacity = self._opacity
-        grad_magnitude =torch.norm(opacity, dim=1)
+        rgb_weight = self.rgb_W
+        grad_magnitude =torch.norm(rgb_weight, dim=1)
         _, sorted_indices = torch.sort(grad_magnitude)
         removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval))
         if iter < strat_iter_adaptive_control+iter_threshold_remove:
@@ -161,7 +160,7 @@ class GaussianImage_Cholesky(nn.Module):
             self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
             self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
             self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-            self._opacity = torch.nn.Parameter(self._opacity[keep_indices])
+            self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])
             # if iter%3000==0:
             #     self._opacity = torch.nn.Parameter(0.01 * torch.ones_like(self._opacity))
         elif iter == strat_iter_adaptive_control+iter_threshold_remove:
@@ -178,7 +177,7 @@ class GaussianImage_Cholesky(nn.Module):
                 self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
                 self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
                 self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-                self._opacity = torch.nn.Parameter(self._opacity[keep_indices])  
+                self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])  
                 #print(self._xyz.shape[0]) 
         # # 更新优化器中的参数
        

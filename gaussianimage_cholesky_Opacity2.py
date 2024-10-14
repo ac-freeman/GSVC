@@ -45,8 +45,6 @@ class GaussianImage_Cholesky(nn.Module):
         else:
             self.optimizer = Adan(self.parameters(), lr=kwargs["lr"])
         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
-        self.opacity_activation = torch.sigmoid
-        self.features_dc_activation = torch.sigmoid
     def _init_data(self):
         self.cholesky_quantizer._init_data(self._cholesky)
 
@@ -59,7 +57,7 @@ class GaussianImage_Cholesky(nn.Module):
     #     return self._features_dc*self.get_opacity
     @property
     def get_features(self):
-        return self.features_dc_activation(self._features_dc)
+        return self.rgb_activation(self._features_dc)
     
     # @property
     # def get_opacity(self):
