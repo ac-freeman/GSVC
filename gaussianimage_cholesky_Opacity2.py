@@ -46,6 +46,7 @@ class GaussianImage_Cholesky(nn.Module):
             self.optimizer = Adan(self.parameters(), lr=kwargs["lr"])
         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
         self.opacity_activation = torch.sigmoid
+        self.features_dc_activation = torch.sigmoid
     def _init_data(self):
         self.cholesky_quantizer._init_data(self._cholesky)
 
@@ -53,9 +54,12 @@ class GaussianImage_Cholesky(nn.Module):
     def get_xyz(self):
         return torch.tanh(self._xyz)
     
+    # @property
+    # def get_features(self):
+    #     return self._features_dc*self.get_opacity
     @property
     def get_features(self):
-        return self._features_dc*self.get_opacity
+        return self.features_dc_activation(self._features_dc)
     
     # @property
     # def get_opacity(self):
@@ -79,10 +83,10 @@ class GaussianImage_Cholesky(nn.Module):
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render_pos_sca": out_img}
     def forward(self):
-        _opacity = torch.ones(self._xyz.shape[0], 1).to(self.device)
+        # _opacity = torch.ones(self._xyz.shape[0], 1).to(self.device)
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
-                self.get_features, _opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
+                self.get_features, self.get_opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
         out_img = torch.clamp(out_img, 0, 1) #[H, W, 3]
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render": out_img}
