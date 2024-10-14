@@ -55,13 +55,13 @@ class GaussianImage_Cholesky(nn.Module):
     
     @property
     def get_features(self):
-        return self.rgb_activation(self._features_dc)*self.rgb_W
+        return self.rgb_activation(self._features_dc)*self.get_rgb_W
     
     # @property
     # def get_opacity(self):
     #     return self._opacity
     @property
-    def rgb_W(self):
+    def get_rgb_W(self):
         return self.rgb_W
 
     @property
