@@ -79,6 +79,7 @@ class SimpleTrainer2d:
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
+        early_stopping_relax = EarlyStopping(patience=100, min_delta=1e-2)
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-3)
         density_control=5000
@@ -96,7 +97,7 @@ class SimpleTrainer2d:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
             if self.isdensity:
-                if early_stopping(loss.item()):
+                if early_stopping_relax(loss.item()):
                     start_adaptivecontrol=True
                 if start_adaptivecontrol:
                     density_control=density_control-1

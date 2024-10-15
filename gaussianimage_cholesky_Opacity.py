@@ -143,7 +143,7 @@ class GaussianImage_Cholesky(nn.Module):
         self.update_optimizer()
 
     def density_control_Opacity(self, iter,strat_iter_adaptive_control):
-        iter_threshold_remove =1000  # 根据训练计划调整这个阈值
+        iter_threshold_remove =4000  # 根据训练计划调整这个阈值
         if iter>strat_iter_adaptive_control+iter_threshold_remove:
             return
         opacity = self._opacity
