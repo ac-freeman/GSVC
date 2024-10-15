@@ -34,8 +34,7 @@ class SimpleTrainer2d:
         self.device = torch.device("cuda:0")
         self.eimage = extend_image(image)
         self.isclip = isclip
-        if self.isclip:
-            self.gt_eimage = image_to_tensor(self.eimage).to(self.device)
+        self.gt_eimage = image_to_tensor(self.eimage).to(self.device)
         self.gt_image = image_to_tensor(image).to(self.device)
         self.frame_num=frame_num
         self.num_points = num_points
