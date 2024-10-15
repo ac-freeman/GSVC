@@ -18,7 +18,7 @@ datasets=(
 
 # Define additional parameters
 savdir="result_density_rgbW"
-savdir_m="models_Opacity"
+savdir_m="models_density_rgbW"
 is_pos=False
 is_warmup=False
 is_ad=True
@@ -28,7 +28,7 @@ for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
   # for num_points in 4000 6000 8000 10000 20000 30000 40000 50000 60000 70000; do
-  for num_points in 27000 36000 45000 ; do
+  for num_points in 30000 40000 50000 ; do
     for iterations in 100000; do
       pos_flag=""
       warmup_flag=""
