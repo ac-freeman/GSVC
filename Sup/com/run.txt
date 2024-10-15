@@ -11,4 +11,8 @@ python train_video.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/HoneyBe
 python train_video_Draw.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --data_name HoneyBee --num_points 30000 --iterations 100000 --savdir test1 --savdir_m test1  --is_ad --is_clip
 python train_video_ff.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --data_name HoneyBee --num_points 30000 --iterations 100000 --savdir test1 --savdir_m test1  --is_ad --is_clip
 
-python train_video_ff_Opacity.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --data_name HoneyBee --num_points 30000 --iterations 100000 --savdir test1 --savdir_m test1  --is_ad
+python train_video_rgbW.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --data_name HoneyBee --num_points 30000 --iterations 100000 --savdir test1 --savdir_m test1  --is_ad
+
+python train_video_rgbW.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Jockey --num_points 30000 --iterations 100000 --savdir test1 --savdir_m test1  --is_ad
+
+python train_video_rgbW.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 30000 --iterations 100000 --savdir test1 --savdir_m test1  --is_ad
