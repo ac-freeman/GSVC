@@ -17,8 +17,8 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_density_rgbW"
-savdir_m="models_density_rgbW"
+savdir="result_density_rgbW2"
+savdir_m="models_density_rgbW2"
 is_pos=False
 is_warmup=False
 is_ad=True

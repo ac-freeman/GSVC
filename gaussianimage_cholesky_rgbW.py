@@ -145,8 +145,8 @@ class GaussianImage_Cholesky(nn.Module):
         if iter>strat_iter_adaptive_control+iter_threshold_remove:
             return
         rgb_weight = self.rgb_W
-        grad_magnitude =torch.norm(rgb_weight, dim=1)
-        _, sorted_indices = torch.sort(grad_magnitude)
+        # grad_magnitude =torch.norm(rgb_weight, dim=1)
+        _, sorted_indices = torch.sort(rgb_weight)
         removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval))
         if iter < strat_iter_adaptive_control+iter_threshold_remove:
             remove_count = int(removal_rate_per_step * self.max_num_points)
