@@ -81,7 +81,7 @@ class SimpleTrainer2d:
         start_time = time.time()
         early_stopping_relax = EarlyStopping(patience=100, min_delta=1e-2)
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
-        early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-3)
+        early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-4)
         density_control=5000
         strat_iter_adaptive_control=0
         start_adaptivecontrol=False
@@ -103,7 +103,7 @@ class SimpleTrainer2d:
                     density_control=density_control-1
                     if density_control==0:
                         print(f"End ad at iteration {iter}")
-                    if density_control<0 and early_stopping(loss.item()):
+                    if density_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
                         print(f"After adaptive control: Early stopping at iteration {iter},{self.gaussian_model._xyz.size(0)}")
                         break
                 else:
