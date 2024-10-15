@@ -103,7 +103,7 @@ class SimpleTrainer2d:
                     if density_control==0:
                         print(f"End ad at iteration {iter}")
                     if density_control<0 and early_stopping(loss.item()):
-                        print(f"After adaptive control: Early stopping at iteration {iter}")
+                        print(f"After adaptive control: Early stopping at iteration {iter},{self.gaussian_model._xyz.size(0)}")
                         break
                 else:
                     strat_iter_adaptive_control=strat_iter_adaptive_control+1
