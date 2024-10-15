@@ -97,8 +97,8 @@ class SimpleTrainer2d:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
             if self.isdensity:
-                if early_stopping_relax(loss.item()):
-                    start_adaptivecontrol=True
+                # if early_stopping_relax(loss.item()):
+                start_adaptivecontrol=True
                 if start_adaptivecontrol:
                     density_control=density_control-1
                     if density_control==0:
