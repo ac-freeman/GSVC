@@ -53,7 +53,7 @@ class SimpleTrainer2d:
         self.isdensity=isdensity
         self.loss_type = loss_type
         if model_name == "GaussianImage_Cholesky":
-            from gaussianimage_cholesky_rgbW import GaussianImage_Cholesky
+            from gaussianimage_cholesky_Combine import GaussianImage_Cholesky
             if self.isclip:
                 self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.eH, W=self.eW, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate).to(self.device)
@@ -82,14 +82,14 @@ class SimpleTrainer2d:
         early_stopping_relax = EarlyStopping(patience=100, min_delta=1e-2)
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-4)
-        density_control=8000
+        density_control=5000
         strat_iter_adaptive_control=0
         start_adaptivecontrol=False
         for iter in range(1, int(self.iterations)+1):
             if self.isclip:
-                loss, psnr = self.gaussian_model.train_iter_Opacity(self.gt_eimage,iter,start_adaptivecontrol,strat_iter_adaptive_control)
+                loss, psnr = self.gaussian_model.train_iter_Combine(self.gt_eimage,iter,start_adaptivecontrol,strat_iter_adaptive_control)
             else:
-                loss, psnr = self.gaussian_model.train_iter_Opacity(self.gt_image,iter,start_adaptivecontrol,strat_iter_adaptive_control)
+                loss, psnr = self.gaussian_model.train_iter_Combine(self.gt_image,iter,start_adaptivecontrol,strat_iter_adaptive_control)
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
@@ -97,13 +97,13 @@ class SimpleTrainer2d:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
             if self.isdensity:
-                if early_stopping_relax(loss.item()):
-                    start_adaptivecontrol=True
+                # if early_stopping_relax(loss.item()):
+                start_adaptivecontrol=True
                 if start_adaptivecontrol:
                     density_control=density_control-1
                     if density_control==0:
                         print(f"End ad at iteration {iter}")
-                    if density_control<0 and early_stopping(loss.item()):
+                    if density_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
                         print(f"After adaptive control: Early stopping at iteration {iter},{self.gaussian_model._xyz.size(0)}")
                         break
                 else:
@@ -230,7 +230,7 @@ def parse_args(argv):
     parser.add_argument("--savdir", type=str, default="result", help="Path to results")
     parser.add_argument("--savdir_m", type=str, default="models", help="Path to models")
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
-    parser.add_argument("--removal_rate", type=float, default=0.025, help="Removal rate")
+    parser.add_argument("--removal_rate", type=float, default=0.1, help="Removal rate")
     parser.add_argument("--save_imgs", action="store_true", help="Save image")
     parser.add_argument("--is_pos", action="store_true", help="Show the position of gaussians")
     parser.add_argument("--is_warmup",action="store_true", help="Warmup setup")
