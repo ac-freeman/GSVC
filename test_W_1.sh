@@ -18,7 +18,7 @@ datasets=(
 
 # Define additional parameters
 savdir="result_rgbW"
-savdir_m="models_Opacity"
+savdir_m="models_rgbW"
 is_pos=False
 is_warmup=False
 is_ad=False
