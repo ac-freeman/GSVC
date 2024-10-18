@@ -190,9 +190,9 @@ class GaussianImage_Cholesky(nn.Module):
             return
         rgb_weight = torch.norm(self.rgb_W, dim=1)
         grad_xyz = torch.norm(self._xyz.grad, dim=1)
-        rgb_weight_normalized = (rgb_weight - rgb_weight.min()) / (rgb_weight.max() - rgb_weight.min())
-        grad_xyz_normalized = (grad_xyz - grad_xyz.min()) / (grad_xyz.max() - grad_xyz.min())
-        importance =rgb_weight_normalized*grad_xyz_normalized
+        # rgb_weight_normalized = (rgb_weight - rgb_weight.min()) / (rgb_weight.max() - rgb_weight.min())
+        # grad_xyz_normalized = (grad_xyz - grad_xyz.min()) / (grad_xyz.max() - grad_xyz.min())
+        importance =rgb_weight*grad_xyz
         _, sorted_indices = torch.sort(importance)
         removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval))
         if iter < strat_iter_adaptive_control+iter_threshold_remove:
