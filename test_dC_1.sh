@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#SBATCH --job-name=test_dW_1    # Job name
+#SBATCH --job-name=test_dC_1    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=24:00:00                 # Time limit hrs:min:sec
 #SBATCH --gres=gpu:a100-40:1
 #SBATCH --mail-type=ALL                 # Get email for all status updates
 #SBATCH --mail-user=wanglongan@comp.nus.edu.sg # Email for notifications
-#SBATCH --mem=16G                    # Request 16GB of memory
+#SBATCH --mem=16G                       # Request 16GB of memory
 # Activate the environment if needed
 source activate torch  # Replace 'torch' with the name of your conda environment
 
