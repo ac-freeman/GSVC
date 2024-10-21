@@ -18,7 +18,6 @@ class SimpleTrainer2d:
     def __init__(
         self,
         image,
-        frame_num,
         savdir,
         loss_type,
         isclip=True,
@@ -36,7 +35,6 @@ class SimpleTrainer2d:
         self.isclip = isclip
         self.gt_eimage = image_to_tensor(self.eimage).to(self.device)
         self.gt_image = image_to_tensor(image).to(self.device)
-        self.frame_num=frame_num
         self.num_points = num_points
         self.max_num_points=num_points
         self.model_name=model_name
@@ -56,10 +54,10 @@ class SimpleTrainer2d:
             from gaussianimage_cholesky_Combine_min import GaussianImage_Cholesky
             if self.isclip:
                 self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.eH, W=self.eW, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
-                device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate,frame_num=self.frame_num).to(self.device)
+                device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate).to(self.device)
             else:
                 self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
-                device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate,frame_num=self.frame_num).to(self.device)
+                device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate).to(self.device)
 
         if model_path is not None:
             print(f"loading model path:{model_path}")
@@ -284,19 +282,19 @@ def main(argv):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
             if iswarmup:
-                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],4),frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
+                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],4),savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
                     iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate,isclip=isclip)
                 _, _, _, _, _, Gmodel, _, num_gaussian_points, _ = trainer.train(i,ispos)
-                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],2),frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
+                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],2),savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
                     iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate,isclip=isclip)
                 _, _, _, _, _, Gmodel, _, num_gaussian_points, _ = trainer.train(i,ispos)
-                trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
+                trainer = SimpleTrainer2d(image=video_frames[i],savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
                     iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate,isclip=isclip)
             else:
-                trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
+                trainer = SimpleTrainer2d(image=video_frames[i],savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
                     iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad,removal_rate=removal_rate,isclip=isclip)
         else:
-            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
+            trainer = SimpleTrainer2d(image=video_frames[i],savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
                 iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate,isclip=isclip)
         psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, img, num_gaussian_points, loss = trainer.train(i,ispos)
         img_list.append(img)
