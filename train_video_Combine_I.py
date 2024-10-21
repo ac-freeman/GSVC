@@ -53,7 +53,7 @@ class SimpleTrainer2d:
         self.isdensity=isdensity
         self.loss_type = loss_type
         if model_name == "GaussianImage_Cholesky":
-            from gaussianimage_cholesky_Combine2 import GaussianImage_Cholesky
+            from gaussianimage_cholesky_Combine_I import GaussianImage_Cholesky
             if self.isclip:
                 self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.eH, W=self.eW, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
                 device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate).to(self.device)
@@ -124,9 +124,10 @@ class SimpleTrainer2d:
         Gmodel =self.gaussian_model.state_dict()
         filtered_Gmodel = {
             k: v for k, v in Gmodel.items()
-            if k in ['_xyz', '_cholesky', '_features_dc','rgb_W']
+            if k in ['_xyz', '_cholesky']
             # if k in ['_xyz', '_cholesky', '_features_dc']
         }
+        filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss
     
     def test(self,frame,num_gaussian_points,ispos):
