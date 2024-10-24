@@ -63,11 +63,8 @@ class GaussianImage_Cholesky(nn.Module):
     @property
     def get_rgb_W(self):
         rgb_W_norm = torch.norm(self.rgb_W, p=2, dim=1, keepdim=True)
-        rgb_min = rgb_W_norm.min()
-        rgb_max = rgb_W_norm.max()
-        rgb_W_norm_normalized = (rgb_W_norm - rgb_min) / (rgb_max - rgb_min)
         # return self.rgbW_activation(self.rgb_W)
-        return rgb_W_norm_normalized
+        return self.rgbW_activation(rgb_W_norm)
 
     @property
     def get_cholesky_elements(self):
