@@ -75,11 +75,11 @@ class SimpleTrainer2d:
             model_dict.update(pretrained_dict)
             self.gaussian_model.load_state_dict(model_dict)
     
-    def print_stats(self,name, array):
-        max_val = np.max(array)
-        mean_val = np.mean(array)
-        median_val = np.median(array)
-        min_val = np.min(array)
+    def print_stats(self,name, tensor):
+        max_val = torch.max(tensor)  # Use PyTorch max
+        mean_val = torch.mean(tensor)  # Use PyTorch mean
+        median_val = torch.median(tensor)  # Use PyTorch median
+        min_val = torch.min(tensor)  # Use PyTorch min
         
         print(f"{name} - Max: {max_val}, Mean: {mean_val}, Median: {median_val}, Min: {min_val}")
 
