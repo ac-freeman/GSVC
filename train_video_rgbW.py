@@ -123,7 +123,7 @@ class SimpleTrainer2d:
             if iter % 1000 == 0:
                 self.print_stats("get_features", self.gaussian_model.get_features)
                 self.print_stats("features_dc", self.gaussian_model.get_features)
-                self.print_stats("rgb_W", self.rgb_W)
+                self.print_stats("rgb_W", self.gaussian_model.rgb_W)
 
         end_time = time.time() - start_time
         progress_bar.close()
