@@ -120,11 +120,11 @@ class SimpleTrainer2d:
             elif early_stopping(loss.item()):
                 print(f"Early stopping at iteration {iter}")
                 break
-            if iter % 1000 == 0:
-                self.print_stats("get_features", self.gaussian_model.get_features[:, 0])
-                self.print_stats("features_dc", self.gaussian_model._features_dc[:, 0])
-                self.print_stats("rgb_W", self.gaussian_model.rgb_W)
-                self.print_stats("get_rgbW", self.gaussian_model.get_rgb_W)
+            # if iter % 1000 == 0:
+                # self.print_stats("get_features", self.gaussian_model.get_features[:, 0])
+                # self.print_stats("features_dc", self.gaussian_model._features_dc[:, 0])
+                # self.print_stats("rgb_W", self.gaussian_model.rgb_W)
+                # self.print_stats("get_rgbW", self.gaussian_model.get_rgb_W)
 
         end_time = time.time() - start_time
         progress_bar.close()
