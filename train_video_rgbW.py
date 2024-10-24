@@ -75,7 +75,7 @@ class SimpleTrainer2d:
             model_dict.update(pretrained_dict)
             self.gaussian_model.load_state_dict(model_dict)
     
-    def print_stats(name, array):
+    def print_stats(self,name, array):
         max_val = np.max(array)
         mean_val = np.mean(array)
         median_val = np.median(array)
@@ -121,9 +121,9 @@ class SimpleTrainer2d:
                 print(f"Early stopping at iteration {iter}")
                 break
             if iter % 1000 == 0:
-                self.print_stats("get_features", self.gaussian_model.get_features)
-                self.print_stats("features_dc", self.gaussian_model.get_features)
-                self.print_stats("rgb_W", self.rgb_W)
+                self.print_stats(self,"get_features", self.gaussian_model.get_features)
+                self.print_stats(self,"features_dc", self.gaussian_model.get_features)
+                self.print_stats(self,"rgb_W", self.rgb_W)
 
         end_time = time.time() - start_time
         progress_bar.close()
