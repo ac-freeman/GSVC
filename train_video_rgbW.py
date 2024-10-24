@@ -74,6 +74,15 @@ class SimpleTrainer2d:
             pretrained_dict = {k: v for k, v in checkpoint.items() if k in model_dict}
             model_dict.update(pretrained_dict)
             self.gaussian_model.load_state_dict(model_dict)
+    
+    def print_stats(name, array):
+        max_val = np.max(array)
+        mean_val = np.mean(array)
+        median_val = np.median(array)
+        min_val = np.min(array)
+        
+        print(f"{name} - Max: {max_val}, Mean: {mean_val}, Median: {median_val}, Min: {min_val}")
+
     def train(self,frame,ispos):     
         psnr_list, iter_list = [], []
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
@@ -111,6 +120,11 @@ class SimpleTrainer2d:
             elif early_stopping(loss.item()):
                 print(f"Early stopping at iteration {iter}")
                 break
+            if iter % 1000 == 0:
+                self.print_stats("get_features", self.gaussian_model.get_features)
+                self.print_stats("features_dc", self.gaussian_model.get_features)
+                self.print_stats("rgb_W", self.rgb_W)
+
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
