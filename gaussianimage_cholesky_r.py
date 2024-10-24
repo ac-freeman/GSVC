@@ -60,7 +60,7 @@ class GaussianImage_Cholesky(nn.Module):
     #     return self._opacity
     @property
     def get_rgb_W(self):
-        torch.clamp(self.rgb_W, min=0.0, max=1.0)
+        return torch.clamp(self.rgb_W, min=0.0, max=1.0)
     # def get_rgb_W(self):
     #     return self.rgbW_activation(self.rgb_W)
 
