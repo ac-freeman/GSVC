@@ -4,7 +4,7 @@
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=24:00:00                 # Time limit hrs:min:sec
-#SBATCH --gres=gpu:h100-47:1
+#SBATCH --gres=gpu:a100-40:1
 #SBATCH --mail-type=ALL                 # Get email for all status updates
 #SBATCH --mail-user=wanglongan@comp.nus.edu.sg # Email for notifications
 #SBATCH --mem=16G                       # Request 16GB of memory
@@ -25,7 +25,7 @@ loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 30000 40000 50000; do
+  for num_points in 27000 36000 45000; do
     for iterations in 100000; do
       pos_flag=""
       ad_flag=""
@@ -41,7 +41,7 @@ for dataset in "${datasets[@]}"; do
       fi
 
       # Run the training script for each dataset with additional parameters
-      srun python train_video_r.py --loss_type $loss_type --dataset $dataset_path \
+      srun python train_video_rgbW.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
         $pos_flag $ad_flag 
