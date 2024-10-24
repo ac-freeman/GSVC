@@ -17,12 +17,10 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_density_rgbW2"
-savdir_m="models_density_rgbW2"
+savdir="result_density_rgbW"
+savdir_m="models_density_rgbW"
 is_pos=False
-is_warmup=False
 is_ad=True
-is_clip=False
 loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
@@ -30,31 +28,23 @@ for dataset in "${datasets[@]}"; do
   for num_points in 30000 40000 50000; do
     for iterations in 100000; do
       pos_flag=""
-      warmup_flag=""
       ad_flag=""
-      clip_flag=""
 
       # 检查布尔值并构建相应的命令行参数
       if [ "$is_pos" = True ]; then
         pos_flag="--is_pos"
       fi
 
-      if [ "$is_warmup" = True ]; then
-        warmup_flag="--is_warmup"
-      fi
 
       if [ "$is_ad" = True ]; then
         ad_flag="--is_ad"
       fi
 
-      if [ "$is_clip" = True ]; then
-        clip_flag="--is_clip"
-      fi
       # Run the training script for each dataset with additional parameters
-      srun python train_video_rgbW.py --loss_type $loss_type --dataset $dataset_path \
+      srun python train_video_r.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
-        $pos_flag $warmup_flag $ad_flag $clip_flag
+        $pos_flag $ad_flag 
     done
   done
 done

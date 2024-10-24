@@ -13,14 +13,14 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 
 # Define datasets and their corresponding names
 datasets=(
-  "/home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv HoneyBee"
+  "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
 )
 
 # Define additional parameters
-savdir="result_density_rgbW"
-savdir_m="models_density_rgbW"
+savdir="result_rgbW"
+savdir_m="models_rgbW"
 is_pos=False
-is_ad=True
+is_ad=False
 loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)

@@ -61,8 +61,10 @@ class GaussianImage_Cholesky(nn.Module):
     # def get_opacity(self):
     #     return self._opacity
     @property
+    # def get_rgb_W(self):
+    #     return self.rgbW_activation(self.rgb_W)
     def get_rgb_W(self):
-        return self.rgbW_activation(self.rgb_W)
+        torch.clamp(self.rgb_W, min=0.0, max=1.0)
 
     @property
     def get_cholesky_elements(self):
@@ -146,7 +148,7 @@ class GaussianImage_Cholesky(nn.Module):
             return
         # rgb_weight = torch.norm(self.rgb_W, dim=1)
         # grad_magnitude =torch.norm(rgb_weight, dim=1)
-        rgb_weight = self.get_rgb_W.squeeze()
+        rgb_weight = self.rgb_W.squeeze(1)
         _, sorted_indices = torch.sort(rgb_weight)
         removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval))
         if iter < strat_iter_adaptive_control+iter_threshold_remove:
