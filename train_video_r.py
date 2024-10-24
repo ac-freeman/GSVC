@@ -74,10 +74,7 @@ class SimpleTrainer2d:
         strat_iter_adaptive_control=0
         start_adaptivecontrol=False
         for iter in range(1, int(self.iterations)+1):
-            if self.isclip:
-                loss, psnr = self.gaussian_model.train_iter(self.gt_eimage,iter,start_adaptivecontrol,strat_iter_adaptive_control)
-            else:
-                loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter,start_adaptivecontrol,strat_iter_adaptive_control)
+            loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter,start_adaptivecontrol,strat_iter_adaptive_control)
             psnr_list.append(psnr)
             iter_list.append(iter)
             with torch.no_grad():
