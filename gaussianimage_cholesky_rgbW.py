@@ -67,7 +67,7 @@ class GaussianImage_Cholesky(nn.Module):
         # return self.rgbW_activation(rgb_W_norm)
         # normalized_rgb_W = (rgb_W_norm - rgb_W_norm.min()) / (rgb_W_norm.max() - rgb_W_norm.min() + 1e-8)
         clip_rgb_W = rgb_W_norm.clip(0, 1)
-        
+
         return clip_rgb_W
 
     @property
@@ -102,7 +102,7 @@ class GaussianImage_Cholesky(nn.Module):
         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
 
     def density_control(self, iter):
-        iter_threshold_remove = 4000  # 根据训练计划调整这个阈值
+        iter_threshold_remove = 3000  # 根据训练计划调整这个阈值
         if iter > iter_threshold_remove:
             return
         grad_xyz = self._xyz.grad
