@@ -179,7 +179,7 @@ class GaussianImage_Cholesky(nn.Module):
             remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
             new_features_dc  = self._features_dc*self.rgb_W
             # self.rgb_W = self.rgb_W.detach()
-            self._features_dc = new_features_dc.detach()
+            # self._features_dc = new_features_dc.detach()
             self.rgb_W.data.fill_(1)
             #print(remove_count,self._xyz.shape[0])
             if remove_count>0:
@@ -191,7 +191,7 @@ class GaussianImage_Cholesky(nn.Module):
 
                 self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
                 self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
-                self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
+                self._features_dc = torch.nn.Parameter(new_features_dc[keep_indices])
                 self.rgb_W=self.rgb_W[keep_indices]
                 # self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])  
                 #print(self._xyz.shape[0]) 
