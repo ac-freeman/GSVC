@@ -181,7 +181,7 @@ class GaussianImage_Cholesky(nn.Module):
             del self.rgb_W 
             # self.rgb_W = self.rgb_W.detach()
             # self._features_dc = new_features_dc.detach()
-            self.rgb_W.data.fill_(1)
+            self.rgb_W = torch.ones_like(new_features_dc, device=new_features_dc.device) 
             #print(remove_count,self._xyz.shape[0])
             if remove_count>0:
                 remove_indices = sorted_indices[:remove_count]
