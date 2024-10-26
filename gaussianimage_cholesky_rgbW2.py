@@ -190,7 +190,8 @@ class GaussianImage_Cholesky(nn.Module):
                 self.rgb_W = self.rgb_W[keep_indices]
                 self._features_dc = self._features_dc[keep_indices]
                 self._features_dc = torch.nn.Parameter(self.get_features)
-                self.rgb_W[:] = 1
+                self.rgb_W.data.fill_(1)
+                self.rgb_W = self.rgb_W.detach()
                 # self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])  
                 #print(self._xyz.shape[0]) 
         # # 更新优化器中的参数
