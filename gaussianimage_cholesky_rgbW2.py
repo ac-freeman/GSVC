@@ -29,7 +29,11 @@ class GaussianImage_Cholesky(nn.Module):
         self._cholesky = nn.Parameter(torch.rand(self.init_num_points, 3))
         # self._opacity = nn.Parameter(torch.ones(self.init_num_points, 1))
         # self._opacity = nn.Parameter(0.01 * torch.ones(self.init_num_points, 1))
-        self.rgb_W = nn.Parameter(0.01 * torch.ones(self.init_num_points, 1))
+        self.isdensity=kwargs["isdensity"]
+        if self.isdensity:
+            self.rgb_W = nn.Parameter(0.01 * torch.ones(self.init_num_points, 1))
+        else:
+            self.register_buffer('rgb_W', torch.ones((self.init_num_points, 1)))
         #self.register_buffer('_opacity', torch.ones((self.init_num_points, 1)))
         self._features_dc = nn.Parameter(torch.rand(self.init_num_points, 3))
         self.last_size = (self.H, self.W)
@@ -186,6 +190,7 @@ class GaussianImage_Cholesky(nn.Module):
                 self.rgb_W = self.rgb_W[keep_indices]
                 self._features_dc = self._features_dc[keep_indices]
                 self._features_dc = torch.nn.Parameter(self.get_features)
+                self.rgb_W[:] = 1
                 # self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])  
                 #print(self._xyz.shape[0]) 
         # # 更新优化器中的参数
