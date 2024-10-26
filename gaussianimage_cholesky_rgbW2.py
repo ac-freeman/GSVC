@@ -33,7 +33,7 @@ class GaussianImage_Cholesky(nn.Module):
         if self.isdensity:
             self.rgb_W = nn.Parameter(0.01 * torch.ones(self.init_num_points, 1))
         else:
-            self.register_buffer('rgb_W', torch.ones((self.init_num_points, 1)))
+           self.register_buffer('rgb_W', torch.ones((self.init_num_points, 1))) 
         #self.register_buffer('_opacity', torch.ones((self.init_num_points, 1)))
         self._features_dc = nn.Parameter(torch.rand(self.init_num_points, 3))
         self.last_size = (self.H, self.W)
@@ -174,28 +174,6 @@ class GaussianImage_Cholesky(nn.Module):
             self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])
             # if iter%3000==0:
             #     self._opacity = torch.nn.Parameter(0.01 * torch.ones_like(self._opacity))
-        # elif iter == strat_iter_adaptive_control+iter_threshold_remove:
-        #     # 训练早期：只执行删除操作，减少总的高斯点数量
-        #     remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
-        #     new_features_dc  = self._features_dc*self.rgb_W
-        #     del self.rgb_W 
-        #     # self.rgb_W = self.rgb_W.detach()
-        #     # self._features_dc = new_features_dc.detach()
-        #     self.rgb_W = torch.ones_like(new_features_dc, device=new_features_dc.device) 
-        #     #print(remove_count,self._xyz.shape[0])
-        #     if remove_count>0:
-        #         remove_indices = sorted_indices[:remove_count]
-
-        #         # 删除选定的点
-        #         keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
-        #         keep_indices[remove_indices] = False
-
-        #         self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
-        #         self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
-        #         self._features_dc = torch.nn.Parameter(new_features_dc[keep_indices])
-        #         self.rgb_W=self.rgb_W[keep_indices]
-        #         # self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])  
-        #         #print(self._xyz.shape[0]) 
         elif iter == strat_iter_adaptive_control+iter_threshold_remove:
             # 训练早期：只执行删除操作，减少总的高斯点数量
             remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
@@ -211,6 +189,7 @@ class GaussianImage_Cholesky(nn.Module):
                 self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
                 self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
                 self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])  
+                #print(self._xyz.shape[0]) 
         # # 更新优化器中的参数
        
         self.update_optimizer()
