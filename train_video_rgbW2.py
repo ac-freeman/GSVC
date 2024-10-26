@@ -137,11 +137,17 @@ class SimpleTrainer2d:
                 _ = self.gaussian_model()
             test_end_time = (time.time() - test_start_time)/100       
         Gmodel =self.gaussian_model.state_dict()
+        # filtered_Gmodel = {
+        #     k: v for k, v in Gmodel.items()
+        #     # if k in ['_xyz', '_cholesky', '_features_dc','rgb_W']
+        #     if k in ['_xyz', '_cholesky', '_features_dc']
+        # }
         filtered_Gmodel = {
             k: v for k, v in Gmodel.items()
-            # if k in ['_xyz', '_cholesky', '_features_dc','rgb_W']
-            if k in ['_xyz', '_cholesky', '_features_dc']
+            if k in ['_xyz', '_cholesky']
+            # if k in ['_xyz', '_cholesky', '_features_dc']
         }
+        filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss
     
     def test(self,frame,num_gaussian_points,ispos):
