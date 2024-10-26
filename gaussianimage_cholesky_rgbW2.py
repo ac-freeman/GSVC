@@ -177,8 +177,9 @@ class GaussianImage_Cholesky(nn.Module):
         elif iter == strat_iter_adaptive_control+iter_threshold_remove:
             # 训练早期：只执行删除操作，减少总的高斯点数量
             remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
-            self._features_dc = self._features_dc*self.rgb_W
+            new_features_dc  = self._features_dc*self.rgb_W
             self.rgb_W = self.rgb_W.detach()
+            self._features_dc = new_features_dc.detach()
             self.rgb_W.data.fill_(1)
             #print(remove_count,self._xyz.shape[0])
             if remove_count>0:
