@@ -62,11 +62,11 @@ class GaussianImage_Cholesky(nn.Module):
     #     return self._opacity
     @property
     def get_rgb_W(self):
-        rgb_W_norm = torch.norm(self.rgb_W, p=2, dim=1, keepdim=True)
+        # rgb_W_norm = torch.norm(self.rgb_W, p=2, dim=1, keepdim=True)
         # return self.rgbW_activation(self.rgb_W)
         # return self.rgbW_activation(rgb_W_norm)
         # normalized_rgb_W = (rgb_W_norm - rgb_W_norm.min()) / (rgb_W_norm.max() - rgb_W_norm.min() + 1e-8)
-        clip_rgb_W = rgb_W_norm.clip(0, 1)
+        clip_rgb_W = self.rgb_W.clip(0, 1)
 
         return clip_rgb_W
 
