@@ -17,10 +17,10 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_rgbW"
-savdir_m="models_rgbW"
+savdir="result_rgbW2"
+savdir_m="models_rgbW2"
 is_pos=False
-is_ad=False
+is_ad=True
 loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
