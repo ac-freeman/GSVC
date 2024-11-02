@@ -14,6 +14,6 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 dataset_path="/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv"
 model_path="/home/e/e1344641/GaussianVideo/models/Models/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth"
 data_name="Beauty"
-num_points=30000
+num_points=27000
 savdir="test"
 srun python loadmodel.py --dataset $dataset_path --data_name $data_name --num_points $num_points --savdir $savdir --model_path $model_path

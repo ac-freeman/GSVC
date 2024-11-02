@@ -137,7 +137,11 @@ def main(argv):
         ms_ssims.append(ms_ssim)
         eval_fpses.append(eval_fps)
         torch.cuda.empty_cache()
-        logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, FPS:{:.4f}".format(frame_num, Gaussianframe.H, Gaussianframe.W, psnr, ms_ssim, eval_fps))
+        # logwriter.write(
+        #         "Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, FPS:{:.4f}\n".format(
+        #             frame_num, Gaussianframe.H, Gaussianframe.W, psnr, ms_ssim, eval_fps
+        #         )
+        #     )
     file_size = os.path.getsize(model_path)
     avg_psnr = torch.tensor(psnrs).mean().item()
     avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
