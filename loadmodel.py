@@ -126,7 +126,7 @@ def main(argv):
     img_list=[]
     print(f"loading model path:{model_path}")
     gmodels_state_dict = torch.load(model_path,map_location=device)
-    for i in range(start, start+image_length):
+    for i in tqdm(range(start, start + image_length), desc="Processing Frames"):
         frame_num=i+1
         modelid=f"frame_{i + 1}"
         Model = gmodels_state_dict[modelid]
@@ -137,8 +137,7 @@ def main(argv):
         ms_ssims.append(ms_ssim)
         eval_fpses.append(eval_fps)
         torch.cuda.empty_cache()
-        if i==0 or (i+1)%1==0:
-            logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, FPS:{:.4f}".format(frame_num, Gaussianframe.H, Gaussianframe.W, psnr, ms_ssim, eval_fps))
+        logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, FPS:{:.4f}".format(frame_num, Gaussianframe.H, Gaussianframe.W, psnr, ms_ssim, eval_fps))
     file_size = os.path.getsize(model_path)
     avg_psnr = torch.tensor(psnrs).mean().item()
     avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
