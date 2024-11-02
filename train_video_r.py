@@ -94,7 +94,7 @@ class SimpleTrainer2d:
                 start_adaptivecontrol=True
                 if start_adaptivecontrol:
                     density_control=density_control-1
-                    if density_control<0 and early_stopping(loss.item()):
+                    if density_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
                         break
                 else:
                     strat_iter_adaptive_control=strat_iter_adaptive_control+1
