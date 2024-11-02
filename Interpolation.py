@@ -130,7 +130,7 @@ def main(argv):
     destroied_gmodels_state_dict = {}
     restored_gmodels_state_dict = {}
     num_frames = len(gmodels_state_dict)
-    
+    destroied_gmodels_frame=0
     for i in tqdm(range(start, start + num_frames), desc="Generate destroied video"):
          if i==0 or i%step==0:
             destroied_gmodels_frame+=1
