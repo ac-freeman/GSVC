@@ -193,13 +193,12 @@ def main(argv):
     print(f"loading model path:{model_path}")
     gmodels_state_dict = torch.load(model_path,map_location=device)
     for i in tqdm(range(start, start + image_length), desc="Processing Frames"):
-        if i==0 or i%step==0:
-            modelid=f"frame_{i + 1}"
-            Model = gmodels_state_dict[modelid]
-            Gaussianframe = LoadGaussians(num_points=num_points,image=video_frames[i], Model=Model,device=device,args=args)
-            img = Gaussianframe.render()
-            img_list.append(img)
-            torch.cuda.empty_cache()
+        modelid=f"frame_{i + 1}"
+        Model = gmodels_state_dict[modelid]
+        Gaussianframe = LoadGaussians(num_points=num_points,image=video_frames[i], Model=Model,device=device,args=args)
+        img = Gaussianframe.render()
+        img_list.append(img)
+        torch.cuda.empty_cache()
 
     video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)
