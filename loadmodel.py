@@ -96,7 +96,6 @@ def parse_args(argv):
     parser.add_argument(
         "--height", type=int, default=1080, help="height (default: %(default)s)"
     )
-    parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
     parser.add_argument("--savdir", type=str, default="result", help="Path to results")
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
     args = parser.parse_args(argv)
