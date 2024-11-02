@@ -125,16 +125,18 @@ def main(argv):
     start=0
     img_list=[]
     gmodels_state_dict = torch.load(model_path,map_location=device)
-    destroied_gmodels_state_dict = {}
+    # destroied_gmodels_state_dict = {}
     restored_gmodels_state_dict = {}
     # num_frames = len(gmodels_state_dict)
     num_frames=50
-    destroied_gmodels_frame=0
-    for i in tqdm(range(start, start + num_frames), desc="Generate destroied video"):
-         if i==0 or i%step==0:
-            destroied_gmodels_frame+=1
-            modelid=i + 1
-            destroied_gmodels_state_dict[f"frame_{destroied_gmodels_frame}"] = gmodels_state_dict[f"frame_{modelid}"] 
+
+
+    # destroied_gmodels_frame=0
+    # for i in tqdm(range(start, start + num_frames), desc="Generate destroied video"):
+    #      if i==0 or i%step==0:
+    #         destroied_gmodels_frame+=1
+    #         modelid=i + 1
+    #         destroied_gmodels_state_dict[f"frame_{destroied_gmodels_frame}"] = gmodels_state_dict[f"frame_{modelid}"] 
 
     
     # #Interpolate
@@ -180,15 +182,18 @@ def main(argv):
     # # 将最后一个损坏帧直接添加到恢复字典中
     # restored_gmodels_state_dict[f"frame_{frame_index+1}"] = destroied_gmodels_state_dict[f"frame_{num_destroied_frames}"]
     
-    num_destroied_frames = len(destroied_gmodels_state_dict)
+    # num_destroied_frames = len(destroied_gmodels_state_dict)
     # 遍历每个损坏的帧段
-    for i in range(num_destroied_frames - 1):
+    for i in range(num_frames - 1):
         # 获取相邻的两个损坏帧
         frame_id_start = f"frame_{i + 1}"
         frame_id_end = f"frame_{i + 2}"
         
-        start_frame = destroied_gmodels_state_dict[frame_id_start]
-        end_frame = destroied_gmodels_state_dict[frame_id_end]
+        # start_frame = destroied_gmodels_state_dict[frame_id_start]
+        # end_frame = destroied_gmodels_state_dict[frame_id_end]
+        start_frame = gmodels_state_dict[frame_id_start]
+        end_frame = gmodels_state_dict[frame_id_end]
+        
         
         # 准备插值数据
         x = [0, step]  # 定义插值位置
@@ -220,7 +225,7 @@ def main(argv):
             }
 
     # 将最后一个损坏帧直接添加到恢复字典中
-    restored_gmodels_state_dict[f"frame_{frame_index + 1}"] = destroied_gmodels_state_dict[f"frame_{num_destroied_frames}"]
+    restored_gmodels_state_dict[f"frame_{frame_index + 1}"] = gmodels_state_dict[f"frame_{num_frames}"]
 
     num_frames = len(restored_gmodels_state_dict)
     for i in tqdm(range(start, start + num_frames), desc="Processing Frames"):
