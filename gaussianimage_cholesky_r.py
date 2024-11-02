@@ -101,24 +101,26 @@ class GaussianImage_Cholesky(nn.Module):
         _, sorted_indices = torch.sort(rgb_weight)
         removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval))
         if iter < strat_iter_adaptive_control+iter_threshold_remove:
-            remove_count = int(removal_rate_per_step * self.max_num_points)     
-            remove_indices = sorted_indices[:remove_count]
-            keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
-            keep_indices[remove_indices] = False
-            self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
-            self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
-            self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-            self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])
-        elif iter == strat_iter_adaptive_control+iter_threshold_remove:
-            remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
-            if remove_count>0:
+            with torch.no_grad():
+                remove_count = int(removal_rate_per_step * self.max_num_points)     
                 remove_indices = sorted_indices[:remove_count]
                 keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
                 keep_indices[remove_indices] = False
                 self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
                 self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
                 self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-                self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])  
+                self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])
+        elif iter == strat_iter_adaptive_control+iter_threshold_remove:
+            remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
+            if remove_count>0:
+                with torch.no_grad():
+                    remove_indices = sorted_indices[:remove_count]
+                    keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
+                    keep_indices[remove_indices] = False
+                    self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
+                    self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
+                    self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
+                    self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])  
 
         # self.update_optimizer()
         for param_group in self.optimizer.param_groups:
