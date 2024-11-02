@@ -119,7 +119,17 @@ class GaussianImage_Cholesky(nn.Module):
                 self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
                 self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
                 self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])  
-        #self.update_optimizer()
+        # self.update_optimizer()
+        optimizer_state = self.optimizer.state_dict()
+        # 更新优化器，保留参数的学习状态
+        self.update_optimizer()
+        if optimizer_state:
+            # 加载旧状态并移除已删除参数的状态
+            self.optimizer.load_state_dict(optimizer_state)
+            retained_params = set(p for p in self.parameters())
+            new_state = {k: v for k, v in self.optimizer.state.items() if k in retained_params}
+            self.optimizer.state = new_state
+
 
     def train_iter(self, gt_image,iter,isdensity,strat_iter_adaptive_control):
         render_pkg = self.forward()
