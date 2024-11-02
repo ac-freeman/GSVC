@@ -22,10 +22,11 @@ class LoadGaussians:
     def __init__(
         self,
         image,
-        model_path = None,
+        device,
+        Model = None,
         args = None,
     ):
-        self.device = torch.device("cuda:0")
+        self.device = device
         self.gt_image = image_to_tensor(image).to(self.device)
         self.num_points=20000
         self.data_name=args.data_name
@@ -35,9 +36,8 @@ class LoadGaussians:
         from Gaussian2D import GaussianImage_Cholesky
         self.gaussian_model = GaussianImage_Cholesky(num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
         device=self.device).to(self.device)
-        if model_path is not None:
-            print(f"loading model path:{model_path}")
-            checkpoint = torch.load(model_path, map_location=self.device)
+        if Model is not None:
+            checkpoint = Model
             model_dict = self.gaussian_model.state_dict()
             pretrained_dict = {k: v for k, v in checkpoint.items() if k in model_dict}
             model_dict.update(pretrained_dict)
@@ -109,6 +109,7 @@ def main(argv):
     width = args.width
     height = args.height
     model_path=args.model_path
+    device=torch.device("cuda:0")
     if args.seed is not None:
         torch.manual_seed(args.seed)
         random.seed(args.seed)
@@ -123,9 +124,13 @@ def main(argv):
     image_length,start=len(video_frames),0
     # image_length=5
     img_list=[]
+    print(f"loading model path:{model_path}",map_location=device)
+    gmodels_state_dict = torch.load(model_path)
     for i in range(start, start+image_length):
         frame_num=i+1
-        Gaussianframe = LoadGaussians(image=video_frames[i], model_path=None, args=args)
+        modelid=f"frame_{i + 1}"
+        Model = gmodels_state_dict[modelid]
+        Gaussianframe = LoadGaussians(image=video_frames[i], Model=Model,device=device,args=args)
         psnr, ms_ssim,eval_fps, img = Gaussianframe.render()
         img_list.append(img)
         psnrs.append(psnr)

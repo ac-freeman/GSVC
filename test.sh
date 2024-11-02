@@ -16,4 +16,4 @@ model_path="/home/e/e1344641/GaussianVideo/models/Models/Beauty/GaussianImage_Ch
 data_name="Beauty"
 num_points=30000
 savdir="test"
-srun python train_video_r.py --dataset $dataset_path --data_name $data_name --num_points $num_points --savdir $savdir --model_path $model_path
+srun python loadmodel.py --dataset $dataset_path --data_name $data_name --num_points $num_points --savdir $savdir --model_path $model_path
