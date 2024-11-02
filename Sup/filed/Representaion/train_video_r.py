@@ -48,7 +48,7 @@ class SimpleTrainer2d:
         if model_name == "GaussianImage_Cholesky":
             from gaussianimage_cholesky_r import GaussianImage_Cholesky
             self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
-            device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate,isdensity=self.isdensity).to(self.device)
+            device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate).to(self.device)
         if model_path is not None:
             print(f"loading model path:{model_path}")
             checkpoint = torch.load(model_path, map_location=self.device)
@@ -62,20 +62,12 @@ class SimpleTrainer2d:
             pretrained_dict = {k: v for k, v in checkpoint.items() if k in model_dict}
             model_dict.update(pretrained_dict)
             self.gaussian_model.load_state_dict(model_dict)
-    
-    def print_stats(self,name, tensor):
-        max_val = torch.max(tensor)  # Use PyTorch max
-        mean_val = torch.mean(tensor)  # Use PyTorch mean
-        median_val = torch.median(tensor)  # Use PyTorch median
-        min_val = torch.min(tensor)  # Use PyTorch min
-        
-        print(f"{name} - Max: {max_val}, Mean: {mean_val}, Median: {median_val}, Min: {min_val}")
-
     def train(self,frame,ispos):     
         psnr_list, iter_list = [], []
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
+        early_stopping_relax = EarlyStopping(patience=100, min_delta=1e-2)
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-4)
         density_control=5000
@@ -104,8 +96,6 @@ class SimpleTrainer2d:
             elif early_stopping(loss.item()):
                 print(f"Early stopping at iteration {iter}")
                 break
-
-
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
@@ -117,23 +107,27 @@ class SimpleTrainer2d:
                 _ = self.gaussian_model()
             test_end_time = (time.time() - test_start_time)/100       
         Gmodel =self.gaussian_model.state_dict()
-
         filtered_Gmodel = {
             k: v for k, v in Gmodel.items()
-            if k in ['_xyz', '_cholesky']
+            if k in ['_xyz', '_cholesky', '_features_dc','rgb_W']
+            # if k in ['_xyz', '_cholesky', '_features_dc']
         }
-        filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
-
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss
+        save_Gmodel = {
+            k: v for k, v in Gmodel.items()
+            if k in ['_xyz', '_cholesky']
+            # if k in ['_xyz', '_cholesky', '_features_dc']
+        }
+        save_Gmodel['_features_dc']=self.gaussian_model.get_features
+        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel,save_Gmodel, img, num_gaussian_points, loss
     
     def test(self,frame,num_gaussian_points,ispos):
         self.gaussian_model.eval()
         with torch.no_grad():
             out = self.gaussian_model()
-            if ispos:
-                out_pos =self.gaussian_model.forward_pos(num_gaussian_points)
-                out_pos_img = out_pos["render_pos"]
             out_image = out["render"]
+            if ispos:
+                out_pos_sca =self.gaussian_model.forward_pos_sca(num_gaussian_points)
+                out_pos_sca_img = out_pos_sca["render_pos_sca"]                
         mse_loss = F.mse_loss(out_image.float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out_image.float(), self.gt_image.float(), data_range=1, size_average=True).item()
@@ -141,25 +135,28 @@ class SimpleTrainer2d:
             if (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
                 save_path_img = self.log_dir / "img"
                 save_path_img.mkdir(parents=True, exist_ok=True)
+                # 转换为PIL图像
                 transform = transforms.ToPILImage()
                 img = transform(out_image.float().squeeze(0))
-                img_pos = transform(out_pos_img.float().squeeze(0))
-                combined_width =img.width+img_pos.width
-                combined_height = max(img.height, img_pos.height)
+                img_pos_sca = transform(out_pos_sca_img.float().squeeze(0))
+                combined_width =img.width+img_pos_sca.width
+                combined_height = max(img.height, img_pos_sca.height)
                 combined_img = Image.new("RGB", (combined_width, combined_height))
-                combined_img.paste(img_pos, (0, 0))
-                combined_img.paste(img, (img_pos.width, 0))
+                combined_img.paste(img_pos_sca, (0, 0))
+                combined_img.paste(img, (img_pos_sca.width, 0))
+
+                # 保存拼接后的图片
                 combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
                 combined_img.save(str(save_path_img / combined_name))
             else:
                 transform = transforms.ToPILImage()
-                img_pos = transform(out_pos_img.float().squeeze(0))
+                img_pos_sca = transform(out_pos_sca_img.float().squeeze(0))
                 img = transform(out_image.float().squeeze(0))
-                combined_width =img.width+img_pos.width
-                combined_height = max(img.height, img_pos.height)
+                combined_width =img.width+img_pos_sca.width
+                combined_height = max(img.height, img_pos_sca.height)
                 combined_img = Image.new("RGB", (combined_width, combined_height))
-                combined_img.paste(img_pos, (0, 0))
-                combined_img.paste(img, (img_pos.width, 0))
+                combined_img.paste(img_pos_sca, (0, 0))
+                combined_img.paste(img, (img_pos_sca.width, 0))
             return psnr, ms_ssim_value,combined_img
         if (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
             save_path_img = self.log_dir / "img"
@@ -221,7 +218,6 @@ def parse_args(argv):
     parser.add_argument("--removal_rate", type=float, default=0.1, help="Removal rate")
     parser.add_argument("--save_imgs", action="store_true", help="Save image")
     parser.add_argument("--is_pos", action="store_true", help="Show the position of gaussians")
-    parser.add_argument("--is_warmup",action="store_true", help="Warmup setup")
     parser.add_argument("--is_ad", action="store_true", help="Adaptive control of gaussians setup")
     parser.add_argument(
         "--lr",
@@ -239,14 +235,12 @@ def main(argv):
     savdir=args.savdir
     savdir_m=args.savdir_m
     ispos = args.is_pos
-    iswarmup=args.is_warmup
     args.fps=120
     width = args.width
     height = args.height
     removal_rate=args.removal_rate
     gmodel_save_path = Path(f"./checkpoints/{savdir_m}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)
-    args_text = yaml.safe_dump(args.__dict__, default_flow_style=False)
     is_ad=args.is_ad
     if args.seed is not None:
         torch.manual_seed(args.seed)
@@ -255,7 +249,6 @@ def main(argv):
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
-
     logwriter = LogWriter(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
     psnrs, ms_ssims, training_times, eval_times, eval_fpses, gaussian_number = [], [], [], [], [],[]
     image_h, image_w = 0, 0
@@ -269,22 +262,12 @@ def main(argv):
     for i in range(start, start+image_length):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
-            if iswarmup:
-                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],4),frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
-                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
-                _, _, _, _, _, Gmodel, _, num_gaussian_points, _ = trainer.train(i,ispos)
-                trainer = SimpleTrainer2d(image=downsample_image(video_frames[i],2),frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
-                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate)
-                _, _, _, _, _, Gmodel, _, num_gaussian_points, _ = trainer.train(i,ispos)
-                trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
-                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate)
-            else:
-                trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
-                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad,removal_rate=removal_rate)
+            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
+                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad,removal_rate=removal_rate)
         else:
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
                 iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate)
-        psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, img, num_gaussian_points, loss = trainer.train(i,ispos)
+        psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, save_Gmodel, img, num_gaussian_points, loss = trainer.train(i,ispos)
         img_list.append(img)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
@@ -294,7 +277,7 @@ def main(argv):
         gaussian_number.append(num_gaussian_points)
         image_h += trainer.H
         image_w += trainer.W
-        gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
+        gmodels_state_dict[f"frame_{frame_num}"] = save_Gmodel
         num_gaussian_points_dict[f"frame_{frame_num}"]=num_gaussian_points
         torch.cuda.empty_cache()
         if i==0 or (i+1)%1==0:

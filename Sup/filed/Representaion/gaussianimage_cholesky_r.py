@@ -27,11 +27,8 @@ class GaussianImage_Cholesky(nn.Module):
         self.removal_rate=kwargs["removal_rate"]
         self._xyz = nn.Parameter(torch.atanh(2 * (torch.rand(self.init_num_points, 2) - 0.5)))
         self._cholesky = nn.Parameter(torch.rand(self.init_num_points, 3))
-        self.isdensity=kwargs["isdensity"]
-        if self.isdensity:
-            self.rgb_W = nn.Parameter(0.01 * torch.ones(self.init_num_points, 1))
-        else:
-           self.register_buffer('rgb_W', torch.ones((self.init_num_points, 1))) 
+        self.rgb_W = nn.Parameter(0.01 * torch.ones(self.init_num_points, 1))
+        #self.register_buffer('_opacity', torch.ones((self.init_num_points, 1)))
         self._features_dc = nn.Parameter(torch.rand(self.init_num_points, 3))
         self.last_size = (self.H, self.W)
         self.quantize = kwargs["quantize"]
@@ -58,15 +55,20 @@ class GaussianImage_Cholesky(nn.Module):
     def get_features(self):
         return self._features_dc*self.get_rgb_W
     
+    # @property
+    # def get_opacity(self):
+    #     return self._opacity
     @property
+    # def get_rgb_W(self):
+    #     return torch.clamp(self.rgb_W, min=0.0, max=1.0)
     def get_rgb_W(self):
-        return self.rgb_W
+        return self.rgbW_activation(self.rgb_W)
 
     @property
     def get_cholesky_elements(self):
         return self._cholesky+self.cholesky_bound
 
-    def forward_pos(self,num_points):
+    def forward_pos_sca(self,num_points):
         features_dc = torch.ones(num_points, 3).to(self.device)
         cholesky = torch.full((num_points, 3), 1.0).to(self.device)
         _opacity = torch.ones(num_points, 1).to(self.device)
@@ -75,8 +77,7 @@ class GaussianImage_Cholesky(nn.Module):
                 features_dc, _opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
         out_img = torch.clamp(out_img, 0, 1) #[H, W, 3]
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
-        return {"render_pos": out_img}
-    
+        return {"render_pos_sca": out_img}
     def forward(self):
         _opacity = torch.ones(self._xyz.shape[0], 1).to(self.device)
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
@@ -91,17 +92,20 @@ class GaussianImage_Cholesky(nn.Module):
             self.optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
         else:
             self.optimizer = Adan(self.parameters(), lr=self.lr)
-        #self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
+        # 重新初始化学习率调度器
+        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
+
 
     def density_control(self, iter,strat_iter_adaptive_control):
         iter_threshold_remove =4000  # 根据训练计划调整这个阈值
         if iter>strat_iter_adaptive_control+iter_threshold_remove:
             return
         rgb_weight = torch.norm(self.rgb_W, dim=1)
+        # rgb_weight=self.get_rgb_W.squeeze(1)
         _, sorted_indices = torch.sort(rgb_weight)
         removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval))
         if iter < strat_iter_adaptive_control+iter_threshold_remove:
-            remove_count = int(removal_rate_per_step * self.max_num_points)     
+            remove_count = int(removal_rate_per_step * self.max_num_points)   
             remove_indices = sorted_indices[:remove_count]
             keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
             keep_indices[remove_indices] = False
@@ -118,8 +122,9 @@ class GaussianImage_Cholesky(nn.Module):
                 self._xyz = torch.nn.Parameter(self._xyz[keep_indices])
                 self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
                 self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
-                self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])  
+                self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])         
         self.update_optimizer()
+
 
     def train_iter(self, gt_image,iter,isdensity,strat_iter_adaptive_control):
         render_pkg = self.forward()
@@ -137,5 +142,8 @@ class GaussianImage_Cholesky(nn.Module):
         self.scheduler.step()
         return loss, psnr
     
+
+    
+
 
     
