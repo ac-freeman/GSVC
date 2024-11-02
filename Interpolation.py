@@ -44,26 +44,13 @@ class LoadGaussians:
             self.gaussian_model.load_state_dict(model_dict)
 
     def render(self):     
-        psnr_value, ms_ssim_value,img = self.test()
-        with torch.no_grad():
-            self.gaussian_model.eval()
-            test_start_time = time.time()
-            for i in range(100):
-                _ = self.gaussian_model()
-            test_end_time = (time.time() - test_start_time)/100       
-        return psnr_value, ms_ssim_value, 1/test_end_time, img
-    
-    def test(self):
         self.gaussian_model.eval()
         with torch.no_grad():
             out = self.gaussian_model()
             out_image = out["render"]
-        mse_loss = F.mse_loss(out_image.float(), self.gt_image.float())
-        psnr = 10 * math.log10(1.0 / mse_loss.item())
-        ms_ssim_value = ms_ssim(out_image.float(), self.gt_image.float(), data_range=1, size_average=True).item()
         transform = transforms.ToPILImage()
         img = transform(out_image.float().squeeze(0))
-        return psnr, ms_ssim_value,img
+        return img
 
 
 def image_to_tensor(img: Image.Image):
@@ -119,137 +106,47 @@ def main(argv):
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
         np.random.seed(args.seed)
-    logwriter = LogWriter(Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}"))
-    psnrs, ms_ssims, eval_fpses = [], [], []
     video_frames = process_yuv_video(args.dataset, width, height)
     start=0
     img_list=[]
     gmodels_state_dict = torch.load(model_path,map_location=device)
-    # destroied_gmodels_state_dict = {}
     restored_gmodels_state_dict = {}
-    # num_frames = len(gmodels_state_dict)
+    
     num_frames=50
-
-
-    # destroied_gmodels_frame=0
-    # for i in tqdm(range(start, start + num_frames), desc="Generate destroied video"):
-    #      if i==0 or i%step==0:
-    #         destroied_gmodels_frame+=1
-    #         modelid=i + 1
-    #         destroied_gmodels_state_dict[f"frame_{destroied_gmodels_frame}"] = gmodels_state_dict[f"frame_{modelid}"] 
-
-    
-    # #Interpolate
-    # num_destroied_frames = len(destroied_gmodels_state_dict)
-    # for i in range(num_destroied_frames - 1):
-    #     # 获取两个相邻的损坏帧
-    #     frame_id_start = f"frame_{i + 1}"
-    #     frame_id_end = f"frame_{i + 2}"
-        
-    #     start_frame = destroied_gmodels_state_dict[frame_id_start]
-    #     end_frame = destroied_gmodels_state_dict[frame_id_end]
-        
-    #     # 插入恢复帧数
-    #     for j in range(step):
-    #         # 计算当前插值帧的权重
-    #         alpha = j / step
-    #         # 插值恢复 _xyz
-    #         interpolated_xyz = (1 - alpha) * start_frame['_xyz'] + alpha * end_frame['_xyz']
-            
-    #         # 插值恢复 _cholesky
-    #         interpolated_cholesky = (1 - alpha) * start_frame['_cholesky'] + alpha * end_frame['_cholesky']
-            
-    #         # 插值恢复 _features_dc
-    #         interpolated_features_dc = (1 - alpha) * start_frame['_features_dc'] + alpha * end_frame['_features_dc']
-            
-    #         # # 插值恢复 _xyz
-    #         # interpolated_xyz = start_frame['_xyz']
-            
-    #         # # 插值恢复 _cholesky
-    #         # interpolated_cholesky = start_frame['_cholesky']
-            
-    #         # # 插值恢复 _features_dc
-    #         # interpolated_features_dc =start_frame['_features_dc']
-            
-            
-    #         # 保存插值后的帧
-    #         frame_index = i * step + j + 1
-    #         restored_gmodels_state_dict[f"frame_{frame_index}"] = {
-    #             '_xyz': interpolated_xyz,
-    #             '_cholesky': interpolated_cholesky,
-    #             '_features_dc': interpolated_features_dc
-    #         }
-    # # 将最后一个损坏帧直接添加到恢复字典中
-    # restored_gmodels_state_dict[f"frame_{frame_index+1}"] = destroied_gmodels_state_dict[f"frame_{num_destroied_frames}"]
-    
-    # num_destroied_frames = len(destroied_gmodels_state_dict)
-    # 遍历每个损坏的帧段
     for i in range(num_frames - 1):
-        # 获取相邻的两个损坏帧
         frame_id_start = f"frame_{i + 1}"
         frame_id_end = f"frame_{i + 2}"
-        
-        # start_frame = destroied_gmodels_state_dict[frame_id_start]
-        # end_frame = destroied_gmodels_state_dict[frame_id_end]
         start_frame = gmodels_state_dict[frame_id_start]
         end_frame = gmodels_state_dict[frame_id_end]
-        
-        
-        # 准备插值数据
-        x = [0, step]  # 定义插值位置
+        x = [0, step]
         xyz_y = torch.stack([start_frame['_xyz'].detach(), end_frame['_xyz'].detach()]).cpu().numpy()
         cholesky_y = torch.stack([start_frame['_cholesky'].detach(), end_frame['_cholesky'].detach()]).cpu().numpy()
         features_dc_y = torch.stack([start_frame['_features_dc'].detach(), end_frame['_features_dc'].detach()]).cpu().numpy()
-        
-        # 创建三次样条插值函数
         spline_xyz = CubicSpline(x, xyz_y, axis=0)
         spline_cholesky = CubicSpline(x, cholesky_y, axis=0)
         spline_features_dc = CubicSpline(x, features_dc_y, axis=0)
-        
-        # 插入中间帧
         for j in range(step):
-            alpha = j  # 对应位置
+            alpha = j 
             interpolated_xyz = torch.tensor(spline_xyz(alpha), device=start_frame['_xyz'].device)
             interpolated_cholesky = torch.tensor(spline_cholesky(alpha), device=start_frame['_cholesky'].device)
             interpolated_features_dc = torch.tensor(spline_features_dc(alpha), device=start_frame['_features_dc'].device)
-            
-            # # 对 _features_dc 的插值结果进行裁剪到 [0, 1] 范围
-            # interpolated_features_dc = torch.clamp(interpolated_features_dc, 0, 1)
-            
-            # 保存插值帧
             frame_index = i * step + j + 1
             restored_gmodels_state_dict[f"frame_{frame_index}"] = {
                 '_xyz': interpolated_xyz,
                 '_cholesky': interpolated_cholesky,
                 '_features_dc': interpolated_features_dc
             }
-
-    # 将最后一个损坏帧直接添加到恢复字典中
     restored_gmodels_state_dict[f"frame_{frame_index + 1}"] = gmodels_state_dict[f"frame_{num_frames}"]
+
 
     num_frames = len(restored_gmodels_state_dict)
     for i in tqdm(range(start, start + num_frames), desc="Processing Frames"):
-        frame_num=i+1
         modelid=f"frame_{i + 1}"
         Model = restored_gmodels_state_dict[modelid]
         Gaussianframe = LoadGaussians(num_points=num_points,image=video_frames[i], Model=Model,device=device,args=args)
-        psnr, ms_ssim,eval_fps, img = Gaussianframe.render()
+        img = Gaussianframe.render()
         img_list.append(img)
-        psnrs.append(psnr)
-        ms_ssims.append(ms_ssim)
-        eval_fpses.append(eval_fps)
         torch.cuda.empty_cache()
-        # logwriter.write(
-        #         "Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, FPS:{:.4f}\n".format(
-        #             frame_num, Gaussianframe.H, Gaussianframe.W, psnr, ms_ssim, eval_fps
-        #         )
-        #     )
-    file_size = os.path.getsize(model_path)
-    avg_psnr = torch.tensor(psnrs).mean().item()
-    avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
-    avg_eval_fps = torch.tensor(eval_fpses).mean().item()
-    logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f},FPS:{:.4f}, Size:{:.4f}".format(
-        height, width, avg_psnr, avg_ms_ssim, avg_eval_fps, file_size/ (1024 * 1024)))
     
 
     video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
