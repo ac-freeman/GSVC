@@ -159,16 +159,17 @@ def main(argv):
 
             # 使用 slerp 进行 xyz 和 features_dc 的插值
             interpolated_xyz = torch.lerp(xyz_start, xyz_end, alpha)
-            interpolated_features_dc = torch.lerp(features_dc_start, features_dc_end, alpha)
+            # interpolated_features_dc = torch.lerp(features_dc_start, features_dc_end, alpha)
 
-            # 对于 Cholesky 矩阵进行 lerp 插值
-            interpolated_cholesky = torch.lerp(cholesky_start, cholesky_end, alpha)
+            # # 对于 Cholesky 矩阵进行 lerp 插值
+            # interpolated_cholesky = torch.lerp(cholesky_start, cholesky_end, alpha)
+
 
             frame_index = i * step + j + 1
             restored_gmodels_state_dict[f"frame_{frame_index}"] = {
                 '_xyz': interpolated_xyz,
-                '_cholesky': interpolated_cholesky,
-                '_features_dc': interpolated_features_dc
+                '_cholesky': cholesky_start,
+                '_features_dc': features_dc_start
             }
 
     # 最后加入最后一帧
