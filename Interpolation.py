@@ -138,8 +138,46 @@ def main(argv):
     #         }
     # restored_gmodels_state_dict[f"frame_{frame_index + 1}"] = gmodels_state_dict[f"frame_{num_frames}"]
 
-    from scipy.spatial.transform import Rotation as R
+    # from scipy.spatial.transform import Rotation as R
+    # num_frames = 49
+    # for i in range(num_frames - 1):
+    #     frame_id_start = f"frame_{i + 1}"
+    #     frame_id_end = f"frame_{i + 2}"
+    #     start_frame = gmodels_state_dict[frame_id_start]
+    #     end_frame = gmodels_state_dict[frame_id_end]
+    #     step_ratio = 1.0 / step
+
+    #     xyz_start = start_frame['_xyz'].detach()
+    #     xyz_end = end_frame['_xyz'].detach()
+    #     cholesky_start = start_frame['_cholesky'].detach()
+    #     cholesky_end = end_frame['_cholesky'].detach()
+    #     features_dc_start = start_frame['_features_dc'].detach()
+    #     features_dc_end = end_frame['_features_dc'].detach()
+
+    #     for j in range(step):
+    #         alpha = j * step_ratio
+
+    #         # 使用 slerp 进行 xyz 和 features_dc 的插值
+    #         interpolated_xyz = torch.lerp(xyz_start, xyz_end, alpha)
+    #         interpolated_features_dc = torch.lerp(features_dc_start, features_dc_end, alpha)
+
+    #         # 对于 Cholesky 矩阵进行 lerp 插值
+    #         interpolated_cholesky = torch.lerp(cholesky_start, cholesky_end, alpha)
+
+    #         frame_index = i * step + j + 1
+    #         restored_gmodels_state_dict[f"frame_{frame_index}"] = {
+    #             '_xyz': interpolated_xyz,
+    #             '_cholesky': interpolated_cholesky,
+    #             '_features_dc': interpolated_features_dc
+    #         }
+
+    # # 最后加入最后一帧
+    # restored_gmodels_state_dict[f"frame_{frame_index + 1}"] = gmodels_state_dict[f"frame_{num_frames}"]
+
+    from sklearn.mixture import GaussianMixture
     num_frames = 49
+    n_components = 2  # GMM中的高斯分布数量，可以根据需要调整
+
     for i in range(num_frames - 1):
         frame_id_start = f"frame_{i + 1}"
         frame_id_end = f"frame_{i + 2}"
@@ -147,22 +185,25 @@ def main(argv):
         end_frame = gmodels_state_dict[frame_id_end]
         step_ratio = 1.0 / step
 
-        xyz_start = start_frame['_xyz'].detach()
-        xyz_end = end_frame['_xyz'].detach()
-        cholesky_start = start_frame['_cholesky'].detach()
-        cholesky_end = end_frame['_cholesky'].detach()
-        features_dc_start = start_frame['_features_dc'].detach()
-        features_dc_end = end_frame['_features_dc'].detach()
+        xyz_start = start_frame['_xyz'].cpu().numpy()
+        xyz_end = end_frame['_xyz'].cpu().numpy()
+        cholesky_start = start_frame['_cholesky'].cpu().numpy()
+        cholesky_end = end_frame['_cholesky'].cpu().numpy()
+        features_dc_start = start_frame['_features_dc'].cpu().numpy()
+        features_dc_end = end_frame['_features_dc'].cpu().numpy()
+
+        # 用GMM拟合每个特征
+        gmm_xyz = GaussianMixture(n_components=n_components).fit(np.vstack([xyz_start, xyz_end]))
+        gmm_cholesky = GaussianMixture(n_components=n_components).fit(np.vstack([cholesky_start, cholesky_end]))
+        gmm_features_dc = GaussianMixture(n_components=n_components).fit(np.vstack([features_dc_start, features_dc_end]))
 
         for j in range(step):
             alpha = j * step_ratio
 
-            # 使用 slerp 进行 xyz 和 features_dc 的插值
-            interpolated_xyz = torch.lerp(xyz_start, xyz_end, alpha)
-            interpolated_features_dc = torch.lerp(features_dc_start, features_dc_end, alpha)
-
-            # 对于 Cholesky 矩阵进行 lerp 插值
-            interpolated_cholesky = torch.lerp(cholesky_start, cholesky_end, alpha)
+            # 使用GMM进行插值，得到平滑过渡的特征
+            interpolated_xyz = torch.tensor(gmm_xyz.sample()[0][0] * (1 - alpha) + gmm_xyz.sample()[0][1] * alpha, device=start_frame['_xyz'].device)
+            interpolated_cholesky = torch.tensor(gmm_cholesky.sample()[0][0] * (1 - alpha) + gmm_cholesky.sample()[0][1] * alpha, device=start_frame['_cholesky'].device)
+            interpolated_features_dc = torch.tensor(gmm_features_dc.sample()[0][0] * (1 - alpha) + gmm_features_dc.sample()[0][1] * alpha, device=start_frame['_features_dc'].device)
 
             frame_index = i * step + j + 1
             restored_gmodels_state_dict[f"frame_{frame_index}"] = {
@@ -173,8 +214,6 @@ def main(argv):
 
     # 最后加入最后一帧
     restored_gmodels_state_dict[f"frame_{frame_index + 1}"] = gmodels_state_dict[f"frame_{num_frames}"]
-
-
 
     num_frames = len(restored_gmodels_state_dict)
     for i in tqdm(range(start, start + num_frames), desc="Processing Frames"):
