@@ -123,8 +123,8 @@ def main(argv):
     image_length,start=len(video_frames),0
     # image_length=5
     img_list=[]
-    print(f"loading model path:{model_path}",map_location=device)
-    gmodels_state_dict = torch.load(model_path)
+    print(f"loading model path:{model_path}")
+    gmodels_state_dict = torch.load(model_path,map_location=device)
     for i in range(start, start+image_length):
         frame_num=i+1
         modelid=f"frame_{i + 1}"
