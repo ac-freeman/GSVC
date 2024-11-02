@@ -32,7 +32,6 @@ class LoadGaussians:
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
-        self.save_imgs = args.save_imgs
         from Gaussian2D import GaussianImage_Cholesky
         self.gaussian_model = GaussianImage_Cholesky(num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
         device=self.device).to(self.device)
