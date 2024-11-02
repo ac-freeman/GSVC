@@ -51,6 +51,26 @@ class LoadGaussians:
         transform = transforms.ToPILImage()
         img = transform(out_image.float().squeeze(0))
         return img
+    
+
+    def render_pos(self):  
+        self.gaussian_model.eval()
+        with torch.no_grad():
+            out = self.gaussian_model()
+            out_image = out["render"]
+            out_pos =self.gaussian_model.forward_pos(self.num_points)
+            out_pos_img = out_pos["render_pos"]
+
+            transform = transforms.ToPILImage()
+            img_pos = transform(out_pos_img.float().squeeze(0))
+            img = transform(out_image.float().squeeze(0))
+            combined_width =img.width+img_pos.width
+            combined_height = max(img.height, img_pos.height)
+            combined_img = Image.new("RGB", (combined_width, combined_height))
+            combined_img.paste(img_pos, (0, 0))
+            combined_img.paste(img, (img_pos.width, 0))
+        return combined_img
+
 
 
 def image_to_tensor(img: Image.Image):
@@ -144,7 +164,7 @@ def main(argv):
         modelid=f"frame_{i + 1}"
         Model = restored_gmodels_state_dict[modelid]
         Gaussianframe = LoadGaussians(num_points=num_points,image=video_frames[i], Model=Model,device=device,args=args)
-        img = Gaussianframe.render()
+        img = Gaussianframe.render_pos()
         img_list.append(img)
         torch.cuda.empty_cache()
     
