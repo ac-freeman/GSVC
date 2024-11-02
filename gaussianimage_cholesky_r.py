@@ -36,7 +36,7 @@ class GaussianImage_Cholesky(nn.Module):
         self.last_size = (self.H, self.W)
         self.quantize = kwargs["quantize"]
         self.register_buffer('background', torch.ones(3))
-        self.rgbW_activation = torch.sigmoid
+        self.rgbW_activation = torch.tanh
         self.rgb_activation = torch.sigmoid
         self.register_buffer('bound', torch.tensor([0.5, 0.5]).view(1, 2))
         self.register_buffer('cholesky_bound', torch.tensor([0.5, 0, 0.5]).view(1, 3))
