@@ -192,9 +192,9 @@ def main(argv):
         
         # 准备插值数据
         x = [0, step]  # 定义插值位置
-        xyz_y = torch.stack([start_frame['_xyz'], end_frame['_xyz']]).cpu().numpy()
-        cholesky_y = torch.stack([start_frame['_cholesky'], end_frame['_cholesky']]).cpu().numpy()
-        features_dc_y = torch.stack([start_frame['_features_dc'], end_frame['_features_dc']]).cpu().numpy()
+        xyz_y = torch.stack([start_frame['_xyz'].detach(), end_frame['_xyz'].detach()]).cpu().numpy()
+        cholesky_y = torch.stack([start_frame['_cholesky'].detach(), end_frame['_cholesky'].detach()]).cpu().numpy()
+        features_dc_y = torch.stack([start_frame['_features_dc'].detach(), end_frame['_features_dc'].detach()]).cpu().numpy()
         
         # 创建三次样条插值函数
         spline_xyz = CubicSpline(x, xyz_y, axis=0)
