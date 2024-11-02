@@ -21,6 +21,7 @@ class LoadGaussians:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
         self,
+        num_points,
         image,
         device,
         Model = None,
@@ -28,7 +29,7 @@ class LoadGaussians:
     ):
         self.device = device
         self.gt_image = image_to_tensor(image).to(self.device)
-        self.num_points=20000
+        self.num_points=num_points
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
@@ -107,6 +108,7 @@ def main(argv):
     width = args.width
     height = args.height
     model_path=args.model_path
+    num_points=args.num_points
     device=torch.device("cuda:0")
     if args.seed is not None:
         torch.manual_seed(args.seed)
@@ -128,7 +130,7 @@ def main(argv):
         frame_num=i+1
         modelid=f"frame_{i + 1}"
         Model = gmodels_state_dict[modelid]
-        Gaussianframe = LoadGaussians(image=video_frames[i], Model=Model,device=device,args=args)
+        Gaussianframe = LoadGaussians(num_points=num_points,image=video_frames[i], Model=Model,device=device,args=args)
         psnr, ms_ssim,eval_fps, img = Gaussianframe.render()
         img_list.append(img)
         psnrs.append(psnr)
