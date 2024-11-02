@@ -153,14 +153,24 @@ def main(argv):
             # 计算当前插值帧的权重
             alpha = j / step
             
+            # # 插值恢复 _xyz
+            # interpolated_xyz = (1 - alpha) * start_frame['_xyz'] + alpha * end_frame['_xyz']
+            
+            # # 插值恢复 _cholesky
+            # interpolated_cholesky = (1 - alpha) * start_frame['_cholesky'] + alpha * end_frame['_cholesky']
+            
+            # # 插值恢复 _features_dc
+            # interpolated_features_dc = (1 - alpha) * start_frame['_features_dc'] + alpha * end_frame['_features_dc']
+            
             # 插值恢复 _xyz
-            interpolated_xyz = (1 - alpha) * start_frame['_xyz'] + alpha * end_frame['_xyz']
+            interpolated_xyz = start_frame['_xyz']
             
             # 插值恢复 _cholesky
-            interpolated_cholesky = (1 - alpha) * start_frame['_cholesky'] + alpha * end_frame['_cholesky']
+            interpolated_cholesky = start_frame['_cholesky']
             
             # 插值恢复 _features_dc
-            interpolated_features_dc = (1 - alpha) * start_frame['_features_dc'] + alpha * end_frame['_features_dc']
+            interpolated_features_dc =start_frame['_features_dc']
+            
             
             # 保存插值后的帧
             frame_index = i * step + j + 1
