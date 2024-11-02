@@ -112,31 +112,68 @@ def main(argv):
     gmodels_state_dict = torch.load(model_path,map_location=device)
     restored_gmodels_state_dict = {}
     
-    num_frames=49
+    # num_frames=49
+    # for i in range(num_frames - 1):
+    #     frame_id_start = f"frame_{i + 1}"
+    #     frame_id_end = f"frame_{i + 2}"
+    #     start_frame = gmodels_state_dict[frame_id_start]
+    #     end_frame = gmodels_state_dict[frame_id_end]
+    #     x = [0, step]
+    #     xyz_y = torch.stack([start_frame['_xyz'].detach(), end_frame['_xyz'].detach()]).cpu().numpy()
+    #     cholesky_y = torch.stack([start_frame['_cholesky'].detach(), end_frame['_cholesky'].detach()]).cpu().numpy()
+    #     features_dc_y = torch.stack([start_frame['_features_dc'].detach(), end_frame['_features_dc'].detach()]).cpu().numpy()
+    #     spline_xyz = CubicSpline(x, xyz_y, axis=0)
+    #     spline_cholesky = CubicSpline(x, cholesky_y, axis=0)
+    #     spline_features_dc = CubicSpline(x, features_dc_y, axis=0)
+    #     for j in range(step):
+    #         alpha = j 
+    #         interpolated_xyz = torch.tensor(spline_xyz(alpha), device=start_frame['_xyz'].device)
+    #         interpolated_cholesky = torch.tensor(spline_cholesky(alpha), device=start_frame['_cholesky'].device)
+    #         interpolated_features_dc = torch.tensor(spline_features_dc(alpha), device=start_frame['_features_dc'].device)
+    #         frame_index = i * step + j + 1
+    #         restored_gmodels_state_dict[f"frame_{frame_index}"] = {
+    #             '_xyz': interpolated_xyz,
+    #             '_cholesky': interpolated_cholesky,
+    #             '_features_dc': interpolated_features_dc
+    #         }
+    # restored_gmodels_state_dict[f"frame_{frame_index + 1}"] = gmodels_state_dict[f"frame_{num_frames}"]
+
+    from scipy.spatial.transform import Rotation as R
+    num_frames = 49
     for i in range(num_frames - 1):
         frame_id_start = f"frame_{i + 1}"
         frame_id_end = f"frame_{i + 2}"
         start_frame = gmodels_state_dict[frame_id_start]
         end_frame = gmodels_state_dict[frame_id_end]
-        x = [0, step]
-        xyz_y = torch.stack([start_frame['_xyz'].detach(), end_frame['_xyz'].detach()]).cpu().numpy()
-        cholesky_y = torch.stack([start_frame['_cholesky'].detach(), end_frame['_cholesky'].detach()]).cpu().numpy()
-        features_dc_y = torch.stack([start_frame['_features_dc'].detach(), end_frame['_features_dc'].detach()]).cpu().numpy()
-        spline_xyz = CubicSpline(x, xyz_y, axis=0)
-        spline_cholesky = CubicSpline(x, cholesky_y, axis=0)
-        spline_features_dc = CubicSpline(x, features_dc_y, axis=0)
+        step_ratio = 1.0 / step
+
+        xyz_start = start_frame['_xyz'].detach()
+        xyz_end = end_frame['_xyz'].detach()
+        cholesky_start = start_frame['_cholesky'].detach()
+        cholesky_end = end_frame['_cholesky'].detach()
+        features_dc_start = start_frame['_features_dc'].detach()
+        features_dc_end = end_frame['_features_dc'].detach()
+
         for j in range(step):
-            alpha = j 
-            interpolated_xyz = torch.tensor(spline_xyz(alpha), device=start_frame['_xyz'].device)
-            interpolated_cholesky = torch.tensor(spline_cholesky(alpha), device=start_frame['_cholesky'].device)
-            interpolated_features_dc = torch.tensor(spline_features_dc(alpha), device=start_frame['_features_dc'].device)
+            alpha = j * step_ratio
+
+            # 使用 slerp 进行 xyz 和 features_dc 的插值
+            interpolated_xyz = torch.lerp(xyz_start, xyz_end, alpha)
+            interpolated_features_dc = torch.lerp(features_dc_start, features_dc_end, alpha)
+
+            # 对于 Cholesky 矩阵进行 lerp 插值
+            interpolated_cholesky = torch.lerp(cholesky_start, cholesky_end, alpha)
+
             frame_index = i * step + j + 1
             restored_gmodels_state_dict[f"frame_{frame_index}"] = {
                 '_xyz': interpolated_xyz,
                 '_cholesky': interpolated_cholesky,
                 '_features_dc': interpolated_features_dc
             }
+
+    # 最后加入最后一帧
     restored_gmodels_state_dict[f"frame_{frame_index + 1}"] = gmodels_state_dict[f"frame_{num_frames}"]
+
 
 
     num_frames = len(restored_gmodels_state_dict)
