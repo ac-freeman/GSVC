@@ -192,18 +192,23 @@ def main(argv):
         features_dc_start = start_frame['_features_dc'].detach().cpu().numpy()
         features_dc_end = end_frame['_features_dc'].detach().cpu().numpy()
 
-        # 用GMM拟合每个特征
+        # 用 GMM 拟合每个特征
         gmm_xyz = GaussianMixture(n_components=n_components).fit(np.vstack([xyz_start, xyz_end]))
         gmm_cholesky = GaussianMixture(n_components=n_components).fit(np.vstack([cholesky_start, cholesky_end]))
         gmm_features_dc = GaussianMixture(n_components=n_components).fit(np.vstack([features_dc_start, features_dc_end]))
 
+        # 获取每个特征的均值作为插值点
+        means_xyz = gmm_xyz.means_
+        means_cholesky = gmm_cholesky.means_
+        means_features_dc = gmm_features_dc.means_
+
         for j in range(step):
             alpha = j * step_ratio
 
-            # 使用GMM进行插值，得到平滑过渡的特征
-            interpolated_xyz = torch.tensor(gmm_xyz.sample()[0][0] * (1 - alpha) + gmm_xyz.sample()[0][1] * alpha, device=start_frame['_xyz'].device)
-            interpolated_cholesky = torch.tensor(gmm_cholesky.sample()[0][0] * (1 - alpha) + gmm_cholesky.sample()[0][1] * alpha, device=start_frame['_cholesky'].device)
-            interpolated_features_dc = torch.tensor(gmm_features_dc.sample()[0][0] * (1 - alpha) + gmm_features_dc.sample()[0][1] * alpha, device=start_frame['_features_dc'].device)
+            # 对每个成分的均值使用线性插值
+            interpolated_xyz = torch.tensor(means_xyz[0] * (1 - alpha) + means_xyz[1] * alpha, device=start_frame['_xyz'].device)
+            interpolated_cholesky = torch.tensor(means_cholesky[0] * (1 - alpha) + means_cholesky[1] * alpha, device=start_frame['_cholesky'].device)
+            interpolated_features_dc = torch.tensor(means_features_dc[0] * (1 - alpha) + means_features_dc[1] * alpha, device=start_frame['_features_dc'].device)
 
             frame_index = i * step + j + 1
             restored_gmodels_state_dict[f"frame_{frame_index}"] = {
