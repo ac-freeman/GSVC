@@ -112,7 +112,7 @@ def main(argv):
     gmodels_state_dict = torch.load(model_path,map_location=device)
     restored_gmodels_state_dict = {}
     
-    num_frames=50
+    num_frames=49
     for i in range(num_frames - 1):
         frame_id_start = f"frame_{i + 1}"
         frame_id_end = f"frame_{i + 2}"
