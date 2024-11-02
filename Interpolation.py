@@ -129,8 +129,7 @@ def main(argv):
             alpha = j 
             interpolated_xyz = torch.tensor(spline_xyz(alpha), device=start_frame['_xyz'].device)
             interpolated_cholesky = torch.tensor(spline_cholesky(alpha), device=start_frame['_cholesky'].device)
-            #interpolated_features_dc = torch.tensor(spline_features_dc(alpha), device=start_frame['_features_dc'].device)
-            interpolated_features_dc = start_frame['_features_dc']
+            interpolated_features_dc = torch.tensor(spline_features_dc(alpha), device=start_frame['_features_dc'].device)
             frame_index = i * step + j + 1
             restored_gmodels_state_dict[f"frame_{frame_index}"] = {
                 '_xyz': interpolated_xyz,
