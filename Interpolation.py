@@ -172,8 +172,13 @@ def main(argv):
         modelid=f"frame_{i + 1}"
         Model = restored_gmodels_state_dict[modelid]
         Gaussianframe = LoadGaussians(num_points=num_points,image=video_frames[i], Model=Model,device=device,args=args)
-        img = Gaussianframe.render_pos()
-        img_list.append(img)
+        img_pos = Gaussianframe.render_pos()
+        img = Gaussianframe.render()
+        combined_img = Image.new('RGB', (img.width + img_pos.width, max(img.height, img_pos.height)))
+        combined_img.paste(img, (0, 0))
+        combined_img.paste(img_pos, (img.width, 0))
+        
+        img_list.append(combined_img)
         torch.cuda.empty_cache()
     
 
