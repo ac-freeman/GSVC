@@ -143,7 +143,7 @@ def main(argv):
     avg_psnr = torch.tensor(psnrs).mean().item()
     avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
     avg_eval_fps = torch.tensor(eval_fpses).mean().item()
-    logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f}, Gaussian_number:{:.4f}".format(
+    logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f}".format(
         height, width, avg_psnr, avg_ms_ssim, avg_eval_fps, file_size/ (1024 * 1024)))
     
 
