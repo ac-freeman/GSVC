@@ -208,8 +208,8 @@ def main(argv):
             interpolated_cholesky = torch.tensor(spline_cholesky(alpha), device=start_frame['_cholesky'].device)
             interpolated_features_dc = torch.tensor(spline_features_dc(alpha), device=start_frame['_features_dc'].device)
             
-            # 对 _features_dc 的插值结果进行裁剪到 [0, 1] 范围
-            interpolated_features_dc = torch.clamp(interpolated_features_dc, 0, 1)
+            # # 对 _features_dc 的插值结果进行裁剪到 [0, 1] 范围
+            # interpolated_features_dc = torch.clamp(interpolated_features_dc, 0, 1)
             
             # 保存插值帧
             frame_index = i * step + j + 1
