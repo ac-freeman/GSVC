@@ -151,8 +151,6 @@ def main(argv):
         for j in range(step):
             # 计算当前插值帧的权重
             alpha = j / step
-            start_frame['_features_dc'] = torch.clamp(start_frame['_features_dc'], 0, 1)
-            end_frame['_features_dc'] = torch.clamp(end_frame['_features_dc'], 0, 1)
             # 插值恢复 _xyz
             interpolated_xyz = (1 - alpha) * start_frame['_xyz'] + alpha * end_frame['_xyz']
             
