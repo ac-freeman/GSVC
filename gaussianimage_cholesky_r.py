@@ -110,8 +110,8 @@ class GaussianImage_Cholesky(nn.Module):
                 self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
                 self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
                 self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])
-            # for param_group in self.optimizer.param_groups:
-            #     param_group['params'] = [p for p in self.parameters() if p.requires_grad]
+            for param_group in self.optimizer.param_groups:
+                param_group['params'] = [p for p in self.parameters() if p.requires_grad]
         elif iter == strat_iter_adaptive_control+iter_threshold_remove:
             remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
             if remove_count>0:
@@ -123,7 +123,7 @@ class GaussianImage_Cholesky(nn.Module):
                     self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
                     self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
                     self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])  
-        self.update_optimizer()
+            self.update_optimizer()
         
 
     def train_iter(self, gt_image,iter,isdensity,strat_iter_adaptive_control):
