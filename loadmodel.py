@@ -102,9 +102,10 @@ def parse_args(argv):
     return args
 
 def main(argv):
+    step=5
     args = parse_args(argv)
     savdir=args.savdir
-    fps=args.fps
+    fps=args.fps/step
     width = args.width
     height = args.height
     model_path=args.model_path
@@ -127,21 +128,22 @@ def main(argv):
     print(f"loading model path:{model_path}")
     gmodels_state_dict = torch.load(model_path,map_location=device)
     for i in tqdm(range(start, start + image_length), desc="Processing Frames"):
-        frame_num=i+1
-        modelid=f"frame_{i + 1}"
-        Model = gmodels_state_dict[modelid]
-        Gaussianframe = LoadGaussians(num_points=num_points,image=video_frames[i], Model=Model,device=device,args=args)
-        psnr, ms_ssim,eval_fps, img = Gaussianframe.render()
-        img_list.append(img)
-        psnrs.append(psnr)
-        ms_ssims.append(ms_ssim)
-        eval_fpses.append(eval_fps)
-        torch.cuda.empty_cache()
-        # logwriter.write(
-        #         "Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, FPS:{:.4f}\n".format(
-        #             frame_num, Gaussianframe.H, Gaussianframe.W, psnr, ms_ssim, eval_fps
-        #         )
-        #     )
+        if i==0 or i%step==0:
+            frame_num=i+1
+            modelid=f"frame_{i + 1}"
+            Model = gmodels_state_dict[modelid]
+            Gaussianframe = LoadGaussians(num_points=num_points,image=video_frames[i], Model=Model,device=device,args=args)
+            psnr, ms_ssim,eval_fps, img = Gaussianframe.render()
+            img_list.append(img)
+            psnrs.append(psnr)
+            ms_ssims.append(ms_ssim)
+            eval_fpses.append(eval_fps)
+            torch.cuda.empty_cache()
+            # logwriter.write(
+            #         "Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, FPS:{:.4f}\n".format(
+            #             frame_num, Gaussianframe.H, Gaussianframe.W, psnr, ms_ssim, eval_fps
+            #         )
+            #     )
     file_size = os.path.getsize(model_path)
     avg_psnr = torch.tensor(psnrs).mean().item()
     avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
