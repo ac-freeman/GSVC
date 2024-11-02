@@ -103,7 +103,7 @@ def parse_args(argv):
     return args
 
 def main(argv):
-    step=10
+    step=2
     args = parse_args(argv)
     savdir=args.savdir
     fps=args.fps
