@@ -83,7 +83,7 @@ def parse_args(argv):
         "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
+        "--fps", type=int, default=5, help="number of frames per second (default: %(default)s)"
     )
     parser.add_argument(
         "--num_points",
@@ -121,15 +121,14 @@ def main(argv):
         np.random.seed(args.seed)
     logwriter = LogWriter(Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}"))
     psnrs, ms_ssims, eval_fpses = [], [], []
-    image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
-    image_length,start=len(video_frames),0
-    # image_length=5
+    start=0
     img_list=[]
     gmodels_state_dict = torch.load(model_path,map_location=device)
     destroied_gmodels_state_dict = {}
     restored_gmodels_state_dict = {}
-    num_frames = len(gmodels_state_dict)
+    # num_frames = len(gmodels_state_dict)
+    num_frames=50
     destroied_gmodels_frame=0
     for i in tqdm(range(start, start + num_frames), desc="Generate destroied video"):
          if i==0 or i%step==0:
