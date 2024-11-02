@@ -185,7 +185,8 @@ def main(argv):
     video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)
     filename = "recovered_video.mp4"
-    output_size = (width, height)
+    # output_size = (width, height)
+    output_size = (combined_img.width, combined_img.height)
     video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps*step, output_size)
     for img in tqdm(img_list, desc="Processing images", unit="image"):    
         if img.mode != 'RGB':
