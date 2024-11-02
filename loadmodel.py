@@ -75,6 +75,15 @@ class LoadGaussians:
         img = transform(out_image.float().squeeze(0))
         return img
     
+    def render_pos(self):  
+        self.gaussian_model.eval()
+        with torch.no_grad():
+            out_pos =self.gaussian_model.forward_pos(self.num_points)
+            out_pos_img = out_pos["render_pos"]
+            transform = transforms.ToPILImage()
+            img_pos = transform(out_pos_img.float().squeeze(0))
+        return img_pos
+    
 
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
@@ -196,14 +205,22 @@ def main(argv):
         modelid=f"frame_{i + 1}"
         Model = gmodels_state_dict[modelid]
         Gaussianframe = LoadGaussians(num_points=num_points,image=video_frames[i], Model=Model,device=device,args=args)
+        # img = Gaussianframe.render()
+        # img_list.append(img)
+        # torch.cuda.empty_cache()
+        img_pos = Gaussianframe.render_pos()
         img = Gaussianframe.render()
-        img_list.append(img)
+        combined_img = Image.new('RGB', (img.width + img_pos.width, max(img.height, img_pos.height)))
+        combined_img.paste(img, (0, 0))
+        combined_img.paste(img_pos, (img.width, 0))
+        img_list.append(combined_img)
         torch.cuda.empty_cache()
 
     video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)
     filename = "video.mp4"
-    output_size = (width, height)
+    # output_size = (width, height)
+    output_size = (combined_img.width, combined_img.height)
     video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
     for img in tqdm(img_list, desc="Processing images", unit="image"):    
         if img.mode != 'RGB':
