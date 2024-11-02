@@ -52,24 +52,32 @@ class LoadGaussians:
         img = transform(out_image.float().squeeze(0))
         return img
     
-
     def render_pos(self):  
         self.gaussian_model.eval()
         with torch.no_grad():
-            out = self.gaussian_model()
-            out_image = out["render"]
             out_pos =self.gaussian_model.forward_pos(self.num_points)
             out_pos_img = out_pos["render_pos"]
-
             transform = transforms.ToPILImage()
             img_pos = transform(out_pos_img.float().squeeze(0))
-            img = transform(out_image.float().squeeze(0))
-            combined_width =img.width+img_pos.width
-            combined_height = max(img.height, img_pos.height)
-            combined_img = Image.new("RGB", (combined_width, combined_height))
-            combined_img.paste(img_pos, (0, 0))
-            combined_img.paste(img, (img_pos.width, 0))
-        return combined_img
+        return img_pos
+
+    # def render_pos(self):  
+    #     self.gaussian_model.eval()
+    #     with torch.no_grad():
+    #         out = self.gaussian_model()
+    #         out_image = out["render"]
+    #         out_pos =self.gaussian_model.forward_pos(self.num_points)
+    #         out_pos_img = out_pos["render_pos"]
+
+    #         transform = transforms.ToPILImage()
+    #         img_pos = transform(out_pos_img.float().squeeze(0))
+    #         img = transform(out_image.float().squeeze(0))
+    #         combined_width =img.width+img_pos.width
+    #         combined_height = max(img.height, img_pos.height)
+    #         combined_img = Image.new("RGB", (combined_width, combined_height))
+    #         combined_img.paste(img_pos, (0, 0))
+    #         combined_img.paste(img, (img_pos.width, 0))
+    #     return combined_img
 
 
 
