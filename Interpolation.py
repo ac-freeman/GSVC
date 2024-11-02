@@ -185,12 +185,12 @@ def main(argv):
         end_frame = gmodels_state_dict[frame_id_end]
         step_ratio = 1.0 / step
 
-        xyz_start = start_frame['_xyz'].cpu().numpy()
-        xyz_end = end_frame['_xyz'].cpu().numpy()
-        cholesky_start = start_frame['_cholesky'].cpu().numpy()
-        cholesky_end = end_frame['_cholesky'].cpu().numpy()
-        features_dc_start = start_frame['_features_dc'].cpu().numpy()
-        features_dc_end = end_frame['_features_dc'].cpu().numpy()
+        xyz_start = start_frame['_xyz'].detach().cpu().numpy()
+        xyz_end = end_frame['_xyz'].detach().cpu().numpy()
+        cholesky_start = start_frame['_cholesky'].detach().cpu().numpy()
+        cholesky_end = end_frame['_cholesky'].detach().cpu().numpy()
+        features_dc_start = start_frame['_features_dc'].detach().cpu().numpy()
+        features_dc_end = end_frame['_features_dc'].detach().cpu().numpy()
 
         # 用GMM拟合每个特征
         gmm_xyz = GaussianMixture(n_components=n_components).fit(np.vstack([xyz_start, xyz_end]))
