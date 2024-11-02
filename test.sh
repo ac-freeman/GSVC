@@ -17,8 +17,8 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="test"
-savdir_m="test"
+savdir="result_test"
+savdir_m="model_test"
 is_pos=False
 is_ad=False
 loss_type="L2"
