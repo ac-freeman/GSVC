@@ -170,7 +170,7 @@ def main(argv):
                 '_features_dc': interpolated_features_dc
             }
     # 将最后一个损坏帧直接添加到恢复字典中
-    restored_gmodels_state_dict[f"frame_{num_frames}"] = destroied_gmodels_state_dict[f"frame_{num_destroied_frames}"]
+    restored_gmodels_state_dict[f"frame_{frame_index+1}"] = destroied_gmodels_state_dict[f"frame_{num_destroied_frames}"]
     
 
 
