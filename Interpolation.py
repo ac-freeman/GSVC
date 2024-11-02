@@ -157,8 +157,8 @@ def main(argv):
             # 插值恢复 _cholesky
             interpolated_cholesky = (1 - alpha) * start_frame['_cholesky'] + alpha * end_frame['_cholesky']
             
-            # 插值恢复 _features_dc
-            interpolated_features_dc = (1 - alpha) * start_frame['_features_dc'] + alpha * end_frame['_features_dc']
+            # # 插值恢复 _features_dc
+            # interpolated_features_dc = (1 - alpha) * start_frame['_features_dc'] + alpha * end_frame['_features_dc']
             
             # # 插值恢复 _xyz
             # interpolated_xyz = start_frame['_xyz']
