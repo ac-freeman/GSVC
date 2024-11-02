@@ -106,7 +106,7 @@ def main(argv):
     step=10
     args = parse_args(argv)
     savdir=args.savdir
-    fps=args.fps/(step)
+    fps=args.fps
     width = args.width
     height = args.height
     model_path=args.model_path
