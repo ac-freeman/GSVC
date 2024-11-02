@@ -15,7 +15,7 @@ import torchvision.transforms as transforms
 import cv2
 from pathlib import Path
 import os
-
+from scipy.interpolate import CubicSpline
 
 class LoadGaussians:
     """Trains random 2d gaussians to fit an image."""
@@ -137,50 +137,90 @@ def main(argv):
             destroied_gmodels_state_dict[f"frame_{destroied_gmodels_frame}"] = gmodels_state_dict[f"frame_{modelid}"] 
 
     
-    #Interpolate
+    # #Interpolate
+    # num_destroied_frames = len(destroied_gmodels_state_dict)
+    # for i in range(num_destroied_frames - 1):
+    #     # 获取两个相邻的损坏帧
+    #     frame_id_start = f"frame_{i + 1}"
+    #     frame_id_end = f"frame_{i + 2}"
+        
+    #     start_frame = destroied_gmodels_state_dict[frame_id_start]
+    #     end_frame = destroied_gmodels_state_dict[frame_id_end]
+        
+    #     # 插入恢复帧数
+    #     for j in range(step):
+    #         # 计算当前插值帧的权重
+    #         alpha = j / step
+    #         # 插值恢复 _xyz
+    #         interpolated_xyz = (1 - alpha) * start_frame['_xyz'] + alpha * end_frame['_xyz']
+            
+    #         # 插值恢复 _cholesky
+    #         interpolated_cholesky = (1 - alpha) * start_frame['_cholesky'] + alpha * end_frame['_cholesky']
+            
+    #         # 插值恢复 _features_dc
+    #         interpolated_features_dc = (1 - alpha) * start_frame['_features_dc'] + alpha * end_frame['_features_dc']
+            
+    #         # # 插值恢复 _xyz
+    #         # interpolated_xyz = start_frame['_xyz']
+            
+    #         # # 插值恢复 _cholesky
+    #         # interpolated_cholesky = start_frame['_cholesky']
+            
+    #         # # 插值恢复 _features_dc
+    #         # interpolated_features_dc =start_frame['_features_dc']
+            
+            
+    #         # 保存插值后的帧
+    #         frame_index = i * step + j + 1
+    #         restored_gmodels_state_dict[f"frame_{frame_index}"] = {
+    #             '_xyz': interpolated_xyz,
+    #             '_cholesky': interpolated_cholesky,
+    #             '_features_dc': interpolated_features_dc
+    #         }
+    # # 将最后一个损坏帧直接添加到恢复字典中
+    # restored_gmodels_state_dict[f"frame_{frame_index+1}"] = destroied_gmodels_state_dict[f"frame_{num_destroied_frames}"]
+    
     num_destroied_frames = len(destroied_gmodels_state_dict)
+    # 遍历每个损坏的帧段
     for i in range(num_destroied_frames - 1):
-        # 获取两个相邻的损坏帧
+        # 获取相邻的两个损坏帧
         frame_id_start = f"frame_{i + 1}"
         frame_id_end = f"frame_{i + 2}"
         
         start_frame = destroied_gmodels_state_dict[frame_id_start]
         end_frame = destroied_gmodels_state_dict[frame_id_end]
         
-        # 插入恢复帧数
+        # 准备插值数据
+        x = [0, step]  # 定义插值位置
+        xyz_y = torch.stack([start_frame['_xyz'], end_frame['_xyz']]).cpu().numpy()
+        cholesky_y = torch.stack([start_frame['_cholesky'], end_frame['_cholesky']]).cpu().numpy()
+        features_dc_y = torch.stack([start_frame['_features_dc'], end_frame['_features_dc']]).cpu().numpy()
+        
+        # 创建三次样条插值函数
+        spline_xyz = CubicSpline(x, xyz_y, axis=0)
+        spline_cholesky = CubicSpline(x, cholesky_y, axis=0)
+        spline_features_dc = CubicSpline(x, features_dc_y, axis=0)
+        
+        # 插入中间帧
         for j in range(step):
-            # 计算当前插值帧的权重
-            alpha = j / step
-            # 插值恢复 _xyz
-            interpolated_xyz = (1 - alpha) * start_frame['_xyz'] + alpha * end_frame['_xyz']
+            alpha = j  # 对应位置
+            interpolated_xyz = torch.tensor(spline_xyz(alpha), device=start_frame['_xyz'].device)
+            interpolated_cholesky = torch.tensor(spline_cholesky(alpha), device=start_frame['_cholesky'].device)
+            interpolated_features_dc = torch.tensor(spline_features_dc(alpha), device=start_frame['_features_dc'].device)
             
-            # 插值恢复 _cholesky
-            interpolated_cholesky = (1 - alpha) * start_frame['_cholesky'] + alpha * end_frame['_cholesky']
+            # 对 _features_dc 的插值结果进行裁剪到 [0, 1] 范围
+            interpolated_features_dc = torch.clamp(interpolated_features_dc, 0, 1)
             
-            # 插值恢复 _features_dc
-            interpolated_features_dc = (1 - alpha) * start_frame['_features_dc'] + alpha * end_frame['_features_dc']
-            
-            # # 插值恢复 _xyz
-            # interpolated_xyz = start_frame['_xyz']
-            
-            # # 插值恢复 _cholesky
-            # interpolated_cholesky = start_frame['_cholesky']
-            
-            # # 插值恢复 _features_dc
-            # interpolated_features_dc =start_frame['_features_dc']
-            
-            
-            # 保存插值后的帧
+            # 保存插值帧
             frame_index = i * step + j + 1
             restored_gmodels_state_dict[f"frame_{frame_index}"] = {
                 '_xyz': interpolated_xyz,
                 '_cholesky': interpolated_cholesky,
                 '_features_dc': interpolated_features_dc
             }
-    # 将最后一个损坏帧直接添加到恢复字典中
-    restored_gmodels_state_dict[f"frame_{frame_index+1}"] = destroied_gmodels_state_dict[f"frame_{num_destroied_frames}"]
-    
 
+    # 将最后一个损坏帧直接添加到恢复字典中
+    restored_gmodels_state_dict[f"frame_{frame_index + 1}"] = destroied_gmodels_state_dict[f"frame_{num_destroied_frames}"]
 
     num_frames = len(restored_gmodels_state_dict)
     for i in tqdm(range(start, start + num_frames), desc="Processing Frames"):
