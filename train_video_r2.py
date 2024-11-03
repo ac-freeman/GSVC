@@ -91,18 +91,18 @@ class SimpleTrainer2d:
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
-            # if self.isdensity:
-            #     # if early_stopping_relax(loss.item()):
-            #     start_adaptivecontrol=True
-            #     if start_adaptivecontrol:
-            #         density_control=density_control-1
-            #         if density_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
-            #             break
-            #     else:
-            #         strat_iter_adaptive_control=strat_iter_adaptive_control+1
-            # elif early_stopping(loss.item()):
-            #     print(f"Early stopping at iteration {iter}")
-            #     break
+            if self.isdensity:
+                # if early_stopping_relax(loss.item()):
+                start_adaptivecontrol=True
+                if start_adaptivecontrol:
+                    density_control=density_control-1
+                    if density_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
+                        break
+                else:
+                    strat_iter_adaptive_control=strat_iter_adaptive_control+1
+            elif early_stopping(loss.item()):
+                print(f"Early stopping at iteration {iter}")
+                break
 
 
         end_time = time.time() - start_time
