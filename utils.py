@@ -110,17 +110,17 @@ def compute_mse_loss(current_model, pretrained_dict):
         q_xyz = current_model['_xyz']
         mse_loss += F.mse_loss(q_xyz, p_xyz, reduction='mean')
 
-    # Compute MSE for _cholesky parameter
-    if '_cholesky' in pretrained_dict and '_cholesky' in current_model:
-        p_cholesky = pretrained_dict['_cholesky'].detach()  # Detach to prevent gradient computation
-        q_cholesky = current_model['_cholesky']
-        mse_loss += F.mse_loss(q_cholesky, p_cholesky, reduction='mean')
+    # # Compute MSE for _cholesky parameter
+    # if '_cholesky' in pretrained_dict and '_cholesky' in current_model:
+    #     p_cholesky = pretrained_dict['_cholesky'].detach()  # Detach to prevent gradient computation
+    #     q_cholesky = current_model['_cholesky']
+    #     mse_loss += F.mse_loss(q_cholesky, p_cholesky, reduction='mean')
 
-    # Compute MSE for _features_dc parameter
-    if '_features_dc' in pretrained_dict and '_features_dc' in current_model:
-        p_features_dc = pretrained_dict['_features_dc'].detach()  # Detach to prevent gradient computation
-        q_features_dc = current_model['_features_dc']
-        mse_loss += F.mse_loss(q_features_dc, p_features_dc, reduction='mean')
+    # # Compute MSE for _features_dc parameter
+    # if '_features_dc' in pretrained_dict and '_features_dc' in current_model:
+    #     p_features_dc = pretrained_dict['_features_dc'].detach()  # Detach to prevent gradient computation
+    #     q_features_dc = current_model['_features_dc']
+    #     mse_loss += F.mse_loss(q_features_dc, p_features_dc, reduction='mean')
 
     return mse_loss
 
