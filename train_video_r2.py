@@ -79,7 +79,7 @@ class SimpleTrainer2d:
         self.gaussian_model.train()
         start_time = time.time()
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
-        early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-5)
+        early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-4)
         density_control=5000
         strat_iter_adaptive_control=0
         start_adaptivecontrol=False
