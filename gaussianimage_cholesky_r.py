@@ -123,7 +123,9 @@ class GaussianImage_Cholesky(nn.Module):
                     self._cholesky = torch.nn.Parameter(self._cholesky[keep_indices])
                     self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
                     self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])  
-        self.update_optimizer()
+        # self.update_optimizer()
+        for param_group in self.optimizer.param_groups:
+                param_group['params'] = [p for p in self.parameters() if p.requires_grad]
         
 
     def train_iter(self, gt_image,iter,isdensity,strat_iter_adaptive_control):
