@@ -133,8 +133,11 @@ class GaussianImage_Cholesky(nn.Module):
         
         if pretrained_dict is not None:
             Gmodel = self.state_dict()
-            MSEloss = compute_mse_loss(Gmodel, pretrained_dict)
-            loss=loss+0.1*MSEloss
+            # MSEloss = compute_mse_loss(Gmodel, pretrained_dict)
+            # loss=loss+0.1*MSEloss
+            KLloss = compute_kl_loss(Gmodel, pretrained_dict)
+            loss=loss+0.1*KLloss
+            
 
         loss.backward()
         with torch.no_grad():
