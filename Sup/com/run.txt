@@ -10,9 +10,9 @@ python train_video_r.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Honey
 python train_video_r.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 30000 --iterations 100000 --savdir test1 --savdir_m test1 --is_ad
 
 
-python loadmodel.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 27000 --savdir test1 --model_path /home/e/e1344641/GaussianVideo/models/Models/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
-python Interpolation.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 27000 --savdir itest1 --model_path /home/e/e1344641/GaussianVideo/models/Models/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
+python loadmodel.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 27000 --savdir test1 --model_path /home/e/e1344641/GaussianVideo/models/models_density_rgbW/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
+python Interpolation.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 27000 --savdir itest1 --model_path /home/e/e1344641/GaussianVideo/models/models_density_rgbW/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
 
 
-python loadmodel.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 27000 --savdir test1 --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_density_rgbW/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
-python Interpolation.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 27000 --savdir itest1 --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_density_rgbW/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
+python loadmodel.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 27000 --savdir test1 --model_path /home/e/e1344641/GaussianVideo/models/models_density_rgbW/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
+python Interpolation.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 27000 --savdir itest1 --model_path /home/e/e1344641/GaussianVideo/models/models_density_rgbW/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
