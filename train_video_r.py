@@ -78,7 +78,7 @@ class SimpleTrainer2d:
         start_time = time.time()
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-4)
-        density_control=8000
+        density_control=5000
         strat_iter_adaptive_control=0
         start_adaptivecontrol=False
         for iter in range(1, int(self.iterations)+1):
