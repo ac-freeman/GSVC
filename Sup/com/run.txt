@@ -16,3 +16,9 @@ python Interpolation.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1
 
 python loadmodel.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 27000 --savdir test1 --model_path /home/e/e1344641/GaussianVideo/models/models_density_rgbW/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
 python Interpolation.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 27000 --savdir itest1 --model_path /home/e/e1344641/GaussianVideo/models/models_density_rgbW/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
+
+python loadmodel.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 27000 --savdir test2 --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_r/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
+python Interpolation.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 27000 --savdir itest2 --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_r/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
+
+python loadmodel.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Jockey --num_points 27000 --savdir test2 --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_r/Jockey/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
+python Interpolation.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Jockey --num_points 27000 --savdir itest2 --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_r/Jockey/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
