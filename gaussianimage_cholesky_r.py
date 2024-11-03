@@ -94,7 +94,7 @@ class GaussianImage_Cholesky(nn.Module):
         #self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
 
     def density_control(self, iter,strat_iter_adaptive_control):
-        iter_threshold_remove =10000  # 根据训练计划调整这个阈值
+        iter_threshold_remove =8000  # 根据训练计划调整这个阈值
         if iter>strat_iter_adaptive_control+iter_threshold_remove:
             return
         rgb_weight = torch.norm(self.rgb_W, dim=1)
