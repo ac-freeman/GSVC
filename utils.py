@@ -44,51 +44,85 @@ def loss_fn(pred, target, loss_type='L2', lambda_value=0.7):
         loss = lambda_value * F.l1_loss(pred, target) + (1-lambda_value)  * (1 - ms_ssim(pred, target, data_range=1, size_average=True, win_size=5))
     return loss
 
-def compute_kl_loss(current_model, pretrained_dict):
+# def compute_kl_loss(current_model, pretrained_dict):
+#     """
+#     Computes the KL divergence loss to ensure the distribution of current model
+#     parameters (_xyz, _cholesky, _features_dc) is similar to the pretrained model.
+
+#     Args:
+#         current_model (dict): The current model's state dictionary.
+#         pretrained_dict (dict): The pretrained model's state dictionary.
+
+#     Returns:
+#         torch.Tensor: The computed KL divergence loss.
+#     """
+#     KLloss = 0
+
+#     # Compute KL divergence for _xyz parameter
+#     if '_xyz' in pretrained_dict and '_xyz' in current_model:
+#         p_xyz = pretrained_dict['_xyz'].detach()  # Detach to prevent gradient computation
+#         q_xyz = current_model['_xyz']
+#         KLloss += F.kl_div(
+#             torch.log_softmax(q_xyz, dim=-1),
+#             torch.softmax(p_xyz, dim=-1),
+#             reduction='batchmean'
+#         )
+
+#     # Compute KL divergence for _cholesky parameter
+#     if '_cholesky' in pretrained_dict and '_cholesky' in current_model:
+#         p_cholesky = pretrained_dict['_cholesky'].detach()  # Detach to prevent gradient computation
+#         q_cholesky = current_model['_cholesky']
+#         KLloss += F.kl_div(
+#             torch.log_softmax(q_cholesky, dim=-1),
+#             torch.softmax(p_cholesky, dim=-1),
+#             reduction='batchmean'
+#         )
+
+#     # Compute KL divergence for _features_dc parameter
+#     if '_features_dc' in pretrained_dict and '_features_dc' in current_model:
+#         p_features_dc = pretrained_dict['_features_dc'].detach()  # Detach to prevent gradient computation
+#         q_features_dc = current_model['_features_dc']
+#         KLloss += F.kl_div(
+#             torch.log_softmax(q_features_dc, dim=-1),
+#             torch.softmax(p_features_dc, dim=-1),
+#             reduction='batchmean'
+#         )
+
+#     return KLloss
+
+def compute_mse_loss(current_model, pretrained_dict):
     """
-    Computes the KL divergence loss to ensure the distribution of current model
-    parameters (_xyz, _cholesky, _features_dc) is similar to the pretrained model.
+    Computes the Mean Squared Error (MSE) loss to ensure that the current model
+    parameters (_xyz, _cholesky, _features_dc) are similar to those of the pretrained model.
 
     Args:
         current_model (dict): The current model's state dictionary.
         pretrained_dict (dict): The pretrained model's state dictionary.
 
     Returns:
-        torch.Tensor: The computed KL divergence loss.
+        torch.Tensor: The computed MSE loss.
     """
-    KLloss = 0
+    mse_loss = 0
 
-    # Compute KL divergence for _xyz parameter
+    # Compute MSE for _xyz parameter
     if '_xyz' in pretrained_dict and '_xyz' in current_model:
         p_xyz = pretrained_dict['_xyz'].detach()  # Detach to prevent gradient computation
         q_xyz = current_model['_xyz']
-        KLloss += F.kl_div(
-            torch.log_softmax(q_xyz, dim=-1),
-            torch.softmax(p_xyz, dim=-1),
-            reduction='batchmean'
-        )
+        mse_loss += F.mse_loss(q_xyz, p_xyz, reduction='mean')
 
-    # Compute KL divergence for _cholesky parameter
+    # Compute MSE for _cholesky parameter
     if '_cholesky' in pretrained_dict and '_cholesky' in current_model:
         p_cholesky = pretrained_dict['_cholesky'].detach()  # Detach to prevent gradient computation
         q_cholesky = current_model['_cholesky']
-        KLloss += F.kl_div(
-            torch.log_softmax(q_cholesky, dim=-1),
-            torch.softmax(p_cholesky, dim=-1),
-            reduction='batchmean'
-        )
+        mse_loss += F.mse_loss(q_cholesky, p_cholesky, reduction='mean')
 
-    # Compute KL divergence for _features_dc parameter
+    # Compute MSE for _features_dc parameter
     if '_features_dc' in pretrained_dict and '_features_dc' in current_model:
         p_features_dc = pretrained_dict['_features_dc'].detach()  # Detach to prevent gradient computation
         q_features_dc = current_model['_features_dc']
-        KLloss += F.kl_div(
-            torch.log_softmax(q_features_dc, dim=-1),
-            torch.softmax(p_features_dc, dim=-1),
-            reduction='batchmean'
-        )
+        mse_loss += F.mse_loss(q_features_dc, p_features_dc, reduction='mean')
 
-    return KLloss
+    return mse_loss
 
 
 def strip_lowerdiag(L):
