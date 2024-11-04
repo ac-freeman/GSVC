@@ -66,12 +66,12 @@ class SimpleTrainer2d:
             model_dict.update(self.pretrained_dict)
             self.gaussian_model.load_state_dict(model_dict)
         if Gscheduler is not None:
-            # self.gaussian_model.scheduler.load_state_dict(Gscheduler)
-            try:
-                self.gaussian_model.scheduler.load_state_dict(Gscheduler)
-                print("Scheduler state loaded successfully.")
-            except Exception as e:
-                print(f"Failed to load scheduler state: {e}")
+            self.gaussian_model.scheduler.load_state_dict(Gscheduler)
+            # try:
+            #     self.gaussian_model.scheduler.load_state_dict(Gscheduler)
+            #     print("Scheduler state loaded successfully.")
+            # except Exception as e:
+            #     print(f"Failed to load scheduler state: {e}")
     
     def print_stats(self,name, tensor):
         max_val = torch.max(tensor)  # Use PyTorch max
