@@ -136,7 +136,7 @@ class GaussianImage_Cholesky(nn.Module):
             # MSEloss = compute_mse_loss(Gmodel, pretrained_dict)
             # loss=loss+0.1*MSEloss
             KLloss = compute_kl_loss(Gmodel, pretrained_dict)
-            loss=loss+0.1*KLloss
+            loss=loss+KLloss
             
 
         loss.backward()
