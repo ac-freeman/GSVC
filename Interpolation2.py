@@ -152,6 +152,8 @@ def main(argv):
     all_cholesky = np.stack(all_cholesky)
     all_features_dc = np.stack(all_features_dc)
     x = np.arange(num_frames)
+    print(np.shape(x))
+    print(np.shape(all_xyz))
 
     # 使用CubicSpline或其他方法在所有帧上拟合轨迹
     spline_xyz = CubicSpline(x, all_xyz, axis=0)
