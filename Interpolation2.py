@@ -161,7 +161,7 @@ def main(argv):
     spline_features_dc = CubicSpline(x, all_features_dc, axis=0)
 
     # 生成插值帧
-    for i in range(num_frames - 1):
+    for i in range(num_frames):
         for j in range(step):
             alpha = i + j / step  # 使用帧索引和步进位置插值
             interpolated_xyz = torch.tensor(spline_xyz(alpha), device=device)
