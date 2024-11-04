@@ -47,7 +47,7 @@ class GaussianImage_Cholesky(nn.Module):
         else:
             self.optimizer = Adan(self.parameters(), lr=kwargs["lr"])
         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
-        
+
     def _init_data(self):
         self.cholesky_quantizer._init_data(self._cholesky)
 
@@ -132,12 +132,12 @@ class GaussianImage_Cholesky(nn.Module):
         image = render_pkg["render"]
         loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
         
-        if pretrained_dict is not None:
-            Gmodel = self.state_dict()
-            # MSEloss = compute_mse_loss(Gmodel, pretrained_dict)
-            # loss=loss+0.1*MSEloss
-            KLloss = compute_kl_loss(Gmodel, pretrained_dict)
-            loss=loss+0.1*KLloss
+        # if pretrained_dict is not None:
+        #     Gmodel = self.state_dict()
+        #     # MSEloss = compute_mse_loss(Gmodel, pretrained_dict)
+        #     # loss=loss+0.1*MSEloss
+        #     KLloss = compute_kl_loss(Gmodel, pretrained_dict)
+        #     loss=loss+0.1*KLloss
             
 
         loss.backward()
