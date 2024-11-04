@@ -141,7 +141,7 @@ def main(argv):
     num_frames=49
 
     all_xyz, all_cholesky, all_features_dc = [], [], []
-    for i in range(1, num_frames-1):
+    for i in range(1, num_frames):
         frame = gmodels_state_dict[f"frame_{i}"]
         all_xyz.append(frame['_xyz'].detach().cpu().numpy())
         all_cholesky.append(frame['_cholesky'].detach().cpu().numpy())
@@ -151,7 +151,7 @@ def main(argv):
     all_xyz = np.stack(all_xyz)
     all_cholesky = np.stack(all_cholesky)
     all_features_dc = np.stack(all_features_dc)
-    x = np.arange(len(gmodels_state_dict))
+    x = np.arange(len(num_frames))
 
     # 使用CubicSpline或其他方法在所有帧上拟合轨迹
     spline_xyz = CubicSpline(x, all_xyz, axis=0)
