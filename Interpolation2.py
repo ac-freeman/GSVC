@@ -141,7 +141,7 @@ def main(argv):
     num_frames=49
 
     all_xyz, all_cholesky, all_features_dc = [], [], []
-    for i in range(1, num_frames):
+    for i in range(1, num_frames+1):
         frame = gmodels_state_dict[f"frame_{i}"]
         all_xyz.append(frame['_xyz'].detach().cpu().numpy())
         all_cholesky.append(frame['_cholesky'].detach().cpu().numpy())
