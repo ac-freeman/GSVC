@@ -2,7 +2,7 @@ python train_video_r.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jocke
 python train_video_r.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --data_name HoneyBee --num_points 30000 --iterations 100000 --savdir test1 --savdir_m test1 --is_ad
 python train_video_r.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 30000 --iterations 100000 --savdir test1 --savdir_m test1 --is_ad
 
-
+python train_video_ds.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV_960x540.yuv --data_name Jockey --num_points 30000 --iterations 100000 --savdir test1 --savdir_m test1 --is_ad
 
 python Interpolation.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Jockey --num_points 72000 --savdir itest_b --model_path /home/e/e1344641/GaussianVideo/models/models_density_rgbW/Jockey/GaussianImage_Cholesky_100000_80000/gmodels_state_dict.pth
 python Interpolation.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 72000 --savdir itest_b --model_path /home/e/e1344641/GaussianVideo/models/models_density_rgbW/Beauty/GaussianImage_Cholesky_100000_80000/gmodels_state_dict.pth

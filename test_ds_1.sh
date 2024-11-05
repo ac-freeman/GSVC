@@ -13,7 +13,7 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 
 # Define datasets and their corresponding names
 datasets=(
-  "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv Beauty"
+  "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV_960x540.yuv Beauty"
 )
 
 # Define additional parameters
