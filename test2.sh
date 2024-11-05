@@ -29,9 +29,6 @@ srun python loadmodel.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x
 srun python Interpolation.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV_960x540.yuv --data_name Jockey --num_points 27000 --savdir itest_ds --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_ds/Jockey/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
 srun python Interpolation.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV_960x540.yuv --data_name Jockey --num_points 72000 --savdir itest_ds --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_ds/Jockey/GaussianImage_Cholesky_100000_80000/gmodels_state_dict.pth
 
-
-
-
 srun python loadmodel.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV_960x540.yuv --data_name Beauty --num_points 27000 --savdir test_ds --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_ds/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
 srun python loadmodel.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV_960x540.yuv --data_name Beauty --num_points 72000 --savdir test_ds --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_ds/Beauty/GaussianImage_Cholesky_100000_80000/gmodels_state_dict.pth
 srun python Interpolation.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV_960x540.yuv --data_name Beauty --num_points 27000 --savdir itest_ds --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_ds/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth
