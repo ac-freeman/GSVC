@@ -207,10 +207,10 @@ def parse_args(argv):
         help="2D GS points (default: %(default)s)",
     )
     parser.add_argument(
-        "--width", type=int, default=1920, help="width (default: %(default)s)"
+        "--width", type=int, default=960, help="width (default: %(default)s)"
     )
     parser.add_argument(
-        "--height", type=int, default=1080, help="height (default: %(default)s)"
+        "--height", type=int, default=540, help="height (default: %(default)s)"
     )
     parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
     parser.add_argument("--loss_type", type=str, default=None, help="Type of Loss")
@@ -260,7 +260,7 @@ def main(argv):
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    # image_length=5
+    image_length=5
     Gmodel=None
     img_list=[]
     gmodels_state_dict = {}
