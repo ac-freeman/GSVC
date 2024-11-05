@@ -17,6 +17,13 @@ python loadmodel.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_
 python loadmodel.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 27000 --savdir itest_kl --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_kl/Beauty/GaussianImage_Cholesky_100000_80000/gmodels_state_dict.pth
 
 
+ffmpeg -f rawvideo -pix_fmt yuv420p -s 1920x1080 -i /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv -vf scale=960:540 -pix_fmt yuv420p -f rawvideo /home/e/e1344641/data/UVG/Beauty/Beauty_960x540_120fps_420_8bit_YUV.yuv
+
+
+ffmpeg -s 1920x1080 -i /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv -vf scale=960:540 -pix_fmt yuv420p /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_960x540_120fps_420_8bit_YUV.yuv
+ffmpeg -s 1920x1080 -i /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv -vf scale=960:540 -pix_fmt yuv420p /home/e/e1344641/data/UVG/Jockey/Jockey_960x540_120fps_420_8bit_YUV.yuv
+
+ffmpeg -f rawvideo -pix_fmt yuv420p -s 1920x1080 -i Beauty_1920x1080_120fps_420_8bit_YUV.yuv -vf scale=960:540 -pix_fmt yuv420p -f rawvideo Beauty_960x540_120fps_420_8bit_YUV.yuv
 
 
 
