@@ -127,7 +127,8 @@ class SimpleTrainer2d:
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         for iter in range(1, int(self.iterations)+1):
-            loss, psnr = self.gaussian_model.pre_train_iter(self.gt_image)
+            # loss, psnr = self.gaussian_model.pre_train_iter(self.gt_image)
+            loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter,0,0)
             with torch.no_grad():
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
