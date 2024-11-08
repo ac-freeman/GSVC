@@ -307,11 +307,11 @@ def main(argv):
         Gmodel, _,_ = pre_trainer.pre_train()
         loss_list.append(loss)
         grad_list.append(grad)
-    output_path = "loss_list.txt"
+    output_path = "loss_list2.txt"
     with open(output_path, "w") as f:
         for index, loss in enumerate(loss_list, start=1):
             f.write(f"Frame {index}: {loss}\n")
-    output_path = "grad_list.txt"
+    output_path = "grad_list2.txt"
     with open(output_path, "w") as f:
         for index, grad in enumerate(grad_list, start=1):
             f.write(f"Frame {index}: {grad}\n")
