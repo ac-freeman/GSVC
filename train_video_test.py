@@ -316,7 +316,7 @@ def main(argv):
                     iterations=10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate)
             _, loss = grad_extractor.pre_train()
         Gmodel, _ = pre_trainer.pre_train()
-        loss_list.append(loss)
+        loss_list.append(loss.item())
 
     values_to_normalize = loss_list[1:]
     if isinstance(values_to_normalize, torch.Tensor):
