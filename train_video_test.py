@@ -123,7 +123,7 @@ class SimpleTrainer2d:
 
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss
     
-    def pre_train(self,frame,ispos):     
+    def pre_train(self):     
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         for iter in range(1, int(self.iterations)+1):
@@ -145,11 +145,11 @@ class SimpleTrainer2d:
 
         total_grad_norm = 0
         total_elements = 0
-        for name, param in self.gaussian_model.named_parameters():
-            if param.grad is not None and name in ['_xyz', '_cholesky', '_features_dc']:
-                grad_norm = param.grad.norm(2).item() ** 2
-                total_grad_norm += grad_norm
-                total_elements += 1
+        # for name, param in self.gaussian_model.named_parameters():
+        #     if param.grad is not None and name in ['_xyz', '_cholesky', '_features_dc']:
+        #         grad_norm = param.grad.norm(2).item() ** 2
+        #         total_grad_norm += grad_norm
+        #         total_elements += 1
         avg_grad_norm = (total_grad_norm / total_elements) ** 0.5 if total_elements > 0 else 0
 
         return filtered_Gmodel, loss,avg_grad_norm
@@ -308,8 +308,8 @@ def main(argv):
                     iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
             grad_extractor = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
                     iterations=1, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate)
-            _, loss,grad = grad_extractor.pre_train(i,ispos)
-        Gmodel, _,_ = pre_trainer.pre_train(i,ispos)
+            _, loss,grad = grad_extractor.pre_train()
+        Gmodel, _,_ = pre_trainer.pre_train()
         loss_list.append(loss)
         grad_list.append(grad)
     output_path = "loss_list.txt"
