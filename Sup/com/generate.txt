@@ -1,6 +1,0 @@
-ffmpeg -i frame_%02d.jpg -pix_fmt yuv420p -f rawvideo A2_1920x1080_120fps_420_8bit_YUV.yuv
-ffmpeg -i frame_%02d.jpg -pix_fmt yuv420p -f rawvideo A1_1920x1080_120fps_420_8bit_YUV.yuv
-ffmpeg -i frame_%02d.jpg -pix_fmt yuv420p -f rawvideo A3_1920x1080_120fps_420_8bit_YUV.yuv
-ffmpeg -i frame_%02d.jpg -pix_fmt yuv420p -f rawvideo B2_1920x1080_120fps_420_8bit_YUV.yuv
-ffmpeg -i frame_%02d.jpg -pix_fmt yuv420p -f rawvideo B1_1920x1080_120fps_420_8bit_YUV.yuv
-ffmpeg -i frame_%02d.jpg -pix_fmt yuv420p -f rawvideo B3_1920x1080_120fps_420_8bit_YUV.yuv
