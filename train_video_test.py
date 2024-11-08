@@ -127,8 +127,20 @@ class SimpleTrainer2d:
     def pre_train(self):     
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
+        grad_magnitude=0
         for iter in range(1, int(self.iterations)+1):
             loss, psnr = self.gaussian_model.pre_train_iter(self.gt_image)
+            if iter==self.iterations:
+                grad_xyz = self.gaussian_model._xyz.grad
+                grad_cholesky = self.gaussian_model._cholesky.grad
+                grad_features_dc = self.gaussian_model._features_dc.grad
+                if grad_xyz is None:
+                    raise RuntimeError("grad_xyz is None")
+                if grad_cholesky is None:
+                    raise RuntimeError("grad_cholesky is None")
+                if grad_features_dc is None:
+                    raise RuntimeError("grad_features_dc is None")
+                grad_magnitude =torch.norm(grad_xyz)+torch.norm(grad_cholesky)+torch.norm(grad_features_dc)
             with torch.no_grad():
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
@@ -145,16 +157,7 @@ class SimpleTrainer2d:
         filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
 
 
-        grad_xyz = self.gaussian_model._xyz.grad
-        grad_cholesky = self.gaussian_model._cholesky.grad
-        grad_features_dc = self.gaussian_model._features_dc.grad
-        if grad_xyz is None:
-            raise RuntimeError("grad_xyz is None")
-        if grad_cholesky is None:
-            raise RuntimeError("grad_cholesky is None")
-        if grad_features_dc is None:
-            raise RuntimeError("grad_features_dc is None")
-        grad_magnitude =torch.norm(grad_xyz)+torch.norm(grad_cholesky)+torch.norm(grad_features_dc)
+        
 
         return filtered_Gmodel, loss,grad_magnitude
 
