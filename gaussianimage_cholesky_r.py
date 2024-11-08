@@ -142,7 +142,7 @@ class GaussianImage_Cholesky(nn.Module):
         self.scheduler.step()
         return loss, psnr
     
-    def pre_train_iter(self, gt_image,iter,iterations):
+    def pre_train_iter_grad(self, gt_image,iter,iterations):
         render_pkg = self.forward()
         image = render_pkg["render"]
         grad_magnitude=0
@@ -166,6 +166,19 @@ class GaussianImage_Cholesky(nn.Module):
         self.optimizer.zero_grad(set_to_none = True)
         self.scheduler.step()
         return loss, psnr,grad_magnitude
+    
+    def pre_train_iter(self, gt_image):
+        render_pkg = self.forward()
+        image = render_pkg["render"]
+        loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
+        loss.backward()
+        with torch.no_grad():
+            mse_loss = F.mse_loss(image, gt_image)
+            psnr = 10 * math.log10(1.0 / mse_loss.item())
+        self.optimizer.step()
+        self.optimizer.zero_grad(set_to_none = True)
+        self.scheduler.step()
+        return loss, psnr
     
 
     

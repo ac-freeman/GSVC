@@ -13,6 +13,7 @@ from utils import *
 from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
+from sklearn.mixture import GaussianMixture
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
@@ -124,30 +125,41 @@ class SimpleTrainer2d:
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss
     
     
-    def pre_train(self):     
+    def pre_train_grad(self):     
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         for iter in range(1, int(self.iterations)+1):
-            loss, psnr,grad_magnitude = self.gaussian_model.pre_train_iter(self.gt_image,iter,self.iterations)
+            loss, psnr,grad_magnitude = self.gaussian_model.pre_train_iter_grad(self.gt_image,iter,self.iterations)
             with torch.no_grad():
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
         progress_bar.close()
-        
-
         Gmodel =self.gaussian_model.state_dict()
-
         filtered_Gmodel = {
             k: v for k, v in Gmodel.items()
             if k in ['_xyz', '_cholesky']
         }
         filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
-
-
-        
-
         return filtered_Gmodel, loss,grad_magnitude
+    
+    def pre_train(self):     
+        progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
+        self.gaussian_model.train()
+        for iter in range(1, int(self.iterations)+1):
+            loss, psnr = self.gaussian_model.pre_train_iter(self.gt_image)
+            with torch.no_grad():
+                if iter % 10 == 0:
+                    progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
+                    progress_bar.update(10)
+        progress_bar.close()
+        Gmodel =self.gaussian_model.state_dict()
+        filtered_Gmodel = {
+            k: v for k, v in Gmodel.items()
+            if k in ['_xyz', '_cholesky']
+        }
+        filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
+        return filtered_Gmodel, loss
 
 
     def test(self,frame,num_gaussian_points,ispos):
@@ -290,7 +302,6 @@ def main(argv):
     num_gaussian_points_dict={}
     #gradient selection
     loss_list=[]
-    grad_list=[]
     for i in range(start, start+image_length):
         frame_num=i+1
         if frame_num ==1:
@@ -303,21 +314,32 @@ def main(argv):
                     iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
             grad_extractor = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
                     iterations=10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate)
-            _, loss,grad = grad_extractor.pre_train()
+            _, loss = grad_extractor.pre_train()
         Gmodel, _,_ = pre_trainer.pre_train()
         loss_list.append(loss)
-        grad_list.append(grad)
-    output_path = "loss_list2.txt"
+
+    values_to_normalize = loss_list[1:]
+    min_value = np.min(values_to_normalize)
+    max_value = np.max(values_to_normalize)
+    # Normalized values in range [0, 1]
+    normalized_loss_list = [loss_list[0]] + [(v - min_value) / (max_value - min_value) for v in values_to_normalize]
+    output_path = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/loss_list.txt")
     with open(output_path, "w") as f:
-        for index, loss in enumerate(loss_list, start=1):
+        for index, loss in enumerate(normalized_loss_list, start=1):
             f.write(f"Frame {index}: {loss}\n")
-    output_path = "grad_list2.txt"
-    with open(output_path, "w") as f:
-        for index, grad in enumerate(grad_list, start=1):
-            f.write(f"Frame {index}: {grad}\n")
 
-        
-
+    gmm_data = np.array(normalized_loss_list[1:]).reshape(-1, 1)  # Reshape to 2D array
+    gmm = GaussianMixture(n_components=2, random_state=0)  # Use 2 components
+    gmm.fit(gmm_data)
+    means = gmm.means_.flatten()
+    large_component = np.argmax(means)
+    small_component = np.argmin(means)
+    # Predict which distribution each frame belongs to
+    labels = gmm.predict(gmm_data)
+    large_loss_frames = np.where(labels == large_component)[0]
+    small_loss_frames = np.where(labels == small_component)[0]
+    print("属于均值较大分布的loss编号:", large_loss_frames)
+    print("属于均值较小分布的loss编号:", small_loss_frames)
     
     #     img_list.append(img)
     #     psnrs.append(psnr)

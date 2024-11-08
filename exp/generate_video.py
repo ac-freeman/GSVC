@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import os
 
+
 # 定义视频参数
 width, height = 1920, 1080
 num_frames = 12
