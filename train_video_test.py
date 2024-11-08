@@ -127,8 +127,7 @@ class SimpleTrainer2d:
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         for iter in range(1, int(self.iterations)+1):
-            # loss, psnr = self.gaussian_model.pre_train_iter(self.gt_image)
-            loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter,0,0)
+            loss, psnr = self.gaussian_model.pre_train_iter(self.gt_image)
             with torch.no_grad():
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
@@ -146,11 +145,11 @@ class SimpleTrainer2d:
 
         total_grad_norm = 0
         total_elements = 0
-        # for name, param in self.gaussian_model.named_parameters():
-        #     if param.grad is not None and name in ['_xyz', '_cholesky', '_features_dc']:
-        #         grad_norm = param.grad.norm(2).item() ** 2
-        #         total_grad_norm += grad_norm
-        #         total_elements += 1
+        for name, param in self.gaussian_model.named_parameters():
+            if param.grad is not None and name in ['_xyz', '_cholesky', '_features_dc']:
+                grad_norm = param.grad.norm(2).item() ** 2
+                total_grad_norm += grad_norm
+                total_elements += 1
         avg_grad_norm = (total_grad_norm / total_elements) ** 0.5 if total_elements > 0 else 0
 
         return filtered_Gmodel, loss,avg_grad_norm
