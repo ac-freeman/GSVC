@@ -319,7 +319,9 @@ def main(argv):
         loss_list.append(loss)
 
     values_to_normalize = loss_list[1:]
-    values_to_normalize = np.array([v.cpu().numpy() if isinstance(v, torch.Tensor) else v for v in values_to_normalize])
+    values_to_normalize = np.array([
+        v.detach().cpu().numpy() if isinstance(v, torch.Tensor) else v for v in values_to_normalize
+    ])
     min_value = np.min(values_to_normalize)
     max_value = np.max(values_to_normalize)
     # Normalized values in range [0, 1]
