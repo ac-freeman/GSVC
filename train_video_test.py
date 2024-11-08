@@ -342,7 +342,6 @@ def main(argv):
     small_loss_frames = np.where(labels == small_component)[0] + 2
     
     # probabilities = gmm.predict_proba(gmm_data)
-    # # 根据概率阈值0.7划分large_loss_frames和small_loss_frames
     # large_loss_frames = np.where(probabilities[:, large_component] > 0.7)[0] + 2
     # small_loss_frames = np.where(probabilities[:, large_component] <= 0.7)[0]+ 2
     small_loss_frames = np.insert(small_loss_frames, 0, 1)
