@@ -123,6 +123,7 @@ class SimpleTrainer2d:
 
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss
     
+    
     def pre_train(self):     
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
@@ -311,7 +312,8 @@ def main(argv):
             # _, loss,grad = grad_extractor.pre_train()
             loss=0
             grad=0
-        Gmodel, _,_ = pre_trainer.pre_train()
+        # Gmodel, _,_ = pre_trainer.pre_train()
+        _, _, _, _, _, Gmodel, _, _, _ = pre_trainer.train()
         loss_list.append(loss)
         grad_list.append(grad)
     output_path = "loss_list.txt"
