@@ -6,8 +6,8 @@ import os
 width, height = 1920, 1080
 num_frames = 12
 fps = 5
-output_video_path = 'output_video.yuv'
-output_image_folder = 'frames'
+output_video_path = 'output_video2.yuv'
+output_image_folder = 'frames2'
 
 # 创建图片文件夹
 os.makedirs(output_image_folder, exist_ok=True)
@@ -25,7 +25,7 @@ with open(output_video_path, 'wb') as yuv_file:
             position = (width - 300, height // 2)
 
         # 创建一个带有对称渐变纹理的小球图案
-        radius = 200
+        radius = 50
         ball_texture = np.zeros((radius * 2, radius * 2, 3), dtype=np.uint8)
         
         # 使用径向对称渐变纹理
