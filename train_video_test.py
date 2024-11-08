@@ -307,13 +307,10 @@ def main(argv):
         else:
             pre_trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
                     iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
-            # grad_extractor = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
-            #         iterations=1, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate)
-            # _, loss,grad = grad_extractor.pre_train()
-            loss=0
-            grad=0
-        # Gmodel, _,_ = pre_trainer.pre_train()
-        _, _, _, _, _, Gmodel, _, _, _ = pre_trainer.train(i,False)
+            grad_extractor = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
+                    iterations=1, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate)
+            _, loss,grad = grad_extractor.pre_train()
+        Gmodel, _,_ = pre_trainer.pre_train()
         loss_list.append(loss)
         grad_list.append(grad)
     output_path = "loss_list.txt"
