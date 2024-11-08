@@ -313,7 +313,7 @@ def main(argv):
             loss=0
             grad=0
         # Gmodel, _,_ = pre_trainer.pre_train()
-        _, _, _, _, _, Gmodel, _, _, _ = pre_trainer.train()
+        _, _, _, _, _, Gmodel, _, _, _ = pre_trainer.train(i,False)
         loss_list.append(loss)
         grad_list.append(grad)
     output_path = "loss_list.txt"
