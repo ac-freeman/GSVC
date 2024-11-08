@@ -316,11 +316,10 @@ def main(argv):
                     iterations=10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate)
             _, loss = grad_extractor.pre_train()
         Gmodel, _ = pre_trainer.pre_train()
-        loss_list.append(loss.item())
+        loss_list.append(loss)
 
     values_to_normalize = loss_list[1:]
-    # if isinstance(values_to_normalize, torch.Tensor):
-    #     values_to_normalize = values_to_normalize.cpu().numpy()
+    values_to_normalize = np.array([v.cpu().numpy() if isinstance(v, torch.Tensor) else v for v in values_to_normalize])
     min_value = np.min(values_to_normalize)
     max_value = np.max(values_to_normalize)
     # Normalized values in range [0, 1]
@@ -331,8 +330,6 @@ def main(argv):
             f.write(f"Frame {index}: {loss}\n")
 
     gmm_data = np.array(normalized_loss_list[1:]).reshape(-1, 1)  # Reshape to 2D array
-    # if isinstance(gmm_data, torch.Tensor):
-    #     gmm_data = gmm_data.cpu().numpy() 
     gmm = GaussianMixture(n_components=2, random_state=0)  # Use 2 components
     gmm.fit(gmm_data)
     means = gmm.means_.flatten()
