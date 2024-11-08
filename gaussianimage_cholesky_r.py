@@ -152,9 +152,9 @@ class GaussianImage_Cholesky(nn.Module):
             mse_loss = F.mse_loss(image, gt_image)
             psnr = 10 * math.log10(1.0 / mse_loss.item())
         if iter==iterations:
-            grad_xyz = self.gaussian_model._xyz.grad
-            grad_cholesky = self.gaussian_model._cholesky.grad
-            grad_features_dc = self.gaussian_model._features_dc.grad
+            grad_xyz = self._xyz.grad
+            grad_cholesky = self._cholesky.grad
+            grad_features_dc = self._features_dc.grad
             if grad_xyz is None:
                 raise RuntimeError("grad_xyz is None")
             if grad_cholesky is None:
