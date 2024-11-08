@@ -315,7 +315,7 @@ def main(argv):
             grad_extractor = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
                     iterations=10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate)
             _, loss = grad_extractor.pre_train()
-        Gmodel, _,_ = pre_trainer.pre_train()
+        Gmodel, _ = pre_trainer.pre_train()
         loss_list.append(loss)
 
     values_to_normalize = loss_list[1:]
@@ -338,8 +338,8 @@ def main(argv):
     labels = gmm.predict(gmm_data)
     large_loss_frames = np.where(labels == large_component)[0]
     small_loss_frames = np.where(labels == small_component)[0]
-    print("属于均值较大分布的loss编号:", large_loss_frames)
-    print("属于均值较小分布的loss编号:", small_loss_frames)
+    print("Frames in large loss distribution:", large_loss_frames)
+    print("Frames in small loss distribution:", small_loss_frames)
     
     #     img_list.append(img)
     #     psnrs.append(psnr)
