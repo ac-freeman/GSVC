@@ -329,6 +329,8 @@ def main(argv):
             f.write(f"Frame {index}: {loss}\n")
 
     gmm_data = np.array(normalized_loss_list[1:]).reshape(-1, 1)  # Reshape to 2D array
+    if isinstance(gmm_data, torch.Tensor):
+        gmm_data = gmm_data.cpu().numpy() 
     gmm = GaussianMixture(n_components=2, random_state=0)  # Use 2 components
     gmm.fit(gmm_data)
     means = gmm.means_.flatten()
