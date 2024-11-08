@@ -338,8 +338,14 @@ def main(argv):
     small_component = np.argmin(means)
     # Predict which distribution each frame belongs to
     labels = gmm.predict(gmm_data)
-    large_loss_frames = np.where(labels == large_component)[0]
-    small_loss_frames = np.where(labels == small_component)[0]
+    large_loss_frames = np.where(labels == large_component)[0] + 2
+    small_loss_frames = np.where(labels == small_component)[0] + 2
+    
+    # probabilities = gmm.predict_proba(gmm_data)
+    # # 根据概率阈值0.7划分large_loss_frames和small_loss_frames
+    # large_loss_frames = np.where(probabilities[:, large_component] > 0.7)[0] + 2
+    # small_loss_frames = np.where(probabilities[:, large_component] <= 0.7)[0]+ 2
+    small_loss_frames = np.insert(small_loss_frames, 0, 1)
     print("Frames in large loss distribution:", large_loss_frames)
     print("Frames in small loss distribution:", small_loss_frames)
     
