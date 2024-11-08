@@ -26,7 +26,7 @@ ffmpeg -s 1920x1080 -i /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_
 ffmpeg -f rawvideo -pix_fmt yuv420p -s 1920x1080 -i Beauty_1920x1080_120fps_420_8bit_YUV.yuv -vf scale=960:540 -pix_fmt yuv420p -f rawvideo Beauty_960x540_120fps_420_8bit_YUV.yuv
 
 
-python train_video_test.py --loss_type L2 --dataset /home/e/e1344641/GaussianVideo/exp/test_video.yuv --data_name test --num_points 1000 --iterations 1000 --savdir test1 --savdir_m test1
+python train_video_test.py --loss_type L2 --dataset /home/e/e1344641/GaussianVideo/exp/test_video.yuv --data_name test --num_points 5000 --iterations 1000 --savdir test1 --savdir_m test1
 
 
 
