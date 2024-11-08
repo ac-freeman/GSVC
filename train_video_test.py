@@ -144,16 +144,19 @@ class SimpleTrainer2d:
         }
         filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
 
-        total_grad_norm = 0
-        total_elements = 0
-        for name, param in self.gaussian_model.named_parameters():
-            if param.grad is not None and name in ['_xyz', '_cholesky', '_features_dc']:
-                grad_norm = param.grad.norm(2).item() ** 2
-                total_grad_norm += grad_norm
-                total_elements += 1
-        avg_grad_norm = (total_grad_norm / total_elements) ** 0.5 if total_elements > 0 else 0
 
-        return filtered_Gmodel, loss,avg_grad_norm
+        grad_xyz = self.gaussian_model._xyz.grad
+        grad_cholesky = self.gaussian_model._cholesky.grad
+        grad_features_dc = self.gaussian_model._features_dc.grad
+        if grad_xyz is None:
+            raise RuntimeError("grad_xyz is None")
+        if grad_cholesky is None:
+            raise RuntimeError("grad_cholesky is None")
+        if grad_features_dc is None:
+            raise RuntimeError("grad_features_dc is None")
+        grad_magnitude =torch.norm(grad_xyz)+torch.norm(grad_cholesky)+torch.norm(grad_features_dc)
+
+        return filtered_Gmodel, loss,grad_magnitude
 
 
     def test(self,frame,num_gaussian_points,ispos):
