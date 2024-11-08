@@ -345,6 +345,18 @@ def main(argv):
     large_loss_frames = np.where(probabilities[:, large_component] > 0.9)[0] + 2
     small_loss_frames = np.where(probabilities[:, large_component] <= 0.9)[0]+ 2
     small_loss_frames = np.insert(small_loss_frames, 0, 1)
+    output_path_large = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/large_loss_frames.txt")
+    output_path_small = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/small_loss_frames.txt")
+
+    # 将 large_loss_frames 保存为 txt 文件
+    with open(output_path_large, "w") as f:
+        for frame in large_loss_frames:
+            f.write(f"{frame}\n")
+
+    # 将 small_loss_frames 保存为 txt 文件
+    with open(output_path_small, "w") as f:
+        for frame in small_loss_frames:
+            f.write(f"{frame}\n")
     print("Frames in large loss distribution:", large_loss_frames)
     print("Frames in small loss distribution:", small_loss_frames)
     
