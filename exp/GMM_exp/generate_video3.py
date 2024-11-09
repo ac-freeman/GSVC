@@ -18,8 +18,6 @@ with open(output_video_path, 'wb') as yuv_file:
     for i in range(1, num_frames + 1, 2):  # 每两帧内容相同
         # 初始化黑色背景
         frame = np.zeros((height, width, 3), dtype=np.uint8)
-        position = (width//2, height // 2)
-        frame = np.zeros((height, width, 3), dtype=np.uint8)
         position = (width // 2, height // 2)
         
         # 决定长方形的位置和尺寸
@@ -30,12 +28,19 @@ with open(output_video_path, 'wb') as yuv_file:
             rect_height = 100
             rect_width = 500
 
+        # 创建纹理图案（渐变或其他复杂纹理）
+        texture = np.zeros((rect_height, rect_width, 3), dtype=np.uint8)
+        for y in range(rect_height):
+            for x in range(rect_width):
+                # 创建简单的线性渐变纹理，效果是从左上到右下渐变
+                texture[y, x] = (x * 255 // rect_width, y * 255 // rect_height, (x + y) * 128 // (rect_width + rect_height))
+
         # 计算长方形的左上角和右下角坐标（以长方形中心为position）
         top_left = (position[0] - rect_width // 2, position[1] - rect_height // 2)
         bottom_right = (position[0] + rect_width // 2, position[1] + rect_height // 2)
-        
-        # 在frame中绘制长方形
-        frame = cv2.rectangle(frame, top_left, bottom_right, (255, 255, 255), -1)  # 使用白色填充长方形
+
+        # 将纹理图案放置到frame的指定区域
+        frame[top_left[1]:bottom_right[1], top_left[0]:bottom_right[0]] = texture
 
         # 保存两帧相同的PNG图片和YUV数据
         for j in range(2):
