@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=test_dW_3    # Job name
+#SBATCH --job-name=testGMM3    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=48:00:00                 # Time limit hrs:min:sec
