@@ -300,65 +300,84 @@ def main(argv):
     img_list=[]
     gmodels_state_dict = {}
     num_gaussian_points_dict={}
-    #gradient selection
-    loss_list=[]
-    for i in range(start, start+image_length):
-        frame_num=i+1
-        if frame_num ==1:
-            pre_trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
-                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
-            loss=0
-            grad=0
-        else:
-            pre_trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
-                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
-            grad_extractor = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
-                    iterations=10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate)
-            _, loss = grad_extractor.pre_train()
-        Gmodel, _ = pre_trainer.pre_train()
-        loss_list.append(loss)
-    loss_list = np.array([
-        v.detach().cpu().numpy() if isinstance(v, torch.Tensor) else v for v in loss_list
-    ])
-    values_to_normalize = loss_list[1:]
-    min_value = np.min(values_to_normalize)
-    max_value = np.max(values_to_normalize)
-    # Normalized values in range [0, 1]
-    normalized_loss_list = [loss_list[0]] + [(v - min_value) / (max_value - min_value) for v in values_to_normalize]
-    output_path = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/loss_list.txt")
-    with open(output_path, "w") as f:
-        for index, loss in enumerate(normalized_loss_list, start=1):
-            f.write(f"Frame {index}: {loss}\n")
+    #Loss selection
 
-    gmm_data = np.array(normalized_loss_list[1:]).reshape(-1, 1)  # Reshape to 2D array
-    gmm = GaussianMixture(n_components=2, random_state=0)  # Use 2 components
-    gmm.fit(gmm_data)
-    means = gmm.means_.flatten()
-    large_component = np.argmax(means)
-    small_component = np.argmin(means)
-    # Predict which distribution each frame belongs to
-    # labels = gmm.predict(gmm_data)
-    # large_loss_frames = np.where(labels == large_component)[0] + 2
-    # small_loss_frames = np.where(labels == small_component)[0] + 2
+    # Define output path for K_frames
+    output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
+
+    # Check if the file exists
+    if output_path_K_frames.exists():
+        # If exists, read the file and assign values to K_frames
+        with open(output_path_K_frames, "r") as f:
+            K_frames = [int(line.strip()) for line in f.readlines()]
+    else:
+        loss_list=[]
+        for i in range(start, start+image_length):
+            frame_num=i+1
+            if frame_num ==1:
+                pre_trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
+                        iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
+                loss=0
+                grad=0
+            else:
+                pre_trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
+                        iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
+                grad_extractor = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
+                        iterations=10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,removal_rate=removal_rate)
+                _, loss = grad_extractor.pre_train()
+            Gmodel, _ = pre_trainer.pre_train()
+            loss_list.append(loss)
+        loss_list = np.array([
+            v.detach().cpu().numpy() if isinstance(v, torch.Tensor) else v for v in loss_list
+        ])
+        values_to_normalize = loss_list[1:]
+        min_value = np.min(values_to_normalize)
+        max_value = np.max(values_to_normalize)
+        # Normalized values in range [0, 1]
+        normalized_loss_list = [loss_list[0]] + [(v - min_value) / (max_value - min_value) for v in values_to_normalize]
+        output_path = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/loss_list.txt")
+        with open(output_path, "w") as f:
+            for index, loss in enumerate(normalized_loss_list, start=1):
+                f.write(f"Frame {index}: {loss}\n")
+
+        gmm_data = np.array(normalized_loss_list[1:]).reshape(-1, 1)  # Reshape to 2D array
+        gmm = GaussianMixture(n_components=2, random_state=0)  # Use 2 components
+        gmm.fit(gmm_data)
+        means = gmm.means_.flatten()
+        large_component = np.argmax(means)
+        # small_component = np.argmin(means)
+        # Predict which distribution each frame belongs to
+        # labels = gmm.predict(gmm_data)
+        # large_loss_frames = np.where(labels == large_component)[0] + 2
+        # small_loss_frames = np.where(labels == small_component)[0] + 2
+        probabilities = gmm.predict_proba(gmm_data)
+        large_loss_frames = np.where(probabilities[:, large_component] > 0.999)[0] + 2
+        small_loss_frames = np.where(probabilities[:, large_component] <= 0.999)[0]+ 2
+        K_frames=large_loss_frames
+        K_frames = np.insert(K_frames, 0, 1)
+        output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
+        with open(output_path_K_frames, "w") as f:
+            for frame in K_frames:
+                f.write(f"{frame}\n")
+    print("K-frames:", K_frames)
+        # output_path_large = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/large_loss_frames.txt")
+        # output_path_small = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/small_loss_frames.txt")
+        # 将 large_loss_frames 保存为 txt 文件
+        # with open(output_path_large, "w") as f:
+        #     for frame in large_loss_frames:
+        #         f.write(f"{frame}\n")
+
+        # # 将 small_loss_frames 保存为 txt 文件
+        # with open(output_path_small, "w") as f:
+        #     for frame in small_loss_frames:
+        #         f.write(f"{frame}\n")
+        # print("Frames in large loss distribution:", large_loss_frames)
+        # print("Frames in small loss distribution:", small_loss_frames)
     
-    probabilities = gmm.predict_proba(gmm_data)
-    large_loss_frames = np.where(probabilities[:, large_component] > 0.9)[0] + 2
-    small_loss_frames = np.where(probabilities[:, large_component] <= 0.9)[0]+ 2
-    small_loss_frames = np.insert(small_loss_frames, 0, 1)
-    output_path_large = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/large_loss_frames.txt")
-    output_path_small = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/small_loss_frames.txt")
 
-    # 将 large_loss_frames 保存为 txt 文件
-    with open(output_path_large, "w") as f:
-        for frame in large_loss_frames:
-            f.write(f"{frame}\n")
 
-    # 将 small_loss_frames 保存为 txt 文件
-    with open(output_path_small, "w") as f:
-        for frame in small_loss_frames:
-            f.write(f"{frame}\n")
-    print("Frames in large loss distribution:", large_loss_frames)
-    print("Frames in small loss distribution:", small_loss_frames)
+
+
     
     #     img_list.append(img)
     #     psnrs.append(psnr)
