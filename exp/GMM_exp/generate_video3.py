@@ -21,9 +21,9 @@ with open(output_video_path, 'wb') as yuv_file:
         position = (width//2, height // 2)
         # 决定小球的位置
         if (i // 2) % 2 == 0:  # 第1、2，5、6，9、10帧在左边
-            radius =50
+            radius =100
         else:                  # 第3、4，7、8，11、12帧在右边
-            radius=10
+            radius=150
 
         # 创建一个带有对称渐变纹理的小球图案
         ball_texture = np.zeros((radius * 2, radius * 2, 3), dtype=np.uint8)
@@ -36,10 +36,13 @@ with open(output_video_path, 'wb') as yuv_file:
                 if distance < radius:
                     # 对称渐变纹理：根据距离生成颜色
                     intensity = int((1 - distance / radius) * 255)
-                    r = intensity  # 红色分量根据距离衰减
-                    g = intensity  # 绿色分量也根据距离衰减
-                    b = 255 - intensity  # 蓝色为反向渐变
-                    ball_texture[y, x] = (b, g, r)
+                    if (i // 2) % 2 == 0:
+                        r = intensity  # 红色分量根据距离衰减
+                        g = intensity  # 绿色分量也根据距离衰减
+                        b = 255 - intensity  # 蓝色为反向渐变
+                        ball_texture[y, x] = (b, g, r)
+                    else:
+                        ball_texture[y,x]=(r,b,g)
         
         # 将带纹理的小球叠加到背景帧上
         for y in range(-radius, radius):
