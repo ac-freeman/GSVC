@@ -19,38 +19,23 @@ with open(output_video_path, 'wb') as yuv_file:
         # 初始化黑色背景
         frame = np.zeros((height, width, 3), dtype=np.uint8)
         position = (width//2, height // 2)
-        # 决定小球的位置
+        frame = np.zeros((height, width, 3), dtype=np.uint8)
+        position = (width // 2, height // 2)
+        
+        # 决定长方形的位置和尺寸
         if (i // 2) % 2 == 0:  # 第1、2，5、6，9、10帧在左边
-            radius =100
+            rect_height = 500  # 长方形的高度
+            rect_width = 100    # 长方形的宽度
         else:                  # 第3、4，7、8，11、12帧在右边
-            radius=150
+            rect_height = 100
+            rect_width = 500
 
-        # 创建一个带有对称渐变纹理的小球图案
-        ball_texture = np.zeros((radius * 2, radius * 2, 3), dtype=np.uint8)
+        # 计算长方形的左上角和右下角坐标（以长方形中心为position）
+        top_left = (position[0] - rect_width // 2, position[1] - rect_height // 2)
+        bottom_right = (position[0] + rect_width // 2, position[1] + rect_height // 2)
         
-        # 使用径向对称渐变纹理
-        for y in range(radius * 2):
-            for x in range(radius * 2):
-                # 计算到中心的距离
-                distance = np.sqrt((x - radius) ** 2 + (y - radius) ** 2)
-                if distance < radius:
-                    # 对称渐变纹理：根据距离生成颜色
-                    intensity = int((1 - distance / radius) * 255)
-                    if (i // 2) % 2 == 0:
-                        r = intensity  # 红色分量根据距离衰减
-                        g = intensity  # 绿色分量也根据距离衰减
-                        b = 255 - intensity  # 蓝色为反向渐变
-                        ball_texture[y, x] = (b, g, r)
-                    else:
-                        ball_texture[y,x]=(r,b,g)
-        
-        # 将带纹理的小球叠加到背景帧上
-        for y in range(-radius, radius):
-            for x in range(-radius, radius):
-                if np.sqrt(x**2 + y**2) < radius:
-                    px, py = position[0] + x, position[1] + y
-                    if 0 <= px < width and 0 <= py < height:
-                        frame[py, px] = ball_texture[y + radius, x + radius]
+        # 在frame中绘制长方形
+        frame = cv2.rectangle(frame, top_left, bottom_right, (255, 255, 255), -1)  # 使用白色填充长方形
 
         # 保存两帧相同的PNG图片和YUV数据
         for j in range(2):
