@@ -7,8 +7,8 @@ import os
 width, height = 1920, 1080
 num_frames = 12
 fps = 5
-output_video_path = 'output_video3.yuv'
-output_image_folder = 'frames3'
+output_video_path = 'output_video2.yuv'
+output_image_folder = 'frames2'
 
 # 创建图片文件夹
 os.makedirs(output_image_folder, exist_ok=True)
@@ -21,9 +21,9 @@ with open(output_video_path, 'wb') as yuv_file:
         position = (width//2, height // 2)
         # 决定小球的位置
         if (i // 2) % 2 == 0:  # 第1、2，5、6，9、10帧在左边
-            radius =50
+            radius =100
         else:                  # 第3、4，7、8，11、12帧在右边
-            radius=350
+            radius=150
 
         # 创建一个带有对称渐变纹理的小球图案
         ball_texture = np.zeros((radius * 2, radius * 2, 3), dtype=np.uint8)
