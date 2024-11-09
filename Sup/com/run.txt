@@ -27,7 +27,7 @@ ffmpeg -f rawvideo -pix_fmt yuv420p -s 1920x1080 -i Beauty_1920x1080_120fps_420_
 
 
 python train_video_test.py --loss_type L2 --dataset /home/e/e1344641/GaussianVideo/exp/GMM_exp/test_video.yuv --data_name test --num_points 5000 --iterations 1000 --savdir test1 --savdir_m test1
-
+python train_video_test.py --loss_type L2 --dataset /home/e/e1344641/GaussianVideo/exp/GMM_exp/output_video3.yuv --data_name test --num_points 5000 --iterations 1000 --savdir test1 --savdir_m test1
 
 
 
