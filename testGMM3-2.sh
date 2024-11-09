@@ -1,19 +1,19 @@
 #!/bin/bash
 
-#SBATCH --job-name=testGMM1    # Job name
+#SBATCH --job-name=testGMM3-2    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=48:00:00                 # Time limit hrs:min:sec
 #SBATCH --gres=gpu:h100-47:1
 #SBATCH --mail-type=ALL                 # Get email for all status updates
 #SBATCH --mail-user=wanglongan@comp.nus.edu.sg # Email for notifications
-#SBATCH --mem=16G                    # Request 16GB of memory
+#SBATCH --mem=16G                       # Request 16GB of memory
 # Activate the environment if needed
 source activate torch  # Replace 'torch' with the name of your conda environment
 
 # Define datasets and their corresponding names
 datasets=(
-  "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv Beauty"
+  "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
 )
 
 # Define additional parameters
@@ -27,7 +27,7 @@ for dataset in "${datasets[@]}"; do
   data_name=$(echo $dataset | cut -d' ' -f2)
   # for num_points in 30000 40000 50000; do
   # for num_points in 30000 40000 50000 60000 70000 80000; do
-  for num_points in 5000 10000 15000 20000 25000 30000 40000 50000 60000 70000 80000; do
+  for num_points in 40000 50000 60000 70000 80000; do
     for iterations in 100000; do
       pos_flag=""
       ad_flag=""
@@ -50,4 +50,3 @@ for dataset in "${datasets[@]}"; do
     done
   done
 done
-
