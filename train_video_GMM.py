@@ -345,33 +345,14 @@ def main(argv):
         gmm.fit(gmm_data)
         means = gmm.means_.flatten()
         large_component = np.argmax(means)
-        # small_component = np.argmin(means)
-        # Predict which distribution each frame belongs to
-        # labels = gmm.predict(gmm_data)
-        # large_loss_frames = np.where(labels == large_component)[0] + 2
-        # small_loss_frames = np.where(labels == small_component)[0] + 2
         probabilities = gmm.predict_proba(gmm_data)
         large_loss_frames = np.where(probabilities[:, large_component] > 1-(1e-6))[0] + 2
-        # small_loss_frames = np.where(probabilities[:, large_component] <= 1-1e-5)[0]+ 2
         K_frames=large_loss_frames
         K_frames = np.insert(K_frames, 0, 1)
         output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
         with open(output_path_K_frames, "w") as f:
             for frame in K_frames:
                 f.write(f"{frame}\n")
-        # output_path_large = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/large_loss_frames.txt")
-        # output_path_small = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/small_loss_frames.txt")
-        # 将 large_loss_frames 保存为 txt 文件
-        # with open(output_path_large, "w") as f:
-        #     for frame in large_loss_frames:
-        #         f.write(f"{frame}\n")
-
-        # # 将 small_loss_frames 保存为 txt 文件
-        # with open(output_path_small, "w") as f:
-        #     for frame in small_loss_frames:
-        #         f.write(f"{frame}\n")
-        # print("Frames in large loss distribution:", large_loss_frames)
-        # print("Frames in small loss distribution:", small_loss_frames)  
     print("K-frames:", K_frames)
        
 
