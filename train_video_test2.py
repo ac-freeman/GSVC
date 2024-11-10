@@ -344,7 +344,7 @@ def main(argv):
             loss_extractor_K = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
                     iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
             loss_extractor_P = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
-                    iterations=1, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate)  
+                    iterations=10, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate)  
             Gmodel, loss_K,grad_K = loss_extractor_K.pre_train_grad()
             _, loss_P,grad_P = loss_extractor_P.pre_train_grad()
             loss_list.append(loss_P-loss_K)
