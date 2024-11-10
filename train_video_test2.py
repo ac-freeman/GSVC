@@ -379,6 +379,8 @@ def main(argv):
     # print("Frames in large loss distribution:", large_loss_frames)
     # print("Frames in small loss distribution:", small_loss_frames)  
     print("K-frames:", K_frames)
+    print(loss_list)
+    print(normalized_loss_list)
        
 
     
