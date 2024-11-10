@@ -364,10 +364,7 @@ def main(argv):
         for index, grad in enumerate(grad_list, start=1):
             f.write(f"Frame {index}: {grad}\n")
     # Normalized values in range [0, 1]
-    max_abs_value = max(abs(min(loss_list[1:])), abs(max(loss_list[1:])))
-    normalized_loss_list = [loss_list[0]] + [v / max_abs_value for v in loss_list[1:]]
-
-    # normalized_loss_list = [loss_list[0]] + [(v - min_value) / (max_value - min_value) for v in values_to_normalize]
+    normalized_loss_list = [loss_list[0]] + [(v - min_value) / (max_value - min_value) for v in values_to_normalize]
     gmm_data = np.array(normalized_loss_list[1:]).reshape(-1, 1)  # Reshape to 2D array
     gmm = GaussianMixture(n_components=2, random_state=0)  # Use 2 components
     gmm.fit(gmm_data)
