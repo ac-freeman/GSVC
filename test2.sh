@@ -15,6 +15,7 @@ datasets=(
   "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv Beauty"
   "/home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv HoneyBee"
   "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
+  "/home/e/e1344641/GaussianVideo/exp/GMM_exp2/output_video1.yuv test"
 )
 # Define additional parameters
 savdir="GMM3"
