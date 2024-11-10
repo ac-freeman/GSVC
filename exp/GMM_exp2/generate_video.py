@@ -35,7 +35,7 @@ with open(output_video_path, 'wb') as yuv_file:
                 position = (300, height // 2)
 
             # 创建一个带有对称渐变纹理的小球图案
-            radius = 50
+            radius = 300
             ball_texture = np.zeros((radius * 2, radius * 2, 3), dtype=np.uint8)
             # 使用径向对称渐变纹理
             for y in range(radius * 2):
