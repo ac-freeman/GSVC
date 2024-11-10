@@ -30,9 +30,9 @@ with open(output_video_path, 'wb') as yuv_file:
             
             # 决定小球的位置
             if (i // 2) % 2 == 0:  # 第1、2，5、6，9、10帧在左边
-                position = (300, height // 2)
-            else:                  # 第3、4，7、8，11、12帧在右边
                 position = (width - 300, height // 2)
+            else:                  # 第3、4，7、8，11、12帧在右边
+                position = (300, height // 2)
 
             # 创建一个带有对称渐变纹理的小球图案
             radius = 50
