@@ -17,15 +17,15 @@ datasets=(
   "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
 )
 # Define additional parameters
-savdir="GMM"
-savdir_m="GMM_m"
+savdir="GMM2"
+savdir_m="GMM2_m"
 is_pos=False
 is_ad=True
 loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in 5000 10000 15000 20000 25000 30000 40000 50000 60000 70000 80000; do
+  for num_points in 5000; do
     for iterations in 100000; do
       pos_flag=""
       ad_flag=""
@@ -41,7 +41,7 @@ for dataset in "${datasets[@]}"; do
       fi
 
       # Run the training script for each dataset with additional parameters
-      srun python train_video_test.py --loss_type $loss_type --dataset $dataset_path \
+      srun python train_video_test2.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
         $pos_flag $ad_flag 

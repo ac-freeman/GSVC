@@ -336,11 +336,11 @@ def main(argv):
     values_to_normalize = loss_list[1:]
     min_value = np.min(values_to_normalize)
     max_value = np.max(values_to_normalize)
-    output_path = Path(f"./loss_list.txt")
+    output_path = Path(f"./checkpoints/{savdir}/{args.data_name}/loss_list.txt")
     with open(output_path, "w") as f:
         for index, loss in enumerate(loss_list, start=1):
             f.write(f"Frame {index}: {loss}\n")
-    output_path = Path(f"./grad_list.txt")
+    output_path = Path(f"./checkpoints/{savdir}/{args.data_name}/grad_list.txt")
     with open(output_path, "w") as f:
         for index, grad in enumerate(grad_list, start=1):
             f.write(f"Frame {index}: {grad}\n")
