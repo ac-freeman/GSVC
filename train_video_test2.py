@@ -378,6 +378,7 @@ def main(argv):
     # large_loss_frames = np.where(labels == large_component)[0] + 2
     # small_loss_frames = np.where(labels == small_component)[0] + 2
     probabilities = gmm.predict_proba(gmm_data)
+    print(probabilities)
     large_loss_frames = np.where(probabilities[:, large_component] >= 1-(1e-5))[0] + 2
     # small_loss_frames = np.where(probabilities[:, large_component] <= 1-1e-5)[0]+ 2
     K_frames=large_loss_frames
