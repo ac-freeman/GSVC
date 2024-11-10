@@ -342,15 +342,15 @@ def main(argv):
             grad_list.append(0)
         else:
             loss_extractor_K = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
-                    iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
+                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
             loss_extractor_P = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
-                    iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate)  
+                    iterations=1000, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate)  
             Gmodel, loss_K,grad_K = loss_extractor_K.pre_train_grad()
             _, loss_P,grad_P = loss_extractor_P.pre_train_grad()
-            # loss_list.append(loss_P-loss_K)
-            # grad_list.append(grad_P-grad_K)
-            loss_list.append(max(loss_P-loss_K,0))
-            grad_list.append(max(grad_P-grad_K,0))
+            loss_list.append(loss_P-loss_K)
+            grad_list.append(grad_P-grad_K)
+            # loss_list.append(max(loss_P-loss_K,0))
+            # grad_list.append(max(grad_P-grad_K,0))
     loss_list = np.array([
         v.detach().cpu().numpy() if isinstance(v, torch.Tensor) else v for v in loss_list
     ])
