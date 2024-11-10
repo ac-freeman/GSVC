@@ -334,7 +334,7 @@ def main(argv):
         frame_num=i+1
         if frame_num ==1:
             loss_extractor_K = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
-                    iterations=100, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
+                    iterations=100, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=is_ad,removal_rate=removal_rate)
             Gmodel,_,_= loss_extractor_K.pre_train_grad()
             loss=0
             grad=0
