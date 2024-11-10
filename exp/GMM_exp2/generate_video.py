@@ -19,7 +19,7 @@ with open(output_video_path, 'wb') as yuv_file:
         if i<=6:
             # 生成10像素大小的彩色网格背景
             frame = np.zeros((height, width, 3), dtype=np.uint8)
-            grid_size = 50
+            grid_size = 10
             for y in range(0, height, grid_size):
                 for x in range(0, width, grid_size):
                     color = (np.random.randint(256), np.random.randint(256), np.random.randint(256))
