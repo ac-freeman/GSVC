@@ -316,18 +316,18 @@ def main(argv):
             frame_num=i+1
             if frame_num ==1:
                 loss_extractor_K = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
-                        iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
+                    iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
                 Gmodel,_= loss_extractor_K.pre_train()
                 loss=0
                 loss_list.append(0)
             else:
                 loss_extractor_K = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
-                        iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
+                    iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,removal_rate=removal_rate)
                 loss_extractor_P = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
-                        iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate)  
+                    iterations=100, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,removal_rate=removal_rate)  
                 Gmodel, loss_K = loss_extractor_K.pre_train()
                 _, loss_P = loss_extractor_P.pre_train()
-                loss_list.append(max(loss_P-loss_K,0))
+                loss_list.append(loss_P-loss_K)
         loss_list = np.array([
             v.detach().cpu().numpy() if isinstance(v, torch.Tensor) else v for v in loss_list
         ])
@@ -347,7 +347,7 @@ def main(argv):
         means = gmm.means_.flatten()
         large_component = np.argmax(means)
         probabilities = gmm.predict_proba(gmm_data)
-        large_loss_frames = np.where(probabilities[:, large_component] > 1-(1e-6))[0] + 2
+        large_loss_frames = np.where(probabilities[:, large_component] >= 1-(1e-2))[0] + 2
         K_frames=large_loss_frames
         K_frames = np.insert(K_frames, 0, 1)
         output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
