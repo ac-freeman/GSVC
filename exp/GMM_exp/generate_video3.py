@@ -22,11 +22,11 @@ with open(output_video_path, 'wb') as yuv_file:
         
         # 决定长方形的位置和尺寸
         if (i // 2) % 2 == 0:  # 第1、2，5、6，9、10帧在左边
-            rect_height = 500  # 长方形的高度
-            rect_width = 100    # 长方形的宽度
+            rect_height = 900  # 长方形的高度
+            rect_width = 300    # 长方形的宽度
         else:                  # 第3、4，7、8，11、12帧在右边
-            rect_height = 100
-            rect_width = 500
+            rect_height = 300
+            rect_width = 1000
 
         # 创建纹理图案（渐变或其他复杂纹理）
         texture = np.zeros((rect_height, rect_width, 3), dtype=np.uint8)
