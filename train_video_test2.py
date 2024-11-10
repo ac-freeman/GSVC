@@ -366,12 +366,7 @@ def main(argv):
         for index, grad in enumerate(grad_list, start=1):
             f.write(f"Frame {index}: {grad}\n")
     # Normalized values in range [0, 1]
-    # normalized_loss_list = [loss_list[0]] + [(v - min_value) / (max_value - min_value) for v in values_to_normalize]
-    median_value = np.median(loss_list[1:])
-    q25, q75 = np.percentile(loss_list[1:], 25), np.percentile(loss_list[1:], 75)
-    iqr = q75 - q25 if q75 != q25 else 1  # 防止四分位间距为0
-    # 使用中位数和四分位间距归一化
-    normalized_loss_list = [loss_list[0]] + [(v - median_value) / iqr for v in loss_list[1:]]
+    normalized_loss_list = [loss_list[0]] + [(v - min_value) / (max_value - min_value) for v in values_to_normalize]
     gmm_data = np.array(normalized_loss_list[1:]).reshape(-1, 1)  # Reshape to 2D array
     gmm = GaussianMixture(n_components=2, random_state=0)  # Use 2 components
     gmm.fit(gmm_data)
@@ -383,7 +378,7 @@ def main(argv):
     # large_loss_frames = np.where(labels == large_component)[0] + 2
     # small_loss_frames = np.where(labels == small_component)[0] + 2
     probabilities = gmm.predict_proba(gmm_data)
-    large_loss_frames = np.where(probabilities[:, large_component] > 1-(1e-5))[0] + 2
+    large_loss_frames = np.where(probabilities[:, large_component] > 0.9)[0] + 2
     # small_loss_frames = np.where(probabilities[:, large_component] <= 1-1e-5)[0]+ 2
     K_frames=large_loss_frames
     K_frames = np.insert(K_frames, 0, 1)
