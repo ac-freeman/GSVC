@@ -135,10 +135,13 @@ class GaussianImage_Cholesky(nn.Module):
                 print(f"iter == 0")
                 print(f"densification_num:{densification_num}")
                 if densification_num > 0:
-                    new_xyz = torch.atanh(2 * (torch.rand(densification_num, 2) - 0.5)) 
-                    new_cholesky = torch.rand(densification_num, 3) 
-                    new_features_dc = torch.rand(densification_num, 3) 
-                    new_rgb_W = 0.01 * torch.ones(densification_num, 1)
+
+
+
+                    new_xyz = torch.atanh(2 * (torch.rand(densification_num, 2) - 0.5)).to(self._xyz.device)
+                    new_cholesky = torch.rand(densification_num, 3).to(self._xyz.device)
+                    new_features_dc = torch.rand(densification_num, 3).to(self._xyz.device)
+                    new_rgb_W = 0.01 * torch.ones(densification_num, 1).to(self._xyz.device)
                     self._xyz = torch.nn.Parameter(torch.cat((self._xyz, new_xyz), dim=0))
                     self._cholesky = torch.nn.Parameter(torch.cat((self._cholesky, new_cholesky), dim=0))
                     self._features_dc = torch.nn.Parameter(torch.cat((self._features_dc, new_features_dc), dim=0))
