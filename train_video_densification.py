@@ -79,7 +79,7 @@ class SimpleTrainer2d:
         start_time = time.time()
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-4)
-        stabel_control=6000
+        stabel_control=5000
         for iter in range(1, int(self.iterations)+1):
             loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter)
             with torch.no_grad():
