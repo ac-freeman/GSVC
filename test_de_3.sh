@@ -38,15 +38,15 @@ for dataset in "${datasets[@]}"; do
       fi
 
 
-      if [ "$is_ad" = True ]; then
-        ad_flag="--is_ad"
+      if [ "$is_rm" = True ]; then
+        rm_flag="--is_rm"
       fi
 
       # Run the training script for each dataset with additional parameters
       srun python train_video_densification.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
-        $pos_flag $ad_flag 
+        $pos_flag $ad_flag $rm_flag
     done
   done
 done

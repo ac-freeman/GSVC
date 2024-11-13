@@ -79,7 +79,7 @@ class SimpleTrainer2d:
         start_time = time.time()
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-4)
-        stabel_control=5000
+        stabel_control=6000
         for iter in range(1, int(self.iterations)+1):
             loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter)
             with torch.no_grad():
@@ -92,6 +92,7 @@ class SimpleTrainer2d:
                     break
             elif early_stopping(loss.item()):
                 break
+        
 
 
         end_time = time.time() - start_time
@@ -111,7 +112,7 @@ class SimpleTrainer2d:
             if k in ['_xyz', '_cholesky']
         }
         filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
-
+        print(num_gaussian_points)
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss
     
     def test(self,frame,num_gaussian_points,ispos):
