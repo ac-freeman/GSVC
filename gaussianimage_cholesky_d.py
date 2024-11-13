@@ -142,7 +142,7 @@ class GaussianImage_Cholesky(nn.Module):
                     self._features_dc = torch.nn.Parameter(torch.cat((self._features_dc, new_features_dc), dim=0))
                     self.rgb_W = torch.nn.Parameter(torch.cat((self.rgb_W, new_rgb_W), dim=0))
                     self.update_optimizer()
-            print(self._xyz.shape[0])
+                print(self._xyz.shape[0])
             return
         rgb_weight = torch.norm(self.rgb_W, dim=1)
         _, sorted_indices = torch.sort(rgb_weight)
