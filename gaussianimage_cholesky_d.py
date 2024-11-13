@@ -183,9 +183,9 @@ class GaussianImage_Cholesky(nn.Module):
         with torch.no_grad():
             mse_loss = F.mse_loss(image, gt_image)
             psnr = 10 * math.log10(1.0 / mse_loss.item())
-        if (iter==0 or (iter) % (self.densification_interval) == 0) and self.isdensity:
+        if (iter==1 or (iter) % (self.densification_interval) == 0) and self.isdensity:
             self.adaptive_control(iter)
-        elif (iter) % (self.densification_interval) == 0 and iter > 0 and self.isremoval:
+        elif (iter) % (self.densification_interval) == 0 and self.isremoval:
             self.removal_control(iter)
         self.optimizer.step()
         self.optimizer.zero_grad(set_to_none = True)
