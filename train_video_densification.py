@@ -22,6 +22,7 @@ class SimpleTrainer2d:
         savdir,
         loss_type,
         num_points: int = 2000,
+        max_num_points: int = 2000,
         model_name:str = "GaussianImage_Cholesky",
         iterations:int = 30000,
         model_path = None,
@@ -35,7 +36,7 @@ class SimpleTrainer2d:
         self.gt_image = image_to_tensor(image).to(self.device)
         self.frame_num=frame_num
         self.num_points = num_points
-        self.max_num_points=num_points
+        self.max_num_points=max_num_points
         self.model_name=model_name
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
@@ -260,10 +261,10 @@ def main(argv):
     for i in range(start, start+image_length):
         frame_num=i+1
         if frame_num ==1 or frame_num%50==0:
-            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points, 
+            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,max_num_points=args.num_points,
                     iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,isremoval=is_rm,removal_rate=removal_rate)
         else:
-            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points, 
+            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points,max_num_points=args.num_points,
                 iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,isremoval=False,removal_rate=removal_rate)
         psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, img, num_gaussian_points, loss = trainer.train(i,ispos)
         img_list.append(img)
