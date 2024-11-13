@@ -127,8 +127,8 @@ class GaussianImage_Cholesky(nn.Module):
             self.update_optimizer()
 
     def adaptive_control(self, iter):
-        iter_threshold_remove =1000  # 根据训练计划调整这个阈值
-        if iter>iter_threshold_remove or iter<1000:
+        iter_threshold_remove =500  # 根据训练计划调整这个阈值
+        if iter>iter_threshold_remove or iter<500:
             if iter == 0:
                 densification_num = int(self.max_num_points * (1 - self.removal_rate))
                 if densification_num > 0:
