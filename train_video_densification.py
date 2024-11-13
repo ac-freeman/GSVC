@@ -113,7 +113,6 @@ class SimpleTrainer2d:
             if k in ['_xyz', '_cholesky']
         }
         filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
-        print(num_gaussian_points)
         return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss
     
     def test(self,frame,num_gaussian_points,ispos):

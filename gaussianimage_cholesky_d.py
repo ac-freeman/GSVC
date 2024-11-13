@@ -141,8 +141,8 @@ class GaussianImage_Cholesky(nn.Module):
                     self._cholesky = torch.nn.Parameter(torch.cat((self._cholesky, new_cholesky), dim=0))
                     self._features_dc = torch.nn.Parameter(torch.cat((self._features_dc, new_features_dc), dim=0))
                     self.rgb_W = torch.nn.Parameter(torch.cat((self.rgb_W, new_rgb_W), dim=0))
-                    self.update_optimizer()
-                print(self._xyz.shape[0])
+                    for param_group in self.optimizer.param_groups:
+                        param_group['params'] = [p for p in self.parameters() if p.requires_grad]
             return
         rgb_weight = torch.norm(self.rgb_W, dim=1)
         _, sorted_indices = torch.sort(rgb_weight)
