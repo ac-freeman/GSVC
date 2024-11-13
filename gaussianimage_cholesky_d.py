@@ -131,13 +131,8 @@ class GaussianImage_Cholesky(nn.Module):
         iter_threshold_add = 1000
         if iter>iter_threshold_add+iter_threshold_remove or iter<iter_threshold_add:
             if iter == 1:
-                densification_num = self.max_num_points-int(self.max_num_points * self.removal_rate)
-                print(f"iter == 0")
-                print(f"densification_num:{densification_num}")
+                densification_num = int(self.max_num_points * self.removal_rate)
                 if densification_num > 0:
-
-
-
                     new_xyz = torch.atanh(2 * (torch.rand(densification_num, 2) - 0.5)).to(self._xyz.device)
                     new_cholesky = torch.rand(densification_num, 3).to(self._xyz.device)
                     new_features_dc = torch.rand(densification_num, 3).to(self._xyz.device)
