@@ -130,7 +130,7 @@ class GaussianImage_Cholesky(nn.Module):
         iter_threshold_remove =1000  # 根据训练计划调整这个阈值
         iter_threshold_add = 1000
         if iter>iter_threshold_add+iter_threshold_remove or iter<iter_threshold_add:
-            if iter == 0:
+            if iter == 1:
                 densification_num = self.max_num_points-int(self.max_num_points * self.removal_rate)
                 print(f"iter == 0")
                 print(f"densification_num:{densification_num}")
