@@ -35,6 +35,7 @@ python train_video_test2.py --loss_type L2 --dataset /home/e/e1344641/GaussianVi
 python train_video_densification.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Jockey --num_points 30000 --iterations 100000 --savdir test1 --savdir_m test1 --is_ad --is_rm
 
 
+
 python train_video_densification.py --loss_type L2 --dataset /home/e/e1344641/GaussianVideo/exp/GMM_exp/test_video.yuv --data_name test1 --num_points 10000 --iterations 100000 --savdir test1 --savdir_m test1 --is_ad --is_rm --save_everyimgs --is_pos
 
 
