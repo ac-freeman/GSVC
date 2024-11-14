@@ -21,6 +21,7 @@ savdir="result_density"
 savdir_m="models_density"
 is_pos=False
 is_ad=True
+is_rm=True
 loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
