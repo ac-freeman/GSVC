@@ -357,7 +357,7 @@ def main(argv):
     Gmodel=None
     for i in range(start, start+image_length):
         frame_num=i+1
-        if frame_num ==1 or frame_num%50==0:
+        if frame_num in K_frames:
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,max_num_points=args.num_points,
                     iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,isremoval=is_rm,removal_rate=removal_rate)
         else:
