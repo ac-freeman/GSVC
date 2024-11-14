@@ -3,7 +3,7 @@
 #SBATCH --job-name=test_de_4    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
-#SBATCH --time=24:00:00                 # Time limit hrs:min:sec
+#SBATCH --time=48:00:00                 # Time limit hrs:min:sec
 #SBATCH --gres=gpu:h100-47:1
 #SBATCH --mail-type=ALL                 # Get email for all status updates
 #SBATCH --mail-user=wanglongan@comp.nus.edu.sg # Email for notifications
