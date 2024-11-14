@@ -345,7 +345,7 @@ def main(argv):
         means = gmm.means_.flatten()
         large_component = np.argmax(means)
         probabilities = gmm.predict_proba(gmm_data)
-        large_loss_frames = np.where(probabilities[:, large_component] > 1-(1e-5))[0] + 2
+        large_loss_frames = np.where(probabilities[:, large_component] > 1-(1e-4))[0] + 2
         K_frames=large_loss_frames
         K_frames = np.insert(K_frames, 0, 1)
         output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")

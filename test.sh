@@ -16,3 +16,4 @@ python train_video_densification.py --loss_type L2 --dataset /home/e/e1344641/Ga
 python train_video_densification.py --loss_type L2 --dataset /home/e/e1344641/GaussianVideo/exp/GMM_exp2/output_video1.yuv --data_name test3 --num_points 10000 --iterations 25000 --savdir test1 --savdir_m test1 --is_ad --is_rm --save_everyimgs --is_pos
 python train_video_DG.py --loss_type L2 --dataset /home/e/e1344641/GaussianVideo/exp/GMM_exp2/output_video1.yuv --data_name test4 --num_points 10000 --iterations 25000 --savdir test1 --savdir_m test1 --is_ad --is_rm --save_everyimgs --is_pos
 
+python train_video_DG.py --loss_type L2 --dataset /home/e/e1344641/GaussianVideo/Video/Mix_1920x1080_120fps_420_8bit_YUV.yuv --data_name Mix --num_points 10000 --iterations 100000 --savdir result_DG --savdir_m models_DG --is_ad --is_rm
