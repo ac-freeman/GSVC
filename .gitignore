@@ -6,3 +6,4 @@ videogs_loss_output.txt
 __pycache__/
 models/
 Loadmodel/
+Video/
