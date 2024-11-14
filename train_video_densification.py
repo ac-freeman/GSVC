@@ -44,6 +44,7 @@ class SimpleTrainer2d:
         self.iterations = iterations
         self.densification_interval=args.densification_interval
         self.save_imgs = args.save_imgs
+        self.save_everyimgs = args.save_everyimgs
         self.log_dir = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
         self.isdensity=isdensity
         self.isremoval=isremoval
@@ -150,7 +151,14 @@ class SimpleTrainer2d:
                 combined_img.paste(img_pos, (0, 0))
                 combined_img.paste(img, (img_pos.width, 0))
             return psnr, ms_ssim_value,combined_img
-        if (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
+        if self.save_everyimgs:
+            save_path_img = self.log_dir / "img"
+            save_path_img.mkdir(parents=True, exist_ok=True)
+            transform = transforms.ToPILImage()
+            img = transform(out_image.float().squeeze(0))
+            name =str(self.frame_num) + "_fitting.png" 
+            img.save(str(save_path_img / name))
+        elif (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
             save_path_img = self.log_dir / "img"
             save_path_img.mkdir(parents=True, exist_ok=True)
             transform = transforms.ToPILImage()
@@ -209,6 +217,7 @@ def parse_args(argv):
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
     parser.add_argument("--removal_rate", type=float, default=0.1, help="Removal rate")
     parser.add_argument("--save_imgs", action="store_true", help="Save image")
+    parser.add_argument("--save_everyimgs", action="store_true", help="Save Every Images")
     parser.add_argument("--is_pos", action="store_true", help="Show the position of gaussians")
     parser.add_argument("--is_warmup",action="store_true", help="Warmup setup")
     parser.add_argument("--is_ad", action="store_true", help="Adaptive control of gaussians setup")
