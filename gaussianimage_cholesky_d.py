@@ -129,20 +129,19 @@ class GaussianImage_Cholesky(nn.Module):
     def adaptive_control(self, iter):
         iter_threshold_remove =1000  # 根据训练计划调整这个阈值
         iter_threshold_add = 1000
+        densification_num = int(self.max_num_points * self.removal_rate)*4
         if iter>iter_threshold_add+iter_threshold_remove or iter<iter_threshold_add:
-            if iter == 1:
-                densification_num = int(self.max_num_points * self.removal_rate)*4
-                if densification_num > 0:
-                    new_xyz = torch.atanh(2 * (torch.rand(densification_num, 2) - 0.5)).to(self._xyz.device)
-                    new_cholesky = torch.rand(densification_num, 3).to(self._xyz.device)
-                    new_features_dc = torch.rand(densification_num, 3).to(self._xyz.device)
-                    new_rgb_W = 0.01 * torch.ones(densification_num, 1).to(self._xyz.device)
-                    self._xyz = torch.nn.Parameter(torch.cat((self._xyz, new_xyz), dim=0))
-                    self._cholesky = torch.nn.Parameter(torch.cat((self._cholesky, new_cholesky), dim=0))
-                    self._features_dc = torch.nn.Parameter(torch.cat((self._features_dc, new_features_dc), dim=0))
-                    self.rgb_W = torch.nn.Parameter(torch.cat((self.rgb_W, new_rgb_W), dim=0))
-                    for param_group in self.optimizer.param_groups:
-                        param_group['params'] = [p for p in self.parameters() if p.requires_grad]
+            if iter == 1 and densification_num > 0:
+                new_xyz = torch.atanh(2 * (torch.rand(densification_num, 2) - 0.5)).to(self._xyz.device)
+                new_cholesky = torch.rand(densification_num, 3).to(self._xyz.device)
+                new_features_dc = torch.rand(densification_num, 3).to(self._xyz.device)
+                new_rgb_W = 0.01 * torch.ones(densification_num, 1).to(self._xyz.device)
+                self._xyz = torch.nn.Parameter(torch.cat((self._xyz, new_xyz), dim=0))
+                self._cholesky = torch.nn.Parameter(torch.cat((self._cholesky, new_cholesky), dim=0))
+                self._features_dc = torch.nn.Parameter(torch.cat((self._features_dc, new_features_dc), dim=0))
+                self.rgb_W = torch.nn.Parameter(torch.cat((self.rgb_W, new_rgb_W), dim=0))
+                for param_group in self.optimizer.param_groups:
+                    param_group['params'] = [p for p in self.parameters() if p.requires_grad]
             return
         rgb_weight = torch.norm(self.rgb_W, dim=1)
         _, sorted_indices = torch.sort(rgb_weight)
