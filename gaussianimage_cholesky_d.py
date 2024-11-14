@@ -131,7 +131,7 @@ class GaussianImage_Cholesky(nn.Module):
         iter_threshold_add = 1000
         if iter>iter_threshold_add+iter_threshold_remove or iter<iter_threshold_add:
             if iter == 1:
-                densification_num = int(self.max_num_points * self.removal_rate)
+                densification_num = int(self.max_num_points * self.removal_rate)*4
                 if densification_num > 0:
                     new_xyz = torch.atanh(2 * (torch.rand(densification_num, 2) - 0.5)).to(self._xyz.device)
                     new_cholesky = torch.rand(densification_num, 3).to(self._xyz.device)
@@ -146,10 +146,11 @@ class GaussianImage_Cholesky(nn.Module):
             return
         rgb_weight = torch.norm(self.rgb_W, dim=1)
         _, sorted_indices = torch.sort(rgb_weight)
-        removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval))
+        # removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval))
         if iter < iter_threshold_add+iter_threshold_remove:
             with torch.no_grad():
-                remove_count = int(removal_rate_per_step * self.max_num_points)     
+                # remove_count = int(removal_rate_per_step * self.max_num_points)
+                remove_count = int(densification_num/int(iter_threshold_remove/(self.densification_interval)))     
                 remove_indices = sorted_indices[:remove_count]
                 keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
                 keep_indices[remove_indices] = False
@@ -160,7 +161,8 @@ class GaussianImage_Cholesky(nn.Module):
             for param_group in self.optimizer.param_groups:
                 param_group['params'] = [p for p in self.parameters() if p.requires_grad]
         elif iter == iter_threshold_add+iter_threshold_remove:
-            remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
+            # remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
+            remove_count = self._xyz.shape[0]-densification_num
             if remove_count>0:
                 with torch.no_grad():
                     remove_indices = sorted_indices[:remove_count]
