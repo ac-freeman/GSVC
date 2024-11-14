@@ -129,7 +129,7 @@ class GaussianImage_Cholesky(nn.Module):
     def adaptive_control(self, iter):
         iter_threshold_remove =1000  # 根据训练计划调整这个阈值
         iter_threshold_add = 1000
-        densification_num = int(self.max_num_points * self.removal_rate)*2
+        densification_num = int(self.max_num_points * self.removal_rate)*4
         if iter>iter_threshold_add+iter_threshold_remove or iter<iter_threshold_add:
             if iter == 1 and densification_num > 0:
                 new_xyz = torch.atanh(2 * (torch.rand(densification_num, 2) - 0.5)).to(self._xyz.device)
