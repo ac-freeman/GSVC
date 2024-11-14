@@ -339,15 +339,10 @@ def main(argv):
             for index, loss in enumerate(normalized_loss_list, start=1):
                 f.write(f"Frame {index}: {loss}\n")
 
-        gmm_data = np.array(normalized_loss_list[1:]).reshape(-1, 1)  # Reshape to 2D array
-        gmm = GaussianMixture(n_components=2, random_state=0)  # Use 2 components
-        gmm.fit(gmm_data)
-        means = gmm.means_.flatten()
-        large_component = np.argmax(means)
-        probabilities = gmm.predict_proba(gmm_data)
-        large_loss_frames = np.where(probabilities[:, large_component] > 1-(1e-4))[0] + 2
-        K_frames=large_loss_frames
+        outlier_indices = detect_outliers_mean_diff(normalized_loss_list)
+        K_frames = [int(x + 1) for x in outlier_indices]
         K_frames = np.insert(K_frames, 0, 1)
+        K_frames = K_frames.astype(int)
         output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
         with open(output_path_K_frames, "w") as f:
             for frame in K_frames:

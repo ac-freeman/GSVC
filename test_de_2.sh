@@ -17,8 +17,8 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_density"
-savdir_m="models_density"
+savdir="result_de"
+savdir_m="models_de"
 is_pos=False
 is_ad=True
 is_rm=True
@@ -28,7 +28,7 @@ for dataset in "${datasets[@]}"; do
   data_name=$(echo $dataset | cut -d' ' -f2)
   # for num_points in 30000 40000 50000; do
   # for num_points in 30000 40000 50000 60000 70000 80000; do
-  for num_points in 5000 10000 15000 20000 25000 30000 40000 50000 60000 70000 80000; do
+  for num_points in  10000  20000 30000 40000 50000 5000 15000 25000 60000 70000 80000; do
     for iterations in 100000; do
       pos_flag=""
       ad_flag=""

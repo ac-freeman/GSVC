@@ -1,24 +1,24 @@
 #!/bin/bash
 
-#SBATCH --job-name=test_de_1    # Job name
+#SBATCH --job-name=test_dd_4    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=24:00:00                 # Time limit hrs:min:sec
 #SBATCH --gres=gpu:h100-47:1
 #SBATCH --mail-type=ALL                 # Get email for all status updates
 #SBATCH --mail-user=wanglongan@comp.nus.edu.sg # Email for notifications
-#SBATCH --mem=16G                    # Request 16GB of memory
+#SBATCH --mem=16G                       # Request 16GB of memory
 # Activate the environment if needed
 source activate torch  # Replace 'torch' with the name of your conda environment
 
 # Define datasets and their corresponding names
 datasets=(
-  "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv Beauty"
+  "/home/e/e1344641/GaussianVideo/Video/Mix_1920x1080_120fps_420_8bit_YUV.yuv Mix"
 )
 
 # Define additional parameters
-savdir="result_de"
-savdir_m="models_de"
+savdir="result_dd"
+savdir_m="models_dd"
 is_pos=False
 is_ad=True
 is_rm=True
@@ -39,10 +39,6 @@ for dataset in "${datasets[@]}"; do
       fi
 
 
-      if [ "$is_ad" = True ]; then
-        ad_flag="--is_ad"
-      fi
-
       if [ "$is_rm" = True ]; then
         rm_flag="--is_rm"
       fi
@@ -55,4 +51,3 @@ for dataset in "${datasets[@]}"; do
     done
   done
 done
-

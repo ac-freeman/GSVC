@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=test_de_1    # Job name
+#SBATCH --job-name=test_dd_1    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=24:00:00                 # Time limit hrs:min:sec
@@ -17,8 +17,8 @@ datasets=(
 )
 
 # Define additional parameters
-savdir="result_de"
-savdir_m="models_de"
+savdir="result_dd"
+savdir_m="models_dd"
 is_pos=False
 is_ad=True
 is_rm=True

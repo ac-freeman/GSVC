@@ -544,3 +544,14 @@ class EarlyStopping:
             return True  # Stop training
 
         return False  # Continue training
+    
+def detect_outliers_mean_diff(values):
+    outliers = []
+    for i in range(1, len(values)):
+        # Calculate the mean of the previous points 
+        mean_value = np.mean(values[i-50:i+50])        
+        # If the difference exceeds the threshold, consider it an outlier
+        if values[i] > mean_value*3:
+            outliers.append(i)
+    
+    return outliers
