@@ -160,8 +160,8 @@ class GaussianImage_Cholesky(nn.Module):
             for param_group in self.optimizer.param_groups:
                 param_group['params'] = [p for p in self.parameters() if p.requires_grad]
         elif iter == iter_threshold_add+iter_threshold_remove:
-            # remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
-            remove_count = self._xyz.shape[0]-densification_num
+            remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
+            # remove_count = self._xyz.shape[0]-densification_num
             if remove_count>0:
                 with torch.no_grad():
                     remove_indices = sorted_indices[:remove_count]
