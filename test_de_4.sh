@@ -39,6 +39,10 @@ for dataset in "${datasets[@]}"; do
       fi
 
 
+      if [ "$is_ad" = True ]; then
+        ad_flag="--is_ad"
+      fi
+
       if [ "$is_rm" = True ]; then
         rm_flag="--is_rm"
       fi
