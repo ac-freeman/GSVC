@@ -47,3 +47,4 @@ python train_video_densification.py --loss_type L2 --dataset /home/e/e1344641/da
 
 
 python train_video_densification_test.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 30000 --iterations 100000 --savdir test5 --savdir_m test5 --is_ad --is_rm --save_everyimgs --is_pos
+python train_video_densification_test.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Jockey --num_points 30000 --iterations 100000 --savdir test5 --savdir_m test5 --is_ad --is_rm --save_everyimgs --is_pos
