@@ -29,8 +29,10 @@ class GaussianImage_Cholesky(nn.Module):
         self._cholesky = nn.Parameter(torch.rand(self.init_num_points, 3))
         self.isdensity=kwargs["isdensity"]
         self.isremoval=kwargs["isremoval"]
-        if self.isremoval or self.isdensity:
+        if self.isremoval:
             self.rgb_W = nn.Parameter(0.01 * torch.ones(self.init_num_points, 1))
+        elif self.isdensity:
+            self.rgb_W = nn.Parameter(torch.ones(self.init_num_points, 1))
         else:
            self.register_buffer('rgb_W', torch.ones((self.init_num_points, 1))) 
         self._features_dc = nn.Parameter(torch.rand(self.init_num_points, 3))
