@@ -21,14 +21,14 @@ savdir="result_dW_test"
 savdir_m="models_dW_test"
 is_pos=True
 is_ad=False
-is_rm=True
+is_rm=False
 loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
   # for num_points in 30000 40000 50000; do
   # for num_points in 30000 40000 50000 60000 70000 80000; do
-  for num_points in  50000; do
+  for num_points in  45000; do
     for iterations in 100000; do
       pos_flag=""
       ad_flag=""
