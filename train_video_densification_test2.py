@@ -80,7 +80,7 @@ class SimpleTrainer2d:
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
-        early_stopping = EarlyStopping(patience=100, min_delta=1e-8)
+        early_stopping = EarlyStopping(patience=100, min_delta=1e-6)
         early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-4)
         stabel_control=5000
         for iter in range(1, int(self.iterations)+1):
@@ -93,7 +93,7 @@ class SimpleTrainer2d:
                 stabel_control=stabel_control-1
                 if stabel_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
                     break
-            elif early_stopping(loss.item()) and early_stopping_PSNR(psnr):
+            elif early_stopping(loss.item()):
                 break
         
 
