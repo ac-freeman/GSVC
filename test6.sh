@@ -19,7 +19,7 @@ datasets=(
 # Define additional parameters
 savdir="result_dW_test"
 savdir_m="models_dW_test"
-is_pos=False
+is_pos=True
 is_ad=False
 is_rm=True
 loss_type="L2"

@@ -93,7 +93,7 @@ class SimpleTrainer2d:
                 stabel_control=stabel_control-1
                 if stabel_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
                     break
-            elif early_stopping(loss.item()):
+            elif early_stopping(loss.item()) and early_stopping_PSNR(psnr):
                 break
         
 
