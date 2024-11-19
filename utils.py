@@ -545,13 +545,31 @@ class EarlyStopping:
 
         return False  # Continue training
     
-def detect_outliers_mean_diff(values):
-    outliers = []
-    for i in range(1, len(values)):
-        # Calculate the mean of the previous points 
-        mean_value = np.mean(values[i-50:i+50])        
-        # If the difference exceeds the threshold, consider it an outlier
-        if values[i] > mean_value*3:
-            outliers.append(i)
+# def detect_outliers_mean_diff(values):
+#     outliers = []
+#     for i in range(1, len(values)):
+#         # Calculate the mean of the previous points 
+#         mean_value = np.mean(values[i-50:i+50])        
+#         # If the difference exceeds the threshold, consider it an outlier
+#         if values[i] > mean_value*3:
+#             outliers.append(i)
     
+#     return outliers
+
+
+def detect_outliers_mean_diff(values, window_size=10, threshold=3):
+    outliers = []
+    for i in range(len(values)):
+        # Define the window range
+        start_idx = max(0, i - window_size)
+        end_idx = min(len(values), i + window_size)
+        
+        # Calculate local mean and standard deviation
+        local_mean = np.mean(values[start_idx:end_idx])
+        local_std = np.std(values[start_idx:end_idx])
+        # Check if the value exceeds the threshold
+        if (values[i] - local_mean) > threshold * local_std:
+            outliers.append(i)
+        elif(values[i] > local_mean*threshold):
+            outliers.append(i)
     return outliers
