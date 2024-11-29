@@ -6,7 +6,7 @@ import torch.nn as nn
 import numpy as np
 
 
-class GaussianImage_Cholesky(nn.Module):
+class GaussianVideo_frame(nn.Module):
     def __init__(self, loss_type="L2", **kwargs):
         super().__init__()
         self.init_num_points = kwargs["num_points"]

@@ -24,7 +24,7 @@ class SimpleTrainer2d:
         loss_type,
         num_points: int = 2000,
         max_num_points: int = 2000,
-        model_name:str = "GaussianImage_Cholesky",
+        model_name:str = "GaussianVideo",
         iterations:int = 30000,
         model_path = None,
         args = None,
@@ -50,9 +50,9 @@ class SimpleTrainer2d:
         self.isdensity=isdensity
         self.isremoval=isremoval
         self.loss_type = loss_type
-        if model_name == "GaussianImage_Cholesky":
-            from GaussianVideo import GaussianImage_Cholesky
-            self.gaussian_model = GaussianImage_Cholesky(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
+        if model_name == "GaussianVideo":
+            from GaussianVideo import GaussianVideo_frame
+            self.gaussian_model = GaussianVideo_frame(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
             device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate,isdensity=self.isdensity,isremoval=self.isremoval).to(self.device)
         if model_path is not None:
             print(f"loading model path:{model_path}")
@@ -226,7 +226,7 @@ def parse_args(argv):
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
     )
     parser.add_argument(
-        "--model_name", type=str, default="GaussianImage_Cholesky", help="model selection: GaussianImage_Cholesky, GaussianImage_RS, 3DGS"
+        "--model_name", type=str, default="GaussianVideo", help="model selection: GaussianVideo, GaussianImage, 3DGS"
     )
     parser.add_argument(
         "--sh_degree", type=int, default=3, help="SH degree (default: %(default)s)"

@@ -8,7 +8,7 @@ import math
 from optimizer import Adan
 from torch.distributions import MultivariateNormal
 
-class GaussianImage_Cholesky(nn.Module):
+class GaussianVideo_frame(nn.Module):
     def __init__(self, loss_type="L2", **kwargs):
         super().__init__()
         self.loss_type = loss_type

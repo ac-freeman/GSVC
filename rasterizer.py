@@ -33,8 +33,8 @@ class LoadGaussians:
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
-        from gaussian2D import GaussianImage_Cholesky
-        self.gaussian_model = GaussianImage_Cholesky(num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
+        from GaussianSplats import GaussianVideo_frame
+        self.gaussian_model = GaussianVideo_frame(num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
         device=self.device).to(self.device)
         if Model is not None:
             checkpoint = Model
@@ -205,9 +205,6 @@ def main(argv):
         modelid=f"frame_{i + 1}"
         Model = gmodels_state_dict[modelid]
         Gaussianframe = LoadGaussians(num_points=num_points,image=video_frames[i], Model=Model,device=device,args=args)
-        # img = Gaussianframe.render()
-        # img_list.append(img)
-        # torch.cuda.empty_cache()
         img_pos = Gaussianframe.render_pos()
         img = Gaussianframe.render()
         combined_img = Image.new('RGB', (img.width + img_pos.width, max(img.height, img_pos.height)))
@@ -219,7 +216,6 @@ def main(argv):
     video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)
     filename = "video.mp4"
-    # output_size = (width, height)
     output_size = (combined_img.width, combined_img.height)
     video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
     for img in tqdm(img_list, desc="Processing images", unit="image"):    
