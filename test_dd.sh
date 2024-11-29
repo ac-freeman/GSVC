@@ -1,20 +1,29 @@
 #!/bin/bash
 
-#SBATCH --job-name=test_dd_3    # Job name
+#SBATCH --job-name=test_dd_1    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=48:00:00                 # Time limit hrs:min:sec
 #SBATCH --gres=gpu:h100-47:1
 #SBATCH --mail-type=ALL                 # Get email for all status updates
 #SBATCH --mail-user=wanglongan@comp.nus.edu.sg # Email for notifications
-#SBATCH --mem=16G                       # Request 16GB of memory
+#SBATCH --mem=16G                    # Request 16GB of memory
 # Activate the environment if needed
 source activate torch  # Replace 'torch' with the name of your conda environment
 
 # Define datasets and their corresponding names
 datasets=(
-  "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
+  "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv Beauty"
 )
+
+
+# datasets=(
+#   "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv Beauty"
+#   "/home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv HoneyBee"
+#   "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
+#   "/home/e/e1344641/GaussianVideo/Video/Mix_1920x1080_120fps_420_8bit_YUV.yuv Mix"
+# )
+
 
 # Define additional parameters
 savdir="result_dd"
