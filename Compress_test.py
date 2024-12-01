@@ -133,7 +133,7 @@ def main(argv):
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
     # image_length=120
-    image_length=2
+    # image_length=2
     logwriter = LogWriter(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.num_points}"))
     psnrs, ms_ssims, eval_times, eval_fpses, bpps = [], [], [], [], []
     position_bpps, cholesky_bpps, feature_dc_bpps = [], [], []
