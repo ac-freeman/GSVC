@@ -53,6 +53,8 @@ class LoadGaussians:
                 _ = self.gaussian_model.decompress_wo_ec(encoding_dict)
             end_time = (time.time() - start_time)/100
             out_img = out["render"].float()
+            transform = transforms.ToPILImage()
+            img = transform(out_img.float().squeeze(0))
         data_dict = self.gaussian_model.analysis_wo_ec(encoding_dict)
     
         
@@ -68,7 +70,7 @@ class LoadGaussians:
         # self.logwriter.write("Eval time:{:.8f}s, FPS:{:.4f}".format(end_time, 1/end_time))
         # self.logwriter.write("PSNR:{:.4f}, MS_SSIM:{:.6f}, bpp:{:.4f}".format(psnr, ms_ssim_value, data_dict["bpp"]))
         # self.logwriter.write("position_bpp:{:.4f}, cholesky_bpp:{:.4f}, feature_dc_bpp:{:.4f}".format(data_dict["position_bpp"], data_dict["cholesky_bpp"], data_dict["feature_dc_bpp"]))
-        return data_dict
+        return data_dict,img
     
     def test_o(self):
         self.gaussian_model.eval()
@@ -137,12 +139,13 @@ def main(argv):
     gmodels_state_dict = torch.load(model_path,map_location=device)
     image_h, image_w = 0, 0
     # for i in tqdm(range(start, start + image_length), desc="Processing Frames"):
+    img_list=[]
     for i in range(start, start + image_length):
         frame_num=i+1
         modelid=f"frame_{i + 1}"
         Model = gmodels_state_dict[modelid]
         Gaussianframe = LoadGaussians(num_points=num_points,image=video_frames[i], Model=Model,device=device,args=args)
-        data_dict = Gaussianframe.test()
+        data_dict,img = Gaussianframe.test()
         # psnr, ms_ssim_value = Gaussianframe.test_o()
         # logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}".format(
         #     frame_num, Gaussianframe.H, Gaussianframe.W, psnr,  ms_ssim_value))
@@ -154,6 +157,7 @@ def main(argv):
         position_bpps.append(data_dict["position_bpp"])
         cholesky_bpps.append(data_dict["cholesky_bpp"])
         feature_dc_bpps.append(data_dict["feature_dc_bpp"])
+        img_list.append(img)
         image_h += Gaussianframe.H
         image_w += Gaussianframe.W
         logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, bpp:{:.4f}, Eval:{:.8f}s, FPS:{:.4f}, position_bpp:{:.4f}, cholesky_bpp:{:.4f}, feature_dc_bpp:{:.4f}".format(
@@ -174,7 +178,19 @@ def main(argv):
 
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, bpp:{:.4f}, Eval:{:.8f}s, FPS:{:.4f}, position_bpp:{:.4f}, cholesky_bpp:{:.4f}, feature_dc_bpp:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_bpp, avg_eval_time, avg_eval_fps, 
-        avg_position_bpp, avg_cholesky_bpp, avg_feature_dc_bpp))    
+        avg_position_bpp, avg_cholesky_bpp, avg_feature_dc_bpp))
+    video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
+    video_path.mkdir(parents=True, exist_ok=True)
+    filename = "video.mp4"
+    output_size = (img.width, img.height)
+    video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
+    for img in tqdm(img_list, desc="Processing images", unit="image"):    
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
+        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        video.write(img_cv)
+    video.release()
+    print("video.mp4: MP4 video created successfully.")    
 
 if __name__ == "__main__":
     
