@@ -29,6 +29,7 @@ class LoadGaussians:
         self.device = device
         self.gt_image = image_to_tensor(image).to(self.device)
         self.num_points=num_points
+        self.num_points = int(num_points*0.9)
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
