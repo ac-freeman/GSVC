@@ -95,6 +95,7 @@ class GaussianVideo_frame(nn.Module):
         return {"xyz":self._xyz.half(), "feature_dc_index": feature_dc_index, "quant_cholesky_elements": quant_cholesky_elements,}
 
     def decompress_wo_ec(self, encoding_dict):
+        _opacity = torch.ones(self._xyz.shape[0], 1).to(self.device)
         xyz, feature_dc_index, quant_cholesky_elements = encoding_dict["xyz"], encoding_dict["feature_dc_index"], encoding_dict["quant_cholesky_elements"]
         means = torch.tanh(xyz.float())
         cholesky_elements = self.cholesky_quantizer.decompress(quant_cholesky_elements)
@@ -102,7 +103,7 @@ class GaussianVideo_frame(nn.Module):
         colors = self.features_dc_quantizer.decompress(feature_dc_index)
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(means, cholesky_elements, self.H, self.W, self.tile_bounds)
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
-                colors, self._opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
+                colors, _opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
         out_img = torch.clamp(out_img, 0, 1)
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render":out_img}
@@ -155,6 +156,7 @@ class GaussianVideo_frame(nn.Module):
             "cholesky_bitstream":[cholesky_compressed, cholesky_histogram_table, cholesky_unique]}
 
     def decompress(self, encoding_dict):
+        _opacity = torch.ones(self._xyz.shape[0], 1).to(self.device)
         xyz = encoding_dict["xyz"]
         num_points, device = xyz.size(0), xyz.device
         feature_dc_compressed, feature_dc_histogram_table, feature_dc_unique = encoding_dict["feature_dc_bitstream"]
@@ -170,7 +172,7 @@ class GaussianVideo_frame(nn.Module):
         colors = self.features_dc_quantizer.decompress(feature_dc_index)
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(means, cholesky_elements, self.H, self.W, self.tile_bounds)
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
-                colors, self._opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
+                colors, _opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
         out_img = torch.clamp(out_img, 0, 1)
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render":out_img}
