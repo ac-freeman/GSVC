@@ -35,7 +35,7 @@ class LoadGaussians:
         
         from GaussianSplats_Compress import GaussianVideo_frame
         self.gaussian_model = GaussianVideo_frame(num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
-        device=self.device).to(self.device)
+        device=self.device,quantize=True).to(self.device)
         if Model is not None:
             checkpoint = Model
             model_dict = self.gaussian_model.state_dict()
