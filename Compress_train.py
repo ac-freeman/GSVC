@@ -134,7 +134,7 @@ def parse_args(argv):
         "--height", type=int, default=1080, help="height (default: %(default)s)"
     )
     parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
-    parser.add_argument("--loss_type", type=str, default=None, help="Type of Loss")
+    parser.add_argument("--loss_type", type=str, default="L2", help="Type of Loss")
     parser.add_argument("--savdir", type=str, default="result", help="Path to results")
     parser.add_argument("--savdir_m", type=str, default="models", help="Path to models")
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
