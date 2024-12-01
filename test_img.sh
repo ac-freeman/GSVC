@@ -14,17 +14,23 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 
 data_path=/home/e/e1344641/data/kodak
 
+for num_points in 9000
+do
+CUDA_VISIBLE_DEVICES=0 python train.py -d $data_path \
+--data_name kodak --model_name GaussianImage_Cholesky --num_points $num_points --iterations 5000
+done
+
 for num_points in  9000
 do
 CUDA_VISIBLE_DEVICES=0 python train_quantize.py -d $data_path \
---data_name kodak --model_name GaussianImage_Cholesky --num_points $num_points --iterations 50000 \
-# --model_path ./checkpoints/kodak/GaussianImage_Cholesky_50000_$num_points
+--data_name kodak --model_name GaussianImage_Cholesky --num_points $num_points --iterations 5000 \
+--model_path ./checkpoints/kodak/GaussianImage_Cholesky_50000_$num_points
 done
 
 for num_points in 9000
 do
 CUDA_VISIBLE_DEVICES=0 python test_quantize.py -d $data_path \
---data_name kodak --model_name GaussianImage_Cholesky --num_points $num_points --iterations 50000 \
+--data_name kodak --model_name GaussianImage_Cholesky --num_points $num_points --iterations 5000 \
 --model_path ./checkpoints_quant/kodak/GaussianImage_Cholesky_50000_$num_points
 done
 
