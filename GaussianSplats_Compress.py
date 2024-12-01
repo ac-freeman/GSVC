@@ -33,12 +33,6 @@ class GaussianVideo_frame(nn.Module):
             self.features_dc_quantizer = VectorQuantizer(codebook_dim=3, codebook_size=8, num_quantizers=2, vector_type="vector", kmeans_iters=5) 
             self.cholesky_quantizer = UniformQuantizer(signed=False, bits=6, learned=True, num_channels=3)
 
-        if kwargs["opt_type"] == "adam":
-            self.optimizer = torch.optim.Adam(self.parameters(), lr=kwargs["lr"])
-        else:
-            self.optimizer = Adan(self.parameters(), lr=kwargs["lr"])
-        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
-
 
     def _init_data(self):
         self.cholesky_quantizer._init_data(self._cholesky)
