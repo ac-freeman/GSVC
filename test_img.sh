@@ -18,7 +18,7 @@ for num_points in  9000
 do
 CUDA_VISIBLE_DEVICES=0 python train_quantize.py -d $data_path \
 --data_name kodak --model_name GaussianImage_Cholesky --num_points $num_points --iterations 50000 \
---model_path ./checkpoints/kodak/GaussianImage_Cholesky_50000_$num_points
+# --model_path ./checkpoints/kodak/GaussianImage_Cholesky_50000_$num_points
 done
 
 for num_points in 9000
