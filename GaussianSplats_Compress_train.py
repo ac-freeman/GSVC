@@ -4,11 +4,11 @@ from utils import *
 import torch
 import torch.nn as nn
 import numpy as np
-import math
 from quantize import *
 from optimizer import Adan
+import math
 
-class GaussianImage_Cholesky(nn.Module):
+class GaussianVideo_frame(nn.Module):
     def __init__(self, loss_type="L2", **kwargs):
         super().__init__()
         self.loss_type = loss_type
@@ -21,18 +21,15 @@ class GaussianImage_Cholesky(nn.Module):
             1,
         ) # 
         self.device = kwargs["device"]
-
         self._xyz = nn.Parameter(torch.atanh(2 * (torch.rand(self.init_num_points, 2) - 0.5)))
         self._cholesky = nn.Parameter(torch.rand(self.init_num_points, 3))
-        self.register_buffer('_opacity', torch.ones((self.init_num_points, 1)))
         self._features_dc = nn.Parameter(torch.rand(self.init_num_points, 3))
         self.last_size = (self.H, self.W)
-        self.quantize = kwargs["quantize"]
+        self.register_buffer('_opacity', torch.ones((self.init_num_points, 1)))
         self.register_buffer('background', torch.ones(3))
-        self.opacity_activation = torch.sigmoid
-        self.rgb_activation = torch.sigmoid
         self.register_buffer('bound', torch.tensor([0.5, 0.5]).view(1, 2))
         self.register_buffer('cholesky_bound', torch.tensor([0.5, 0, 0.5]).view(1, 3))
+        self.quantize = kwargs["quantize"]
 
         if self.quantize:
             self.xyz_quantizer = FakeQuantizationHalf.apply 
@@ -44,6 +41,7 @@ class GaussianImage_Cholesky(nn.Module):
         else:
             self.optimizer = Adan(self.parameters(), lr=kwargs["lr"])
         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
+
 
     def _init_data(self):
         self.cholesky_quantizer._init_data(self._cholesky)
@@ -57,35 +55,29 @@ class GaussianImage_Cholesky(nn.Module):
         return self._features_dc
     
     @property
-    def get_opacity(self):
-        return self._opacity
-
-    @property
     def get_cholesky_elements(self):
         return self._cholesky+self.cholesky_bound
 
+    def forward_pos(self,num_points):
+        features_dc = torch.ones(num_points, 3).to(self.device)
+        cholesky = torch.full((num_points, 3), 1.0).to(self.device)
+        _opacity = torch.ones(num_points, 1).to(self.device)
+        self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, cholesky+self.cholesky_bound, self.H, self.W, self.tile_bounds)
+        out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
+                features_dc, _opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
+        out_img = torch.clamp(out_img, 0, 1) #[H, W, 3]
+        out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
+        return {"render_pos": out_img}
+    
     def forward(self):
+        _opacity = torch.ones(self._xyz.shape[0], 1).to(self.device)
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
-                self.get_features, self._opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
+                self.get_features, _opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
         out_img = torch.clamp(out_img, 0, 1) #[H, W, 3]
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render": out_img}
-
-    def train_iter(self, gt_image):
-        render_pkg = self.forward()
-        image = render_pkg["render"]
-        loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
-        loss.backward()
-        with torch.no_grad():
-            mse_loss = F.mse_loss(image, gt_image)
-            psnr = 10 * math.log10(1.0 / mse_loss.item())
-        self.optimizer.step()
-        self.optimizer.zero_grad(set_to_none = True)
-
-        self.scheduler.step()
-        return loss, psnr
-
+    
     def forward_quantize(self):
         l_vqm, m_bit = 0, 16*self.init_num_points*2
         means = torch.tanh(self.xyz_quantizer(self._xyz))
@@ -113,7 +105,7 @@ class GaussianImage_Cholesky(nn.Module):
         self.optimizer.zero_grad(set_to_none=True)
         self.scheduler.step()
         return loss, psnr
-
+    
     def compress_wo_ec(self):
         means = torch.tanh(self.xyz_quantizer(self._xyz))
         quant_cholesky_elements, cholesky_elements = self.cholesky_quantizer.compress(self._cholesky)
