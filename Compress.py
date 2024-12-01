@@ -43,7 +43,7 @@ class LoadGaussians:
             model_dict.update(pretrained_dict)
             self.gaussian_model.load_state_dict(model_dict)
  
-    def test(self,):
+    def test(self):
         self.gaussian_model.eval()
         with torch.no_grad():
             encoding_dict = self.gaussian_model.compress_wo_ec()
@@ -52,12 +52,13 @@ class LoadGaussians:
             for i in range(100):
                 _ = self.gaussian_model.decompress_wo_ec(encoding_dict)
             end_time = (time.time() - start_time)/100
+            out_img = out["render"].float()
         data_dict = self.gaussian_model.analysis_wo_ec(encoding_dict)
     
-        out_img = out["render"].float()
-        mse_loss = F.mse_loss(out_img, self.gt_image)
+        
+        mse_loss = F.mse_loss(out_img.float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
-        ms_ssim_value = ms_ssim(out_img, self.gt_image, data_range=1, size_average=True).item()
+        ms_ssim_value = ms_ssim(out_img.float(), self.gt_image.float(), data_range=1, size_average=True).item()
         
         data_dict["psnr"] = psnr
         data_dict["ms-ssim"] = ms_ssim_value
