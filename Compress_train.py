@@ -33,6 +33,7 @@ class SimpleTrainer2d:
         self.gt_image = image_to_tensor(image).to(self.device)
         self.frame_num=frame_num
         self.num_points = num_points
+        self.num_points = int(num_points*0.9)
         self.model_name=model_name
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
