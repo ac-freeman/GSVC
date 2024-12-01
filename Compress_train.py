@@ -61,7 +61,7 @@ class SimpleTrainer2d:
         start_time = time.time()
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         for iter in range(1, int(self.iterations)+1):
-            loss, psnr = self.gaussian_model.train_iter_quantize(self.gt_image,iter)
+            loss, psnr = self.gaussian_model.train_iter_quantize(self.gt_image)
             if best_psnr < psnr:
                 best_psnr = psnr
                 best_model_dict = copy.deepcopy(self.gaussian_model.state_dict())
