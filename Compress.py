@@ -69,6 +69,15 @@ class LoadGaussians:
         # self.logwriter.write("position_bpp:{:.4f}, cholesky_bpp:{:.4f}, feature_dc_bpp:{:.4f}".format(data_dict["position_bpp"], data_dict["cholesky_bpp"], data_dict["feature_dc_bpp"]))
         return data_dict
     
+    def test_o(self):
+        self.gaussian_model.eval()
+        with torch.no_grad():
+            out = self.gaussian_model()
+            out_image = out["render"]
+        mse_loss = F.mse_loss(out_image.float(), self.gt_image.float())
+        psnr = 10 * math.log10(1.0 / mse_loss.item())
+        ms_ssim_value = ms_ssim(out_image.float(), self.gt_image.float(), data_range=1, size_average=True).item()
+        return psnr, ms_ssim_value
 
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
@@ -126,41 +135,49 @@ def main(argv):
     print(f"loading model path:{model_path}")
     gmodels_state_dict = torch.load(model_path,map_location=device)
     image_h, image_w = 0, 0
-    for i in tqdm(range(start, start + image_length), desc="Processing Frames"):
+    # for i in tqdm(range(start, start + image_length), desc="Processing Frames"):
+    for i in range(start, start + image_length):
         frame_num=i+1
         modelid=f"frame_{i + 1}"
         Model = gmodels_state_dict[modelid]
         Gaussianframe = LoadGaussians(num_points=num_points,image=video_frames[i], Model=Model,device=device,args=args)
-        data_dict = Gaussianframe.test()
-        psnrs.append(data_dict["psnr"])
-        ms_ssims.append(data_dict["ms-ssim"])
-        eval_times.append(data_dict["rendering_time"])
-        eval_fpses.append(data_dict["rendering_fps"])
-        bpps.append(data_dict["bpp"])
-        position_bpps.append(data_dict["position_bpp"])
-        cholesky_bpps.append(data_dict["cholesky_bpp"])
-        feature_dc_bpps.append(data_dict["feature_dc_bpp"])
-        image_h += Gaussianframe.H
-        image_w += Gaussianframe.W
-        logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, bpp:{:.4f}, Eval:{:.8f}s, FPS:{:.4f}, position_bpp:{:.4f}, cholesky_bpp:{:.4f}, feature_dc_bpp:{:.4f}".format(
-            frame_num, Gaussianframe.H, Gaussianframe.W, data_dict["psnr"],  data_dict["ms-ssim"], data_dict["bpp"], 
-            data_dict["rendering_time"], data_dict["rendering_fps"], 
-            data_dict["position_bpp"], data_dict["cholesky_bpp"], data_dict["feature_dc_bpp"]))
+        #data_dict = Gaussianframe.test()
+        psnr, ms_ssim_value = Gaussianframe.test_o()
+        logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}".format(
+            frame_num, Gaussianframe.H, Gaussianframe.W, psnr,  ms_ssim_value))
 
-    avg_psnr = torch.tensor(psnrs).mean().item()
-    avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
-    avg_eval_time = torch.tensor(eval_times).mean().item()
-    avg_eval_fps = torch.tensor(eval_fpses).mean().item()
-    avg_bpp = torch.tensor(bpps).mean().item()
-    avg_position_bpp = torch.tensor(position_bpps).mean().item()
-    avg_cholesky_bpp = torch.tensor(cholesky_bpps).mean().item()
-    avg_feature_dc_bpp = torch.tensor(feature_dc_bpps).mean().item()
-    avg_h = image_h//image_length
-    avg_w = image_w//image_length
 
-    logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, bpp:{:.4f}, Eval:{:.8f}s, FPS:{:.4f}, position_bpp:{:.4f}, cholesky_bpp:{:.4f}, feature_dc_bpp:{:.4f}".format(
-        avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_bpp, avg_eval_time, avg_eval_fps, 
-        avg_position_bpp, avg_cholesky_bpp, avg_feature_dc_bpp))    
+
+
+    #     psnrs.append(data_dict["psnr"])
+    #     ms_ssims.append(data_dict["ms-ssim"])
+    #     eval_times.append(data_dict["rendering_time"])
+    #     eval_fpses.append(data_dict["rendering_fps"])
+    #     bpps.append(data_dict["bpp"])
+    #     position_bpps.append(data_dict["position_bpp"])
+    #     cholesky_bpps.append(data_dict["cholesky_bpp"])
+    #     feature_dc_bpps.append(data_dict["feature_dc_bpp"])
+    #     image_h += Gaussianframe.H
+    #     image_w += Gaussianframe.W
+    #     logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, bpp:{:.4f}, Eval:{:.8f}s, FPS:{:.4f}, position_bpp:{:.4f}, cholesky_bpp:{:.4f}, feature_dc_bpp:{:.4f}".format(
+    #         frame_num, Gaussianframe.H, Gaussianframe.W, data_dict["psnr"],  data_dict["ms-ssim"], data_dict["bpp"], 
+    #         data_dict["rendering_time"], data_dict["rendering_fps"], 
+    #         data_dict["position_bpp"], data_dict["cholesky_bpp"], data_dict["feature_dc_bpp"]))
+
+    # avg_psnr = torch.tensor(psnrs).mean().item()
+    # avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
+    # avg_eval_time = torch.tensor(eval_times).mean().item()
+    # avg_eval_fps = torch.tensor(eval_fpses).mean().item()
+    # avg_bpp = torch.tensor(bpps).mean().item()
+    # avg_position_bpp = torch.tensor(position_bpps).mean().item()
+    # avg_cholesky_bpp = torch.tensor(cholesky_bpps).mean().item()
+    # avg_feature_dc_bpp = torch.tensor(feature_dc_bpps).mean().item()
+    # avg_h = image_h//image_length
+    # avg_w = image_w//image_length
+
+    # logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, bpp:{:.4f}, Eval:{:.8f}s, FPS:{:.4f}, position_bpp:{:.4f}, cholesky_bpp:{:.4f}, feature_dc_bpp:{:.4f}".format(
+    #     avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_bpp, avg_eval_time, avg_eval_fps, 
+    #     avg_position_bpp, avg_cholesky_bpp, avg_feature_dc_bpp))    
 
 if __name__ == "__main__":
     
