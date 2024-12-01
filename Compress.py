@@ -179,7 +179,7 @@ def main(argv):
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, bpp:{:.4f}, Eval:{:.8f}s, FPS:{:.4f}, position_bpp:{:.4f}, cholesky_bpp:{:.4f}, feature_dc_bpp:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_bpp, avg_eval_time, avg_eval_fps, 
         avg_position_bpp, avg_cholesky_bpp, avg_feature_dc_bpp))
-    video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
+    video_path = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)
     filename = "video.mp4"
     output_size = (img.width, img.height)
