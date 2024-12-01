@@ -26,7 +26,7 @@ class SimpleTrainer2d:
         num_points: int = 2000,
         model_name:str = "GaussianVideo",
         iterations:int = 30000,
-        model_path = None,
+        trained_model = None,
         args = None,
     ):
         self.device = torch.device("cuda:0")
@@ -46,9 +46,8 @@ class SimpleTrainer2d:
             from GaussianSplats_Compress_train import GaussianVideo_frame
             self.gaussian_model = GaussianVideo_frame(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
             device=self.device, lr=args.lr, quantize=True).to(self.device)
-        if model_path is not None:
-            print(f"loading model path:{model_path}")
-            checkpoint = torch.load(model_path, map_location=self.device)
+        if trained_model is not None:
+            checkpoint = trained_model
             model_dict = self.gaussian_model.state_dict()
             pretrained_dict = {k: v for k, v in checkpoint.items() if k in model_dict}
             model_dict.update(pretrained_dict)
@@ -175,11 +174,13 @@ def main(argv):
     image_length,start=len(video_frames),0
     image_length=2
     Gmodel=None
-    gmodels_state_dict={}
+    gmodels_state_dict = torch.load(args.model_path,map_location=torch.device("cuda:0"))
     for i in range(start, start+image_length):
         frame_num=i+1
+        modelid=f"frame_{i + 1}"
+        Model = gmodels_state_dict[modelid]
         trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
-                iterations=args.iterations, model_name=args.model_name, args=args, model_path=args.model_path)
+                iterations=args.iterations, model_name=args.model_name, args=args, trained_model=Model)
         psnr, ms_ssim, training_time, eval_time, eval_fps, bpp, Gmodel = trainer.train()
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
