@@ -173,7 +173,7 @@ def main(argv):
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    # image_length=5
+    image_length=2
     Gmodel=None
     gmodels_state_dict={}
     for i in range(start, start+image_length):
