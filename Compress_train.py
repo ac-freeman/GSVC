@@ -69,8 +69,8 @@ class SimpleTrainer2d:
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
-            if early_stopping(loss.item()):
-                break
+            # if early_stopping(loss.item()):
+            #     break
         end_time = time.time() - start_time
         progress_bar.close()
         self.gaussian_model.load_state_dict(best_model_dict)
