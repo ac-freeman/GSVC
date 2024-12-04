@@ -132,9 +132,9 @@ def main(argv):
     device=torch.device("cuda:0")
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    # image_length=120
+    image_length=50
     # image_length=2
-    logwriter = LogWriter(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.num_points}"))
+    logwriter = LogWriter(Path(f"./checkpoints_quant/{savdir}/{args.data_name}/{args.num_points}"))
     psnrs, ms_ssims, eval_times, eval_fpses, bpps = [], [], [], [], []
     position_bpps, cholesky_bpps, feature_dc_bpps = [], [], []
     print(f"loading model path:{model_path}")
@@ -181,7 +181,7 @@ def main(argv):
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, bpp:{:.4f}, Eval:{:.8f}s, FPS:{:.4f}, position_bpp:{:.4f}, cholesky_bpp:{:.4f}, feature_dc_bpp:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_bpp, avg_eval_time, avg_eval_fps, 
         avg_position_bpp, avg_cholesky_bpp, avg_feature_dc_bpp))
-    video_path = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.num_points}/video")
+    video_path = Path(f"./checkpoints_quant/{savdir}/{args.data_name}/{args.num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)
     filename = "video.mp4"
     output_size = (img.width, img.height)

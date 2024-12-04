@@ -172,7 +172,7 @@ def main(argv):
     psnrs, ms_ssims, training_times, eval_times, eval_fpses, bpps = [], [], [], [], [], []
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
-    # image_length,start=len(video_frames),0
+    image_length,start=len(video_frames),0
     image_length=50
     Gmodel=None
     gmodels_state_dict = torch.load(args.model_path,map_location=torch.device("cuda:0"))
