@@ -81,14 +81,14 @@ class SimpleTrainer2d:
         self.gaussian_model.train()
         start_time = time.time()
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
-        early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-4)
-        stabel_control=5000
         for iter in range(1, int(self.iterations)+1):
             loss, psnr = self.gaussian_model.train_iter(self.gt_image)
             with torch.no_grad():
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
+                if early_stopping(loss.item()):
+                    break
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
