@@ -11,8 +11,8 @@
 # Activate the environment if needed
 source activate torch  # Replace 'torch' with the name of your conda environment
 
-python train_video_3dGS.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Beauty --num_points 10000 --savdir 3dGS --savdir_m m_3dGS --iterations 50000
-python train_video_3dGS.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Beauty --num_points 20000 --savdir 3dGS --savdir_m m_3dGS --iterations 50000
-python train_video_3dGS.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Beauty --num_points 30000 --savdir 3dGS --savdir_m m_3dGS --iterations 50000
-python train_video_3dGS.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Beauty --num_points 40000 --savdir 3dGS --savdir_m m_3dGS --iterations 50000
-python train_video_3dGS.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Beauty --num_points 50000 --savdir 3dGS --savdir_m m_3dGS --iterations 50000
+python train_video_3dGS.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Beauty --num_points 9000 --savdir 3dGS --savdir_m m_3dGS --iterations 50000
+python train_video_3dGS.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Beauty --num_points 18000 --savdir 3dGS --savdir_m m_3dGS --iterations 50000
+python train_video_3dGS.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Beauty --num_points 27000 --savdir 3dGS --savdir_m m_3dGS --iterations 50000
+python train_video_3dGS.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Beauty --num_points 36000 --savdir 3dGS --savdir_m m_3dGS --iterations 50000
+python train_video_3dGS.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Beauty --num_points 45000 --savdir 3dGS --savdir_m m_3dGS --iterations 50000
