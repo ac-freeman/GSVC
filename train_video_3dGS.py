@@ -223,8 +223,12 @@ def main(argv):
     Gmodel=None
     for i in range(start, start+image_length):
         frame_num=i+1
-        trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,max_num_points=args.num_points,
-                iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,isremoval=False,removal_rate=removal_rate)
+        if frame_num==1:
+            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,max_num_points=args.num_points,
+                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,isremoval=False,removal_rate=removal_rate)
+        else:
+            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,max_num_points=args.num_points,
+                    iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,isremoval=False,removal_rate=removal_rate)
         psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, img, num_gaussian_points, loss = trainer.train(i,ispos)
         img_list.append(img)
         psnrs.append(psnr)
