@@ -11,5 +11,5 @@
 # Activate the environment if needed
 source activate torch  # Replace 'torch' with the name of your conda environment
 
-python train_video_3dGS.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Beauty --num_points 27000 --savdir 3dGS2 --savdir_m m_3dGS2 --iterations 50000
+# python train_video_3dGS.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Beauty --num_points 27000 --savdir 3dGS2 --savdir_m m_3dGS2 --iterations 50000
 python train_video_3dGS.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Beauty --num_points 36000 --savdir 3dGS2 --savdir_m m_3dGS2 --iterations 50000
