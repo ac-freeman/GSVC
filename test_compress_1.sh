@@ -11,17 +11,47 @@
 # Activate the environment if needed
 source activate torch  # Replace 'torch' with the name of your conda environment
 
-python Compress_train.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/models/models_dd/Beauty/GaussianImage_Cholesky_100000_10000/gmodels_state_dict.pth --data_name Beauty --num_points 10000 --savdir Compress --savdir_m Compress --iterations 50000
-python Compress_test.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints_quant/Compress/Beauty/GaussianVideo_100000_10000/gmodels_state_dict.pth --data_name Beauty --num_points 10000 --savdir Compress
+datasets=(
+  "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv Beauty"
+)
 
-python Compress_train.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/models/models_dd/Beauty/GaussianImage_Cholesky_100000_20000/gmodels_state_dict.pth --data_name Beauty --num_points 20000 --savdir Compress --savdir_m Compress --iterations 50000
-python Compress_test.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints_quant/Compress/Beauty/GaussianVideo_100000_20000/gmodels_state_dict.pth --data_name Beauty --num_points 20000 --savdir Compress
+savdir="GaussianImage"
+savdir_m="models_GaussianImage"
+is_pos=False
+is_ad=False
+is_rm=False
+loss_type="L2"
+for dataset in "${datasets[@]}"; do
+  dataset_path=$(echo $dataset | cut -d' ' -f1)
+  data_name=$(echo $dataset | cut -d' ' -f2)
+  for num_points in  90000  18000 27000 36000 45000; do
+    for iterations in 100000; do
+      pos_flag=""
+      ad_flag=""
 
-python Compress_train.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/models/models_dd/Beauty/GaussianImage_Cholesky_100000_30000/gmodels_state_dict.pth --data_name Beauty --num_points 30000 --savdir Compress --savdir_m Compress --iterations 50000
-python Compress_test.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints_quant/Compress/Beauty/GaussianVideo_100000_30000/gmodels_state_dict.pth --data_name Beauty --num_points 30000 --savdir Compress
+      if [ "$is_pos" = True ]; then
+        pos_flag="--is_pos"
+      fi
 
-python Compress_train.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/models/models_dd/Beauty/GaussianImage_Cholesky_100000_40000/gmodels_state_dict.pth --data_name Beauty --num_points 40000 --savdir Compress --savdir_m Compress --iterations 50000
-python Compress_test.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints_quant/Compress/Beauty/GaussianVideo_100000_40000/gmodels_state_dict.pth --data_name Beauty --num_points 40000 --savdir Compress
 
-python Compress_train.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/models/models_dd/Beauty/GaussianImage_Cholesky_100000_50000/gmodels_state_dict.pth --data_name Beauty --num_points 50000 --savdir Compress --savdir_m Compress --iterations 50000
-python Compress_test.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints_quant/Compress/Beauty/GaussianVideo_100000_50000/gmodels_state_dict.pth --data_name Beauty --num_points 50000 --savdir Compress
+      if [ "$is_ad" = True ]; then
+        ad_flag="--is_ad"
+      fi
+
+      if [ "$is_rm" = True ]; then
+        rm_flag="--is_rm"
+      fi
+
+      srun python train_video_Full_test.py --loss_type $loss_type --dataset $dataset_path \
+        --data_name $data_name --num_points $num_points --iterations $iterations \
+        --savdir $savdir --savdir_m $savdir_m \
+        $pos_flag $ad_flag $rm_flag
+    done
+  done
+done
+
+python Compress_train.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_GaussianImage/Beauty/GaussianVideo_100000_9000/gmodels_state_dict.pth --data_name Beauty --num_points 10000 --savdir Compress_GI --savdir_m Compress_GI --iterations 50000
+python Compress_train.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_GaussianImage/Beauty/GaussianVideo_100000_18000/gmodels_state_dict.pth --data_name Beauty --num_points 20000 --savdir Compress_GI --savdir_m Compress_GI --iterations 50000
+python Compress_train.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_GaussianImage/Beauty/GaussianVideo_100000_27000/gmodels_state_dict.pth --data_name Beauty --num_points 30000 --savdir Compress_GI --savdir_m Compress_GI --iterations 50000
+python Compress_train.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_GaussianImage/Beauty/GaussianVideo_100000_36000/gmodels_state_dict.pth --data_name Beauty --num_points 40000 --savdir Compress_GI --savdir_m Compress_GI --iterations 50000
+python Compress_train.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_GaussianImage/Beauty/GaussianVideo_100000_45000/gmodels_state_dict.pth --data_name Beauty --num_points 50000 --savdir Compress_GI --savdir_m Compress_GI --iterations 50000
