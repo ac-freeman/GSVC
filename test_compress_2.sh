@@ -23,7 +23,8 @@ loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in  90000  18000 27000 36000 45000; do
+  # for num_points in  9000  18000 27000 36000 45000; do
+  for num_points in  9000; do
     for iterations in 100000; do
       pos_flag=""
       ad_flag=""
@@ -50,7 +51,7 @@ for dataset in "${datasets[@]}"; do
 done
 
 python Compress_train.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_GaussianImage/HoneyBee/GaussianVideo_100000_9000/gmodels_state_dict.pth --data_name HoneyBee --num_points 10000 --savdir Compress_GI --savdir_m Compress_GI --iterations 50000
-python Compress_train.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_GaussianImage/HoneyBee/GaussianVideo_100000_18000/gmodels_state_dict.pth --data_name HoneyBee --num_points 20000 --savdir Compress_GI --savdir_m Compress_GI --iterations 50000
-python Compress_train.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_GaussianImage/HoneyBee/GaussianVideo_100000_27000/gmodels_state_dict.pth --data_name HoneyBee --num_points 30000 --savdir Compress_GI --savdir_m Compress_GI --iterations 50000
-python Compress_train.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_GaussianImage/HoneyBee/GaussianVideo_100000_36000/gmodels_state_dict.pth --data_name HoneyBee --num_points 40000 --savdir Compress_GI --savdir_m Compress_GI --iterations 50000
-python Compress_train.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_GaussianImage/HoneyBee/GaussianVideo_100000_45000/gmodels_state_dict.pth --data_name HoneyBee --num_points 50000 --savdir Compress_GI --savdir_m Compress_GI --iterations 50000
+# python Compress_train.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_GaussianImage/HoneyBee/GaussianVideo_100000_18000/gmodels_state_dict.pth --data_name HoneyBee --num_points 20000 --savdir Compress_GI --savdir_m Compress_GI --iterations 50000
+# python Compress_train.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_GaussianImage/HoneyBee/GaussianVideo_100000_27000/gmodels_state_dict.pth --data_name HoneyBee --num_points 30000 --savdir Compress_GI --savdir_m Compress_GI --iterations 50000
+# python Compress_train.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_GaussianImage/HoneyBee/GaussianVideo_100000_36000/gmodels_state_dict.pth --data_name HoneyBee --num_points 40000 --savdir Compress_GI --savdir_m Compress_GI --iterations 50000
+# python Compress_train.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/models_GaussianImage/HoneyBee/GaussianVideo_100000_45000/gmodels_state_dict.pth --data_name HoneyBee --num_points 50000 --savdir Compress_GI --savdir_m Compress_GI --iterations 50000
