@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#SBATCH --job-name=test_dd_1    # Job name
-#SBATCH --output=videogs_loss_output.txt # Standard output and error log
-#SBATCH --error=videogs_loss_error.txt  # Error log
+#SBATCH --job-name=T_rep    # Job name
+#SBATCH --output=T_rep_output.txt # Standard output and error log
+#SBATCH --error=T_rep_error.txt  # Error log
 #SBATCH --time=48:00:00                 # Time limit hrs:min:sec
 #SBATCH --gres=gpu:h100-47:1
 #SBATCH --mail-type=ALL                 # Get email for all status updates
