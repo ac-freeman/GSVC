@@ -80,8 +80,8 @@ class SimpleTrainer2d:
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
-        early_stopping = EarlyStopping(patience=100, min_delta=1e-6)
-        early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-3)
+        early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
+        early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-4)
         stabel_control=5000
         for iter in range(1, int(self.iterations)+1):
             loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter)
@@ -140,8 +140,8 @@ class SimpleTrainer2d:
         with torch.no_grad():
             out = self.gaussian_model()
             if ispos:
-                out_pos =self.gaussian_model.forward_pos(num_gaussian_points)
-                #out_pos =self.gaussian_model.forward_pos_shape(num_gaussian_points)
+                #out_pos =self.gaussian_model.forward_pos(num_gaussian_points)
+                out_pos =self.gaussian_model.forward_pos_shape(num_gaussian_points)
                 out_pos_img = out_pos["render_pos"]
             out_image = out["render"]
         mse_loss = F.mse_loss(out_image.float(), self.gt_image.float())
