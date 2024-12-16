@@ -80,8 +80,8 @@ class SimpleTrainer2d:
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
         self.gaussian_model.train()
         start_time = time.time()
-        early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
-        early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-4)
+        early_stopping = EarlyStopping(patience=100, min_delta=1e-6)
+        early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-3)
         stabel_control=5000
         for iter in range(1, int(self.iterations)+1):
             loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter)
