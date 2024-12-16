@@ -91,7 +91,8 @@ class SimpleTrainer2d:
                     progress_bar.update(10)
             if self.isdensity or self.isremoval:
                 stabel_control=stabel_control-1
-                if stabel_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
+                # if stabel_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
+                if stabel_control<0 and early_stopping(loss.item()):
                     break
             elif early_stopping(loss.item()):
                 break
