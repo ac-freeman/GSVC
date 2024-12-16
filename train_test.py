@@ -141,6 +141,7 @@ class SimpleTrainer2d:
             out = self.gaussian_model()
             if ispos:
                 out_pos =self.gaussian_model.forward_pos(num_gaussian_points)
+                #out_pos =self.gaussian_model.forward_pos_shape(num_gaussian_points)
                 out_pos_img = out_pos["render_pos"]
             out_image = out["render"]
         mse_loss = F.mse_loss(out_image.float(), self.gt_image.float())
