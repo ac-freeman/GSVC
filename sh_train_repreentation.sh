@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=test_dd_3    # Job name
+#SBATCH --job-name=test_dd_1    # Job name
 #SBATCH --output=videogs_loss_output.txt # Standard output and error log
 #SBATCH --error=videogs_loss_error.txt  # Error log
 #SBATCH --time=48:00:00                 # Time limit hrs:min:sec
@@ -12,22 +12,22 @@
 source activate torch  # Replace 'torch' with the name of your conda environment
 
 # Define datasets and their corresponding names
-datasets=(
-  "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
-)
-
-
 # datasets=(
 #   "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv Beauty"
-#   "/home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv HoneyBee"
-#   "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
-#   "/home/e/e1344641/GaussianVideo/Video/Mix_1920x1080_120fps_420_8bit_YUV.yuv Mix"
 # )
 
 
+datasets=(
+  "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv Beauty"
+  "/home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv HoneyBee"
+  "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
+  "/home/e/e1344641/GaussianVideo/Video/Mix_1920x1080_120fps_420_8bit_YUV.yuv Mix"
+)
+
+
 # Define additional parameters
-savdir="result_dd_test"
-savdir_m="models_dd_test"
+savdir="result"
+savdir_m="models"
 is_pos=False
 is_ad=True
 is_rm=True
@@ -35,11 +35,11 @@ loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
-  for num_points in  10000  20000 30000 40000 50000; do
+  for num_points in  10000  20000 30000 40000 50000 5000 15000 25000 60000 70000 80000; do
     for iterations in 100000; do
       pos_flag=""
       ad_flag=""
-
+      rm_flag=""
       if [ "$is_pos" = True ]; then
         pos_flag="--is_pos"
       fi
@@ -53,7 +53,7 @@ for dataset in "${datasets[@]}"; do
         rm_flag="--is_rm"
       fi
 
-      srun python train_video_Full_test.py --loss_type $loss_type --dataset $dataset_path \
+      srun python train_video_Full.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
         $pos_flag $ad_flag $rm_flag

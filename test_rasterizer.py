@@ -33,7 +33,7 @@ class LoadGaussians:
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
-        from GaussianSplats import GaussianVideo_frame
+        from GaussianSplats_Rasterizer import GaussianVideo_frame
         self.gaussian_model = GaussianVideo_frame(num_points=self.num_points, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
         device=self.device).to(self.device)
         if Model is not None:

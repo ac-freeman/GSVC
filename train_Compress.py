@@ -28,12 +28,15 @@ class SimpleTrainer2d:
         iterations:int = 30000,
         trained_model = None,
         args = None,
+        isremoval=False,
+        removal_rate=0,
     ):
         self.device = torch.device("cuda:0")
         self.gt_image = image_to_tensor(image).to(self.device)
         self.frame_num=frame_num
         self.num_points = num_points
-        self.num_points = int(num_points*0.9)
+        if isremoval:
+            self.num_points = int(num_points*(1-removal_rate))
         self.model_name=model_name
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
@@ -140,6 +143,8 @@ def parse_args(argv):
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
     parser.add_argument("--save_imgs", action="store_true", help="Save image")
     parser.add_argument("--save_everyimgs", action="store_true", help="Save Every Images")
+    parser.add_argument("--removal_rate", type=float, default=0.1, help="Removal rate")
+    parser.add_argument("--is_rm", action="store_true", help="Removal control of gaussians setup")
     parser.add_argument(
         "--lr",
         type=float,
@@ -158,6 +163,8 @@ def main(argv):
     args.fps=120
     width = args.width
     height = args.height
+    is_rm=args.is_rm
+    removal_rate=args.removal_rate
     gmodel_save_path = Path(f"./checkpoints_quant/{savdir_m}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)
     if args.seed is not None:
@@ -181,7 +188,7 @@ def main(argv):
         modelid=f"frame_{i + 1}"
         Model = gmodels_state_dict[modelid]
         trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
-                iterations=args.iterations, model_name=args.model_name, args=args, trained_model=Model)
+                iterations=args.iterations, model_name=args.model_name, args=args, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
         psnr, ms_ssim, training_time, eval_time, eval_fps, bpp, Gmodel = trainer.train()
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)

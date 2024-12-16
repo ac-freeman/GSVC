@@ -25,11 +25,14 @@ class LoadGaussians:
         device,
         Model = None,
         args = None,
+        isremoval=False,
+        removal_rate=0,
     ):
         self.device = device
         self.gt_image = image_to_tensor(image).to(self.device)
         self.num_points=num_points
-        self.num_points = int(num_points*0.9)
+        if isremoval:
+            self.num_points = int(num_points*(1-removal_rate))
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
@@ -67,21 +70,8 @@ class LoadGaussians:
         data_dict["ms-ssim"] = ms_ssim_value
         data_dict["rendering_time"] = end_time
         data_dict["rendering_fps"] = 1/end_time
-        # np.save(self.log_dir / "test.npy", data_dict)
-        # self.logwriter.write("Eval time:{:.8f}s, FPS:{:.4f}".format(end_time, 1/end_time))
-        # self.logwriter.write("PSNR:{:.4f}, MS_SSIM:{:.6f}, bpp:{:.4f}".format(psnr, ms_ssim_value, data_dict["bpp"]))
-        # self.logwriter.write("position_bpp:{:.4f}, cholesky_bpp:{:.4f}, feature_dc_bpp:{:.4f}".format(data_dict["position_bpp"], data_dict["cholesky_bpp"], data_dict["feature_dc_bpp"]))
         return data_dict,img
     
-    def test_o(self):
-        self.gaussian_model.eval()
-        with torch.no_grad():
-            out = self.gaussian_model()
-            out_image = out["render"]
-        mse_loss = F.mse_loss(out_image.float(), self.gt_image.float())
-        psnr = 10 * math.log10(1.0 / mse_loss.item())
-        ms_ssim_value = ms_ssim(out_image.float(), self.gt_image.float(), data_range=1, size_average=True).item()
-        return psnr, ms_ssim_value
 
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
@@ -109,6 +99,12 @@ def parse_args(argv):
         help="2D GS points (default: %(default)s)",
     )
     parser.add_argument(
+        "--iterations", type=int, default=30000, help="number of training epochs (default: %(default)s)"
+    )
+    parser.add_argument(
+        "--model_name", type=str, default="GaussianVideo", help="model selection: GaussianVideo, GaussianImage, 3DGS"
+    )
+    parser.add_argument(
         "--width", type=int, default=1920, help="width (default: %(default)s)"
     )
     parser.add_argument(
@@ -117,6 +113,8 @@ def parse_args(argv):
     parser.add_argument("--quantize", action="store_true", help="Quantize")
     parser.add_argument("--savdir", type=str, default="result", help="Path to results")
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
+    parser.add_argument("--removal_rate", type=float, default=0.1, help="Removal rate")
+    parser.add_argument("--is_rm", action="store_true", help="Removal control of gaussians setup")
     args = parser.parse_args(argv)
     return args
 
@@ -129,28 +127,26 @@ def main(argv):
     height = args.height
     model_path=args.model_path
     num_points=args.num_points
+    is_rm=args.is_rm
+    removal_rate=args.removal_rate
     device=torch.device("cuda:0")
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
     image_length=50
     # image_length=2
-    logwriter = LogWriter(Path(f"./checkpoints_quant/{savdir}/{args.data_name}/{args.num_points}"))
+    logwriter = LogWriter(Path(f"./checkpoints_quant/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}"))
     psnrs, ms_ssims, eval_times, eval_fpses, bpps = [], [], [], [], []
     position_bpps, cholesky_bpps, feature_dc_bpps = [], [], []
     print(f"loading model path:{model_path}")
     gmodels_state_dict = torch.load(model_path,map_location=device)
     image_h, image_w = 0, 0
-    # for i in tqdm(range(start, start + image_length), desc="Processing Frames"):
     img_list=[]
     for i in range(start, start + image_length):
         frame_num=i+1
         modelid=f"frame_{i + 1}"
         Model = gmodels_state_dict[modelid]
-        Gaussianframe = LoadGaussians(num_points=num_points,image=video_frames[i], Model=Model,device=device,args=args)
+        Gaussianframe = LoadGaussians(num_points=num_points,image=video_frames[i], Model=Model,device=device,args=args,isremoval=is_rm,removal_rate=removal_rate)
         data_dict,img = Gaussianframe.test()
-        # psnr, ms_ssim_value = Gaussianframe.test_o()
-        # logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}".format(
-        #     frame_num, Gaussianframe.H, Gaussianframe.W, psnr,  ms_ssim_value))
         psnrs.append(data_dict["psnr"])
         ms_ssims.append(data_dict["ms-ssim"])
         eval_times.append(data_dict["rendering_time"])
@@ -181,7 +177,7 @@ def main(argv):
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, bpp:{:.4f}, Eval:{:.8f}s, FPS:{:.4f}, position_bpp:{:.4f}, cholesky_bpp:{:.4f}, feature_dc_bpp:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_bpp, avg_eval_time, avg_eval_fps, 
         avg_position_bpp, avg_cholesky_bpp, avg_feature_dc_bpp))
-    video_path = Path(f"./checkpoints_quant/{savdir}/{args.data_name}/{args.num_points}/video")
+    video_path = Path(f"./checkpoints_quant/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)
     filename = "video.mp4"
     output_size = (img.width, img.height)
