@@ -7,5 +7,4 @@ checkpoints/
 checkpoints_quant/
 Sup/
 __pycache__/
-Loadmodel/
 models/
