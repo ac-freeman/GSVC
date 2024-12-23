@@ -239,7 +239,7 @@ def main(argv):
     output_size = (combined_img.width, combined_img.height)
     video = cv2.VideoWriter(
         str(video_path / filename),
-        cv2.VideoWriter_fourcc(*'PNG '),
+        cv2.VideoWriter_fourcc(*'FFV1'),
         fps,
         output_size
     )
