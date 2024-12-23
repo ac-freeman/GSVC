@@ -276,7 +276,7 @@ def main(argv):
         # Resize image if necessary
         img_resized = cv2.resize(img_np, output_size)
         # Convert RGB to YUV420
-        yuv_img = cv2.cvtColor(output_size, cv2.COLOR_RGB2YUV_I420)
+        yuv_img = cv2.cvtColor(img_resized, cv2.COLOR_RGB2YUV_I420)
         # Write raw YUV data to file
         yuv_file.write(yuv_img.tobytes())
     # Close the YUV file
