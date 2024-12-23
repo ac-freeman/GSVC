@@ -263,7 +263,7 @@ def main(argv):
     # Directory and file setup
     video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)
-    filename = "video.yuv"
+    filename = filename = f"video_{args.num_points}.yuv"
     output_size = (img.width, img.height)
     # Open YUV file for writing
     yuv_file = open(video_path / filename, 'wb')
