@@ -27,9 +27,13 @@ class LoadGaussians:
         Model = None,
         args = None,
     ):
+        self.is_rm=args.is_rm
+        self.removal_rate=args.removal_rate
         self.device = device
         self.gt_image = image_to_tensor(image).to(self.device)
-        self.num_points=num_points
+        self.num_points = num_points
+        if self.isremoval:
+            self.num_points = int(num_points*(1-self.removal_rate))
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
         self.H, self.W = self.gt_image.shape[2], self.gt_image.shape[3]
@@ -118,6 +122,8 @@ def parse_args(argv):
     )
     parser.add_argument("--savdir", type=str, default="result", help="Path to results")
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
+    parser.add_argument("--removal_rate", type=float, default=0.1, help="Removal rate")
+    parser.add_argument("--is_rm", action="store_true", help="Removal control of gaussians setup")
     args = parser.parse_args(argv)
     return args
 
@@ -186,14 +192,15 @@ def parse_args(argv):
 #     print("video.mp4: MP4 video created successfully.")
 
 def main(argv):
-    step=10
+    # step=10
     args = parse_args(argv)
     savdir=args.savdir
-    fps=5
+    # fps=120
     width = args.width
     height = args.height
     model_path=args.model_path
     num_points=args.num_points
+
     device=torch.device("cuda:0")
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
