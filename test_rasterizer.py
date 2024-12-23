@@ -32,7 +32,7 @@ class LoadGaussians:
         self.device = device
         self.gt_image = image_to_tensor(image).to(self.device)
         self.num_points = num_points
-        if self.isremoval:
+        if self.is_rm:
             self.num_points = int(num_points*(1-self.removal_rate))
         self.data_name=args.data_name
         BLOCK_H, BLOCK_W = 16, 16
