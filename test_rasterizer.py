@@ -261,7 +261,8 @@ def main(argv):
     # print("video created successfully.")
 
     # Directory and file setup
-    video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
+    # video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
+    video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/")
     video_path.mkdir(parents=True, exist_ok=True)
     filename = filename = f"video_{args.num_points}.yuv"
     output_size = (img.width, img.height)
