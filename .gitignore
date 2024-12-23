@@ -8,3 +8,5 @@ checkpoints_quant/
 Sup/
 __pycache__/
 models/
+Loadmodel
+
