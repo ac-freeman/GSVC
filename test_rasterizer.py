@@ -195,7 +195,7 @@ def main(argv):
     # step=10
     args = parse_args(argv)
     savdir=args.savdir
-    # fps=120
+    fps=120
     width = args.width
     height = args.height
     model_path=args.model_path
@@ -204,7 +204,7 @@ def main(argv):
     device=torch.device("cuda:0")
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    image_length=50
+    image_length=2
     img_list=[]
     print(f"loading model path:{model_path}")
     gmodels_state_dict = torch.load(model_path,map_location=device)
@@ -232,29 +232,46 @@ def main(argv):
     #     video.write(img_cv)
     # video.release()
     # print("video.mp4: MP4 video created successfully.")
-    # Directory and file setup
 
     video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)
-    filename = "video.yuv"
+    filename = f"video_{args.num_points}.mp4"
     output_size = (combined_img.width, combined_img.height)
-    # Open YUV file for writing
-    yuv_file = open(video_path / filename, 'wb')
-    # Process and save images as YUV frames
-    for img in tqdm(img_list, desc="Processing images", unit="image"):
+    video = cv2.VideoWriter(
+        str(video_path / filename), 
+        cv2.VideoWriter_fourcc(*'FFV1'), 
+        fps, 
+        output_size
+    )
+    for img in tqdm(img_list, desc="Processing images", unit="image"):    
         if img.mode != 'RGB':
-            img = img.convert('RGB')
-        # Convert image to numpy array
-        img_np = np.array(img)
-        # Resize image if necessary
-        img_resized = cv2.resize(img_np, output_size)
-        # Convert RGB to YUV420
-        yuv_img = cv2.cvtColor(img_resized, cv2.COLOR_RGB2YUV_I420)
-        # Write raw YUV data to file
-        yuv_file.write(yuv_img.tobytes())
-    # Close the YUV file
-    yuv_file.close()
-    print("video.yuv: YUV video created successfully.")
+            img = img.convert('RGB') 
+        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)  
+        video.write(img_cv) 
+    video.release()
+    print("video created successfully.")
+    # Directory and file setup
+    # video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
+    # video_path.mkdir(parents=True, exist_ok=True)
+    # filename = "video.yuv"
+    # output_size = (combined_img.width, combined_img.height)
+    # # Open YUV file for writing
+    # yuv_file = open(video_path / filename, 'wb')
+    # # Process and save images as YUV frames
+    # for img in tqdm(img_list, desc="Processing images", unit="image"):
+    #     if img.mode != 'RGB':
+    #         img = img.convert('RGB')
+    #     # Convert image to numpy array
+    #     img_np = np.array(img)
+    #     # Resize image if necessary
+    #     img_resized = cv2.resize(img_np, output_size)
+    #     # Convert RGB to YUV420
+    #     yuv_img = cv2.cvtColor(img_resized, cv2.COLOR_RGB2YUV_I420)
+    #     # Write raw YUV data to file
+    #     yuv_file.write(yuv_img.tobytes())
+    # # Close the YUV file
+    # yuv_file.close()
+    # print("video.yuv: YUV video created successfully.")
 
 if __name__ == "__main__":
     
