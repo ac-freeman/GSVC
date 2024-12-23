@@ -213,18 +213,41 @@ def main(argv):
         img_list.append(combined_img)
         torch.cuda.empty_cache()
 
+    # video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
+    # video_path.mkdir(parents=True, exist_ok=True)
+    # filename = "video.mp4"
+    # output_size = (combined_img.width, combined_img.height)
+    # video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
+    # for img in tqdm(img_list, desc="Processing images", unit="image"):    
+    #     if img.mode != 'RGB':
+    #         img = img.convert('RGB')
+    #     img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+    #     video.write(img_cv)
+    # video.release()
+    # print("video.mp4: MP4 video created successfully.")
+    # Directory and file setup
+
     video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)
-    filename = "video.mp4"
+    filename = "video.yuv"
     output_size = (combined_img.width, combined_img.height)
-    video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
-    for img in tqdm(img_list, desc="Processing images", unit="image"):    
+    # Open YUV file for writing
+    yuv_file = open(video_path / filename, 'wb')
+    # Process and save images as YUV frames
+    for img in tqdm(img_list, desc="Processing images", unit="image"):
         if img.mode != 'RGB':
             img = img.convert('RGB')
-        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-        video.write(img_cv)
-    video.release()
-    print("video.mp4: MP4 video created successfully.")
+        # Convert image to numpy array
+        img_np = np.array(img)
+        # Resize image if necessary
+        img_resized = cv2.resize(img_np, output_size)
+        # Convert RGB to YUV420
+        yuv_img = cv2.cvtColor(img_resized, cv2.COLOR_RGB2YUV_I420)
+        # Write raw YUV data to file
+        yuv_file.write(yuv_img.tobytes())
+    # Close the YUV file
+    yuv_file.close()
+    print("video.yuv: YUV video created successfully.")
 
 if __name__ == "__main__":
     
