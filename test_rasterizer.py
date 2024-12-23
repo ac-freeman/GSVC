@@ -271,6 +271,10 @@ def main(argv):
     for img in tqdm(img_list, desc="Processing images", unit="image"):
         if img.mode != 'RGB':
             img = img.convert('RGB')
+        # Convert image to numpy array
+        img_np = np.array(img)
+        # Resize image if necessary
+        img_resized = cv2.resize(img_np, output_size)
         # Convert RGB to YUV420
         yuv_img = cv2.cvtColor(output_size, cv2.COLOR_RGB2YUV_I420)
         # Write raw YUV data to file
