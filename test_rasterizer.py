@@ -235,20 +235,22 @@ def main(argv):
 
     video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
     video_path.mkdir(parents=True, exist_ok=True)
-    filename = f"video_{args.num_points}.mp4"
+    filename = f"video_{args.num_points}.avi"
     output_size = (combined_img.width, combined_img.height)
     video = cv2.VideoWriter(
-        str(video_path / filename), 
-        cv2.VideoWriter_fourcc(*'FFV1'), 
-        fps, 
+        str(video_path / filename),
+        cv2.VideoWriter_fourcc(*'PNG '),
+        fps,
         output_size
     )
     for img in tqdm(img_list, desc="Processing images", unit="image"):    
         if img.mode != 'RGB':
-            img = img.convert('RGB') 
-        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)  
-        video.write(img_cv) 
+            img = img.convert('RGB')  
+        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        img_resized = cv2.resize(img_cv, output_size) 
+        video.write(img_resized) 
     video.release()
+
     print("video created successfully.")
     # Directory and file setup
     # video_path = Path(f"./Loadmodel/{savdir}/{args.data_name}/{args.num_points}/video")
