@@ -236,3 +236,5 @@ class GaussianVideo_frame(nn.Module):
         feature_dc_bpp = feature_dc_bits/self.H/self.W
         return {"bpp": bpp, "position_bpp": position_bpp, 
             "cholesky_bpp": cholesky_bpp, "feature_dc_bpp": feature_dc_bpp,}
+    
+
