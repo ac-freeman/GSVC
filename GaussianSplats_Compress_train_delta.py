@@ -256,9 +256,9 @@ class GaussianVideo_delta(nn.Module):
         self._features_dc = nn.Parameter(torch.rand(self.init_num_points, 3))
         self.last_size = (self.H, self.W)
 
-        self.p_xyz = torch.ones(torch.atanh(2 * (torch.rand(self.init_num_points, 2) - 0.5)))
-        self.p_cholesky = torch.rand(self.init_num_points, 3)
-        self.p_features_dc = torch.rand(self.init_num_points, 3)
+        self.register_buffer('p_xyz', torch.atanh(2 * (torch.rand(self.init_num_points, 2) - 0.5)))
+        self.register_buffer('p_cholesky', torch.rand(self.init_num_points, 3))
+        self.register_buffer('p_features_dc', torch.rand(self.init_num_points, 3))
 
         self.register_buffer('_opacity', torch.ones((self.init_num_points, 1)))
         self.register_buffer('background', torch.ones(3))
