@@ -238,6 +238,9 @@ class GaussianVideo_frame(nn.Module):
             "cholesky_bpp": cholesky_bpp, "feature_dc_bpp": feature_dc_bpp,}
     
 
+
+
+
 class GaussianVideo_delta(nn.Module):
     def __init__(self, loss_type="L2", **kwargs):
         super().__init__()
