@@ -211,9 +211,11 @@ def main(argv):
         modelid=f"frame_{i + 1}"
         Model = gmodels_state_dict[modelid]
         if frame_num == 1:
+            print(f"modelid:frame_{i + 1};")
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
                 iterations=args.iterations, model_name=args.model_name, args=args, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
         else:
+            print(f"modelid:frame_{i + 1}; p_modelid:frame_{i};")
             p_modelid=f"frame_{i}"
             P_Model = gmodels_state_dict[p_modelid]
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
