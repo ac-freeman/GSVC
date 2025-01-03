@@ -343,7 +343,7 @@ def main(argv):
         K_frames = [int(x + 1) for x in outlier_indices]
 
         total_frames = start + image_length
-        additional_keyframes = [i for i in range(1, total_frames + 1) if i % 10 == 0]
+        additional_keyframes = [i for i in range(1, total_frames + 1) if i % 5 == 0]
         K_frames = sorted(set(K_frames + additional_keyframes))
 
         K_frames = np.insert(K_frames, 0, 1)
