@@ -188,7 +188,7 @@ def main(argv):
     width = args.width
     height = args.height
     is_rm=args.is_rm
-    output_path_K_frames=args.K_frame_path
+    output_path_K_frames=Path(args.K_frame_path)
     removal_rate=args.removal_rate
     gmodel_save_path = Path(f"./checkpoints_quant/{savdir_m}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)
