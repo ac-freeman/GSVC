@@ -211,11 +211,12 @@ def main(argv):
     image_length,start=len(video_frames),0
     image_length=50
     Gmodel=None
-    gmodels_state_dict = torch.load(args.model_path,map_location=torch.device("cuda:0"))
+    Overfit_gmodels_state_dict = torch.load(args.model_path,map_location=torch.device("cuda:0"))
+    gmodels_state_dict = {}
     for i in range(start, start+image_length):
         frame_num=i+1
         modelid=f"frame_{i + 1}"
-        Model = gmodels_state_dict[modelid]
+        Model = Overfit_gmodels_state_dict[modelid]
         
         if frame_num ==1:
             print(f"modelid:frame_{i + 1};")
@@ -223,7 +224,7 @@ def main(argv):
                 iterations=args.iterations, model_name=args.model_name, args=args, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
         else:
             p_modelid = f"frame_{i}"
-            P_Model = gmodels_state_dict[p_modelid]
+            P_Model = Overfit_gmodels_state_dict[p_modelid]
             print(f"modelid:{modelid}; p_modelid:{p_modelid}")
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
                 iterations=args.iterations, model_name=args.model_name, args=args, p_trained_model =P_Model, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
