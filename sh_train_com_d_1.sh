@@ -77,3 +77,5 @@ python train_Compress_delta2.py --dataset /home/e/e1344641/data/UVG/Beauty/Beaut
 
 
 # python train_Compress.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/models/models_dd/Beauty/GaussianImage_Cholesky_100000_10000/gmodels_state_dict.pth --data_name Beauty --num_points 10000 --savdir Compress_test --savdir_m Compress_modles_test --iterations 50000 --is_rm
+
+python train_Compress_delta.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/models/models_dd/Beauty/GaussianImage_Cholesky_100000_10000/gmodels_state_dict.pth --data_name Beauty --num_points 10000 --savdir Compress_delta_4 --savdir_m Compress_delta_4_modles --iterations 500 --is_rm
