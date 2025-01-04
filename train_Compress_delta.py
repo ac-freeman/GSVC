@@ -210,16 +210,26 @@ def main(argv):
         frame_num=i+1
         modelid=f"frame_{i + 1}"
         Model = gmodels_state_dict[modelid]
-        if frame_num ==1 or frame_num%5==0:
+        if frame_num ==1:
             print(f"modelid:frame_{i + 1};")
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
                 iterations=args.iterations, model_name=args.model_name, args=args, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
-            p_modelid = f"frame_{i + 1}"
-            P_Model = gmodels_state_dict[p_modelid]
         else:
+            p_modelid = f"frame_{i}"
+            P_Model = gmodels_state_dict[p_modelid]
             print(f"modelid:{modelid}; p_modelid:{p_modelid}")
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
                 iterations=args.iterations, model_name=args.model_name, args=args, p_trained_model =P_Model, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
+        # if frame_num ==1 or frame_num%5==0:
+        #     print(f"modelid:frame_{i + 1};")
+        #     trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
+        #         iterations=args.iterations, model_name=args.model_name, args=args, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
+        #     p_modelid = f"frame_{i + 1}"
+        #     P_Model = gmodels_state_dict[p_modelid]
+        # else:
+        #     print(f"modelid:{modelid}; p_modelid:{p_modelid}")
+        #     trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
+        #         iterations=args.iterations, model_name=args.model_name, args=args, p_trained_model =P_Model, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
         psnr, ms_ssim, training_time, eval_time, eval_fps, bpp, Gmodel = trainer.train()
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
