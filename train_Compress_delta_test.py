@@ -269,8 +269,28 @@ def main(argv):
     avg_w = image_w//image_length
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Bpp:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_bpp, avg_training_time, avg_eval_time, avg_eval_fps)) 
-       
-    generate_video_density(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)
+
+    video_path = Path(f"./Loadmodel/{savdir}/video/{args.data_name}/")
+    video_path.mkdir(parents=True, exist_ok=True)
+    filename = filename = f"video_{args.num_points}.yuv"
+    output_size = (img.width, img.height)
+    # Open YUV file for writing
+    yuv_file = open(video_path / filename, 'wb')
+    # Process and save images as YUV frames
+    for img in tqdm(img_list, desc="Processing images", unit="image"):
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
+        # Convert image to numpy array
+        img_np = np.array(img)
+        # Resize image if necessary
+        img_resized = cv2.resize(img_np, output_size)
+        # Convert RGB to YUV420
+        yuv_img = cv2.cvtColor(img_resized, cv2.COLOR_RGB2YUV_I420)
+        # Write raw YUV data to file
+        yuv_file.write(yuv_img.tobytes())
+    # Close the YUV file
+    yuv_file.close()
+    print("video.yuv: YUV video created successfully.")
 if __name__ == "__main__":
     
     main(sys.argv[1:])
