@@ -100,14 +100,20 @@ class SimpleTrainer2d:
         end_time = time.time() - start_time
         progress_bar.close()
         self.gaussian_model.load_state_dict(best_model_dict)
-        psnr_value, ms_ssim_value, bpp = self.test()
+        psnr_value, ms_ssim_value, bpp,img = self.test()
         with torch.no_grad():
             self.gaussian_model.eval()
             test_start_time = time.time()
             for i in range(100):
                 _ = self.gaussian_model()
             test_end_time = (time.time() - test_start_time)/100  
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, bpp, best_model_dict   
+
+        Gmodel =self.gaussian_model.state_dict()
+        filtered_Gmodel = {
+            k: v for k, v in Gmodel.items()
+            if k in ['_xyz', '_cholesky','_features_dc']
+        }
+        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, bpp, filtered_Gmodel,img   
         
     
     def test(self):
@@ -115,12 +121,14 @@ class SimpleTrainer2d:
         with torch.no_grad():
             out = self.gaussian_model.forward_quantize()
         out_image = out["render"]
+        transform = transforms.ToPILImage()
+        img = transform(out_image.float().squeeze(0))
         mse_loss = F.mse_loss(out_image.float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out_image.float(), self.gt_image.float(), data_range=1, size_average=True).item()
         m_bit, s_bit, r_bit, c_bit = out["unit_bit"]
         bpp = (m_bit + s_bit + r_bit + c_bit)/self.H/self.W
-        return psnr, ms_ssim_value, bpp
+        return psnr, ms_ssim_value, bpp,img
 
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
@@ -162,7 +170,6 @@ def parse_args(argv):
     parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
     parser.add_argument("--loss_type", type=str, default="L2", help="Type of Loss")
     parser.add_argument("--savdir", type=str, default="result", help="Path to results")
-    parser.add_argument("--K_frame_path", type=str, default="/home/e/e1344641/GaussianVideo/checkpoints/result/Beauty/K-frames.txt", help="Path to K-frames")
     parser.add_argument("--savdir_m", type=str, default="models", help="Path to models")
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
     parser.add_argument("--save_imgs", action="store_true", help="Save image")
@@ -188,7 +195,6 @@ def main(argv):
     width = args.width
     height = args.height
     is_rm=args.is_rm
-    output_path_K_frames=Path(args.K_frame_path)
     removal_rate=args.removal_rate
     gmodel_save_path = Path(f"./checkpoints_quant/{savdir_m}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)
@@ -205,32 +211,39 @@ def main(argv):
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    image_length=50
+    image_length=10
     Gmodel=None
-    gmodels_state_dict = torch.load(args.model_path,map_location=torch.device("cuda:0"))
-    
-    
-    if output_path_K_frames.exists():
-        # If exists, read the file and assign values to K_frames
-        with open(output_path_K_frames, "r") as f:
-            K_frames = [int(line.strip()) for line in f.readlines()]
-    
-    
+    Overfit_gmodels_state_dict = torch.load(args.model_path,map_location=torch.device("cuda:0"))
+    gmodels_state_dict = {}
+    img_list=[]
     for i in range(start, start+image_length):
         frame_num=i+1
         modelid=f"frame_{i + 1}"
-        Model = gmodels_state_dict[modelid]
-        if frame_num in K_frames:
+        Model = Overfit_gmodels_state_dict[modelid]
+        
+        if frame_num ==1:
             print(f"modelid:frame_{i + 1};")
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
                 iterations=args.iterations, model_name=args.model_name, args=args, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
-            p_modelid = f"frame_{i + 1}"
-            P_Model = gmodels_state_dict[p_modelid]
         else:
+            p_modelid = f"frame_{i}"
+            P_Model = Overfit_gmodels_state_dict[p_modelid]
             print(f"modelid:{modelid}; p_modelid:{p_modelid}")
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
                 iterations=args.iterations, model_name=args.model_name, args=args, p_trained_model =P_Model, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
-        psnr, ms_ssim, training_time, eval_time, eval_fps, bpp, Gmodel = trainer.train()
+        
+        # if frame_num ==1 or frame_num%5==0:
+        #     print(f"modelid:frame_{i + 1};")
+        #     trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
+        #         iterations=args.iterations, model_name=args.model_name, args=args, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
+        #     p_modelid = f"frame_{i + 1}"
+        #     P_Model = gmodels_state_dict[p_modelid]
+        # else:
+        #     print(f"modelid:{modelid}; p_modelid:{p_modelid}")
+        #     trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
+        #         iterations=args.iterations, model_name=args.model_name, args=args, p_trained_model =P_Model, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
+        
+        psnr, ms_ssim, training_time, eval_time, eval_fps, bpp, Gmodel,img = trainer.train()
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
         training_times.append(training_time) 
@@ -245,6 +258,7 @@ def main(argv):
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, bpp:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
             frame_num, trainer.H, trainer.W, psnr, ms_ssim, bpp, training_time, eval_time, eval_fps))
     torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
+    img_list.append(img)
     avg_psnr = torch.tensor(psnrs).mean().item()
     avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
     avg_training_time = torch.tensor(training_times).mean().item()
@@ -254,8 +268,9 @@ def main(argv):
     avg_h = image_h//image_length
     avg_w = image_w//image_length
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Bpp:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
-        avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_bpp, avg_training_time, avg_eval_time, avg_eval_fps))    
-
+        avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_bpp, avg_training_time, avg_eval_time, avg_eval_fps)) 
+       
+    generate_video_density(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)
 if __name__ == "__main__":
     
     main(sys.argv[1:])
