@@ -270,7 +270,7 @@ def main(argv):
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Bpp:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_bpp, avg_training_time, avg_eval_time, avg_eval_fps)) 
 
-    video_path = Path(f"./Loadmodel/{savdir}/video/{args.data_name}/")
+    video_path = Path(f"./checkpoints_quant/{savdir}/video/{args.data_name}/")
     video_path.mkdir(parents=True, exist_ok=True)
     filename = filename = f"video_{args.num_points}.yuv"
     output_size = (img.width, img.height)
