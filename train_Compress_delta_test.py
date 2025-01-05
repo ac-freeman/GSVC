@@ -211,7 +211,7 @@ def main(argv):
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    image_length=10
+    image_length=3
     Gmodel=None
     Overfit_gmodels_state_dict = torch.load(args.model_path,map_location=torch.device("cuda:0"))
     gmodels_state_dict = {}
