@@ -311,52 +311,52 @@ def main(argv):
 
 
 
-    output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
-    if output_path_K_frames.exists():
-        # If exists, read the file and assign values to K_frames
-        with open(output_path_K_frames, "r") as f:
-            K_frames = [int(line.strip()) for line in f.readlines()]
-    else:
-        loss_list=[]
-        for i in range(start, start+image_length):
-            frame_num=i+1
-            if frame_num ==1:
-                loss_extractor_K = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
-                    iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,isremoval=False,removal_rate=removal_rate)
-                Gmodel,_= loss_extractor_K.pre_train()
-                loss=0
-                loss_list.append(0)
-            else:
-                loss_extractor_K = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
-                    iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,isremoval=False,removal_rate=removal_rate)
-                loss_extractor_P = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
-                    iterations=100, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,isremoval=False,removal_rate=removal_rate)  
-                Gmodel, loss_K = loss_extractor_K.pre_train()
-                _, loss_P = loss_extractor_P.pre_train()
-                loss_list.append(loss_P-loss_K)
-        loss_list = np.array([
-            v.detach().cpu().numpy() if isinstance(v, torch.Tensor) else v for v in loss_list
-        ])
-        values_to_normalize = loss_list[1:]
-        min_value = np.min(values_to_normalize)
-        max_value = np.max(values_to_normalize)
-        # Normalized values in range [0, 1]
-        normalized_loss_list = [loss_list[0]] + [(v - min_value) / (max_value - min_value) for v in values_to_normalize]
-        output_path = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/loss_list.txt")
-        with open(output_path, "w") as f:
-            for index, loss in enumerate(normalized_loss_list, start=1):
-                f.write(f"Frame {index}: {loss}\n")
+    # output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
+    # if output_path_K_frames.exists():
+    #     # If exists, read the file and assign values to K_frames
+    #     with open(output_path_K_frames, "r") as f:
+    #         K_frames = [int(line.strip()) for line in f.readlines()]
+    # else:
+    #     loss_list=[]
+    #     for i in range(start, start+image_length):
+    #         frame_num=i+1
+    #         if frame_num ==1:
+    #             loss_extractor_K = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
+    #                 iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,isremoval=False,removal_rate=removal_rate)
+    #             Gmodel,_= loss_extractor_K.pre_train()
+    #             loss=0
+    #             loss_list.append(0)
+    #         else:
+    #             loss_extractor_K = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
+    #                 iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,isremoval=False,removal_rate=removal_rate)
+    #             loss_extractor_P = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
+    #                 iterations=100, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,isremoval=False,removal_rate=removal_rate)  
+    #             Gmodel, loss_K = loss_extractor_K.pre_train()
+    #             _, loss_P = loss_extractor_P.pre_train()
+    #             loss_list.append(loss_P-loss_K)
+    #     loss_list = np.array([
+    #         v.detach().cpu().numpy() if isinstance(v, torch.Tensor) else v for v in loss_list
+    #     ])
+    #     values_to_normalize = loss_list[1:]
+    #     min_value = np.min(values_to_normalize)
+    #     max_value = np.max(values_to_normalize)
+    #     # Normalized values in range [0, 1]
+    #     normalized_loss_list = [loss_list[0]] + [(v - min_value) / (max_value - min_value) for v in values_to_normalize]
+    #     output_path = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/loss_list.txt")
+    #     with open(output_path, "w") as f:
+    #         for index, loss in enumerate(normalized_loss_list, start=1):
+    #             f.write(f"Frame {index}: {loss}\n")
 
-        outlier_indices = detect_outliers_mean_diff(normalized_loss_list)
-        K_frames = [int(x + 1) for x in outlier_indices]
-        K_frames = np.insert(K_frames, 0, 1)
-        K_frames = K_frames.astype(int)
-        output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
-        with open(output_path_K_frames, "w") as f:
-            for frame in K_frames:
-                f.write(f"{frame}\n")
-    print("K-frames:", K_frames)
-
+    #     outlier_indices = detect_outliers_mean_diff(normalized_loss_list)
+    #     K_frames = [int(x + 1) for x in outlier_indices]
+    #     K_frames = np.insert(K_frames, 0, 1)
+    #     K_frames = K_frames.astype(int)
+    #     output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
+    #     with open(output_path_K_frames, "w") as f:
+    #         for frame in K_frames:
+    #             f.write(f"{frame}\n")
+    # print("K-frames:", K_frames)
+    K_frames=[1]
     Gmodel=None
     for i in range(start, start+image_length):
         frame_num=i+1
