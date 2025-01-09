@@ -174,10 +174,29 @@ class GaussianVideo_frame(nn.Module):
                     self._features_dc = torch.nn.Parameter(self._features_dc[keep_indices])
                     self.rgb_W = torch.nn.Parameter(self.rgb_W[keep_indices])  
             self.update_optimizer()
+
+
+    def train_iter_trace(self, gt_image,iter):
+        render_pkg = self.forward()
+        image = render_pkg["render"]
+        loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
+        loss.backward()
+        with torch.no_grad():
+            mse_loss = F.mse_loss(image, gt_image)
+            psnr = 10 * math.log10(1.0 / mse_loss.item())
+        if (iter==1 or (iter) % (self.densification_interval) == 0) and self.isdensity:
+            self.adaptive_control(iter)
+        elif (iter) % (self.densification_interval) == 0 and self.isremoval:
+            self.removal_control(iter)
+        self.optimizer.step()
+        self.optimizer.zero_grad(set_to_none = True)
+        
+        self.scheduler.step()
+        return loss, psnr, image
         
 
     def train_iter(self, gt_image,iter):
-        render_pkg = self.forward()
+        render_pkg = self.forward_pos()
         image = render_pkg["render"]
         loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
         loss.backward()
