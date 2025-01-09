@@ -15,6 +15,7 @@ import random
 import torchvision.transforms as transforms
 from sklearn.mixture import GaussianMixture
 import copy
+from GaussianSplats_Compress import GaussianVideo_frame, GaussianVideo_delta
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
@@ -27,6 +28,7 @@ class SimpleTrainer2d:
         model_name:str = "GaussianVideo",
         iterations:int = 30000,
         trained_model = None,
+        p_trained_model=None,
         args = None,
         isremoval=False,
         removal_rate=0,
@@ -46,16 +48,37 @@ class SimpleTrainer2d:
         self.save_everyimgs = args.save_everyimgs
         self.log_dir = Path(f"./checkpoints_quant/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
         self.loss_type = loss_type
-        if model_name == "GaussianVideo":
-            from GaussianSplats_Compress_train import GaussianVideo_frame
+        if p_trained_model is not None:
+            self.gaussian_model = GaussianVideo_delta(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
+            device=self.device, lr=args.lr, quantize=True).to(self.device)
+            checkpoint = trained_model
+            p_checkpoint = p_trained_model
+            model_dict = self.gaussian_model.state_dict()
+            delta_model_dict = self.gaussian_model.state_dict()
+            pretrained_dict = {k: v for k, v in checkpoint.items() if k in model_dict}
+            p_pretrained_dict = {k: v for k, v in p_checkpoint.items() if k in delta_model_dict}
+            delta_pretrained_dict = {
+                k: pretrained_dict[k] - p_pretrained_dict[k]
+                for k in pretrained_dict.keys() & p_pretrained_dict.keys()
+            }
+            delta_model_dict.update(delta_pretrained_dict)
+            for param_name, buffer_name in [
+                ("_xyz", "p_xyz"),
+                ("_cholesky", "p_cholesky"),
+                ("_features_dc", "p_features_dc")
+            ]:
+                if param_name in pretrained_dict:
+                    delta_model_dict[buffer_name] = pretrained_dict[param_name]
+            self.gaussian_model.load_state_dict(delta_model_dict)
+        else:
             self.gaussian_model = GaussianVideo_frame(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
             device=self.device, lr=args.lr, quantize=True).to(self.device)
-        if trained_model is not None:
             checkpoint = trained_model
             model_dict = self.gaussian_model.state_dict()
             pretrained_dict = {k: v for k, v in checkpoint.items() if k in model_dict}
             model_dict.update(pretrained_dict)
             self.gaussian_model.load_state_dict(model_dict)
+            
 
     def train(self): 
         progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
@@ -84,7 +107,13 @@ class SimpleTrainer2d:
             for i in range(100):
                 _ = self.gaussian_model()
             test_end_time = (time.time() - test_start_time)/100  
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, bpp, best_model_dict   
+
+        Gmodel =self.gaussian_model.state_dict()
+        filtered_Gmodel = {
+            k: v for k, v in Gmodel.items()
+            if k in ['_xyz', '_cholesky','_features_dc']
+        }
+        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, bpp, filtered_Gmodel   
         
     
     def test(self):
@@ -182,13 +211,35 @@ def main(argv):
     image_length,start=len(video_frames),0
     image_length=50
     Gmodel=None
-    gmodels_state_dict = torch.load(args.model_path,map_location=torch.device("cuda:0"))
+    Overfit_gmodels_state_dict = torch.load(args.model_path,map_location=torch.device("cuda:0"))
+    gmodels_state_dict = {}
     for i in range(start, start+image_length):
         frame_num=i+1
         modelid=f"frame_{i + 1}"
-        Model = gmodels_state_dict[modelid]
-        trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
+        Model = Overfit_gmodels_state_dict[modelid]
+        
+        if frame_num ==1:
+            print(f"modelid:frame_{i + 1};")
+            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
                 iterations=args.iterations, model_name=args.model_name, args=args, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
+        else:
+            p_modelid = f"frame_{i}"
+            P_Model = Overfit_gmodels_state_dict[p_modelid]
+            print(f"modelid:{modelid}; p_modelid:{p_modelid}")
+            trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
+                iterations=args.iterations, model_name=args.model_name, args=args, p_trained_model =P_Model, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
+        
+        # if frame_num ==1 or frame_num%5==0:
+        #     print(f"modelid:frame_{i + 1};")
+        #     trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
+        #         iterations=args.iterations, model_name=args.model_name, args=args, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
+        #     p_modelid = f"frame_{i + 1}"
+        #     P_Model = gmodels_state_dict[p_modelid]
+        # else:
+        #     print(f"modelid:{modelid}; p_modelid:{p_modelid}")
+        #     trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
+        #         iterations=args.iterations, model_name=args.model_name, args=args, p_trained_model =P_Model, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
+        
         psnr, ms_ssim, training_time, eval_time, eval_fps, bpp, Gmodel = trainer.train()
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
