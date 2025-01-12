@@ -19,5 +19,7 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 
 # srun python train_video_Full_trace.py --loss_type L2 --dataset ./grey.yuv --data_name grey --num_points 10000 --iterations 100000 --savdir result_trace --savdir_m result_trace --is_ad --is_rm
 # srun python train_video_Full_trace.py --loss_type L2 --dataset ./grid.yuv --data_name grid --num_points 10000 --iterations 100000 --savdir result_trace --savdir_m result_trace --is_ad --is_rm
-srun python train_video_Full_trace.py --loss_type L2 --dataset ./greygrid.yuv --data_name greygrid --num_points 10000 --iterations 100000 --savdir result_trace --savdir_m result_trace --is_ad --is_rm
+# srun python train_video_Full_trace.py --loss_type L2 --dataset ./greygrid.yuv --data_name greygrid --num_points 10000 --iterations 100000 --savdir result_trace --savdir_m result_trace --is_ad --is_rm
+srun python train_video_Full_trace.py --loss_type L2 --dataset ./greygrid.yuv --data_name greygrid --num_points 50000 --iterations 100000 --savdir result_trace --savdir_m result_trace --is_ad --is_rm
+
 
