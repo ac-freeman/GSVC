@@ -117,7 +117,7 @@ class _RasterizeGaussiansSum(Function):
         img_size = (img_width, img_height, 1)
 
         num_intersects, cum_tiles_hit = compute_cumulative_intersects(num_tiles_hit)
-
+        print(colors.shape[-1])
         if num_intersects < 1:
             out_img = (
                 torch.ones(img_height, img_width, colors.shape[-1], device=xys.device)
@@ -161,7 +161,7 @@ class _RasterizeGaussiansSum(Function):
                 opacity,
                 background,
             )
-        print(colors.shape[-1])
+        
         ctx.img_width = img_width
         ctx.img_height = img_height
         ctx.BLOCK_H = BLOCK_H
