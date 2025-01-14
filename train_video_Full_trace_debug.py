@@ -14,6 +14,7 @@ from tqdm import tqdm
 import random
 import torchvision.transforms as transforms
 from sklearn.mixture import GaussianMixture
+# import pdb
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
@@ -203,12 +204,14 @@ class SimpleTrainer2d:
             save_path_img = self.log_dir / "img"
             save_path_img.mkdir(parents=True, exist_ok=True)
             transform = transforms.ToPILImage()
+            print(out_image[:,0,0])
             img = transform(out_image.float().squeeze(0))
             name =str(self.frame_num) + "_fitting.png" 
             img.save(str(save_path_img / name))
         else:
             transform = transforms.ToPILImage()
             img = transform(out_image.float().squeeze(0))
+        
         return psnr, ms_ssim_value,img
 
 def image_to_tensor(img: Image.Image):
