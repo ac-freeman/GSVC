@@ -370,35 +370,35 @@ def main(argv):
         #psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, img, num_gaussian_points, loss,out_img_list = trainer.train(i,ispos)
         psnr, ms_ssim_value,img = trainer.test(frame_num,args.num_points,ispos)
         out_img_list.append(img)
-        img_list.append(img)
-        psnrs.append(psnr)
-        ms_ssims.append(ms_ssim)
+        # img_list.append(img)
+        # psnrs.append(psnr)
+        # ms_ssims.append(ms_ssim)
         # training_times.append(training_time) 
         # eval_times.append(eval_time)
         # eval_fpses.append(eval_fps)
         # gaussian_number.append(num_gaussian_points)
-        image_h += trainer.H
-        image_w += trainer.W
-        gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
+        # image_h += trainer.H
+        # image_w += trainer.W
+        # gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
         # num_gaussian_points_dict[f"frame_{frame_num}"]=num_gaussian_points
-        torch.cuda.empty_cache()
-        if i==0 or (i+1)%1==0:
-            logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Loss:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps, loss))
-    torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
-    file_size = os.path.getsize(os.path.join(gmodel_save_path, 'gmodels_state_dict.pth'))
-    with open(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
-        for key, value in num_gaussian_points_dict.items():
-            f.write(f'{key}: {value}\n')
-    avg_psnr = torch.tensor(psnrs).mean().item()
-    avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
-    avg_training_time = torch.tensor(training_times).mean().item()
-    avg_eval_time = torch.tensor(eval_times).mean().item()
-    avg_eval_fps = torch.tensor(eval_fpses).mean().item()
-    avg_h = image_h//image_length
-    avg_w = image_w//image_length
-    gaussians = sum(gaussian_number) / len(gaussian_number)
-    logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f}, Gaussian_number:{:.4f}".format(
-        avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024),gaussians))
+        # torch.cuda.empty_cache()
+    #     if i==0 or (i+1)%1==0:
+    #         logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Loss:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps, loss))
+    # torch.save(gmodels_state_dict, gmodel_save_path / "gmodels_state_dict.pth")
+    # file_size = os.path.getsize(os.path.join(gmodel_save_path, 'gmodels_state_dict.pth'))
+    # with open(Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}") / "num_gaussian_points.txt", 'w') as f:
+    #     for key, value in num_gaussian_points_dict.items():
+    #         f.write(f'{key}: {value}\n')
+    # avg_psnr = torch.tensor(psnrs).mean().item()
+    # avg_ms_ssim = torch.tensor(ms_ssims).mean().item()
+    # avg_training_time = torch.tensor(training_times).mean().item()
+    # avg_eval_time = torch.tensor(eval_times).mean().item()
+    # avg_eval_fps = torch.tensor(eval_fpses).mean().item()
+    # avg_h = image_h//image_length
+    # avg_w = image_w//image_length
+    # gaussians = sum(gaussian_number) / len(gaussian_number)
+    # logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f}, Gaussian_number:{:.4f}".format(
+    #     avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024),gaussians))
     if ispos:
         generate_video_density(savdir,out_img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
     else:
