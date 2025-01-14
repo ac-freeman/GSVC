@@ -196,7 +196,8 @@ class GaussianVideo_frame(nn.Module):
         
 
     def train_iter(self, gt_image,iter):
-        render_pkg = self.forward_pos()
+        # render_pkg = self.forward_pos()
+        render_pkg = self.forward()
         image = render_pkg["render"]
         loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
         loss.backward()
