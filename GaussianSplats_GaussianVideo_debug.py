@@ -27,7 +27,7 @@ class GaussianVideo_frame(nn.Module):
         self.removal_rate=kwargs["removal_rate"]
         self._xyz = nn.Parameter(torch.atanh(2 * (torch.rand(self.init_num_points, 2) - 0.5)))
         # self._cholesky = nn.Parameter(torch.rand(self.init_num_points, 3))
-        self._cholesky = nn.Parameter(torch.ones(self.init_num_points, 3))
+        self._cholesky = nn.Parameter(100*torch.ones(self.init_num_points, 3))
         self.isdensity=kwargs["isdensity"]
         self.isremoval=kwargs["isremoval"]
         if self.isremoval:
@@ -37,7 +37,7 @@ class GaussianVideo_frame(nn.Module):
         else:
            self.register_buffer('rgb_W', torch.ones((self.init_num_points, 1))) 
         # self._features_dc = nn.Parameter(torch.rand(self.init_num_points, 3))
-        self._features_dc = nn.Parameter(torch.zeros(self.init_num_points, 3))
+        self._features_dc = nn.Parameter(torch.ones(self.init_num_points, 3))
         self.last_size = (self.H, self.W)
         self.quantize = kwargs["quantize"]
         self.register_buffer('background', torch.ones(3))
