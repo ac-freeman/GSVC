@@ -357,6 +357,7 @@ def main(argv):
     #             f.write(f"{frame}\n")
     # print("K-frames:", K_frames)
     K_frames=[1]
+    out_img_list=[]
     Gmodel=None
     for i in range(start, start+image_length):
         frame_num=i+1
@@ -366,18 +367,20 @@ def main(argv):
         else:
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points,max_num_points=args.num_points,
                 iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,isremoval=False,removal_rate=removal_rate)
-        psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, img, num_gaussian_points, loss,out_img_list = trainer.train(i,ispos)
+        #psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, img, num_gaussian_points, loss,out_img_list = trainer.train(i,ispos)
+        psnr, ms_ssim_value,img = trainer.test(frame_num,args.num_points,ispos)
+        out_img_list.append(img)
         img_list.append(img)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
-        training_times.append(training_time) 
-        eval_times.append(eval_time)
-        eval_fpses.append(eval_fps)
-        gaussian_number.append(num_gaussian_points)
+        # training_times.append(training_time) 
+        # eval_times.append(eval_time)
+        # eval_fpses.append(eval_fps)
+        # gaussian_number.append(num_gaussian_points)
         image_h += trainer.H
         image_w += trainer.W
         gmodels_state_dict[f"frame_{frame_num}"] = Gmodel
-        num_gaussian_points_dict[f"frame_{frame_num}"]=num_gaussian_points
+        # num_gaussian_points_dict[f"frame_{frame_num}"]=num_gaussian_points
         torch.cuda.empty_cache()
         if i==0 or (i+1)%1==0:
             logwriter.write("Frame_{}: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Loss:{:.4f}".format(frame_num, trainer.H, trainer.W, psnr, ms_ssim, training_time, eval_time, eval_fps, loss))
