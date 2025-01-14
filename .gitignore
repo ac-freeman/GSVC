@@ -2,7 +2,7 @@ T_com_error.txt
 T_com_output.txt  
 T_rep_error.txt
 T_rep_output.txt 
-gsplat/
+# gsplat/
 checkpoints/
 checkpoints_quant/
 Sup/
