@@ -88,7 +88,7 @@ class GaussianVideo_frame(nn.Module):
         # out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
         #         self.get_features, _opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
         out_img = (
-                torch.ones(self.H, self.W, self.get_features[-1], device=self.xys.device)
+                torch.ones(self.H, self.W, self.get_features.shape[-1], device=self.xys.device)
                 * self.background
             )
         out_img = torch.clamp(out_img, 0, 1) #[H, W, 3]
