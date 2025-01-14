@@ -143,6 +143,7 @@ class _RasterizeGaussiansSum(Function):
                 cum_tiles_hit,
                 tile_bounds,
             )
+            
             if colors.shape[-1] == 3:
                 rasterize_fn = _C.rasterize_sum_forward
             else:
@@ -160,7 +161,7 @@ class _RasterizeGaussiansSum(Function):
                 opacity,
                 background,
             )
-
+        print(colors.shape[-1])
         ctx.img_width = img_width
         ctx.img_height = img_height
         ctx.BLOCK_H = BLOCK_H
