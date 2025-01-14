@@ -68,7 +68,7 @@ def rasterize_gaussians_sum(
 
     if colors.ndimension() != 2:
         raise ValueError("colors must have dimensions (N, D)")
-    print("111")
+
     return _RasterizeGaussiansSum.apply(
         xys.contiguous(),
         depths.contiguous(),
