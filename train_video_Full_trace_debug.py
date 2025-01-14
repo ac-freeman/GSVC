@@ -77,73 +77,73 @@ class SimpleTrainer2d:
         
         print(f"{name} - Max: {max_val}, Mean: {mean_val}, Median: {median_val}, Min: {min_val}")
 
-    def train(self,frame,ispos):     
-        progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
-        self.gaussian_model.train()
-        start_time = time.time()
-        early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
-        early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-4)
-        stabel_control=5000
-        out_img_list=[]
-        for iter in range(1, int(self.iterations)+1):
-            loss, psnr,out_img = self.gaussian_model.train_iter_trace(self.gt_image,iter)
-            with torch.no_grad():
-                if iter % 10 == 0:
-                    progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
-                    progress_bar.update(10)
-                if iter%100==0:
-                    transform = transforms.ToPILImage()
-                    save_path_img = self.log_dir / "img"
-                    save_path_img.mkdir(parents=True, exist_ok=True)
-                    transform = transforms.ToPILImage()
-                    transform = transforms.ToPILImage()
-                    out_img = transform(out_img.float().squeeze(0))
-                    out_img_list.append(out_img)
-                    name =str(iter) + "_fitting.png"
-                    out_img.save(str(save_path_img / name))
-            if self.isdensity or self.isremoval:
-                stabel_control=stabel_control-1
-                if stabel_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
-                    break
-            elif early_stopping(loss.item()):
-                break
-        end_time = time.time() - start_time
-        progress_bar.close()
-        num_gaussian_points =self.gaussian_model._xyz.size(0)
-        psnr_value, ms_ssim_value,img = self.test(frame,num_gaussian_points,ispos)
-        with torch.no_grad():
-            self.gaussian_model.eval()
-            test_start_time = time.time()
-            for i in range(100):
-                _ = self.gaussian_model()
-            test_end_time = (time.time() - test_start_time)/100       
-        Gmodel =self.gaussian_model.state_dict()
+    # def train(self,frame,ispos):     
+    #     progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
+    #     self.gaussian_model.train()
+    #     start_time = time.time()
+    #     early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
+    #     early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-4)
+    #     stabel_control=5000
+    #     out_img_list=[]
+    #     for iter in range(1, int(self.iterations)+1):
+    #         loss, psnr,out_img = self.gaussian_model.train_iter_trace(self.gt_image,iter)
+    #         with torch.no_grad():
+    #             if iter % 10 == 0:
+    #                 progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
+    #                 progress_bar.update(10)
+    #             if iter%100==0:
+    #                 transform = transforms.ToPILImage()
+    #                 save_path_img = self.log_dir / "img"
+    #                 save_path_img.mkdir(parents=True, exist_ok=True)
+    #                 transform = transforms.ToPILImage()
+    #                 transform = transforms.ToPILImage()
+    #                 out_img = transform(out_img.float().squeeze(0))
+    #                 out_img_list.append(out_img)
+    #                 name =str(iter) + "_fitting.png"
+    #                 out_img.save(str(save_path_img / name))
+    #         if self.isdensity or self.isremoval:
+    #             stabel_control=stabel_control-1
+    #             if stabel_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
+    #                 break
+    #         elif early_stopping(loss.item()):
+    #             break
+    #     end_time = time.time() - start_time
+    #     progress_bar.close()
+    #     num_gaussian_points =self.gaussian_model._xyz.size(0)
+    #     psnr_value, ms_ssim_value,img = self.test(frame,num_gaussian_points,ispos)
+    #     with torch.no_grad():
+    #         self.gaussian_model.eval()
+    #         test_start_time = time.time()
+    #         for i in range(100):
+    #             _ = self.gaussian_model()
+    #         test_end_time = (time.time() - test_start_time)/100       
+    #     Gmodel =self.gaussian_model.state_dict()
 
-        filtered_Gmodel = {
-            k: v for k, v in Gmodel.items()
-            if k in ['_xyz', '_cholesky']
-        }
-        filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss,out_img_list
+    #     filtered_Gmodel = {
+    #         k: v for k, v in Gmodel.items()
+    #         if k in ['_xyz', '_cholesky']
+    #     }
+    #     filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
+    #     return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss,out_img_list
     
 
-    def pre_train(self):     
-        progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
-        self.gaussian_model.train()
-        for iter in range(1, int(self.iterations)+1):
-            loss, psnr = self.gaussian_model.pre_train_iter(self.gt_image)
-            with torch.no_grad():
-                if iter % 10 == 0:
-                    progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
-                    progress_bar.update(10)
-        progress_bar.close()
-        Gmodel =self.gaussian_model.state_dict()
-        filtered_Gmodel = {
-            k: v for k, v in Gmodel.items()
-            if k in ['_xyz', '_cholesky']
-        }
-        filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
-        return filtered_Gmodel, loss
+    # def pre_train(self):     
+    #     progress_bar = tqdm(range(1, int(self.iterations)+1), desc="Training progress")
+    #     self.gaussian_model.train()
+    #     for iter in range(1, int(self.iterations)+1):
+    #         loss, psnr = self.gaussian_model.pre_train_iter(self.gt_image)
+    #         with torch.no_grad():
+    #             if iter % 10 == 0:
+    #                 progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
+    #                 progress_bar.update(10)
+    #     progress_bar.close()
+    #     Gmodel =self.gaussian_model.state_dict()
+    #     filtered_Gmodel = {
+    #         k: v for k, v in Gmodel.items()
+    #         if k in ['_xyz', '_cholesky']
+    #     }
+    #     filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
+    #     return filtered_Gmodel, loss
 
     def test(self,frame,num_gaussian_points,ispos):
         self.gaussian_model.eval()
@@ -204,7 +204,7 @@ class SimpleTrainer2d:
             save_path_img = self.log_dir / "img"
             save_path_img.mkdir(parents=True, exist_ok=True)
             transform = transforms.ToPILImage()
-            print(out_image[:,0,0])
+            # print(out_image[:,0,0])
             img = transform(out_image.float().squeeze(0))
             name =str(self.frame_num) + "_fitting.png" 
             img.save(str(save_path_img / name))
