@@ -92,7 +92,7 @@ class GaussianVideo_frame(nn.Module):
         #         * self.background
         #     )
         out_img = (
-                torch.ones(self.H, self.W, self.get_features.shape[-1], device=self.xys.device)
+                torch.zeros(self.H, self.W, self.get_features.shape[-1], device=self.xys.device)
             )
         out_img = torch.clamp(out_img, 0, 1) #[H, W, 3]
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
