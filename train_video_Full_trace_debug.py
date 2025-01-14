@@ -145,6 +145,29 @@ class SimpleTrainer2d:
     #     filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
     #     return filtered_Gmodel, loss
 
+    # def test(self,frame,num_gaussian_points,ispos):
+    #     self.gaussian_model.eval()
+    #     with torch.no_grad():
+    #         out = self.gaussian_model()
+    #         if ispos:
+    #             out_pos =self.gaussian_model.forward_pos(num_gaussian_points)
+    #             out_pos_img = out_pos["render_pos"]
+    #         out_image = out["render"]
+    #     mse_loss = F.mse_loss(out_image.float(), self.gt_image.float())
+    #     psnr = 10 * math.log10(1.0 / mse_loss.item())
+    #     ms_ssim_value = ms_ssim(out_image.float(), self.gt_image.float(), data_range=1, size_average=True).item()
+       
+                
+    #     save_path_img = self.log_dir / "img"
+    #     save_path_img.mkdir(parents=True, exist_ok=True)
+    #     transform = transforms.ToPILImage()
+    #     img = transform(out_image.float().squeeze(0))
+    #     name =str(self.frame_num) + "_fitting.png" 
+    #     img.save(str(save_path_img / name))
+        
+        
+    #     return psnr, ms_ssim_value,img
+
     def test(self,frame,num_gaussian_points,ispos):
         self.gaussian_model.eval()
         with torch.no_grad():
@@ -156,16 +179,60 @@ class SimpleTrainer2d:
         mse_loss = F.mse_loss(out_image.float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out_image.float(), self.gt_image.float(), data_range=1, size_average=True).item()
-       
-                
-        save_path_img = self.log_dir / "img"
-        save_path_img.mkdir(parents=True, exist_ok=True)
-        transform = transforms.ToPILImage()
-        img = transform(out_image.float().squeeze(0))
-        name =str(self.frame_num) + "_fitting.png" 
-        img.save(str(save_path_img / name))
-        
-        
+        if ispos:
+            if self.save_everyimgs:
+                save_path_img = self.log_dir / "img"
+                save_path_img.mkdir(parents=True, exist_ok=True)
+                transform = transforms.ToPILImage()
+                img = transform(out_image.float().squeeze(0))
+                img_pos = transform(out_pos_img.float().squeeze(0))
+                combined_width =img.width+img_pos.width
+                combined_height = max(img.height, img_pos.height)
+                combined_img = Image.new("RGB", (combined_width, combined_height))
+                combined_img.paste(img_pos, (0, 0))
+                combined_img.paste(img, (img_pos.width, 0))
+                combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
+                combined_img.save(str(save_path_img / combined_name))
+            elif (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
+                save_path_img = self.log_dir / "img"
+                save_path_img.mkdir(parents=True, exist_ok=True)
+                transform = transforms.ToPILImage()
+                img = transform(out_image.float().squeeze(0))
+                img_pos = transform(out_pos_img.float().squeeze(0))
+                combined_width =img.width+img_pos.width
+                combined_height = max(img.height, img_pos.height)
+                combined_img = Image.new("RGB", (combined_width, combined_height))
+                combined_img.paste(img_pos, (0, 0))
+                combined_img.paste(img, (img_pos.width, 0))
+                combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
+                combined_img.save(str(save_path_img / combined_name))
+            else:
+                transform = transforms.ToPILImage()
+                img_pos = transform(out_pos_img.float().squeeze(0))
+                img = transform(out_image.float().squeeze(0))
+                combined_width =img.width+img_pos.width
+                combined_height = max(img.height, img_pos.height)
+                combined_img = Image.new("RGB", (combined_width, combined_height))
+                combined_img.paste(img_pos, (0, 0))
+                combined_img.paste(img, (img_pos.width, 0))
+            return psnr, ms_ssim_value,combined_img
+        if self.save_everyimgs:
+            save_path_img = self.log_dir / "img"
+            save_path_img.mkdir(parents=True, exist_ok=True)
+            transform = transforms.ToPILImage()
+            img = transform(out_image.float().squeeze(0))
+            name =str(self.frame_num) + "_fitting.png" 
+            img.save(str(save_path_img / name))
+        elif (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
+            save_path_img = self.log_dir / "img"
+            save_path_img.mkdir(parents=True, exist_ok=True)
+            transform = transforms.ToPILImage()
+            img = transform(out_image.float().squeeze(0))
+            name =str(self.frame_num) + "_fitting.png" 
+            img.save(str(save_path_img / name))
+        else:
+            transform = transforms.ToPILImage()
+            img = transform(out_image.float().squeeze(0))
         return psnr, ms_ssim_value,img
 
 def image_to_tensor(img: Image.Image):
