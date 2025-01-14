@@ -10,7 +10,7 @@ from torch.autograd import Function
 import gsplat.cuda as _C
 from .utils import bin_and_sort_gaussians, compute_cumulative_intersects
 
-import pdb
+
 def rasterize_gaussians_sum(
     xys: Float[Tensor, "*batch 2"],
     depths: Float[Tensor, "*batch 1"],
@@ -68,7 +68,7 @@ def rasterize_gaussians_sum(
 
     if colors.ndimension() != 2:
         raise ValueError("colors must have dimensions (N, D)")
-    pdb.set_trace()
+
     return _RasterizeGaussiansSum.apply(
         xys.contiguous(),
         depths.contiguous(),
@@ -117,7 +117,7 @@ class _RasterizeGaussiansSum(Function):
         img_size = (img_width, img_height, 1)
 
         num_intersects, cum_tiles_hit = compute_cumulative_intersects(num_tiles_hit)
-        
+        print(num_intersects,colors.shape[-1])
         if num_intersects < 1:
             out_img = (
                 torch.ones(img_height, img_width, colors.shape[-1], device=xys.device)
