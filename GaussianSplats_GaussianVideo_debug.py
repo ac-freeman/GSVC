@@ -39,7 +39,7 @@ class GaussianVideo_frame(nn.Module):
         # self._features_dc = nn.Parameter(torch.rand(self.init_num_points, 3))
         # self._features_dc = nn.Parameter(torch.ones(self.init_num_points, 3))
         self._features_dc = nn.Parameter(torch.ones(self.init_num_points, 3)*0.5)
-        print(self._features_dc)
+        
         self.last_size = (self.H, self.W)
         self.quantize = kwargs["quantize"]
         self.register_buffer('background', torch.ones(3))
@@ -89,6 +89,7 @@ class GaussianVideo_frame(nn.Module):
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
                 self.get_features, _opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
+        print(self.get_features)
         # out_img = (
         #         torch.zeros(self.H, self.W, self.get_features.shape[-1], device=self._xyz.device)* self.background
         #     )
