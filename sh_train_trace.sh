@@ -22,4 +22,4 @@ srun python train_video_Full_trace.py --loss_type L2 --dataset ./grey.yuv --data
 # srun python train_video_Full_trace.py --loss_type L2 --dataset ./greygrid.yuv --data_name greygrid --num_points 10000 --iterations 100000 --savdir result_trace --savdir_m result_trace --is_ad --is_rm
 # srun python train_video_Full_trace.py --loss_type L2 --dataset ./greygrid.yuv --data_name greygrid --num_points 50000 --iterations 100000 --savdir result_trace --savdir_m result_trace --is_ad --is_rm
 
-
+srun python train_video_Full_trace.py --loss_type L2 --dataset ./black.yuv --data_name black --num_points 10000 --iterations 100000 --savdir result_trace --savdir_m result_trace --is_ad --is_rm

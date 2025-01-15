@@ -53,7 +53,7 @@ class GaussianVideo_frame(nn.Module):
             self.optimizer = torch.optim.Adam(self.parameters(), lr=kwargs["lr"])
         else:
             self.optimizer = Adan(self.parameters(), lr=kwargs["lr"])
-        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
+        self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=2000, gamma=0.5)
     def _init_data(self):
         self.cholesky_quantizer._init_data(self._cholesky)
 
