@@ -90,7 +90,7 @@ class SimpleTrainer2d:
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
-                if iter%100==0:
+                if iter%5000==0:
                     transform = transforms.ToPILImage()
                     save_path_img = self.log_dir / "img"
                     save_path_img.mkdir(parents=True, exist_ok=True)
@@ -100,12 +100,12 @@ class SimpleTrainer2d:
                     out_img_list.append(out_img)
                     name =str(iter) + "_fitting.png"
                     out_img.save(str(save_path_img / name))
-            if self.isdensity or self.isremoval:
-                stabel_control=stabel_control-1
-                if stabel_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
-                    break
-            elif early_stopping(loss.item()):
-                break
+            # if self.isdensity or self.isremoval:
+            #     stabel_control=stabel_control-1
+            #     if stabel_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
+            #         break
+            # elif early_stopping(loss.item()):
+            #     break
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
