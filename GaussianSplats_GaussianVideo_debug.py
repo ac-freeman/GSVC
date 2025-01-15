@@ -39,6 +39,7 @@ class GaussianVideo_frame(nn.Module):
         # self._features_dc = nn.Parameter(torch.rand(self.init_num_points, 3))
         # self._features_dc = nn.Parameter(torch.ones(self.init_num_points, 3))
         self._features_dc = nn.Parameter(torch.ones(self.init_num_points, 3)*0.5)
+        print(self._features_dc)
         self.last_size = (self.H, self.W)
         self.quantize = kwargs["quantize"]
         self.register_buffer('background', torch.ones(3))
