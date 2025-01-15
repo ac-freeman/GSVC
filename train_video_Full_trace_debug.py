@@ -299,8 +299,10 @@ def parse_args(argv):
 def main(argv):
     args = parse_args(argv)
     args.save_imgs=True
+    args.save_everyimgs=True
     loss_type=args.loss_type
     savdir=args.savdir
+    
     savdir_m=args.savdir_m
     ispos = args.is_pos
     iswarmup=args.is_warmup
