@@ -51,7 +51,7 @@ class SimpleTrainer2d:
         self.isremoval=isremoval
         self.loss_type = loss_type
         if model_name == "GaussianVideo":
-            from GaussianSplats_GaussianVideo import GaussianVideo_frame
+            from GaussianSplats_Represent import GaussianVideo_frame
             self.gaussian_model = GaussianVideo_frame(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
             device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate,isdensity=self.isdensity,isremoval=self.isremoval).to(self.device)
         if model_path is not None:
