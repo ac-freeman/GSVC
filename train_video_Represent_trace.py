@@ -396,10 +396,10 @@ def main(argv):
     gaussians = sum(gaussian_number) / len(gaussian_number)
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f}, Gaussian_number:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024),gaussians))
-    if ispos:
-        generate_video_density(savdir,out_img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
-    else:
-        generate_video_density(savdir,out_img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
+    # if ispos:
+    #     generate_video_density(savdir,out_img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
+    # else:
+    #     generate_video_density(savdir,out_img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
     
 if __name__ == "__main__":
     
