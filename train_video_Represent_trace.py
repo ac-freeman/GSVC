@@ -51,7 +51,7 @@ class SimpleTrainer2d:
         self.isremoval=isremoval
         self.loss_type = loss_type
         if model_name == "GaussianVideo":
-            from GaussianSplats_GaussianVideo import GaussianVideo_frame
+            from GaussianSplats_Represent import GaussianVideo_frame
             self.gaussian_model = GaussianVideo_frame(loss_type=self.loss_type, opt_type="adan", num_points=self.num_points,max_num_points=self.max_num_points,densification_interval=self.densification_interval,iterations=self.iterations, H=self.H, W=self.W, BLOCK_H=BLOCK_H, BLOCK_W=BLOCK_W, 
             device=self.device, lr=args.lr, quantize=False,removal_rate=removal_rate,isdensity=self.isdensity,isremoval=self.isremoval).to(self.device)
         if model_path is not None:
@@ -83,21 +83,29 @@ class SimpleTrainer2d:
         early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         early_stopping_PSNR = EarlyStopping(patience=100, min_delta=1e-4)
         stabel_control=5000
+        out_img_list=[]
         for iter in range(1, int(self.iterations)+1):
-            loss, psnr = self.gaussian_model.train_iter(self.gt_image,iter)
+            loss, psnr,out_img = self.gaussian_model.train_iter_trace(self.gt_image,iter)
             with torch.no_grad():
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
-            if self.isdensity or self.isremoval:
-                stabel_control=stabel_control-1
-                if stabel_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
-                    break
-            elif early_stopping(loss.item()):
-                break
-        
-
-
+                if iter%5000==0:
+                    transform = transforms.ToPILImage()
+                    save_path_img = self.log_dir / "img"
+                    save_path_img.mkdir(parents=True, exist_ok=True)
+                    transform = transforms.ToPILImage()
+                    transform = transforms.ToPILImage()
+                    out_img = transform(out_img.float().squeeze(0))
+                    out_img_list.append(out_img)
+                    name =str(iter) + "_fitting.png"
+                    out_img.save(str(save_path_img / name))
+            # if self.isdensity or self.isremoval:
+            #     stabel_control=stabel_control-1
+            #     if stabel_control<0 and early_stopping(loss.item()) and early_stopping_PSNR(psnr):
+            #         break
+            # elif early_stopping(loss.item()):
+            #     break
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
@@ -115,7 +123,7 @@ class SimpleTrainer2d:
             if k in ['_xyz', '_cholesky']
         }
         filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss
+        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss,out_img_list
     
 
     def pre_train(self):     
@@ -294,7 +302,7 @@ def main(argv):
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    # image_length=5
+    image_length=1
     Gmodel=None
     img_list=[]
     gmodels_state_dict = {}
@@ -303,52 +311,52 @@ def main(argv):
 
 
 
-    output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
-    if output_path_K_frames.exists():
-        # If exists, read the file and assign values to K_frames
-        with open(output_path_K_frames, "r") as f:
-            K_frames = [int(line.strip()) for line in f.readlines()]
-    else:
-        loss_list=[]
-        for i in range(start, start+image_length):
-            frame_num=i+1
-            if frame_num ==1:
-                loss_extractor_K = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
-                    iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,isremoval=False,removal_rate=removal_rate)
-                Gmodel,_= loss_extractor_K.pre_train()
-                loss=0
-                loss_list.append(0)
-            else:
-                loss_extractor_K = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
-                    iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,isremoval=False,removal_rate=removal_rate)
-                loss_extractor_P = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
-                    iterations=100, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,isremoval=False,removal_rate=removal_rate)  
-                Gmodel, loss_K = loss_extractor_K.pre_train()
-                _, loss_P = loss_extractor_P.pre_train()
-                loss_list.append(loss_P-loss_K)
-        loss_list = np.array([
-            v.detach().cpu().numpy() if isinstance(v, torch.Tensor) else v for v in loss_list
-        ])
-        values_to_normalize = loss_list[1:]
-        min_value = np.min(values_to_normalize)
-        max_value = np.max(values_to_normalize)
-        # Normalized values in range [0, 1]
-        normalized_loss_list = [loss_list[0]] + [(v - min_value) / (max_value - min_value) for v in values_to_normalize]
-        output_path = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/loss_list.txt")
-        with open(output_path, "w") as f:
-            for index, loss in enumerate(normalized_loss_list, start=1):
-                f.write(f"Frame {index}: {loss}\n")
+    # output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
+    # if output_path_K_frames.exists():
+    #     # If exists, read the file and assign values to K_frames
+    #     with open(output_path_K_frames, "r") as f:
+    #         K_frames = [int(line.strip()) for line in f.readlines()]
+    # else:
+    #     loss_list=[]
+    #     for i in range(start, start+image_length):
+    #         frame_num=i+1
+    #         if frame_num ==1:
+    #             loss_extractor_K = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
+    #                 iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,isremoval=False,removal_rate=removal_rate)
+    #             Gmodel,_= loss_extractor_K.pre_train()
+    #             loss=0
+    #             loss_list.append(0)
+    #         else:
+    #             loss_extractor_K = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
+    #                 iterations=500, model_name=args.model_name, args=args, model_path=None,Trained_Model=None,isdensity=False,isremoval=False,removal_rate=removal_rate)
+    #             loss_extractor_P = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=5000, 
+    #                 iterations=100, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=False,isremoval=False,removal_rate=removal_rate)  
+    #             Gmodel, loss_K = loss_extractor_K.pre_train()
+    #             _, loss_P = loss_extractor_P.pre_train()
+    #             loss_list.append(loss_P-loss_K)
+    #     loss_list = np.array([
+    #         v.detach().cpu().numpy() if isinstance(v, torch.Tensor) else v for v in loss_list
+    #     ])
+    #     values_to_normalize = loss_list[1:]
+    #     min_value = np.min(values_to_normalize)
+    #     max_value = np.max(values_to_normalize)
+    #     # Normalized values in range [0, 1]
+    #     normalized_loss_list = [loss_list[0]] + [(v - min_value) / (max_value - min_value) for v in values_to_normalize]
+    #     output_path = Path(f"./checkpoints/{savdir}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}/loss_list.txt")
+    #     with open(output_path, "w") as f:
+    #         for index, loss in enumerate(normalized_loss_list, start=1):
+    #             f.write(f"Frame {index}: {loss}\n")
 
-        outlier_indices = detect_outliers_mean_diff(normalized_loss_list)
-        K_frames = [int(x + 1) for x in outlier_indices]
-        K_frames = np.insert(K_frames, 0, 1)
-        K_frames = K_frames.astype(int)
-        output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
-        with open(output_path_K_frames, "w") as f:
-            for frame in K_frames:
-                f.write(f"{frame}\n")
-    print("K-frames:", K_frames)
-
+    #     outlier_indices = detect_outliers_mean_diff(normalized_loss_list)
+    #     K_frames = [int(x + 1) for x in outlier_indices]
+    #     K_frames = np.insert(K_frames, 0, 1)
+    #     K_frames = K_frames.astype(int)
+    #     output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
+    #     with open(output_path_K_frames, "w") as f:
+    #         for frame in K_frames:
+    #             f.write(f"{frame}\n")
+    # print("K-frames:", K_frames)
+    K_frames=[1]
     Gmodel=None
     for i in range(start, start+image_length):
         frame_num=i+1
@@ -358,7 +366,7 @@ def main(argv):
         else:
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points,max_num_points=args.num_points,
                 iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,isremoval=False,removal_rate=removal_rate)
-        psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, img, num_gaussian_points, loss = trainer.train(i,ispos)
+        psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, img, num_gaussian_points, loss,out_img_list = trainer.train(i,ispos)
         img_list.append(img)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
@@ -389,9 +397,9 @@ def main(argv):
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f}, Gaussian_number:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024),gaussians))
     if ispos:
-        generate_video_density(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
+        generate_video_density(savdir,out_img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
     else:
-        generate_video_density(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
+        generate_video_density(savdir,out_img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
     
 if __name__ == "__main__":
     
