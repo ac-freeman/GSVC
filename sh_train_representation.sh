@@ -53,7 +53,7 @@ for dataset in "${datasets[@]}"; do
         rm_flag="--is_rm"
       fi
 
-      srun python train_video_Full.py --loss_type $loss_type --dataset $dataset_path \
+      srun python train_video_Represent.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
         $pos_flag $ad_flag $rm_flag
