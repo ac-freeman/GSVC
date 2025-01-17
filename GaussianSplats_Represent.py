@@ -200,8 +200,8 @@ class GaussianVideo_frame(nn.Module):
     def train_iter_trace(self, gt_image,iter):
         render_pkg = self.forward()
         image = render_pkg["render"]
-        loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0)
-        #loss = loss_fn(image.squeeze(0), gt_image.squeeze(0), self.loss_type, lambda_value=0.7)
+        # loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0)
+        loss = loss_fn(image.squeeze(0), gt_image.squeeze(0), self.loss_type, lambda_value=0.7)
         loss.backward()
         # with torch.no_grad():
         #     mse_loss = F.mse_loss(image, gt_image)
