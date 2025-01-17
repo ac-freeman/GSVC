@@ -81,8 +81,9 @@ class GaussianVideo_frame(nn.Module):
         return {"render_pos": out_img}
     
     def forward(self):
-        if self._xyz is None or self._xyz.numel() == 0:
-            raise ValueError("Error: The tensor `self._xyz` is empty or uninitialized. Check your input or initialization process.")
+        print(f"Before allocation: {torch.cuda.memory_allocated()} bytes")
+        _opacity = torch.ones(self._xyz.shape[0], 1).to(self.device)
+        print(f"After allocation: {torch.cuda.memory_allocated()} bytes")
         _opacity = torch.ones(self._xyz.shape[0], 1).to(self.device)
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
