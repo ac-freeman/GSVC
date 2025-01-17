@@ -8,5 +8,6 @@ checkpoints_quant/
 Sup/
 __pycache__/
 models/
+output/
 Loadmodel
 test2.yuv
