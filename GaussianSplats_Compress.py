@@ -315,17 +315,9 @@ class GaussianVideo_delta(nn.Module):
         return {"render": out_img}
     
     def forward(self):
-        means = torch.tanh(self.xyz_quantizer(self._xyz)+self.p_xyz)
-        cholesky_elements, l_vqs, s_bit = self.cholesky_quantizer(self._cholesky)
-        cholesky_elements = cholesky_elements + self.cholesky_bound+self.p_cholesky
-        colors, l_vqc, c_bit = self.features_dc_quantizer(self._features_dc)
-        colors = colors+self.p_features_dc
-        self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(means, cholesky_elements, self.H, self.W, self.tile_bounds)
+        self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
-                colors, self._opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
-        # self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
-        # out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
-        #         self.get_features, self._opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
+                self.get_features, self._opacity, self.H, self.W, self.BLOCK_H, self.BLOCK_W, background=self.background, return_alpha=False)
         out_img = torch.clamp(out_img, 0, 1) #[H, W, 3]
         out_img = out_img.view(-1, self.H, self.W, 3).permute(0, 3, 1, 2).contiguous()
         return {"render": out_img}
