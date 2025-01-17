@@ -81,9 +81,9 @@ class GaussianVideo_frame(nn.Module):
         return {"render_pos": out_img}
     
     def forward(self):
-        print(f"Before allocation: {torch.cuda.memory_allocated()} bytes")
-        _opacity = torch.ones(self._xyz.shape[0], 1).to(self.device)
-        print(f"After allocation: {torch.cuda.memory_allocated()} bytes")
+        # print(f"Before allocation: {torch.cuda.memory_allocated()} bytes")
+        # _opacity = torch.ones(self._xyz.shape[0], 1).to(self.device)
+        # print(f"After allocation: {torch.cuda.memory_allocated()} bytes")
         _opacity = torch.ones(self._xyz.shape[0], 1).to(self.device)
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
@@ -200,7 +200,8 @@ class GaussianVideo_frame(nn.Module):
     def train_iter_trace(self, gt_image,iter):
         render_pkg = self.forward()
         image = render_pkg["render"]
-        loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
+        # loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
+        loss = loss_fn(image.squeeze(0), gt_image.squeeze(0), self.loss_type, lambda_value=0.7)
         loss.backward()
         # with torch.no_grad():
         #     mse_loss = F.mse_loss(image, gt_image)
