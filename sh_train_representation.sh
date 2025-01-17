@@ -26,8 +26,8 @@ datasets=(
 
 
 # Define additional parameters
-savdir="result"
-savdir_m="models"
+savdir="GaussianVideo_results"
+savdir_m="GaussianVideo_models"
 is_pos=False
 is_ad=True
 is_rm=True

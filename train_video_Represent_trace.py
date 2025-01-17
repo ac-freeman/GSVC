@@ -90,7 +90,7 @@ class SimpleTrainer2d:
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
-                if iter%5000==0:
+                if iter%100==0:
                     transform = transforms.ToPILImage()
                     save_path_img = self.log_dir / "img"
                     save_path_img.mkdir(parents=True, exist_ok=True)

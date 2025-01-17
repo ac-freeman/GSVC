@@ -17,7 +17,7 @@ datasets=(
   "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
 )
 
-savdir="GaussianVideo"
+savdir="GaussianVideo_results"
 savdir_m="GaussianVideo_models"
 is_pos=False
 is_ad=True
@@ -44,7 +44,7 @@ for dataset in "${datasets[@]}"; do
         rm_flag="--is_rm"
       fi
 
-      srun python train_video_Full.py --loss_type $loss_type --dataset $dataset_path \
+      srun python train_video_Represent.py --loss_type $loss_type --dataset $dataset_path \
         --data_name $data_name --num_points $num_points --iterations $iterations \
         --savdir $savdir --savdir_m $savdir_m \
         $pos_flag $ad_flag $rm_flag
@@ -69,7 +69,3 @@ python train_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x
 python train_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_30000/gmodels_state_dict.pth --data_name Jockey --num_points 30000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
 python train_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_40000/gmodels_state_dict.pth --data_name Jockey --num_points 40000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
 python train_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_50000/gmodels_state_dict.pth --data_name Jockey --num_points 50000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-
-
-
-# python train_Compress.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/models/models_dd/Beauty/GaussianImage_Cholesky_100000_10000/gmodels_state_dict.pth --data_name Beauty --num_points 10000 --savdir Compress_test --savdir_m Compress_modles_test --iterations 50000 --is_rm
