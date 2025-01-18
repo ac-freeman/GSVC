@@ -86,7 +86,8 @@ class GaussianVideo_frame(nn.Module):
     def train_iter_quantize(self, gt_image):
         render_pkg = self.forward_quantize()
         image = render_pkg["render"]
-        loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7) + render_pkg["vq_loss"]
+        # loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7) + render_pkg["vq_loss"]
+        loss = loss_fn(image.squeeze(0), gt_image.squeeze(0), self.loss_type, lambda_value=0)+ render_pkg["vq_loss"]
         loss.backward()
         with torch.no_grad():
             mse_loss = F.mse_loss(image, gt_image)
@@ -180,7 +181,8 @@ class GaussianVideo_delta(nn.Module):
     def train_iter_quantize(self, gt_image):
         render_pkg = self.forward_quantize()
         image = render_pkg["render"]
-        loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7) + render_pkg["vq_loss"]
+        #loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7) + render_pkg["vq_loss"]
+        loss = loss_fn(image.squeeze(0), gt_image.squeeze(0), self.loss_type, lambda_value=0)+ render_pkg["vq_loss"]
         loss.backward()
         with torch.no_grad():
             mse_loss = F.mse_loss(image, gt_image)
