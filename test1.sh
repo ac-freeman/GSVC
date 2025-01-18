@@ -20,6 +20,11 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 # srun python train_video_Represent_trace.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 10000 --iterations 20000 --savdir result_iter --savdir_m model 
 # srun python train_video_Represent_trace.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Jockey --num_points 100000 --iterations 20000 --savdir result_iter --savdir_m model 
 
+# srun python train_video_Represent_trace2.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Jockey --num_points 10 --iterations 20000 --savdir result_iter_2 --savdir_m model
+# srun python train_video_Represent_trace2.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Jockey --num_points 100 --iterations 20000 --savdir result_iter_2 --savdir_m model 
+# srun python train_video_Represent_trace2.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Jockey --num_points 1000 --iterations 20000 --savdir result_iter_2 --savdir_m model 
+# srun python train_video_Represent_trace2.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Jockey --num_points 10000 --iterations 20000 --savdir result_iter_2 --savdir_m model 
+# srun python train_video_Represent_trace2.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Jockey --num_points 1 --iterations 20000 --savdir result_iter_2 --savdir_m model 
 
 # srun python train_video_Represent_trace.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 10000 --iterations 20000 --savdir result_iter --savdir_m model 
 
