@@ -15,7 +15,7 @@ import random
 import torchvision.transforms as transforms
 from sklearn.mixture import GaussianMixture
 import copy
-from GaussianSplats_Compress import GaussianVideo_frame, GaussianVideo_delta
+from GaussianSplats_Compress_train_delta import GaussianVideo_frame, GaussianVideo_delta
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
