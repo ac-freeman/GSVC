@@ -284,6 +284,24 @@ def main(argv):
     yuv_file.close()
     print("video.yuv: YUV video created successfully.")
 
+
+    filename = filename = f"video_{args.num_points}.mp4"
+    first_image = img_list[0]
+    width, height = first_image.size  # Extract the size of the first image
+    # Create the video writer with the actual image dimensions
+    output_size = (width, height)
+    video = cv2.VideoWriter(str(video_path / filename), cv2.VideoWriter_fourcc(*'mp4v'), fps, output_size)
+    # Add images to the video writer
+    for img in tqdm(img_list, desc="Processing images", unit="image"):  # Iterate directly over the image_list      
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
+        img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        video.write(img_cv)
+    # Finalize and close the video writer
+    video.release()
+    print("video.mp4: MP4 video created successfully.")
+
+
 if __name__ == "__main__":
     
     main(sys.argv[1:])
