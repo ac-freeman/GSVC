@@ -204,7 +204,7 @@ def main(argv):
     device=torch.device("cuda:0")
     video_frames = process_yuv_video(args.dataset, width, height)
     image_length,start=len(video_frames),0
-    image_length=10
+    image_length=50
     img_list=[]
     print(f"loading model path:{model_path}")
     gmodels_state_dict = torch.load(model_path,map_location=device)
