@@ -15,8 +15,8 @@ datasets=(
   "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
 )
 
-savdir="GaussianVideo_results"
-savdir_m="GaussianVideo_models"
+savdir="GaussianVideo_results2"
+savdir_m="GaussianVideo_models2"
 is_pos=False
 is_ad=True
 is_rm=True
@@ -50,8 +50,8 @@ for dataset in "${datasets[@]}"; do
   done
 done
 
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_10000/gmodels_state_dict.pth --data_name Jockey --num_points 10000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_20000/gmodels_state_dict.pth --data_name Jockey --num_points 20000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_30000/gmodels_state_dict.pth --data_name Jockey --num_points 30000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_40000/gmodels_state_dict.pth --data_name Jockey --num_points 40000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_50000/gmodels_state_dict.pth --data_name Jockey --num_points 50000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models2/Jockey/GaussianVideo_100000_10000/gmodels_state_dict.pth --data_name Jockey --num_points 10000 --savdir Compress2 --savdir_m Compress_modles2 --iterations 100000 --is_rm
+srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models2/Jockey/GaussianVideo_100000_20000/gmodels_state_dict.pth --data_name Jockey --num_points 20000 --savdir Compress2 --savdir_m Compress_modles2 --iterations 100000 --is_rm
+srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models2/Jockey/GaussianVideo_100000_30000/gmodels_state_dict.pth --data_name Jockey --num_points 30000 --savdir Compress2 --savdir_m Compress_modles2 --iterations 100000 --is_rm
+srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models2/Jockey/GaussianVideo_100000_40000/gmodels_state_dict.pth --data_name Jockey --num_points 40000 --savdir Compress2 --savdir_m Compress_modles2 --iterations 100000 --is_rm
+srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models2/Jockey/GaussianVideo_100000_50000/gmodels_state_dict.pth --data_name Jockey --num_points 50000 --savdir Compress2 --savdir_m Compress_modles2 --iterations 100000 --is_rm
