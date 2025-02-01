@@ -15,7 +15,7 @@ import random
 import torchvision.transforms as transforms
 from sklearn.mixture import GaussianMixture
 import copy
-from GaussianSplats_Compress_train_delta import GaussianVideo_frame, GaussianVideo_delta
+from GaussianSplats_Compress import GaussianVideo_frame, GaussianVideo_delta
 class SimpleTrainer2d:
     """Trains random 2d gaussians to fit an image."""
     def __init__(
@@ -142,22 +142,23 @@ def parse_args(argv):
         "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--iterations", type=int, default=30000, help="number of training epochs (default: %(default)s)"
+        "--model_name", type=str, default="GaussianVideo"
     )
+    parser.add_argument(
+        "--model_path", type=str, default=None, help="Path to a checkpoint"
+    )
+    parser.add_argument(
+        "--savdir", type=str, default="result", help="Path to save results"
+    )
+    parser.add_argument(
+        "--savdir_m", type=str, default="models", help="Path to save models"
+    )
+
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
     )
     parser.add_argument(
-        "--model_name", type=str, default="GaussianVideo", help="model selection: GaussianVideo, GaussianImage, 3DGS"
-    )
-    parser.add_argument(
-        "--sh_degree", type=int, default=3, help="SH degree (default: %(default)s)"
-    )
-    parser.add_argument(
-        "--num_points",
-        type=int,
-        default=4000,
-        help="2D GS points (default: %(default)s)",
+        "--image_length", type=int, default=50, help="number of input frames (default: %(default)s)"
     )
     parser.add_argument(
         "--width", type=int, default=1920, help="width (default: %(default)s)"
@@ -165,7 +166,19 @@ def parse_args(argv):
     parser.add_argument(
         "--height", type=int, default=1080, help="height (default: %(default)s)"
     )
-    parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
+    parser.add_argument(
+        "--iterations", type=int, default=30000, help="number of training epochs (default: %(default)s)"
+    )
+    parser.add_argument(
+        "--sh_degree", type=int, default=3, help="SH degree (default: %(default)s)"
+    )
+    parser.add_argument(
+        "--num_points", type=int, default=4000, help="2D GS points (default: %(default)s)",
+    )
+    parser.add_argument(
+        "--lr", type=float, default=1e-3, help="Learning rate (default: %(default)s)"
+    )
+    
     parser.add_argument("--loss_type", type=str, default="L2", help="Type of Loss")
     parser.add_argument("--savdir", type=str, default="result", help="Path to results")
     parser.add_argument("--savdir_m", type=str, default="models", help="Path to models")
@@ -174,12 +187,7 @@ def parse_args(argv):
     parser.add_argument("--save_everyimgs", action="store_true", help="Save Every Images")
     parser.add_argument("--removal_rate", type=float, default=0.1, help="Removal rate")
     parser.add_argument("--is_rm", action="store_true", help="Removal control of gaussians setup")
-    parser.add_argument(
-        "--lr",
-        type=float,
-        default=1e-3,
-        help="Learning rate (default: %(default)s)",
-    )
+    
     args = parser.parse_args(argv)
     return args
 
@@ -208,17 +216,27 @@ def main(argv):
     psnrs, ms_ssims, training_times, eval_times, eval_fpses, bpps = [], [], [], [], [], []
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
-    image_length,start=len(video_frames),0
-    image_length=50
+    frame_length,start=len(video_frames),0
+    if args.image_length <= frame_length:
+        image_length=args.image_length
+    else:
+        image_length=frame_length
     Gmodel=None
     Overfit_gmodels_state_dict = torch.load(args.model_path,map_location=torch.device("cuda:0"))
     gmodels_state_dict = {}
+    output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
+    if output_path_K_frames.exists():
+        # If exists, read the file and assign values to K_frames
+        with open(output_path_K_frames, "r") as f:
+            K_frames = [int(line.strip()) for line in f.readlines()]
+    else:
+        K_frames = [1]
     for i in range(start, start+image_length):
         frame_num=i+1
         modelid=f"frame_{i + 1}"
         Model = Overfit_gmodels_state_dict[modelid]
-        
-        if frame_num ==1:
+        if frame_num in K_frames:
+        # if frame_num ==1:
             print(f"modelid:frame_{i + 1};")
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
                 iterations=args.iterations, model_name=args.model_name, args=args, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)

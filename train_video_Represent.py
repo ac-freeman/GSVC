@@ -216,25 +216,22 @@ def parse_args(argv):
         "--data_name", type=str, default='Beauty', help="Training dataset"
     )
     parser.add_argument(
-        "--iterations", type=int, default=30000, help="number of training epochs (default: %(default)s)"
+        "--model_name", type=str, default="GaussianVideo"
     )
     parser.add_argument(
-        "--densification_interval",type=int,default=100,help="densification_interval (default: %(default)s)"
+        "--model_path", type=str, default=None, help="Path to a load models"
+    )
+    parser.add_argument(
+        "--savdir", type=str, default="result", help="Path to save results"
+    )
+    parser.add_argument(
+        "--savdir_m", type=str, default="models", help="Path to save models"
     )
     parser.add_argument(
         "--fps", type=int, default=120, help="number of frames per second (default: %(default)s)"
     )
     parser.add_argument(
-        "--model_name", type=str, default="GaussianVideo", help="model selection: GaussianVideo, GaussianImage, 3DGS"
-    )
-    parser.add_argument(
-        "--sh_degree", type=int, default=3, help="SH degree (default: %(default)s)"
-    )
-    parser.add_argument(
-        "--num_points",
-        type=int,
-        default=4000,
-        help="2D GS points (default: %(default)s)",
+        "--image_length", type=int, default=50, help="number of input frames (default: %(default)s)"
     )
     parser.add_argument(
         "--width", type=int, default=1920, help="width (default: %(default)s)"
@@ -242,24 +239,35 @@ def parse_args(argv):
     parser.add_argument(
         "--height", type=int, default=1080, help="height (default: %(default)s)"
     )
-    parser.add_argument("--model_path", type=str, default=None, help="Path to a checkpoint")
-    parser.add_argument("--loss_type", type=str, default=None, help="Type of Loss")
-    parser.add_argument("--savdir", type=str, default="result", help="Path to results")
-    parser.add_argument("--savdir_m", type=str, default="models", help="Path to models")
-    parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
-    parser.add_argument("--removal_rate", type=float, default=0.1, help="Removal rate")
+    parser.add_argument(
+        "--iterations", type=int, default=30000, help="number of training epochs (default: %(default)s)"
+    )
+    parser.add_argument(
+        "--densification_interval",type=int,default=100,help="densification_interval (default: %(default)s)"
+    )
+    parser.add_argument(
+        "--sh_degree", type=int, default=3, help="SH degree (default: %(default)s)"
+    )
+    parser.add_argument(
+        "--num_points", type=int, default=10000, help="2D GS points (default: %(default)s)"
+    )
+    parser.add_argument(
+        "--loss_type", type=str, default=None, help="Type of Loss"
+    )
+    parser.add_argument(
+        "--seed", type=float, default=1, help="Set random seed for reproducibility"
+    )
+    parser.add_argument(
+        "--removal_rate", type=float, default=0.1, help="Removal rate"
+    )
+    parser.add_argument(
+        "--lr", type=float, default=1e-3, help="Learning rate (default: %(default)s)",
+    )
     parser.add_argument("--save_imgs", action="store_true", help="Save image")
     parser.add_argument("--save_everyimgs", action="store_true", help="Save Every Images")
-    parser.add_argument("--is_pos", action="store_true", help="Show the position of gaussians")
-    parser.add_argument("--is_warmup",action="store_true", help="Warmup setup")
-    parser.add_argument("--is_ad", action="store_true", help="Adaptive control of gaussians setup")
-    parser.add_argument("--is_rm", action="store_true", help="Removal control of gaussians setup")
-    parser.add_argument(
-        "--lr",
-        type=float,
-        default=1e-3,
-        help="Learning rate (default: %(default)s)",
-    )
+    parser.add_argument("--is_pos", action="store_true", help="Show the distribution of gaussian centers")
+    parser.add_argument("--is_ad", action="store_true", help="Adaptive control of gaussians setup (GSA+GSP)")
+    parser.add_argument("--is_rm", action="store_true", help="Removal control of gaussians setup (GSP)")
     args = parser.parse_args(argv)
     return args
 
@@ -270,7 +278,6 @@ def main(argv):
     savdir=args.savdir
     savdir_m=args.savdir_m
     ispos = args.is_pos
-    iswarmup=args.is_warmup
     args.fps=120
     width = args.width
     height = args.height
@@ -292,15 +299,15 @@ def main(argv):
     psnrs, ms_ssims, training_times, eval_times, eval_fpses, gaussian_number = [], [], [], [], [],[]
     image_h, image_w = 0, 0
     video_frames = process_yuv_video(args.dataset, width, height)
-    image_length,start=len(video_frames),0
-    # image_length=5
+    frame_length,start=len(video_frames),0
+    if args.image_length <= frame_length:
+        image_length=args.image_length
+    else:
+        image_length=frame_length
     Gmodel=None
     img_list=[]
     gmodels_state_dict = {}
     num_gaussian_points_dict={}
-
-
-
 
     output_path_K_frames = Path(f"./checkpoints/{savdir}/{args.data_name}/K_frames.txt")
     if output_path_K_frames.exists():

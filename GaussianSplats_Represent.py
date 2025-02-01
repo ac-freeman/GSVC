@@ -81,9 +81,6 @@ class GaussianVideo_frame(nn.Module):
         return {"render_pos": out_img}
     
     def forward(self):
-        # print(f"Before allocation: {torch.cuda.memory_allocated()} bytes")
-        # _opacity = torch.ones(self._xyz.shape[0], 1).to(self.device)
-        # print(f"After allocation: {torch.cuda.memory_allocated()} bytes")
         _opacity = torch.ones(self._xyz.shape[0], 1).to(self.device)
         self.xys, depths, self.radii, conics, num_tiles_hit = project_gaussians_2d(self.get_xyz, self.get_cholesky_elements, self.H, self.W, self.tile_bounds)
         out_img = rasterize_gaussians_sum(self.xys, depths, self.radii, conics, num_tiles_hit,
@@ -97,10 +94,9 @@ class GaussianVideo_frame(nn.Module):
             self.optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
         else:
             self.optimizer = Adan(self.parameters(), lr=self.lr)
-        #self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=20000, gamma=0.5)
 
     def removal_control(self, iter):
-        iter_threshold_remove =4000  # 根据训练计划调整这个阈值
+        iter_threshold_remove =4000  
         if iter>iter_threshold_remove:
             return
         rgb_weight = torch.norm(self.rgb_W, dim=1)
@@ -132,7 +128,7 @@ class GaussianVideo_frame(nn.Module):
             self.update_optimizer()
 
     def adaptive_control(self, iter):
-        iter_threshold_remove =500  # 根据训练计划调整这个阈值
+        iter_threshold_remove =500  
         iter_threshold_add = 500
         densification_num = int(self.max_num_points * self.removal_rate)
         if iter>iter_threshold_add+iter_threshold_remove or iter<iter_threshold_add:
@@ -150,10 +146,8 @@ class GaussianVideo_frame(nn.Module):
             return
         rgb_weight = torch.norm(self.rgb_W, dim=1)
         _, sorted_indices = torch.sort(rgb_weight)
-        # removal_rate_per_step = self.removal_rate/int(iter_threshold_remove/(self.densification_interval))
         if iter < iter_threshold_add+iter_threshold_remove:
             with torch.no_grad():
-                # remove_count = int(removal_rate_per_step * self.max_num_points)
                 remove_count = int(densification_num/int(iter_threshold_remove/(self.densification_interval)))     
                 remove_indices = sorted_indices[:remove_count]
                 keep_indices = torch.ones(self._xyz.shape[0], dtype=torch.bool, device=self._xyz.device)
@@ -166,7 +160,6 @@ class GaussianVideo_frame(nn.Module):
                 param_group['params'] = [p for p in self.parameters() if p.requires_grad]
         elif iter == iter_threshold_add+iter_threshold_remove:
             remove_count = self._xyz.shape[0]-int(self.max_num_points * (1-self.removal_rate))
-            # remove_count = self._xyz.shape[0]-densification_num
             if remove_count>0:
                 with torch.no_grad():
                     remove_indices = sorted_indices[:remove_count]
@@ -179,33 +172,11 @@ class GaussianVideo_frame(nn.Module):
             self.update_optimizer()
 
 
-    # def train_iter_trace(self, gt_image,iter):
-    #     render_pkg = self.forward()
-    #     image = render_pkg["render"]
-    #     loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
-    #     loss.backward()
-    #     with torch.no_grad():
-    #         mse_loss = F.mse_loss(image, gt_image)
-    #         psnr = 10 * math.log10(1.0 / mse_loss.item())
-    #     if (iter==1 or (iter) % (self.densification_interval) == 0) and self.isdensity:
-    #         self.adaptive_control(iter)
-    #     elif (iter) % (self.densification_interval) == 0 and self.isremoval:
-    #         self.removal_control(iter)
-    #     self.optimizer.step()
-    #     self.optimizer.zero_grad(set_to_none = True)
-        
-    #     self.scheduler.step()
-    #     return loss, psnr, image
-
     def train_iter_trace(self, gt_image,iter):
         render_pkg = self.forward()
         image = render_pkg["render"]
-        #loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0)
         loss = loss_fn(image.squeeze(0), gt_image.squeeze(0), self.loss_type, lambda_value=0)
         loss.backward()
-        # with torch.no_grad():
-        #     mse_loss = F.mse_loss(image, gt_image)
-        #     psnr = 10 * math.log10(1.0 / mse_loss.item())
         if (iter==1 or (iter) % (self.densification_interval) == 0) and self.isdensity:
             self.adaptive_control(iter)
         elif (iter) % (self.densification_interval) == 0 and self.isremoval:
@@ -214,15 +185,12 @@ class GaussianVideo_frame(nn.Module):
         self.optimizer.zero_grad(set_to_none = True)
         
         self.scheduler.step()
-        # return loss, psnr, image
         return image
         
 
     def train_iter(self, gt_image,iter):
-        # render_pkg = self.forward_pos()
         render_pkg = self.forward()
         image = render_pkg["render"]
-        #loss = loss_fn(image, gt_image, self.loss_type, lambda_value=0.7)
         loss = loss_fn(image.squeeze(0), gt_image.squeeze(0), self.loss_type, lambda_value=0)
         loss.backward()
         with torch.no_grad():
