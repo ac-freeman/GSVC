@@ -22,11 +22,13 @@ savdir_m="GaussianVideo_models"
 is_pos=False
 is_ad=True
 is_rm=True
+
 loss_type="L2"
 for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
   for num_points in  10000  20000 30000 40000 50000; do
+    model_path="/home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/${data_name}/GaussianVideo_100000_${num_points}/gmodels_state_dict.pth"
     for iterations in 100000; do
       pos_flag=""
       ad_flag=""
@@ -44,28 +46,45 @@ for dataset in "${datasets[@]}"; do
         rm_flag="--is_rm"
       fi
 
-      srun python train_video_Represent.py --loss_type $loss_type --dataset $dataset_path \
-        --data_name $data_name --num_points $num_points --iterations $iterations \
-        --savdir $savdir --savdir_m $savdir_m \
-        $pos_flag $ad_flag $rm_flag
+      srun python train_video_Represent.py \
+      --loss_type $loss_type \
+      --dataset $dataset_path \
+      --data_name $data_name\
+      --num_points $num_points\
+      --iterations $iterations \
+      --savdir $savdir\
+      --savdir_m $savdir_m \
+      $pos_flag $ad_flag $rm_flag
+
+      srun python train_video_Compress.py \
+      --dataset "$dataset_path" \
+      --model_path "$model_path" \
+      --data_name "$data_name" \
+      --num_points "$num_points" \
+      --iterations "$iterations" \
+      --savdir "$savdir" \
+      --savdir_m "$savdir_m" \
+      $pos_flag $ad_flag $rm_flag
     done
   done
 done
 
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Beauty/GaussianVideo_100000_10000/gmodels_state_dict.pth --data_name Beauty --num_points 10000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Beauty/GaussianVideo_100000_20000/gmodels_state_dict.pth --data_name Beauty --num_points 20000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Beauty/GaussianVideo_100000_30000/gmodels_state_dict.pth --data_name Beauty --num_points 30000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Beauty/GaussianVideo_100000_40000/gmodels_state_dict.pth --data_name Beauty --num_points 40000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Beauty/GaussianVideo_100000_50000/gmodels_state_dict.pth --data_name Beauty --num_points 50000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
 
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/HoneyBee/GaussianVideo_100000_10000/gmodels_state_dict.pth --data_name HoneyBee --num_points 10000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/HoneyBee/GaussianVideo_100000_20000/gmodels_state_dict.pth --data_name HoneyBee --num_points 20000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/HoneyBee/GaussianVideo_100000_30000/gmodels_state_dict.pth --data_name HoneyBee --num_points 30000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/HoneyBee/GaussianVideo_100000_40000/gmodels_state_dict.pth --data_name HoneyBee --num_points 40000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/HoneyBee/GaussianVideo_100000_50000/gmodels_state_dict.pth --data_name HoneyBee --num_points 50000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
 
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_10000/gmodels_state_dict.pth --data_name Jockey --num_points 10000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_20000/gmodels_state_dict.pth --data_name Jockey --num_points 20000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_30000/gmodels_state_dict.pth --data_name Jockey --num_points 30000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_40000/gmodels_state_dict.pth --data_name Jockey --num_points 40000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_50000/gmodels_state_dict.pth --data_name Jockey --num_points 50000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Beauty/GaussianVideo_100000_10000/gmodels_state_dict.pth --data_name Beauty --num_points 10000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Beauty/GaussianVideo_100000_20000/gmodels_state_dict.pth --data_name Beauty --num_points 20000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Beauty/GaussianVideo_100000_30000/gmodels_state_dict.pth --data_name Beauty --num_points 30000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Beauty/GaussianVideo_100000_40000/gmodels_state_dict.pth --data_name Beauty --num_points 40000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Beauty/GaussianVideo_100000_50000/gmodels_state_dict.pth --data_name Beauty --num_points 50000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/HoneyBee/GaussianVideo_100000_10000/gmodels_state_dict.pth --data_name HoneyBee --num_points 10000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/HoneyBee/GaussianVideo_100000_20000/gmodels_state_dict.pth --data_name HoneyBee --num_points 20000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/HoneyBee/GaussianVideo_100000_30000/gmodels_state_dict.pth --data_name HoneyBee --num_points 30000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/HoneyBee/GaussianVideo_100000_40000/gmodels_state_dict.pth --data_name HoneyBee --num_points 40000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/HoneyBee/GaussianVideo_100000_50000/gmodels_state_dict.pth --data_name HoneyBee --num_points 50000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_10000/gmodels_state_dict.pth --data_name Jockey --num_points 10000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_20000/gmodels_state_dict.pth --data_name Jockey --num_points 20000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_30000/gmodels_state_dict.pth --data_name Jockey --num_points 30000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_40000/gmodels_state_dict.pth --data_name Jockey --num_points 40000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Jockey/GaussianVideo_100000_50000/gmodels_state_dict.pth --data_name Jockey --num_points 50000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm
