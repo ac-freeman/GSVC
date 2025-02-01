@@ -180,8 +180,6 @@ def parse_args(argv):
     )
     
     parser.add_argument("--loss_type", type=str, default="L2", help="Type of Loss")
-    parser.add_argument("--savdir", type=str, default="result", help="Path to results")
-    parser.add_argument("--savdir_m", type=str, default="models", help="Path to models")
     parser.add_argument("--seed", type=float, default=1, help="Set random seed for reproducibility")
     parser.add_argument("--save_imgs", action="store_true", help="Save image")
     parser.add_argument("--save_everyimgs", action="store_true", help="Save Every Images")
