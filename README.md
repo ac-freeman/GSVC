@@ -62,7 +62,7 @@ To cater to video dynamics, GSVC augments each Pframe with random splats before 
 This step allows GSVC to detect significant changes in the scene.
 
 
-## Quick Started
+## Play with Our Code
 
 ### Cloning the Repository
 
@@ -88,47 +88,82 @@ pip install -r requirements.txt
 
 If you encounter errors while installing the packages listed in requirements.txt, you can try installing each Python package individually using the pip command.
 
-Before training, you need to download the [UVG](https://r0k.us/graphics/kodak/). 
+Before training, you need to download the [UVG](https://ultravideo.fi/dataset.html). 
 
-#### Representation
+### Manual Training Example
+This repository provides scripts for video representation and compression using Gaussian models. The workflow involves two key steps:
 
-```bash
-sh ./scripts/gaussianimage_cholesky/kodak.sh /path/to/your/dataset
-sh ./scripts/gaussianimage_rs/kodak.sh /path/to/your/dataset
-sh ./scripts/3dgs/kodak.sh /path/to/your/dataset
+1. **Video Representation:** Overfit a video using Gaussian splatting to obtain a detailed model.
+2. **Video Compression:** Compress the overfitted model to reduce file size while maintaining quality.
 
-sh ./scripts/gaussianimage_cholesky/div2k.sh /path/to/your/dataset
-sh ./scripts/gaussianimage_rs/div2k.sh /path/to/your/dataset
-sh ./scripts/3dgs/div2k.sh /path/to/your/dataset
-```
-
-#### Compression
-
-After overfitting the image, we load the checkpoints from image representation and apply quantization-aware training technique to obtain the image compression results of GaussianImage models.
+#### Step 1: Video Representation
+Run `train_video_Represent.py` to generate the overfitted model:
 
 ```bash
-sh ./scripts/gaussianimage_cholesky/kodak_comp.sh /path/to/your/dataset
-sh ./scripts/gaussianimage_rs/kodak_comp.sh /path/to/your/dataset
-
-sh ./scripts/gaussianimage_cholesky/div2k_comp.sh /path/to/your/dataset
-sh ./scripts/gaussianimage_rs/div2k_comp.sh /path/to/your/dataset
+python train_video_Represent.py \
+  --loss_type L2 \
+  --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
+  --data_name Beauty \
+  --num_points 10000 \
+  --savdir GaussianVideo_results \
+  --savdir_m GaussianVideo_models \
+  --iterations 100000 \
+  --is_rm --is_ad
 ```
+
+#### Step 2: Video Compression
+Run `train_video_Compress.py` to compress the video using the overfitted model:
+
+```bash
+python train_video_Compress.py \
+  --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv \
+  --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models/Beauty/GaussianVideo_100000_10000/gmodels_state_dict.pth \
+  --data_name Beauty \
+  --num_points 10000 \
+  --savdir GaussianVideo_results \
+  --savdir_m GaussianVideo_models \
+  --iterations 50000 \
+  --is_rm
+```
+
+### SLURM Job Scripts
+
+For automated training and compression on SLURM, `.sh` files are provided:
+
+- **Complete Workflow:** Run `sh_train_compression.sh` to perform both representation and compression.
+
+  ```bash
+  sbatch sh_train_compression.sh
+  ```
+
+- **Representation Only:** Run `sh_train_representation.sh` if you only want to train the model without compression.
+
+  ```bash
+  sbatch sh_train_representation.sh
+  ```
+
+
+
+
+
+
+
 
 ## Acknowledgments
 
-Our code was developed based on [gsplat](https://github.com/nerfstudio-project/gsplat). This is a concise and easily extensible Gaussian Splatting library.
+Our code was developed based on [GaussianImage](https://github.com/Xinjie-Q/GaussianImage). 
+This is a paradigm of image representation and compression by 2D Gaussian Splatting.
 
-We thank [vector-quantize-pytorch](https://github.com/lucidrains/vector-quantize-pytorch) for providing the framework to implement residual vector quantization.
 
 ## Citation
 
-If you find our GaussianImage paradigm useful or relevant to your research, please kindly cite our paper:
+If you find our GSVC useful or relevant to your research, please kindly cite our paper:
 
 ```
-@inproceedings{zhang2024gaussianimage,
-  title={GaussianImage: 1000 FPS Image Representation and Compression by 2D Gaussian Splatting},
-  author={Zhang, Xinjie and Ge, Xingtong and Xu, Tongda and He, Dailan and Wang, Yan and Qin, Hongwei and Lu, Guo and Geng, Jing and Zhang, Jun},
-  booktitle={European Conference on Computer Vision},
-  year={2024}
+@article{wang2025gsvc,
+  title={GSVC: Efficient Video Representation and Compression Through 2D Gaussian Splatting},
+  author={Wang, Longan and Shi, Yuang and Ooi, Wei Tsang},
+  journal={arXiv preprint arXiv:2501.12060},
+  year={2025}
 }
 ```
