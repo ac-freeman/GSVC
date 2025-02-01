@@ -64,7 +64,7 @@ for dataset in "${datasets[@]}"; do
       --iterations "$iterations" \
       --savdir "$savdir" \
       --savdir_m "$savdir_m" \
-      $pos_flag $ad_flag $rm_flag
+       $rm_flag 
     done
   done
 done

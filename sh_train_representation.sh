@@ -61,3 +61,20 @@ for dataset in "${datasets[@]}"; do
   done
 done
 
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 10000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 20000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 30000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 40000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv --data_name Beauty --num_points 50000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
+
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --data_name HoneyBee --num_points 10000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --data_name HoneyBee --num_points 20000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --data_name HoneyBee --num_points 30000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --data_name HoneyBee --num_points 40000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv --data_name HoneyBee --num_points 50000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
+
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path  --data_name Jockey --num_points 10000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path  --data_name Jockey --num_points 20000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path  --data_name Jockey --num_points 30000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path  --data_name Jockey --num_points 40000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
+# srun python train_video_Representation.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path  --data_name Jockey --num_points 50000 --savdir Compress --savdir_m Compress_modles --iterations 50000 --is_rm --is_ad
