@@ -79,4 +79,4 @@ done
 # srun python train_video_Represent.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Jockey --num_points 40000 --savdir GaussianVideo_results --savdir_m GaussianVideo_models --iterations 50000 --is_rm --is_ad
 # srun python train_video_Represent.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --data_name Jockey --num_points 50000 --savdir GaussianVideo_results --savdir_m GaussianVideo_models --iterations 50000 --is_rm --is_ad
 
-srun python train_video_Represent.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Jockey --num_points 50000 --savdir Compress --savdir_m GaussianVideo_models --iterations 500 --is_rm --is_ad --image_length 10 
+# srun python train_video_Represent.py --loss_type L2 --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv  --data_name Jockey --num_points 50000 --savdir Compress --savdir_m GaussianVideo_models --iterations 5000 --is_rm --is_ad --image_length 10 
