@@ -39,14 +39,14 @@ More qualitative results can be found in our paper.
 Figure 2 and Figure 3 illustrate how Gaussian splats can serve as a primitive for representing an image, and how the training process iteratively optimizes the parameters of the Gaussian splats to fit a given image.
 <figure style="text-align: center;">
   <div>
-    <img src="./img/insight1.png" alt="Insight" />
+    <img src="./img/insight1.png" alt="Insight" width="600"/>
   </div>
   <figcaption><strong>Figure 2:</strong> Using Gaussian splats to model an image. Image is taken from UVG Jockey video. The sub-figures show that as the number of Gaussian splats N increases, the learned splats increasingly approximate the image’s content.</figcaption>
 </figure>
 
 <figure style="text-align: center;">
   <div>
-    <img src="./img/insight2.png" alt="Insight" />
+    <img src="./img/insight2.png" alt="Insight" width="600"/>
   </div>
   <figcaption><strong>Figure 3:</strong> Image taken from UVG Jockey video. Intermediate training results after t iterations for 10,000 Gaussian splats, illustrating how Gaussian splats parameters are optimized to fit the content of a frame.</figcaption>
 </figure>
