@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --job-name=T_com   # Job name
-#SBATCH --output=T_com_output.txt # Standard output and error log
-#SBATCH --error=T_com_error.txt  # Error log
+#SBATCH --output=output/T_com_output.txt # Standard output and error log
+#SBATCH --error=output/T_com_error.txt  # Error log
 #SBATCH --time=72:00:00                 # Time limit hrs:min:sec
 #SBATCH --gres=gpu:h100-47:1
 #SBATCH --mail-type=ALL                 # Get email for all status updates
