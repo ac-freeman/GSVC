@@ -83,5 +83,5 @@ for dataset in "${datasets[@]}"; do
 done
 
 
-srun python train_video_Represent.py --loss_type L2 --dataset /home/e/e1344641/data/USTC/USTC_Badminton.yuv  --data_name Badminton --num_points 50000 --savdir GaussianVideo_results_USTC --savdir_m GaussianVideo_models_USTC --iterations 5000 --is_rm --is_ad --image_length 10 
-srun python train_video_Compress.py --dataset /home/e/e1344641/data/USTC/USTC_Badminton.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models_USTC/Badminton/GaussianVideo_5000_50000/gmodels_state_dict.pth --data_name Badminton --num_points 50000 --savdir GaussianVideo_results_USTC --savdir_m GaussianVideo_models_USTC --iterations 500 --is_rm --image_length 10
+# srun python train_video_Represent.py --loss_type L2 --dataset /home/e/e1344641/data/USTC/USTC_Badminton.yuv  --data_name Badminton --num_points 50000 --savdir GaussianVideo_results_USTC --savdir_m GaussianVideo_models_USTC --iterations 5000 --is_rm --is_ad --image_length 10 
+# srun python train_video_Compress.py --dataset /home/e/e1344641/data/USTC/USTC_Badminton.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models_USTC/Badminton/GaussianVideo_5000_50000/gmodels_state_dict.pth --data_name Badminton --num_points 50000 --savdir GaussianVideo_results_USTC --savdir_m GaussianVideo_models_USTC --iterations 500 --is_rm --image_length 10
