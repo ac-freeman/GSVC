@@ -24,7 +24,7 @@ source activate torch  # Replace 'torch' with the name of your conda environment
 #   "/home/e/e1344641/data/USTC/USTC_Snooker.yuv Snooker"
 # )
 datasets=(
-  "/home/e/e1344641/data/USTC/USTC_BicycleDriving.yuv BicycleDriving"
+  "/home/e/e1344641/data/USTC/USTC_Snooker.yuv Snooker"
 )
 
 savdir="GaussianVideo_results_USTC"
@@ -38,7 +38,7 @@ for dataset in "${datasets[@]}"; do
   dataset_path=$(echo $dataset | cut -d' ' -f1)
   data_name=$(echo $dataset | cut -d' ' -f2)
   for num_points in  10000  20000 30000 40000 50000; do
-    for iterations in 100000; do
+    for iterations in 50000; do
       model_path="/home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models_USTC/${data_name}/GaussianVideo_${iterations}_${num_points}/gmodels_state_dict.pth"
     
       pos_flag=""
