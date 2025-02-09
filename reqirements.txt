@@ -1,3 +1,5 @@
+python==3.8.18
+torch==2.3.1+cu121
 constriction
 numpy
 pandas
@@ -6,3 +8,4 @@ pytorch-msssim
 PyYAML
 tqdm
 vector-quantize-pytorch
+
