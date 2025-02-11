@@ -94,13 +94,10 @@ class SimpleTrainer2d:
                     break
             elif early_stopping(loss.item()):
                 break
-        
-
-
         end_time = time.time() - start_time
         progress_bar.close()
         num_gaussian_points =self.gaussian_model._xyz.size(0)
-        psnr_value, ms_ssim_value,img = self.test(frame,num_gaussian_points,ispos)
+        psnr_value, ms_ssim_value,combined_img,img = self.test(frame,num_gaussian_points,ispos)
         with torch.no_grad():
             self.gaussian_model.eval()
             test_start_time = time.time()
@@ -114,7 +111,7 @@ class SimpleTrainer2d:
             if k in ['_xyz', '_cholesky']
         }
         filtered_Gmodel['_features_dc']=self.gaussian_model.get_features
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, img, num_gaussian_points, loss
+        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, filtered_Gmodel, combined_img,img, num_gaussian_points, loss
     
 
     def pre_train(self):     
@@ -146,43 +143,6 @@ class SimpleTrainer2d:
         mse_loss = F.mse_loss(out_image.float(), self.gt_image.float())
         psnr = 10 * math.log10(1.0 / mse_loss.item())
         ms_ssim_value = ms_ssim(out_image.float(), self.gt_image.float(), data_range=1, size_average=True).item()
-        if ispos:
-            if self.save_everyimgs:
-                save_path_img = self.log_dir / "img"
-                save_path_img.mkdir(parents=True, exist_ok=True)
-                transform = transforms.ToPILImage()
-                img = transform(out_image.float().squeeze(0))
-                img_pos = transform(out_pos_img.float().squeeze(0))
-                combined_width =img.width+img_pos.width
-                combined_height = max(img.height, img_pos.height)
-                combined_img = Image.new("RGB", (combined_width, combined_height))
-                combined_img.paste(img_pos, (0, 0))
-                combined_img.paste(img, (img_pos.width, 0))
-                combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
-                combined_img.save(str(save_path_img / combined_name))
-            elif (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
-                save_path_img = self.log_dir / "img"
-                save_path_img.mkdir(parents=True, exist_ok=True)
-                transform = transforms.ToPILImage()
-                img = transform(out_image.float().squeeze(0))
-                img_pos = transform(out_pos_img.float().squeeze(0))
-                combined_width =img.width+img_pos.width
-                combined_height = max(img.height, img_pos.height)
-                combined_img = Image.new("RGB", (combined_width, combined_height))
-                combined_img.paste(img_pos, (0, 0))
-                combined_img.paste(img, (img_pos.width, 0))
-                combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
-                combined_img.save(str(save_path_img / combined_name))
-            else:
-                transform = transforms.ToPILImage()
-                img_pos = transform(out_pos_img.float().squeeze(0))
-                img = transform(out_image.float().squeeze(0))
-                combined_width =img.width+img_pos.width
-                combined_height = max(img.height, img_pos.height)
-                combined_img = Image.new("RGB", (combined_width, combined_height))
-                combined_img.paste(img_pos, (0, 0))
-                combined_img.paste(img, (img_pos.width, 0))
-            return psnr, ms_ssim_value,combined_img
         if self.save_everyimgs:
             save_path_img = self.log_dir / "img"
             save_path_img.mkdir(parents=True, exist_ok=True)
@@ -200,7 +160,46 @@ class SimpleTrainer2d:
         else:
             transform = transforms.ToPILImage()
             img = transform(out_image.float().squeeze(0))
-        return psnr, ms_ssim_value,img
+        if ispos:
+            if self.save_everyimgs:
+                # save_path_img = self.log_dir / "img"
+                # save_path_img.mkdir(parents=True, exist_ok=True)
+                # transform = transforms.ToPILImage()
+                # img = transform(out_image.float().squeeze(0))
+                img_pos = transform(out_pos_img.float().squeeze(0))
+                combined_width =img.width+img_pos.width
+                combined_height = max(img.height, img_pos.height)
+                combined_img = Image.new("RGB", (combined_width, combined_height))
+                combined_img.paste(img_pos, (0, 0))
+                combined_img.paste(img, (img_pos.width, 0))
+                combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
+                combined_img.save(str(save_path_img / combined_name))
+            elif (frame==0 or (frame+1)%100==0 ) and self.save_imgs:
+                # save_path_img = self.log_dir / "img"
+                # save_path_img.mkdir(parents=True, exist_ok=True)
+                # transform = transforms.ToPILImage()
+                # img = transform(out_image.float().squeeze(0))
+                img_pos = transform(out_pos_img.float().squeeze(0))
+                combined_width =img.width+img_pos.width
+                combined_height = max(img.height, img_pos.height)
+                combined_img = Image.new("RGB", (combined_width, combined_height))
+                combined_img.paste(img_pos, (0, 0))
+                combined_img.paste(img, (img_pos.width, 0))
+                combined_name = str(self.frame_num) + "_fitting_combined_pos.png"
+                combined_img.save(str(save_path_img / combined_name))
+            else:
+                # transform = transforms.ToPILImage()
+                # img = transform(out_image.float().squeeze(0))
+                img_pos = transform(out_pos_img.float().squeeze(0))
+                combined_width =img.width+img_pos.width
+                combined_height = max(img.height, img_pos.height)
+                combined_img = Image.new("RGB", (combined_width, combined_height))
+                combined_img.paste(img_pos, (0, 0))
+                combined_img.paste(img, (img_pos.width, 0))
+            return psnr, ms_ssim_value,combined_img,img
+        else:
+            combined_img = img
+            return psnr, ms_ssim_value,combined_img,img
 
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
@@ -305,7 +304,8 @@ def main(argv):
     else:
         image_length=frame_length
     Gmodel=None
-    img_list=[]
+    img_list = []
+    combined_img_list = []
     gmodels_state_dict = {}
     num_gaussian_points_dict={}
 
@@ -364,8 +364,10 @@ def main(argv):
         else:
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=num_gaussian_points,max_num_points=args.num_points,
                 iterations=args.iterations, model_name=args.model_name, args=args, model_path=None,Trained_Model=Gmodel,isdensity=is_ad,isremoval=False,removal_rate=removal_rate)
-        psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, img, num_gaussian_points, loss = trainer.train(i,ispos)
+        psnr, ms_ssim, training_time, eval_time, eval_fps, Gmodel, combined_img,img, num_gaussian_points, loss = trainer.train(i,ispos)
         img_list.append(img)
+        if ispos:
+            combined_img_list.append(combined_img)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
         training_times.append(training_time) 
@@ -394,10 +396,9 @@ def main(argv):
     gaussians = sum(gaussian_number) / len(gaussian_number)
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}, Size:{:.4f}, Gaussian_number:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_training_time, avg_eval_time, avg_eval_fps, file_size/ (1024 * 1024),gaussians))
+    generate_video_density(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)
     if ispos:
-        generate_video_density(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)    
-    else:
-        generate_video_density(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)  
+        generate_video_density(savdir,combined_img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=False)
     
 if __name__ == "__main__":
     
