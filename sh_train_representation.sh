@@ -9,19 +9,14 @@
 #SBATCH --mail-user=wanglongan@comp.nus.edu.sg # Email for notifications
 #SBATCH --mem=16G                    # Request 16GB of memory
 # Activate the environment if needed
-source activate torch  # Replace 'torch' with the name of your conda environment
-
-# Define datasets and their corresponding names
-# datasets=(
-#   "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv Beauty"
-# )
+source ~/.bashrc
+conda activate torch  # Replace 'torch' with the name of your conda environment
 
 
 datasets=(
-  "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv Beauty"
-  "/home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv HoneyBee"
-  "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey"
-  "/home/e/e1344641/GaussianVideo/Video/Mix_1920x1080_120fps_420_8bit_YUV.yuv Mix"
+  "/home/e/e1344641/data/UVG/Beauty/Beauty_1920x1080_120fps_420_8bit_YUV.yuv Beauty" # todo: change this path
+  "/home/e/e1344641/data/UVG/HoneyBee/HoneyBee_1920x1080_120fps_420_8bit_YUV.yuv HoneyBee" # todo: change this path
+  "/home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv Jockey" # todo: change this path
 )
 
 
