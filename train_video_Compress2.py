@@ -85,6 +85,7 @@ class SimpleTrainer2d:
         best_psnr = 0
         self.gaussian_model.train()
         start_time = time.time()
+        early_stopping = EarlyStopping(patience=100, min_delta=1e-7)
         for iter in range(1, int(self.iterations)+1):
             loss, psnr = self.gaussian_model.train_iter_quantize(self.gt_image)
             if best_psnr < psnr:
@@ -94,10 +95,12 @@ class SimpleTrainer2d:
                 if iter % 10 == 0:
                     progress_bar.set_postfix({f"Loss":f"{loss.item():.{7}f}", "PSNR":f"{psnr:.{4}f},"})
                     progress_bar.update(10)
+            # if early_stopping(loss.item()):
+            #     break
         end_time = time.time() - start_time
         progress_bar.close()
         self.gaussian_model.load_state_dict(best_model_dict)
-        psnr_value, ms_ssim_value, bpp = self.test()
+        psnr_value, ms_ssim_value, bpp, img = self.test()
         with torch.no_grad():
             self.gaussian_model.eval()
             test_start_time = time.time()
@@ -110,7 +113,7 @@ class SimpleTrainer2d:
             k: v for k, v in Gmodel.items()
             if k in ['_xyz', '_cholesky','_features_dc']
         }
-        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, bpp, filtered_Gmodel   
+        return psnr_value, ms_ssim_value, end_time, test_end_time, 1/test_end_time, bpp, filtered_Gmodel,img   
         
     
     def test(self):
@@ -123,7 +126,14 @@ class SimpleTrainer2d:
         ms_ssim_value = ms_ssim(out_image.float(), self.gt_image.float(), data_range=1, size_average=True).item()
         m_bit, s_bit, r_bit, c_bit = out["unit_bit"]
         bpp = (m_bit + s_bit + r_bit + c_bit)/self.H/self.W
-        return psnr, ms_ssim_value, bpp
+        transform = transforms.ToPILImage()
+        img = transform(out_image.float().squeeze(0))
+        if self.save_everyimgs:
+            save_path_img = self.log_dir / "img"
+            save_path_img.mkdir(parents=True, exist_ok=True)
+            name =str(self.frame_num) + "_fitting.png" 
+            img.save(str(save_path_img / name))
+        return psnr, ms_ssim_value, bpp, img
 
 def image_to_tensor(img: Image.Image):
     transform = transforms.ToTensor()
@@ -192,13 +202,14 @@ def main(argv):
     loss_type=args.loss_type
     savdir=args.savdir
     savdir_m=args.savdir_m
-    args.fps=120
+    args.fps=24
     width = args.width
     height = args.height
     is_rm=args.is_rm
     removal_rate=args.removal_rate
     gmodel_save_path = Path(f"./checkpoints_quant/{savdir_m}/{args.data_name}/{args.model_name}_{args.iterations}_{args.num_points}")
     gmodel_save_path.mkdir(parents=True, exist_ok=True)
+    img_list = []
     if args.seed is not None:
         torch.manual_seed(args.seed)
         random.seed(args.seed)
@@ -231,6 +242,7 @@ def main(argv):
         modelid=f"frame_{i + 1}"
         Model = Overfit_gmodels_state_dict[modelid]
         if frame_num in K_frames:
+        # if frame_num ==1:
             print(f"modelid:frame_{i + 1};")
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
                 iterations=args.iterations, model_name=args.model_name, args=args, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
@@ -241,7 +253,8 @@ def main(argv):
             trainer = SimpleTrainer2d(image=video_frames[i],frame_num=frame_num,savdir=savdir,loss_type=loss_type, num_points=args.num_points,
                 iterations=args.iterations, model_name=args.model_name, args=args, p_trained_model =P_Model, trained_model=Model,isremoval=is_rm,removal_rate=removal_rate)
                
-        psnr, ms_ssim, training_time, eval_time, eval_fps, bpp, Gmodel = trainer.train()
+        psnr, ms_ssim, training_time, eval_time, eval_fps, bpp, Gmodel,img = trainer.train()
+        img_list.append(img)
         psnrs.append(psnr)
         ms_ssims.append(ms_ssim)
         training_times.append(training_time) 
@@ -266,7 +279,7 @@ def main(argv):
     avg_w = image_w//image_length
     logwriter.write("Average: {}x{}, PSNR:{:.4f}, MS-SSIM:{:.4f}, Bpp:{:.4f}, Training:{:.4f}s, Eval:{:.8f}s, FPS:{:.4f}".format(
         avg_h, avg_w, avg_psnr, avg_ms_ssim, avg_bpp, avg_training_time, avg_eval_time, avg_eval_fps))    
-
+    generate_video_density(savdir,img_list, args.data_name, args.model_name,args.fps,args.iterations,args.num_points,origin=True)
 if __name__ == "__main__":
     
     main(sys.argv[1:])
