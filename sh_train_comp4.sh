@@ -14,4 +14,4 @@ conda activate torch  # Replace 'torch' with the name of your conda environment
 
 
 
-srun python train_video_Compress2.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/models/models_dd/Beauty/GaussianImage_Cholesky_100000_50000/gmodels_state_dict.pth --data_name Jockey --num_points 50000 --savdir GaussianVideo_results_test --savdir_m GaussianVideo_models_test --iterations 50000 --image_length 50 --is_rm --save_everyimgs
+srun python train_video_Compress2.py --dataset /home/e/e1344641/data/UVG/Jockey/Jockey_1920x1080_120fps_420_8bit_YUV.yuv --model_path /home/e/e1344641/GaussianVideo/checkpoints/GaussianVideo_models_pos/Jockey/GaussianVideo_50000_50000/gmodels_state_dict.pth --data_name Jockey --num_points 50000 --savdir GaussianVideo_results_test --savdir_m GaussianVideo_models_test --iterations 50000 --image_length 50 --is_rm --save_everyimgs
