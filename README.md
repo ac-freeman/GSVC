@@ -28,7 +28,7 @@ More qualitative results can be found in our paper.
   <figcaption><strong>Figure 1:</strong> Rate-Distortion Curves in PSNR, MS-SSIM, and VMAF: comparison of our approach with baselines.</figcaption>
 </figure>
 
-<figure style="text-align: center;">
+<!-- <figure style="text-align: center;">
   <table style="margin: 0 auto;">
     <thead>
       <tr>
@@ -72,7 +72,132 @@ More qualitative results can be found in our paper.
     </tbody>
   </table>
   <figcaption><strong>Table 1:</strong> GSVC Rate-Distortion Metrics on UVG: PSNR, MS-SSIM, and VMAF.</figcaption>
+</figure> -->
+
+<figure style="text-align: center;">
+  <table style="margin: 0 auto;">
+    <thead>
+      <tr>
+        <th colspan="4">Beauty</th>
+        <th colspan="4">HoneyBee</th>
+        <th colspan="4">Jockey</th>
+        <th colspan="4">UVG</th>
+      </tr>
+      <tr>
+        <th>Bpp</th>
+        <th>PSNR</th>
+        <th>MS-SSIM</th>
+        <th>VMAF</th>
+        <th>Bpp</th>
+        <th>PSNR</th>
+        <th>MS-SSIM</th>
+        <th>VMAF</th>
+        <th>Bpp</th>
+        <th>PSNR</th>
+        <th>MS-SSIM</th>
+        <th>VMAF</th>
+        <th>Bpp</th>
+        <th>PSNR</th>
+        <th>MS-SSIM</th>
+        <th>VMAF</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>0.2125</td>
+        <td>33.7269</td>
+        <td>0.904</td>
+        <td>92.2069</td>
+        <td>0.201</td>
+        <td>34.6147</td>
+        <td>0.9701</td>
+        <td>95.1509</td>
+        <td>0.2093</td>
+        <td>33.4479</td>
+        <td>0.9206</td>
+        <td>76.5188</td>
+        <td>0.2076</td>
+        <td>33.9298</td>
+        <td>0.9316</td>
+        <td>87.9589</td>
+      </tr>
+      <tr>
+        <td>0.4195</td>
+        <td>34.2806</td>
+        <td>0.9191</td>
+        <td>94.0175</td>
+        <td>0.3952</td>
+        <td>36.890</td>
+        <td>0.9813</td>
+        <td>96.0004</td>
+        <td>0.4251</td>
+        <td>36.0241</td>
+        <td>0.9645</td>
+        <td>91.9323</td>
+        <td>0.4133</td>
+        <td>35.7316</td>
+        <td>0.9550</td>
+        <td>93.9834</td>
+      </tr>
+      <tr>
+        <td>0.6076</td>
+        <td>34.7044</td>
+        <td>0.9282</td>
+        <td>94.9662</td>
+        <td>0.6046</td>
+        <td>37.8373</td>
+        <td>0.9846</td>
+        <td>96.3033</td>
+        <td>0.6472</td>
+        <td>37.6331</td>
+        <td>0.9751</td>
+        <td>93.5826</td>
+        <td>0.6198</td>
+        <td>36.7249</td>
+        <td>0.9626</td>
+        <td>94.9507</td>
+      </tr>
+      <tr>
+        <td>0.7736</td>
+        <td>35.0211</td>
+        <td>0.9343</td>
+        <td>95.4926</td>
+        <td>0.8147</td>
+        <td>38.3599</td>
+        <td>0.9862</td>
+        <td>96.3471</td>
+        <td>0.8645</td>
+        <td>38.5973</td>
+        <td>0.9799</td>
+        <td>95.1927</td>
+        <td>0.8176</td>
+        <td>37.3261</td>
+        <td>0.9669</td>
+        <td>95.6774</td>
+      </tr>
+      <tr>
+        <td>1.0092</td>
+        <td>35.3899</td>
+        <td>0.9404</td>
+        <td>95.8623</td>
+        <td>1.0395</td>
+        <td>38.716</td>
+        <td>0.9874</td>
+        <td>96.3999</td>
+        <td>1.0785</td>
+        <td>39.0605</td>
+        <td>0.9822</td>
+        <td>96.1502</td>
+        <td>1.0424</td>
+        <td>37.7221</td>
+        <td>0.9700</td>
+        <td>96.1375</td>
+      </tr>
+    </tbody>
+  </table>
+  <figcaption><strong>Table 1:</strong> Rate-Distortion Metrics for Beauty, HoneyBee, Jockey, and UVG in PSNR, MS-SSIM, and VMAF.</figcaption>
 </figure>
+
 
 ## News
 
