@@ -28,6 +28,51 @@ More qualitative results can be found in our paper.
   <figcaption><strong>Figure 1:</strong> Rate-Distortion Curves in PSNR, MS-SSIM, and VMAF: comparison of our approach with baselines.</figcaption>
 </figure>
 
+<figure style="text-align: center;">
+  <table style="margin: 0 auto;">
+    <thead>
+      <tr>
+        <th>Bpp</th>
+        <th>PSNR</th>
+        <th>MS-SSIM</th>
+        <th>VMAF</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>0.2076</td>
+        <td>33.92983</td>
+        <td>0.93157</td>
+        <td>87.9589</td>
+      </tr>
+      <tr>
+        <td>0.4132</td>
+        <td>35.73157</td>
+        <td>0.95497</td>
+        <td>93.9834</td>
+      </tr>
+      <tr>
+        <td>0.6198</td>
+        <td>36.72493</td>
+        <td>0.96263</td>
+        <td>94.9507</td>
+      </tr>
+      <tr>
+        <td>0.8176</td>
+        <td>37.32610</td>
+        <td>0.96688</td>
+        <td>95.6774</td>
+      </tr>
+      <tr>
+        <td>1.0424</td>
+        <td>37.72213</td>
+        <td>0.97000</td>
+        <td>96.1375</td>
+      </tr>
+    </tbody>
+  </table>
+  <figcaption><strong>Table 1:</strong> GSVC Rate-Distortion Metrics on UVG: PSNR, MS-SSIM, and VMAF.</figcaption>
+</figure>
 
 ## News
 
