@@ -81,7 +81,7 @@ More qualitative results can be found in our paper.
         <th colspan="4">Beauty</th>
         <th colspan="4">HoneyBee</th>
         <th colspan="4">Jockey</th>
-        <th colspan="4">UVG</th>
+        <th colspan="4">Average</th>
       </tr>
       <tr>
         <th>Bpp</th>
