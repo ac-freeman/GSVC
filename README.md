@@ -195,7 +195,7 @@ More qualitative results can be found in our paper.
       </tr>
     </tbody>
   </table>
-  <figcaption><strong>Table 1:</strong> Rate-Distortion Metrics for Beauty, HoneyBee, Jockey, and UVG in PSNR, MS-SSIM, and VMAF.</figcaption>
+  <figcaption><strong>Table 1:</strong> Rate-Distortion Metrics of GSVC for Beauty, HoneyBee, Jockey, and UVG in PSNR, MS-SSIM, and VMAF.</figcaption>
 </figure>
 
 
